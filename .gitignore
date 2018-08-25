@@ -1,0 +1,46 @@
+# node_modules
+/maker-backend/node_modules
+/maker-frontend/node_modules
+
+# package-lock
+/maker-backend/package-lock.json
+/maker-frontend/package-lock.json
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# frontend-misc
+/maker-frontend/.sass-cache
+/maker-frontend/connect.lock
+/maker-frontend/coverage
+/maker-frontend/libpeerconnection.log
+/maker-frontendnpm-debug.log
+/maker-frontendyarn-error.log
+/maker-frontendtestem.log
+/maker-frontend/typings
+# frontend-output
+/maker-frontend/dist
+/maker-frontend/tmp
+/maker-frontend/out-tsc
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# prettierrc
+.prettierrc
+/maker-backend/prettierrc
+/maker-frontend/prettierrc
