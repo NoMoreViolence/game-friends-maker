@@ -1,15 +1,32 @@
 # node_modules
 /maker-backend/node_modules
 /maker-frontend/node_modules
-
 # package-lock
 /maker-backend/package-lock.json
 /maker-frontend/package-lock.json
-
 # System Files
 .DS_Store
 Thumbs.db
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+# prettierrc
+.prettierrc
+/maker-backend/prettierrc
+/maker-frontend/prettierrc
 
+# frontend
 # frontend-misc
 /maker-frontend/.sass-cache
 /maker-frontend/connect.lock
@@ -24,23 +41,7 @@ Thumbs.db
 /maker-frontend/tmp
 /maker-frontend/out-tsc
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# prettierrc
-.prettierrc
-/maker-backend/prettierrc
-/maker-frontend/prettierrc
+# backend
+# backend database
+/maker-backend/.env
+/maker-backend/config
