@@ -1,3 +1,4 @@
+require('dotenv').config();
 import * as express from 'express';
 import { Application } from 'express';
 import * as cookieParser from 'cookie-parser';
@@ -8,8 +9,6 @@ import * as path from 'path';
 import * as morgan from 'morgan';
 
 const app: Application = express();
-
-// body parser
 app.use(morgan('dev')); // Dev
 app.use(bodyParser.urlencoded({ extended: false })); // Body parser
 app.use(bodyParser.json()); // Body parser
@@ -17,29 +16,39 @@ app.use(cookieParser()); // Cookie parser
 app.use(methodOverride('X-HTTP-Method-Override')); // Method-Override
 app.use(express.static(path.join(__dirname, 'dist/maker-frontend'))); // Static Folder confing
 
+app.use((req, res, next) => {
+  next(createError(404)); // Error 404
+});
+app.use((err, req, res, next) => {
+  res.locals.message = err.message; // set locals, only providing error in development
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.status(err.status || 500); // render the error page
+  res.json({ success: false, message: 'Error !' });
+});
+
+import Router from './routes';
+app.use('/api', Router);
 app.use('/', (req, res) => {
   res.json({
     success: 'first config success'
   });
 });
 
-// 404
-app.use((req, res, next) => {
-  next(createError(404));
-});
-// Error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+// connect To DB
+import models from './models';
+models.sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log('✓ DB connection success.');
+  })
+  .catch((err: Error) => {
+    console.error(err);
+    console.log('✗ DB connection error. Please make sure DB is running.');
+    process.exit();
+  });
 
 // server open
 const port = process.env.port || 3000;
 app.listen(port, () => {
-  console.log(`server is running at http://localhost:${port}`);
+  console.log(`✓ Server is running at http://localhost:${port}`);
 });
