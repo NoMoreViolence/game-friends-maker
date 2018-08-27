@@ -6,5 +6,4 @@ const router = express.Router();
 // router.get('/register', controller.register); // Register
 // router.post('/login', controller.login); // Login
 // router.post('/check', controller.check); // Token Check
-
 export default router;

@@ -2,7 +2,7 @@ import { Table, Column, Model, AllowNull, DataType, CreatedAt, UpdatedAt, Delete
 
 @Table({ timestamps: true })
 class User extends Model<User> {
-  @Column(DataType.STRING({ length: 50 }))
+  @Column({ type: DataType.STRING({ length: 50 }) })
   @Unique
   @AllowNull(false)
   public username: string;

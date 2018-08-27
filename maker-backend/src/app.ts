@@ -36,9 +36,9 @@ app.use('/', (req, res) => {
 });
 
 // connect To DB
-import models from './models';
-models.sequelize
-  .sync({ force: false })
+import sequelize from './models';
+sequelize
+  .sync({ force: true })
   .then(() => {
     console.log('✓ DB connection success.');
   })
