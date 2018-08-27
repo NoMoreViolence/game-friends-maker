@@ -4,6 +4,8 @@
     "exclude": ["node_modules/**/*.ts"]
   },
   "rules": {
+    "interface-name": false,
+    "object-literal-sort-keys": false,
     "ordered-imports": false,
     "no-console": false,
     "no-string-literal": false,

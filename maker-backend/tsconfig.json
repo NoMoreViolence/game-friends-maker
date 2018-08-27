@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "charset": "utf8",
+    "baseUrl": ".",
     "lib": ["esnext"],
     "target": "esnext",
     "module": "commonjs",
+    "resolveJsonModule": true, // Allow import json file
     "moduleResolution": "node",
-    "sourceMap": true
+    "sourceMap": true,
+    "experimentalDecorators": true, // sequelize
+    "emitDecoratorMetadata": true, // sequelize
+    "locale": "ko", // Error message korean
+    "pretty": true // Error message pretty
   },
-  "compileOnSave": false,
+  "compileOnSave": true,
   "exclude": ["node_modules"]
 }
