@@ -10,12 +10,10 @@ const sequelize = new Sequelize({
   host: Config.host,
   dialect: Config.dialect,
   operatorsAliases: Config.operatorsAliases,
-  modelPaths: [__dirname + '*.model.ts'],
+  modelPaths: [__dirname + '/**/*.model.ts'],
   modelMatch: (filename, member) => {
     return filename.substring(0, filename.indexOf('.model')) === member.toLowerCase();
   }
 });
-
-console.log(sequelize.models);
 
 export default sequelize;

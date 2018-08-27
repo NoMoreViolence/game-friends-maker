@@ -1,23 +1,23 @@
 import { Table, Column, Model, AllowNull, DataType, CreatedAt, UpdatedAt, DeletedAt, Unique } from 'sequelize-typescript';
 
-@Table({ timestamps: true })
+@Table({ timestamps: true, tableName: 'user' })
 class User extends Model<User> {
-  @Column({ type: DataType.STRING({ length: 50 }) })
   @Unique
   @AllowNull(false)
+  @Column(DataType.STRING)
   public username: string;
 
-  @Column(DataType.STRING({ length: 100 }))
   @Unique
   @AllowNull(false)
+  @Column(DataType.STRING)
   public email: string;
 
-  @Column(DataType.STRING({ length: 50 }))
   @AllowNull(false)
+  @Column(DataType.STRING)
   public password: string;
 
-  @Column(DataType.INTEGER)
   @AllowNull(false)
+  @Column(DataType.INTEGER)
   public salt: number;
 
   @CreatedAt
@@ -30,4 +30,4 @@ class User extends Model<User> {
   public deletionDate: Date;
 }
 
-export { User };
+export default User;

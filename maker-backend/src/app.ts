@@ -43,7 +43,7 @@ sequelize
     console.log('✓ DB connection success.');
   })
   .catch((err: Error) => {
-    console.error(err);
+    console.error(err.message);
     console.log('✗ DB connection error. Please make sure DB is running.');
     process.exit();
   });
