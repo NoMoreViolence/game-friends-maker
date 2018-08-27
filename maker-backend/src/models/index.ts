@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Sequelize from 'sequelize';
+import * as Config from 'config/config.json';
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require('./../config/config.json')[env];
+const config = Config[env];
 const db: { sequelize: any; Sequelize: Sequelize.SequelizeStatic } = { sequelize: {}, Sequelize };
 
 // Setting

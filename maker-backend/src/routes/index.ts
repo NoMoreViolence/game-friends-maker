@@ -1,10 +1,8 @@
 import * as express from 'express';
 const Router = express.Router();
 
-Router.get('/', (req, res) => {
-  res.json({
-    success: true
-  });
-});
+import auth from './auth';
+
+Router.use('/auto', auth);
 
 export default Router;

@@ -9,6 +9,7 @@ import * as path from 'path';
 import * as morgan from 'morgan';
 
 const app: Application = express();
+app.set('jwt-secret', process.env.JWT_KEY);
 app.use(morgan('dev')); // Dev
 app.use(bodyParser.urlencoded({ extended: false })); // Body parser
 app.use(bodyParser.json()); // Body parser
@@ -19,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'dist/maker-frontend'))); // Static 
 app.use((req, res, next) => {
   next(createError(404)); // Error 404
 });
-app.use((err, req, res, next) => {
+app.use((err: createError.HttpError, req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.locals.message = err.message; // set locals, only providing error in development
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500); // render the error page
