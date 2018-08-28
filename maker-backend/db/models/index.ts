@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
-import * as config from 'config/config.json';
+import User from './user.model';
+import * as config from 'config/database.config.json';
 const wayToSequelize = process.env.NODE_ENV || 'development';
 const Config = config[wayToSequelize];
 
@@ -10,10 +11,8 @@ const sequelize = new Sequelize({
   host: Config.host,
   dialect: Config.dialect,
   operatorsAliases: Config.operatorsAliases,
-  modelPaths: [__dirname + '/**/*.model.ts'],
-  modelMatch: (filename, member) => {
-    return filename.substring(0, filename.indexOf('.model')) === member.toLowerCase();
-  }
+  modelPaths: [__dirname + '/**/*.model.ts']
 });
 
+export { User };
 export default sequelize;
