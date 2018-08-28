@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'dist/maker-frontend'))); // Static 
 import Router from './routes';
 app.use('/api', Router);
 
-app.use((req, res, next) => {
+app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   next(createError(404)); // Error 404
 });
 app.use((err: createError.HttpError, req: express.Request, res: express.Response, next: express.NextFunction) => {

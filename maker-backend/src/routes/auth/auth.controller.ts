@@ -1,45 +1,65 @@
 import { Request, Response } from 'express';
-import mailer from 'src/lib';
-import { User } from 'db/models';
-import { Observable, Subscriber } from 'rxjs';
 import { FilteredModelAttributes } from 'sequelize-typescript';
+import { DatabaseError } from 'sequelize';
+import { User, Email } from 'db/models';
+import { Observable, Subscriber } from 'rxjs';
+import lib from 'src/lib';
+const { mailer, salt, regex } = lib;
 
-// const Mail = new Observable(observer => {
-//   mailer
-//     .mailer('ljh000323@naver.com', 'code')
-//     .then(res => {
-//       observer.next(true);
-//     })
-//     .catch((err: HttpError) => {
-//       console.log(err.message);
-//       observer.next(false);
-//     });
-//   observer.complete();
-// });
-// Mail.subscribe((data: boolean) => {
-//   console.log('hello');
-// });
-// const Mailer = mailer.mailer('n0rr7882@gmail.com', 'awefawef');
+interface CheckEmail {
+  email: string;
+  username: string;
+  AuthCode: number;
+}
+export const CheckEmail = (req: Request, res: Response): Response | any => {
+  const { email, username } = req.query;
 
-export const CheckEmail = (req: Request, res: Response): Response => {
-  const { email } = req.query;
+  const checkEmail = (value: CheckEmail): Promise<CheckEmail> | any =>
+    value.email
+      ? regex.emailRegex.test(value.email)
+        ? Promise.resolve(value)
+        : Promise.reject(new Error('Not formatted'))
+      : Promise.reject(new Error('No email data here !'));
 
-  console.log(req.params);
-  console.log(req.headers);
-
-  const EmailCheck = new Observable((observer: Subscriber<User>) => {
-    User.findOne({ where: { email } }).then(value => {
-      observer.next(value);
+  const findEmail = (value: CheckEmail): Promise<CheckEmail> =>
+    new Promise((resolve, reject) => {
+      User.findOne({ where: { email: value.email } })
+        .then((data: User) => {
+          if (data) {
+            return reject(new Error('Duplicate Email !'));
+          }
+          return resolve(value);
+        })
+        .catch((err: DatabaseError) => {
+          return reject(new Error('Database Error !'));
+        });
     });
-  });
 
-  EmailCheck.subscribe((user: User) => {
-    console.log(user);
-  });
+  const createEmailQuery = (value: CheckEmail) =>
+    new Promise((resolve, rject) => {
+      Email.upsert({ email: value.email });
+    });
 
-  return res.json({
-    success: true
-  });
+  const sendMail = (value: CheckEmail) => {};
+
+  const returnToClient = (value: CheckEmail) => {
+    res.json({
+      success: true,
+      message: 'First email checking is valid !',
+      email: value.email
+    });
+  };
+
+  const onError = (err: Error) => {
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+  };
+
+  checkEmail({ email, username, AuthCode: 0 })
+    .then(findEmail)
+    .catch(onError);
 };
 
 // setTimeout(() => {
