@@ -1,3 +1,4 @@
-import * as regex from 'lib/regex';
+import regex from './regex';
+import mailer from './node_mailer';
 
-export { regex };
+export default { regex, mailer };
