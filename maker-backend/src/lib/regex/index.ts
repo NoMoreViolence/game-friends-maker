@@ -1,3 +1,3 @@
 import { emailRegex } from './email';
 
-export { emailRegex };
+export default emailRegex;

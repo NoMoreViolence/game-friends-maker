@@ -17,6 +17,9 @@ app.use(cookieParser()); // Cookie parser
 app.use(methodOverride('X-HTTP-Method-Override')); // Method-Override
 app.use(express.static(path.join(__dirname, 'dist/maker-frontend'))); // Static Folder confing
 
+import Router from './routes';
+app.use('/api', Router);
+
 app.use((req, res, next) => {
   next(createError(404)); // Error 404
 });
@@ -27,18 +30,10 @@ app.use((err: createError.HttpError, req: express.Request, res: express.Response
   res.json({ success: false, message: 'Error !' });
 });
 
-import Router from './routes';
-app.use('/api', Router);
-app.use('/', (req, res) => {
-  res.json({
-    success: 'first config success'
-  });
-});
-
 // connect To DB
-import sequelize from './models';
+import sequelize from 'db';
 sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log('✓ DB connection success.');
   })
