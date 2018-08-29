@@ -17,8 +17,8 @@ class User extends Model<User> {
   public password: string;
 
   @AllowNull(false)
-  @Column(DataType.INTEGER)
-  public salt: number;
+  @Column(DataType.STRING)
+  public salt: string;
 
   @CreatedAt
   public creationDate: Date;

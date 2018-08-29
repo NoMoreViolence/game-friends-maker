@@ -1,3 +1,3 @@
-import { identification } from './identification';
+import { checkIdentification } from './identification';
 
-export default identification;
+export default checkIdentification;

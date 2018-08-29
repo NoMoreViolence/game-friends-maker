@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import lib from 'src/lib';
-import * as models from 'db/models';
 import Sequelize from 'db';
+import { User } from 'db/models';
+import { DatabaseError } from 'sequelize';
 
-const { User } = models;
+import lib, { MakeSalt } from 'src/lib';
 const { mailer, salt, regex } = lib;
 
 /* GET */
@@ -20,7 +20,7 @@ interface Register {
   username: string;
   email: string;
   password: string;
-  salt: number;
+  salt: string;
 }
 export const register = (req: Request, res: Response): void => {
   const { username, email, password } = req.body;
@@ -31,16 +31,20 @@ export const register = (req: Request, res: Response): void => {
       ? Promise.resolve(value)
       : Promise.reject(new Error('Validation error !'));
 
-  const doubleCheck = async (value: Register): Promise<Register> => {
-    const [checkUsername, checkEmail] = await Promise.all([
-      User.findOne({ where: Sequelize.or([{ username: value.username }, { email: value.email }]) })
-    ]);
-
-    return checkUsername && checkEmail ? Promise.resolve(checkUsername) : Promise.reject(new Error(''));
-  };
+  // Info double check
+  const doubleCheck = (value: Register): Promise<Register> =>
+    new Promise((resolve, reject) =>
+      User.findOne({
+        where: Sequelize.or([{ username: value.username }, { email: value.email }])
+      })
+        .then((data: User) => (data ? new Error(`Duplicate info !`) : resolve(value)))
+        .catch((err: DatabaseError) => reject(new Error('User input error !')))
+    );
 
   const passwordEncryption = (value: Register): Promise<Register> => {
-    return Promise.resolve(value);
+    return salt(value.password).then((data: MakeSalt) => {
+      return Promise.resolve({ ...value, password: data.password, salt: data.salt });
+    });
   };
 
   const addUser = (value: Register): Promise<Register> => {
@@ -66,7 +70,7 @@ export const register = (req: Request, res: Response): void => {
   };
 
   // Register
-  checkRegex({ username, email, password, salt: 0 })
+  checkRegex({ username, email, password, salt: '' })
     .then(doubleCheck)
     .then(passwordEncryption)
     .then(addUser)
