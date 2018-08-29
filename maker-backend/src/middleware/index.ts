@@ -1,3 +1,3 @@
-import { usernameMiddleware } from './username';
+import { checkUserInfoMiddleware } from './check_user_info';
 
-export default { usernameMiddleware };
+export default { checkUserInfoMiddleware };
