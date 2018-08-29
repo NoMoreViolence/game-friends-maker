@@ -7,6 +7,7 @@ import * as methodOverride from 'method-override';
 import * as createError from 'http-errors';
 import * as path from 'path';
 import * as morgan from 'morgan';
+import * as helmet from 'helmet';
 
 const app: Application = express();
 app.set('jwt-secret', process.env.JWT_KEY);
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // Body parser
 app.use(bodyParser.json()); // Body parser
 app.use(cookieParser()); // Cookie parser
 app.use(methodOverride('X-HTTP-Method-Override')); // Method-Override
+app.use(helmet({ noCache: false })); // Security
 app.use(express.static(path.join(__dirname, 'dist/maker-frontend'))); // Static Folder confing
 
 import Router from './routes';
