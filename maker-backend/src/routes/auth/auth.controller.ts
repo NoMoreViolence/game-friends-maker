@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import Sequelize from 'db';
-import { User } from 'db/models';
 import { DatabaseError } from 'sequelize';
-
+import Sequelize, { User } from 'db';
 import lib, { MakeSalt } from 'src/lib';
-const { mailer, salt, regex } = lib;
+
+const { Op } = Sequelize;
+const { salt, regex } = lib;
 
 /* GET */
 // Username, E-mail duplication check function
@@ -35,34 +35,53 @@ export const register = (req: Request, res: Response): void => {
   const doubleCheck = (value: Register): Promise<Register> =>
     new Promise((resolve, reject) =>
       User.findOne({
-        where: Sequelize.or([{ username: value.username }, { email: value.email }])
+        where: { [Op.or]: [{ username: value.username }, { email: value.email }] }
       })
-        .then((data: User) => (data ? new Error(`Duplicate info !`) : resolve(value)))
-        .catch((err: DatabaseError) => reject(new Error('User input error !')))
+        .then((data: User) => {
+          console.log(data);
+          return data ? reject(new Error(`Duplicate info !`)) : resolve(value);
+        })
+        .catch((err: DatabaseError) => {
+          console.log(err.message);
+          reject(new Error('User input error !'));
+        })
     );
 
-  const passwordEncryption = (value: Register): Promise<Register> => {
-    return salt(value.password).then((data: MakeSalt) => {
-      return Promise.resolve({ ...value, password: data.password, salt: data.salt });
-    });
-  };
+  // Password encryption
+  const passwordEncryption = (value: Register): Promise<Register> =>
+    new Promise((resolve, reject) =>
+      salt(value.password)
+        .then((data: MakeSalt) => resolve({ ...value, password: data.password, salt: data.salt }))
+        .catch((err: Error) => reject(new Error('Server Error !')))
+    );
 
+  // Add user
   const addUser = (value: Register): Promise<Register> => {
-    return new Promise((resolve, reject) => {
-      const user = User.build({ username: value.username, email: value.email });
-      resolve(user);
-    });
+    return new Promise((resolve, reject) =>
+      User.create({
+        username: value.username,
+        email: value.email,
+        password: value.password,
+        salt: value.salt,
+        emailVerified: false
+      })
+        .then((data: User) => (data ? resolve(value) : reject(new Error('Server error !'))))
+        .catch((err: DatabaseError) => reject(new Error('Server error !')))
+    );
   };
 
+  // Response
   const responseToClient = (value: Register) => {
     res.json({
       success: true,
-      message: 'Register is succeed !'
+      message: 'Register is succeed !',
+      value: { username: value.username, email: value.email }
     });
   };
 
   // Error handler
   const onError = (err: Error) => {
+    console.log(err.message);
     res.status(409).json({
       success: false,
       message: err.message

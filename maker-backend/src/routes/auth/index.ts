@@ -7,6 +7,7 @@ const Router = express.Router();
 Router.use('/duplication', middelware.checkUserInfoMiddleware);
 Router.get('/duplication', controller.checkDuplication);
 
+Router.post('/register', controller.register);
 // Router.get('/email', controller.CheckEmail);
 
 // router.get('/register', controller.register); // Register

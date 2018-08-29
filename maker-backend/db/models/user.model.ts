@@ -1,4 +1,15 @@
-import { Table, Column, Model, AllowNull, DataType, CreatedAt, UpdatedAt, DeletedAt, Unique } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  DataType,
+  Column,
+  Default,
+  Unique,
+  AllowNull,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt
+} from 'sequelize-typescript';
 
 @Table({ timestamps: true, tableName: 'user' })
 class User extends Model<User> {
@@ -19,6 +30,11 @@ class User extends Model<User> {
   @AllowNull(false)
   @Column(DataType.STRING)
   public salt: string;
+
+  @AllowNull(false)
+  @Default(false)
+  @Column(DataType.BOOLEAN)
+  public emailVerified: boolean;
 
   @CreatedAt
   public creationDate: Date;
