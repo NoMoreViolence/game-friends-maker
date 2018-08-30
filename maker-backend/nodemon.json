@@ -3,5 +3,5 @@
   "watch": ["./"],
   "exec": "npm start",
   "ext": "ts",
-  "delay": 500
+  "delay": 300
 }
