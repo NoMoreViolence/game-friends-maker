@@ -10,8 +10,8 @@ import * as morgan from 'morgan';
 import * as helmet from 'helmet';
 
 const app: Application = express();
-app.set('jwt-secret', process.env.JWT_KEY);
-app.use(morgan('dev')); // Dev
+process.env.NODE_ENV === 'development' ? app.use(morgan('dev')) : console.log('hello production');
+
 app.use(bodyParser.urlencoded({ extended: false })); // Body parser
 app.use(bodyParser.json()); // Body parser
 app.use(cookieParser()); // Cookie parser

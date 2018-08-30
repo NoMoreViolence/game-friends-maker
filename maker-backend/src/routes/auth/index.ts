@@ -4,13 +4,10 @@ import middelware from 'src/middleware';
 
 const Router = express.Router();
 
-Router.use('/duplication', middelware.checkUserInfoMiddleware);
-Router.get('/duplication', controller.checkDuplication);
+Router.use('/duplication', middelware.checkUserInfoMiddleware); // username, email duplication check api
+Router.get('/duplication', controller.checkDuplication); // username, email duplication check api
 
-Router.post('/register', controller.register);
-// Router.get('/email', controller.CheckEmail);
+Router.post('/register', controller.register); // Register
+Router.post('/login', controller.login); // Login
 
-// router.get('/register', controller.register); // Register
-// router.post('/login', controller.login); // Login
-// router.post('/check', controller.check); // Token Check
 export { Router as auth };
