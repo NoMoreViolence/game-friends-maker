@@ -1,4 +1,3 @@
-import { MakeSalt, makeSalt } from './salt';
+import { makeSalt } from './salt';
 
-export { MakeSalt };
 export default makeSalt;
