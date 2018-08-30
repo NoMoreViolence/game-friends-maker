@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_PATH=. ts-node src/app.ts",
+    "start": "NODE_PATH=./ ts-node src/app.ts",
     "dev": "nodemon"
   },
   "dependencies": {
