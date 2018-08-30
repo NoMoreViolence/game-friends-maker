@@ -8,12 +8,11 @@ const { salt, regex } = lib;
 
 /* GET */
 // Username, E-mail duplication check function
-export const checkDuplication = (req: Request, res: Response): Response => {
-  return res.json({
+export const checkDuplication = (req: Request, res: Response): Response =>
+  res.json({
     success: true,
     message: 'Duplication check succeeded !'
   });
-};
 
 /* Post */
 interface Register {
@@ -26,7 +25,7 @@ export const register = (req: Request, res: Response): void => {
   const { username, email, password } = req.body;
 
   // Value validation check
-  const checkRegex = (value: Register): Promise<Register> =>
+  const checkValidation = (value: Register): Promise<Register> =>
     regex.usernameRegex.test(value.username) && regex.emailRegex.test(value.email) && regex.passwordRegex.test(value.password)
       ? Promise.resolve(value)
       : Promise.reject(new Error('Validation error !'));
@@ -89,10 +88,45 @@ export const register = (req: Request, res: Response): void => {
   };
 
   // Register
-  checkRegex({ username, email, password, salt: '' })
+  checkValidation({ username, email, password, salt: '' })
     .then(doubleCheck)
     .then(passwordEncryption)
     .then(addUser)
     .then(responseToClient)
     .catch(onError);
 };
+
+/* POST */
+interface Login {
+  email: string;
+  password: string;
+}
+export const login = (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  const checkValidation = (value: Login): Promise<Login> =>
+    regex.emailRegex.test(value.email) && regex.passwordRegex.test(value.password)
+      ? Promise.resolve(value)
+      : Promise.reject(new Error('Validation error !'));
+
+  const findSalt = (value: Login): Promise<Login> =>
+    new Promise((resolve, reject) => {
+      User.findOne({ where: { email: value.email } }).then((data: User) => (data ? resolve(value) : reject(new Error('아시발'))));
+    });
+
+  // Error handler
+  const onError = (err: Error) => {
+    console.log(err.message);
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+  };
+
+  checkValidation({ email, password })
+    .then(findSalt)
+    .catch(onError);
+};
+
+/* POST */
+// export const findEmail = (req, res) => {};
