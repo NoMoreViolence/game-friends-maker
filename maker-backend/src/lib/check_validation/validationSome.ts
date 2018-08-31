@@ -5,14 +5,14 @@ interface CheckValidation {
   value: string;
 }
 // Regex test function
-// return true: all value is valid
-// return false: something is invalid
-const checkValidation = (value: CheckValidation[]): boolean =>
+// return true: some value is valid
+// return false: all value is invalid
+const checkValidationSome = (value: CheckValidation[]): boolean =>
   pipe(
     map((data: CheckValidation) => data.regex.test(data.value)),
-    findIndex((data: boolean) => !data)
-  )(value) === -1
+    findIndex((data: boolean) => data)
+  )(value) !== -1
     ? true
     : false;
 
-export { checkValidation };
+export { checkValidationSome };

@@ -1,3 +1,4 @@
-import { checkValidation } from './validation';
+import { checkValidationAll } from './validationAll';
+import { checkValidationSome } from './validationSome';
 
-export default checkValidation;
+export default { checkValidationAll, checkValidationSome };
