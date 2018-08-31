@@ -1,5 +1,4 @@
 import * as jwt from 'jsonwebtoken';
-import { CLIENT_RENEG_WINDOW } from 'tls';
 
 const createJWT = (id: number, username: string, email: string) =>
   jwt.sign(
@@ -9,21 +8,24 @@ const createJWT = (id: number, username: string, email: string) =>
       email
     },
     process.env.JWT_KEY,
-    { algorithm: 'HS256', expiresIn: 2628000 * 2, encoding: 'base64' }
+    { algorithm: 'HS512', expiresIn: 2628000 * 2, issuer: 'GameFriendsMaker<Ji-Hoon LEE>' }
   );
 
 interface Decoded {
   id: number;
   username: string;
   email: string;
+  iat: number;
+  exp: number;
+  iss: string;
 }
-const decodeJWT = (token: string): Promise<any> =>
+const decodeJWT = (token: string): Promise<Decoded> =>
   new Promise((resolve, reject) =>
     jwt.verify(
       token,
       process.env.JWT_KEY,
-      { algorithms: ['HS256'] },
-      (err, decoded) => (err ? reject(new Error(err.message)) : resolve(decoded))
+      { algorithms: ['HS512'] },
+      (err, decoded) => (err ? reject(new Error(err.name)) : resolve(decoded))
     )
   );
 
