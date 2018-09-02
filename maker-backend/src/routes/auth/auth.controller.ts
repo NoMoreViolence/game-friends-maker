@@ -23,11 +23,14 @@ export const checkDuplication = (req: Request, res: Response): void => {
 
   // Validation check
   const checkValidation = (value: CheckDuplication): Promise<CheckDuplication> =>
-    validation.checkValidationSome(
-      [{ regex: regex.usernameRegex, value: value.username }, { regex: regex.emailRegex, value: value.email }]
-    ) === true
-      ? Promise.resolve(value)
-      : Promise.reject(new Error('There is a validation error !'));
+    new Promise((resolve, reject) =>
+      validation
+        .checkValidationSome([
+          { regex: regex.usernameRegex, value: value.username, name: 'username' },
+          { regex: regex.emailRegex, value: value.email, name: 'email' }
+        ])
+        .then(data => (data.result === true ? resolve(value) : reject(new Error('There is no information'))))
+    );
 
   // User find
   const DoubleCheck = (value: CheckDuplication): Promise<CheckDuplication> =>
@@ -35,7 +38,7 @@ export const checkDuplication = (req: Request, res: Response): void => {
       User.findOne({
         where: { [Op.or]: [{ username: value.username }, { email: value.email }] }
       })
-        .then((data: User) => (data ? reject(new Error(`There is a duplicate infomation !`)) : resolve(value)))
+        .then((data: User) => (data ? reject(new Error(`There is a duplicate information !`)) : resolve(value)))
         .catch((err: DatabaseError) => reject(new Error('There is an user input error !')))
     );
 
@@ -79,15 +82,17 @@ export const register = (req: Request, res: Response): void => {
 
   // Value validation check
   const checkValidation = (value: Register): Promise<Register> =>
-    validation.checkValidationAll(
-      [
-        { regex: value.regex.usernameRegex, value: value.username },
-        { regex: value.regex.emailRegex, value: value.email },
-        { regex: value.regex.passwordRegex, value: value.password }
-      ]
-    ) === true
-      ? Promise.resolve(value)
-      : Promise.reject(new Error('There is a validation error !'));
+    new Promise((resolve, reject) =>
+      validation
+        .checkValidationAll([
+          { regex: value.regex.usernameRegex, value: value.username, name: 'username' },
+          { regex: value.regex.emailRegex, value: value.email, name: 'email' },
+          { regex: value.regex.passwordRegex, value: value.password, name: 'password' }
+        ])
+        .then(data => {
+          data.result === true ? resolve(value) : reject(new Error(`There is a validation error (${data.errRegex}) ! `));
+        })
+    );
 
   // Info double check
   const doubleCheck = (value: Register): Promise<Register> =>
@@ -95,7 +100,14 @@ export const register = (req: Request, res: Response): void => {
       User.findOne({
         where: { [Op.or]: [{ username: value.username }, { email: value.email }] }
       })
-        .then((data: User) => (data ? reject(new Error(`There is a duplicate infomation !`)) : resolve(value)))
+        .then((data: User) => {
+          console.log(data);
+          data
+            ? data.dataValues.username === value.username
+              ? reject(new Error(`There is a duplicate information (username) !`))
+              : reject(new Error(`There is a duplicate information (email) !`))
+            : resolve(value);
+        })
         .catch((err: DatabaseError) => reject(new Error('There is an user input error !')))
     );
 
@@ -115,7 +127,7 @@ export const register = (req: Request, res: Response): void => {
         email: value.email,
         password: value.password,
         salt: value.salt,
-        emailVerified: false
+        verified: false
       })
         .then((data: User) => (data ? resolve(value) : reject(new Error('There is a server Error !'))))
         .catch((err: DatabaseError) => reject(new Error('There is a server Error !')))
@@ -159,17 +171,23 @@ interface Login {
   password: string;
   hashedPassword: string;
   salt: string;
+  token: string;
 }
 export const login = (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   // Value validation check
   const checkValidation = (value: Login): Promise<Login> =>
-    validation.checkValidationAll(
-      [{ regex: regex.emailRegex, value: value.email }, { regex: regex.passwordRegex, value: value.password }]
-    ) === true
-      ? Promise.resolve(value)
-      : Promise.reject(new Error('There is a validation error !'));
+    new Promise((resolve, reject) =>
+      validation
+        .checkValidationAll([
+          { regex: regex.emailRegex, value: value.email, name: 'email' },
+          { regex: regex.passwordRegex, value: value.password, name: 'password' }
+        ])
+        .then(data => {
+          data.result === true ? resolve(value) : reject(new Error(`There is a validation error (${data.errRegex}) ! `));
+        })
+    );
 
   // Find salt value
   const findData = (value: Login): Promise<Login> =>
@@ -197,14 +215,20 @@ export const login = (req: Request, res: Response) => {
     value.password === value.hashedPassword ? Promise.resolve(value) : Promise.reject(new Error('There is a password error !'));
 
   // Create jwt token
-  const createJWT = (value: Login): Promise<string> => Promise.resolve(jwt.createJWT(value.id, value.username, value.email));
+  const createJWT = (value: Login): Promise<Login> =>
+    Promise.resolve({ ...value, token: jwt.createJWT(value.id, value.username, value.email) });
 
   // Response
-  const responseToClient = (value: string) => {
-    res.cookie('accessToken', { token: value }, { maxAge: 2628000 * 2, httpOnly: true });
+  const responseToClient = (value: Login) => {
+    res.cookie('accessToken', { token: value.token }, { maxAge: 2628000 * 2, httpOnly: true });
     res.json({
       success: true,
-      message: 'Login success !'
+      message: 'Login success !',
+      value: {
+        admin: value.id === 1 ? true : false,
+        username: value.username,
+        email: value.email
+      }
     });
   };
 
@@ -218,7 +242,7 @@ export const login = (req: Request, res: Response) => {
   };
 
   // Promise
-  checkValidation({ id: -1, username: '', email, password, hashedPassword: '', salt: '' })
+  checkValidation({ id: -1, username: '', email, password, hashedPassword: '', salt: '', token: '' })
     .then(findData)
     .then(passwordEncryption)
     .then(compareData)

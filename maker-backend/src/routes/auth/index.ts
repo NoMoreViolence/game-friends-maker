@@ -13,4 +13,4 @@ Router.post('/login', controller.login); // Login
 Router.use('/check', middleware.checkCookie);
 Router.post('/check', controller.check); // Auto Check
 
-export { Router as auth };
+export default Router;
