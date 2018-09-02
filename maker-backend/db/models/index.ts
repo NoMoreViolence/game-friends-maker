@@ -1,5 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
 import * as config from 'config/database.config.json';
+import User from './user.model';
+import Game from './game.model';
+import AllGame from './allgame.model';
 const wayToSequelize = process.env.NODE_ENV || 'development';
 const Config = config[wayToSequelize];
 
@@ -13,10 +16,7 @@ const sequelize = new Sequelize({
   modelPaths: [__dirname + '/**/*.model.ts']
 });
 
-import User from './user.model';
-import Email from './email.model';
-export { User, Email };
-
+export { User, Game, AllGame };
 export default sequelize;
 
 // const { Op } = Sequelize;
