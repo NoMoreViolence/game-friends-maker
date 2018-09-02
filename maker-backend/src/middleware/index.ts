@@ -1,3 +1,3 @@
-import { checkUserInfoMiddleware } from './check_user_info';
+import { checkCookie } from './check_cookie';
 
-export default { checkUserInfoMiddleware };
+export default { checkCookie };
