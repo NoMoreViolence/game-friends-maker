@@ -101,7 +101,6 @@ export const register = (req: Request, res: Response): void => {
         where: { [Op.or]: [{ username: value.username }, { email: value.email }] }
       })
         .then((data: User) => {
-          console.log(data);
           data
             ? data.dataValues.username === value.username
               ? reject(new Error(`There is a duplicate information (username) !`))
@@ -216,7 +215,9 @@ export const login = (req: Request, res: Response) => {
 
   // Create jwt token
   const createJWT = (value: Login): Promise<Login> =>
-    Promise.resolve({ ...value, token: jwt.createJWT(value.id, value.username, value.email) });
+    new Promise((resolve, reject) =>
+      jwt.createJWT(value.id, value.username, value.email).then((data: string) => resolve({ ...value, token: data }))
+    );
 
   // Response
   const responseToClient = (value: Login) => {
@@ -233,13 +234,11 @@ export const login = (req: Request, res: Response) => {
   };
 
   // Error handler
-  const onError = (err: Error) => {
-    console.log(err.message);
+  const onError = (err: Error) =>
     res.status(409).json({
       success: false,
       message: err.message
     });
-  };
 
   // Promise
   checkValidation({ id: -1, username: '', email, password, hashedPassword: '', salt: '', token: '' })

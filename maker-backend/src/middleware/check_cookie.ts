@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import lib from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
+import { User } from 'db';
 const { jwt } = lib;
 
 interface Cookie {
@@ -14,7 +15,7 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
     cookie ? Promise.resolve(cookie) : Promise.reject(new Error('No cookie'));
 
   // Verify token
-  const verifyToken = (cookie: Cookie): Promise<string | object> =>
+  const verifyToken = (cookie: Cookie): Promise<any> =>
     new Promise((resolve, reject) =>
       jwt
         .decodeJWT(cookie.token)
@@ -22,8 +23,21 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
         .catch((err: JsonWebTokenError) => reject(new Error(err.name)))
     );
 
+  // Check token validity
+  const checkDate = (value: any): Promise<any> =>
+    new Promise((resolve, reject) =>
+      User.findOne({ where: { id: value.id } }).then((data: User) => {
+        const newData = new Date(value.createdAt);
+        console.log(newData);
+        console.log(data.updatedOn);
+        console.log(data.dataValues);
+        data.updatedOn <= newData ? resolve(value) : reject(new Error('There is a validity error !'));
+      })
+    );
+
   // Next function: token verify sucess
-  const nextTo = (value: string | object): void => {
+  const nextTo = (value: any): void => {
+    // console.log(value);
     req.body = { ...req.body, tokenValue: value };
     next();
   };
@@ -38,6 +52,7 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
   // Promise
   checkExistCookie(accessToken)
     .then(verifyToken)
+    .then(checkDate)
     .then(nextTo)
     .catch(onError);
 };
