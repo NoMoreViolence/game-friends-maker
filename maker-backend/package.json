@@ -22,6 +22,7 @@
     "rxjs": "^6.2.2",
     "sequelize": "^4.38.0",
     "sequelize-typescript": "^1.0.0-alpha.3",
+    "socket.io": "^2.1.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.0.1"
   },
@@ -38,6 +39,7 @@
     "@types/nodemailer": "^4.6.2",
     "@types/ramda": "^0.25.36",
     "@types/sequelize": "^4.27.25",
+    "@types/socket.io": "^1.4.38",
     "dotenv": "^6.0.0",
     "nodemon": "^1.18.3",
     "sequelize-cli": "^4.1.1",
