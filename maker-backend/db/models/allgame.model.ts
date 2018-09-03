@@ -27,15 +27,6 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
   public console: boolean;
-
-  // @CreatedAt
-  // public creationDate: Date;
-
-  // @UpdatedAt
-  // public updatedOn: Date;
-
-  // @DeletedAt
-  // public deletionDate: Date;
 }
 
 export default AllGame;

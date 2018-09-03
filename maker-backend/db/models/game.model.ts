@@ -14,7 +14,7 @@ import {
 import User from './user.model';
 import AllGame from './allgame.model';
 
-@Table({ timestamps: false, tableName: 'game' })
+@Table({ timestamps: true, tableName: 'game' })
 class Game extends Model<Game> {
   @AllowNull(false)
   @ForeignKey(() => User)
@@ -41,14 +41,14 @@ class Game extends Model<Game> {
   @Column(DataType.STRING)
   public expert: number;
 
-  // @CreatedAt
-  // public creationDate: Date;
+  @CreatedAt
+  public creationDate: Date;
 
-  // @UpdatedAt
-  // public updatedOn: Date;
+  @UpdatedAt
+  public updatedOn: Date;
 
-  // @DeletedAt
-  // public deletionDate: Date;
+  @DeletedAt
+  public deletionDate: Date;
 }
 
 export default Game;
