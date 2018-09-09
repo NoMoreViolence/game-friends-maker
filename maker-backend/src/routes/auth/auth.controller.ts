@@ -263,14 +263,14 @@ export const login = (req: Request, res: Response) => {
   }
 */
 export const check = (req: Request, res: Response) => {
-  const { tokenValue } = req.body;
+  const { username, email } = res.locals;
 
   res.json({
     success: true,
     message: 'Token access success !',
     value: {
-      username: tokenValue.username,
-      email: tokenValue.email
+      username,
+      email
     }
   });
 };

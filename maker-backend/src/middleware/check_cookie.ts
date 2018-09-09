@@ -38,7 +38,7 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
   // Next function: token verify sucess
   const nextTo = (value: any): void => {
     // console.log(value);
-    req.body = { ...req.body, tokenValue: value };
+    res.locals = value;
     next();
   };
 
