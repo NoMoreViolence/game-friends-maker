@@ -28,16 +28,12 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
     new Promise((resolve, reject) =>
       User.findOne({ where: { id: value.id } }).then((data: User) => {
         const newData = new Date(value.createdAt);
-        console.log(newData);
-        console.log(data.updatedOn);
-        console.log(data.dataValues);
         data.updatedOn <= newData ? resolve(value) : reject(new Error('There is a validity error !'));
       })
     );
 
   // Next function: token verify sucess
   const nextTo = (value: any): void => {
-    // console.log(value);
     res.locals = value;
     next();
   };
