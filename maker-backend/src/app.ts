@@ -9,6 +9,7 @@ import * as createError from 'http-errors';
 import * as path from 'path';
 import * as morgan from 'morgan';
 import * as helmet from 'helmet';
+import * as compression from 'compression';
 import Router from './routes';
 import sequelize from 'db';
 import { SocketServer } from './socket/socket';
@@ -19,6 +20,7 @@ const socketServer = new SocketServer(httpServer); // Socket Server
 
 process.env.NODE_ENV === 'development' ? app.use(morgan('dev')) : console.log('hello production');
 
+app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false })); // Body parser
 app.use(bodyParser.json()); // Body parser
 app.use(cookieParser()); // Cookie parser
