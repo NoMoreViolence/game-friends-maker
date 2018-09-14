@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { DatabaseError } from 'sequelize';
 import Sequelize, { User } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
+import { JsonWebTokenError } from 'jsonwebtoken';
 
 const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt } = lib;
@@ -216,7 +217,10 @@ export const login = (req: Request, res: Response) => {
   // Create jwt token
   const createJWT = (value: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
-      jwt.createJWT(value.id, value.username, value.email).then((data: string) => resolve({ ...value, token: data }))
+      jwt
+        .createJWT(value.id, value.username, value.email)
+        .then((data: string) => resolve({ ...value, token: data }))
+        .catch((err: JsonWebTokenError) => reject(new Error('Server error !')))
     );
 
   // Response
