@@ -17,10 +17,14 @@ Thumbs.db
 *.sublime-workspace
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+/maker-frontend/.vscode/settings.json
+/maker-frontend/.vscode/tasks.json
+/maker-frontend/.vscode/launch.json
+/maker-frontend/.vscode/extensions.json
+/maker-backend/.vscode/settings.json
+/maker-backend/.vscode/tasks.json
+/maker-backend/.vscode/launch.json
+/maker-backend/.vscode/extensions.json
 # prettierrc
 .prettierrc
 /maker-backend/prettierrc
