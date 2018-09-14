@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import lib from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { User } from 'db';
+import { DatabaseError } from 'sequelize';
 const { jwt } = lib;
 
 interface Cookie {
@@ -26,10 +27,16 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
   // Check token validity
   const checkDate = (value: any): Promise<any> =>
     new Promise((resolve, reject) =>
-      User.findOne({ where: { id: value.id } }).then((data: User) => {
-        const newData = new Date(value.createdAt);
-        data.updatedOn <= newData ? resolve(value) : reject(new Error('There is a validity error !'));
-      })
+      User.findOne({ where: { id: value.id } })
+        .then((data: User) => {
+          const newData = new Date(value.createdAt);
+          data.id
+            ? data.dataValues.updatedOn <= newData
+              ? resolve(value)
+              : reject(new Error('There is a validity error !'))
+            : reject(new Error('There is no user !'));
+        })
+        .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
   // Next function: token verify sucess
