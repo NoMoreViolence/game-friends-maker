@@ -2,51 +2,89 @@ import { Request, Response } from 'express';
 import { DatabaseError } from 'sequelize';
 import Sequelize, { User } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
+import { JsonWebTokenError } from 'jsonwebtoken';
 
 const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt } = lib;
 
-interface ChangeUsername {
+interface ChangeUserInfo {
+  what: string;
+  id: number;
   username: string;
-  newUsername: string;
+  email: string;
+  newThing: string;
+  changedModel?: User;
+  token: string;
 }
-export const changeUsername = (req: Request, res: Response) => {
-  const { username } = res.locals;
-  const { newUsername } = req.body;
+export const changeUserInfo = (req: Request, res: Response) => {
+  const { what } = req.params; // username or email, gives direction what has to be change
+  const { username, email } = res.locals; // decoded token value, same as databases username and email
+  const { newThing } = req.body; // new change value, it could be username or email
 
-  // Null check
-  const checkNull = (value: ChangeUsername) =>
-    value.newUsername === undefined
-      ? Promise.reject(new Error('Violation error !'))
-      : value.newUsername.trim() === ''
-        ? Promise.reject(new Error('Violation error !'))
-        : Promise.resolve({ ...value, newUsername: value.newUsername.trim() });
+  // Null
+  const checkNull = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    value.newThing === undefined
+      ? Promise.reject(new Error('There is a violation error !'))
+      : value.newThing.trim() === ''
+        ? Promise.reject(new Error('There is a violation error !'))
+        : Promise.resolve({ ...value, newThing: value.newThing.trim() });
 
-  // Update name
-  const updateUsername = (value: ChangeUsername) => {
+  // 'what' params is valid
+  const checkWhatShouldBeUpdate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    value.what === 'username'
+      ? Promise.resolve(value)
+      : value.what === 'email'
+        ? Promise.resolve(value)
+        : Promise.reject(new Error('There is wrong api request !'));
+
+  // check newThing regex
+  const checkNewThingRegex = (value: ChangeUserInfo): Promise<ChangeUserInfo> => {
+    const thisRegex = value.what === 'username' ? regex.usernameRegex : regex.emailRegex;
+
     return new Promise((resolve, reject) => {
-      User.update({ username: value.newUsername }, { where: { username: value.username } })
-        .then(data => {
-          console.log(data);
-          console.log('dat');
-          resolve(data);
-        })
-        .catch(err => {
-          reject(new Error('Server error'));
-          console.log(err.message);
-          console.log('err');
-        });
+      validation
+        .checkValidationAll([{ regex: thisRegex, value: value.newThing, name: value.what }])
+        .then(data => (data.result === true ? resolve(value) : reject(new Error(`There is a validation error (${value.what}) ! `))))
+        .catch(err => reject(new Error('There is a server error !')));
     });
   };
 
+  // Update
+  // 현재 바꾸려는 데이터가 중복일 때의 옵션이 전혀 고려되어 있지 않음
+  // 그래서 그 부분을 매꾸어야 함
+  const updateThing = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    new Promise((resolve, reject) => {
+      User.update({ [value.what]: value.newThing }, { where: { [value.what]: value[value.what] } })
+        .then(data => {
+          console.log(data);
+          console.log('data');
+          resolve({ ...value, id: data[1][0].id, changedModel: data[1][0] });
+        })
+        .catch(err => {
+          console.log(err.message);
+          console.log('err');
+          reject(new Error('There is a dtabase Error !'));
+        });
+    });
+
+  // Create jwt token
+  const createJWT = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    new Promise((resolve, reject) =>
+      jwt
+        .createJWT(value.id, value.changedModel.username, value.changedModel.email)
+        .then((data: string) => resolve({ ...value, token: data }))
+        .catch((err: JsonWebTokenError) => reject(new Error('There is a server error !')))
+    );
+
   // Response
-  const responseToClient = (value: ChangeUsername) => {
+  const responseToClient = (value: ChangeUserInfo) => {
+    res.cookie('accessToken', { token: value.token }, { maxAge: 2628000 * 2, httpOnly: true });
     res.json({
       success: true,
-      message: 'Username change success !',
+      message: 'Change user information success !',
       value: {
-        before: value.username,
-        after: value.newUsername
+        before: value.what === 'username' ? username : email,
+        after: value.newThing
       }
     });
   };
@@ -60,8 +98,15 @@ export const changeUsername = (req: Request, res: Response) => {
   };
 
   // Promise
-  checkNull({ username, newUsername })
-    .then(updateUsername)
+  checkNull({ what, id: -1, username, email, newThing, token: '' })
+    .then(checkWhatShouldBeUpdate)
+    .then(checkNewThingRegex)
+    .then(updateThing)
+    .then(createJWT)
     .then(responseToClient)
     .catch(onError);
+};
+
+const changePassword = (req: Request, res: Response) => {
+  //
 };

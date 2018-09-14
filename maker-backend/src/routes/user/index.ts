@@ -4,7 +4,7 @@ import middleware from 'src/middleware';
 
 const Router = express.Router();
 
-Router.use('/username', middleware.checkCookie);
-Router.patch('/username', controller.changeUsername);
+Router.use('/change/:what', middleware.checkCookie);
+Router.patch('/change/:what', controller.changeUserInfo);
 
 export default Router;
