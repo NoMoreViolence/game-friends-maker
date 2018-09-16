@@ -47,7 +47,7 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
 
   // Error handler
   const onError = (err: Error): Response =>
-    res.status(409).json({
+    res.status(401).json({
       success: false,
       message: err.message
     });
