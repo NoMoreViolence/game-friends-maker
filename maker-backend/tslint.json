@@ -4,11 +4,15 @@
     "exclude": ["node_modules/**/*.ts"]
   },
   "rules": {
+    "max-line-length": [true, 140],
+    "semicolon": [true, "always"],
     "interface-name": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "no-console": false,
     "no-string-literal": false,
-    "no-var-requires": false
+    "no-var-requires": false,
+    "no-input-rename": true,
+    "no-output-rename": true
   }
 }
