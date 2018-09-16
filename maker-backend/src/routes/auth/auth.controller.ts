@@ -52,7 +52,7 @@ export const checkDuplication = (req: Request, res: Response): void => {
 
   //  Error handler
   const onError = (err: Error) =>
-    res.json({
+    res.status(409).json({
       success: false,
       message: err.message
     });
