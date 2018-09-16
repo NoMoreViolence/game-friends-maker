@@ -7,6 +7,12 @@ import { JsonWebTokenError } from 'jsonwebtoken';
 const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt } = lib;
 
+/* POST
+  params: 'what',
+  body: {
+    newThing: string;
+  }
+*/
 interface ChangeUserInfo {
   what: string;
   id: number;
@@ -117,6 +123,84 @@ export const changeUserInfo = (req: Request, res: Response) => {
     .catch(onError);
 };
 
-const changePassword = (req: Request, res: Response) => {
-  //
+/* POST
+  body: {
+    oldPassword: string;
+    newPassword: string;
+  }
+*/
+interface ChangeUserPassword {
+  id: number;
+  username: string;
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+  newSalt: string;
+  token: string;
+}
+export const changeUserPassword = (req: Request, res: Response) => {
+  const { username, email, id } = res.locals; // decoded token value, same as databases id, username and email
+  const { oldPassword, newPassword } = req.body;
+
+  // Regex check
+  const checkNewPasswordRegex = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+    new Promise((resolve, reject) =>
+      validation
+        .checkValidationAll([{ regex: regex.passwordRegex, value: value.newPassword, name: 'password' }])
+        .then(data => (data.result === true ? resolve(value) : reject(new Error(`There is a validation error ! `))))
+        .catch(err => reject(new Error('There is a server error !')))
+    );
+
+  // Password encryptio
+  const passwordEncryption = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+    new Promise((resolve, reject) =>
+      encrypto({ password: value.oldPassword, salt: salt() })
+        .then((data: EncryptoPassword) => resolve({ ...value, oldPassword: data.password }))
+        .catch((err: Error) => reject(new Error('There is a server Error !')))
+    );
+
+  // Update
+  const updatePassword = (value: ChangeUserPassword): Promise<ChangeUserPassword> => {
+    return new Promise((resolve, reject) => {
+      User.update({ password: value.newPassword }, { where: { password: value.oldPassword } })
+        .then(() => resolve(value))
+        .catch(err => {
+          console.log(err.message);
+          reject(new Error(`There is a duplicate check error !`));
+        });
+    });
+  };
+
+  // Create jwt token
+  const createJWT = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+    new Promise((resolve, reject) =>
+      jwt
+        .createJWT(value.id, value.username, value.email)
+        .then((data: string) => resolve({ ...value, token: data }))
+        .catch((err: JsonWebTokenError) => reject(new Error('There is a server error !')))
+    );
+
+  // Response
+  const responseToClient = (value: ChangeUserPassword) => {
+    res.cookie('accessToken', { token: value.token }, { maxAge: 2628000 * 2, httpOnly: true });
+    res.json({
+      success: true,
+      message: 'Change user password success !'
+    });
+  };
+
+  // Error handler
+  const onError = (err: Error) => {
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+  };
+
+  // Promise
+  checkNewPasswordRegex({ id, username, email, oldPassword, newPassword, token: '' })
+    .then(updatePassword)
+    .then(createJWT)
+    .then(responseToClient)
+    .catch(onError);
 };
