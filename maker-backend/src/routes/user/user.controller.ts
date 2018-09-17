@@ -3,6 +3,7 @@ import { DatabaseError } from 'sequelize';
 import Sequelize, { User } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
+import encryptoPassword from '../../lib/encrypto_password';
 
 const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt } = lib;
@@ -30,9 +31,9 @@ export const changeUserInfo = (req: Request, res: Response) => {
   // Null Check
   const checkNull = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
     value.newThing === undefined
-      ? Promise.reject(new Error('There is a violation error !'))
+      ? Promise.reject(new Error('There is a validation error !'))
       : value.newThing.trim() === ''
-        ? Promise.reject(new Error('There is a violation error !'))
+        ? Promise.reject(new Error('There is a validation error !'))
         : Promise.resolve({ ...value, newThing: value.newThing.trim() });
 
   // 'what' params is valid check
@@ -50,9 +51,7 @@ export const changeUserInfo = (req: Request, res: Response) => {
     return new Promise((resolve, reject) => {
       validation
         .checkValidationAll([{ regex: thisRegex, value: value.newThing, name: value.what }])
-        .then(
-          data => (data.result === true ? resolve(value) : reject(new Error(`There is a validation error (${value.what}) ! `)))
-        )
+        .then(data => (data.result === true ? resolve(value) : reject(new Error(`There is a validation error (${value.what}) ! `))))
         .catch(err => reject(new Error('There is a server error !')));
     });
   };
@@ -134,6 +133,7 @@ interface ChangeUserPassword {
   username: string;
   email: string;
   oldPassword: string;
+  oldSalt: string;
   newPassword: string;
   newSalt: string;
   token: string;
@@ -142,34 +142,51 @@ export const changeUserPassword = (req: Request, res: Response) => {
   const { username, email, id } = res.locals; // decoded token value, same as databases id, username and email
   const { oldPassword, newPassword } = req.body;
 
-  // Regex check
+  // Regex check + new password encryption
   const checkNewPasswordRegex = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
     new Promise((resolve, reject) =>
       validation
-        .checkValidationAll([{ regex: regex.passwordRegex, value: value.newPassword, name: 'password' }])
-        .then(data => (data.result === true ? resolve(value) : reject(new Error(`There is a validation error ! `))))
+        .checkValidationAll([
+          { regex: regex.passwordRegex, value: value.newPassword, name: 'password' },
+          { regex: regex.passwordRegex, value: value.oldPassword, name: 'password' }
+        ])
+        .then(
+          data =>
+            data.result === true
+              ? encrypto({ password: value.newPassword, salt: salt() })
+                  .then(pw => resolve({ ...value, newPassword: pw.password, newSalt: pw.salt }))
+                  .catch(err => reject(new Error('There is a server error !')))
+              : reject(new Error(`There is a validation error !)`))
+        )
         .catch(err => reject(new Error('There is a server error !')))
     );
 
-  // Password encryptio
-  const passwordEncryption = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+  // Find old salt
+  const findOldSalt = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+    new Promise((resolve, reject) => {
+      User.findOne({ where: { id: value.id } }).then(data => {
+        data.dataValues.id ? resolve({ ...value, oldSalt: data.dataValues.salt }) : reject(new Error('Wrong password !'));
+      });
+    });
+
+  // Password encrypto
+  const encryptoOldPassword = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
     new Promise((resolve, reject) =>
-      encrypto({ password: value.oldPassword, salt: salt() })
+      encrypto({ password: value.oldPassword, salt: value.oldSalt })
         .then((data: EncryptoPassword) => resolve({ ...value, oldPassword: data.password }))
         .catch((err: Error) => reject(new Error('There is a server Error !')))
     );
 
   // Update
-  const updatePassword = (value: ChangeUserPassword): Promise<ChangeUserPassword> => {
-    return new Promise((resolve, reject) => {
-      User.update({ password: value.newPassword }, { where: { password: value.oldPassword } })
+  const updatePassword = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+    new Promise((resolve, reject) => {
+      User.update({ password: value.newPassword, salt: value.newSalt }, { where: { password: value.oldPassword } })
         .then(() => resolve(value))
         .catch(err => {
           console.log(err.message);
           reject(new Error(`There is a duplicate check error !`));
         });
     });
-  };
 
   // Create jwt token
   const createJWT = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
@@ -198,7 +215,9 @@ export const changeUserPassword = (req: Request, res: Response) => {
   };
 
   // Promise
-  checkNewPasswordRegex({ id, username, email, oldPassword, newPassword, token: '' })
+  checkNewPasswordRegex({ id, username, email, oldPassword, oldSalt: '', newPassword, newSalt: '', token: '' })
+    .then(findOldSalt)
+    .then(encryptoOldPassword)
     .then(updatePassword)
     .then(createJWT)
     .then(responseToClient)
