@@ -1,26 +1,27 @@
-import {
-  Table,
-  Model,
-  DataType,
-  Column,
-  Default,
-  Unique,
-  AllowNull,
-  CreatedAt,
-  UpdatedAt,
-  DeletedAt
-} from 'sequelize-typescript';
-// import makeSalt from 'src/lib/make_salt';
-// import encryptoPassword from 'src/lib/encrypto_password';
+import { Table, Model, DataType, Column, Default, Unique, AllowNull, CreatedAt, UpdatedAt, DeletedAt, Is } from 'sequelize-typescript';
+import lib from 'src/lib';
+const { regex } = lib;
 
 @Table({ timestamps: true, tableName: 'user' })
 class User extends Model<User> {
   @Unique
+  @Is('username', (value: string) => {
+    if (!regex.usernameRegex.test(value)) {
+      console.log(value);
+      throw new Error(`(username)`);
+    }
+  })
   @AllowNull(false)
   @Column(DataType.STRING)
   public username: string;
 
   @Unique
+  @Is('email', (value: string) => {
+    if (!regex.emailRegex.test(value)) {
+      console.log(value);
+      throw new Error(`(email)`);
+    }
+  })
   @AllowNull(false)
   @Column(DataType.STRING)
   public email: string;
