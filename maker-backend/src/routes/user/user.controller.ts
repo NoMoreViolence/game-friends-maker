@@ -3,12 +3,11 @@ import { DatabaseError } from 'sequelize';
 import Sequelize, { User } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
-import encryptoPassword from '../../lib/encrypto_password';
 
 const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt } = lib;
 
-/* POST
+/* PATCH
   params: 'what',
   body: {
     newThing: string;
@@ -30,11 +29,13 @@ export const changeUserInfo = (req: Request, res: Response) => {
 
   // Null Check
   const checkNull = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
-    value.newThing === undefined
+    value.newThing === undefined || value.newThing === null
       ? Promise.reject(new Error('There is a validation error !'))
-      : value.newThing.trim() === ''
+      : typeof value.newThing !== 'string'
         ? Promise.reject(new Error('There is a validation error !'))
-        : Promise.resolve({ ...value, newThing: value.newThing.trim() });
+        : value.newThing.trim() === ''
+          ? Promise.reject(new Error('There is a validation error !'))
+          : Promise.resolve({ ...value, newThing: value.newThing.trim() });
 
   // 'what' params is valid check
   const checkWhatShouldUpdate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
@@ -43,18 +44,6 @@ export const changeUserInfo = (req: Request, res: Response) => {
       : value.what === 'email'
         ? Promise.resolve(value)
         : Promise.reject(new Error('There is wrong api request !'));
-
-  // 'newThing' regex check
-  const checkNewThingRegex = (value: ChangeUserInfo): Promise<ChangeUserInfo> => {
-    const thisRegex = value.what === 'username' ? regex.usernameRegex : regex.emailRegex;
-
-    return new Promise((resolve, reject) => {
-      validation
-        .checkValidationAll([{ regex: thisRegex, value: value.newThing, name: value.what }])
-        .then(data => (data.result === true ? resolve(value) : reject(new Error(`There is a validation error (${value.what}) ! `))))
-        .catch(err => reject(new Error('There is a server error !')));
-    });
-  };
 
   // Update
   const updateThing = (value: ChangeUserInfo): Promise<ChangeUserInfo> => {
@@ -115,14 +104,13 @@ export const changeUserInfo = (req: Request, res: Response) => {
   // Promise
   checkNull({ what, id, username, email, newThing, token: '' })
     .then(checkWhatShouldUpdate)
-    .then(checkNewThingRegex)
     .then(updateThing)
     .then(createJWT)
     .then(responseToClient)
     .catch(onError);
 };
 
-/* POST
+/* PATCH 
   body: {
     oldPassword: string;
     newPassword: string;
@@ -222,4 +210,32 @@ export const changeUserPassword = (req: Request, res: Response) => {
     .then(createJWT)
     .then(responseToClient)
     .catch(onError);
+};
+
+/* POST
+*/
+export const requestEmailVerifyCode = (req: Request, res: Response) => {
+  const { id, username, email } = res.locals;
+
+  const responseToClient = () => {
+    //
+  };
+
+  const onError = () => {
+    //
+  };
+};
+
+/* POST
+*/
+export const checkEmailVerifyCode = (req: Request, res: Response) => {
+  const { id, username, email } = res.locals;
+
+  const responseToClient = () => {
+    //
+  };
+
+  const onError = () => {
+    //
+  };
 };
