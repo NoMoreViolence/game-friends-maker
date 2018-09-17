@@ -37,7 +37,7 @@ export const changeUserInfo = (req: Request, res: Response) => {
         : Promise.resolve({ ...value, newThing: value.newThing.trim() });
 
   // 'what' params is valid check
-  const checkWhatShouldBeUpdate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+  const checkWhatShouldUpdate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
     value.what === 'username'
       ? Promise.resolve(value)
       : value.what === 'email'
@@ -114,7 +114,7 @@ export const changeUserInfo = (req: Request, res: Response) => {
 
   // Promise
   checkNull({ what, id, username, email, newThing, token: '' })
-    .then(checkWhatShouldBeUpdate)
+    .then(checkWhatShouldUpdate)
     .then(checkNewThingRegex)
     .then(updateThing)
     .then(createJWT)
