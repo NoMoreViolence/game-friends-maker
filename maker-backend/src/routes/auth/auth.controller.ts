@@ -15,21 +15,24 @@ const { salt, regex, validation, encrypto, jwt } = lib;
 */
 interface CheckDuplication {
   regex: { usernameRegex: RegExp; emailRegex: RegExp; passwordRegex: RegExp };
-  username: string;
-  email: string;
+  what: string;
+  checkvalue: string;
 }
 // Username, E-mail duplication check function
 export const checkDuplication = (req: Request, res: Response): void => {
-  const { username, email } = req.query;
+  const { what } = req.params;
+  const { checkvalue } = req.query;
+
+  const checkWhatShouldUpdate = (value: CheckDuplication): Promise<CheckDuplication> =>
+    value.what === 'username' || value.what === 'email'
+      ? Promise.resolve(value)
+      : Promise.reject(new Error('There is a wrong request !'));
 
   // Validation check
   const checkValidation = (value: CheckDuplication): Promise<CheckDuplication> =>
     new Promise((resolve, reject) =>
       validation
-        .checkValidationSome([
-          { regex: regex.usernameRegex, value: value.username, name: 'username' },
-          { regex: regex.emailRegex, value: value.email, name: 'email' }
-        ])
+        .checkValidationAll([{ regex: regex[`${value.what}Regex`], value: value.checkvalue, name: value.what }])
         .then(data => (data.result === true ? resolve(value) : reject(new Error('There is no information'))))
     );
 
@@ -37,9 +40,9 @@ export const checkDuplication = (req: Request, res: Response): void => {
   const DoubleCheck = (value: CheckDuplication): Promise<CheckDuplication> =>
     new Promise((resolve, reject) =>
       User.findOne({
-        where: { [Op.or]: [{ username: value.username }, { email: value.email }] }
+        where: { [what]: value.checkvalue }
       })
-        .then((data: User) => (data ? reject(new Error(`There is a duplicate information !`)) : resolve(value)))
+        .then((data: User) => (data ? reject(new Error(`There is a duplicate information ${value.what} !`)) : resolve(value)))
         .catch((err: DatabaseError) => reject(new Error('There is an user input error !')))
     );
 
@@ -58,7 +61,8 @@ export const checkDuplication = (req: Request, res: Response): void => {
     });
 
   // Promise
-  checkValidation({ username, email, regex })
+  checkWhatShouldUpdate({ what, checkvalue, regex })
+    .then(checkValidation)
     .then(DoubleCheck)
     .then(responseToClient)
     .catch(onError);

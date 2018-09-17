@@ -4,7 +4,7 @@ import middleware from 'src/middleware';
 
 const Router = express.Router();
 
-Router.get('/duplication', controller.checkDuplication); // username, email duplication check api
+Router.get('/duplication/:what', controller.checkDuplication); // username, email duplication check api
 
 Router.post('/register', controller.register); // Register
 
