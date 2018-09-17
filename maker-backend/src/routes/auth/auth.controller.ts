@@ -8,9 +8,9 @@ const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt } = lib;
 
 /* GET
+  Params: what
   Query: {
-    username: string
-    email: string
+    checkvalue: string
   }
 */
 interface CheckDuplication {
@@ -68,8 +68,8 @@ export const checkDuplication = (req: Request, res: Response): void => {
     .catch(onError);
 };
 
-/* Post 
-  body: {
+/* POST 
+  Body: {
     username: string
     email: string
     password: string
@@ -89,10 +89,13 @@ export const register = (req: Request, res: Response): void => {
   const checkNull = (value: Register): Promise<Register> =>
     value.username !== null &&
     value.username !== undefined &&
+    typeof value.username === 'string' &&
     value.email !== null &&
     value.email !== undefined &&
+    typeof value.email === 'string' &&
     value.password !== null &&
-    value.password !== undefined
+    value.password !== undefined &&
+    typeof value.password === 'string'
       ? Promise.resolve({
           ...value,
           username: value.username.trim(),
