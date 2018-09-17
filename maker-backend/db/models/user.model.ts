@@ -7,7 +7,6 @@ class User extends Model<User> {
   @Unique
   @Is('username', (value: string) => {
     if (!regex.usernameRegex.test(value)) {
-      console.log(value);
       throw new Error(`(username)`);
     }
   })
@@ -18,7 +17,6 @@ class User extends Model<User> {
   @Unique
   @Is('email', (value: string) => {
     if (!regex.emailRegex.test(value)) {
-      console.log(value);
       throw new Error(`(email)`);
     }
   })

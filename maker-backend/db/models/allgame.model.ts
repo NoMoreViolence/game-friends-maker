@@ -1,28 +1,22 @@
-import {
-  Table,
-  Column,
-  Model,
-  AllowNull,
-  DataType,
-  CreatedAt,
-  UpdatedAt,
-  DeletedAt,
-  ForeignKey,
-  BelongsTo,
-  Default,
-  Unique
-} from 'sequelize-typescript';
+import { Table, Column, Model, AllowNull, DataType, Unique, Is } from 'sequelize-typescript';
+import lib from 'src/lib';
+const { regex } = lib;
 
 @Table({ tableName: 'allgame' })
 class AllGame extends Model<AllGame> {
   @Unique
+  @Is('gamename', (value: string) => {
+    if (!regex.gamenameRegex.test(value)) {
+      throw new Error('(gamename)');
+    }
+  })
   @AllowNull(false)
   @Column(DataType.STRING)
   public gamename: string;
 
   @AllowNull(false)
   @Column(DataType.STRING)
-  public genre: number;
+  public genre: string;
 
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
