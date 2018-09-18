@@ -37,6 +37,10 @@ class User extends Model<User> {
   @Column(DataType.BOOLEAN)
   public verified: boolean;
 
+  @Default('.')
+  @Column(DataType.STRING)
+  public emailkey: string;
+
   @CreatedAt
   public creationDate: Date;
 

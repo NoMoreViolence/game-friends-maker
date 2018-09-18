@@ -13,7 +13,12 @@ const sequelize = new Sequelize({
   host: Config.host,
   dialect: Config.dialect,
   operatorsAliases: false,
-  modelPaths: [__dirname + '/**/*.model.ts']
+  modelPaths: [__dirname + '/**/*.model.ts'],
+  pool: {
+    max: 20,
+    min: 0,
+    idle: 10000
+  }
 });
 
 export { User, Game, AllGame };
