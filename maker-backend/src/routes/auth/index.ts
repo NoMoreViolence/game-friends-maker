@@ -4,13 +4,17 @@ import middleware from 'src/middleware';
 
 const Router = express.Router();
 
-Router.get('/duplication/:what', controller.checkDuplication); // username, email duplication check api
-
-Router.post('/register', controller.register); // Register
-
-Router.post('/login', controller.login); // Login
-
-Router.use('/check', middleware.checkCookie); // First loading token check
-Router.post('/check', controller.check); // First loading token check
+// duplication check
+Router.get('/duplication/:what', controller.checkDuplication);
+// Register
+Router.post('/register', controller.register);
+// Login
+Router.post('/login', controller.login);
+// Auto Login
+Router.use('/check', middleware.checkCookie);
+Router.post('/check', controller.check);
+// Withdraw
+Router.use('/withdraw', middleware.checkCookie);
+Router.get('/withdraw', controller.withdraw);
 
 export default Router;

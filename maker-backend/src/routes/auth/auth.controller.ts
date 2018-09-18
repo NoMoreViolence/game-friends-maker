@@ -280,3 +280,45 @@ export const check = (req: Request, res: Response) => {
     }
   });
 };
+
+/* GET
+
+*/
+interface Withdraw {
+  id: number;
+}
+export const withdraw = (req: Request, res: Response) => {
+  const { id } = res.locals;
+
+  const destoryAccount = (value: Withdraw): Promise<Withdraw> =>
+    new Promise((resolve, reject) =>
+      User.destroy({ where: { id }, individualHooks: true, hooks: true })
+        .then(data => {
+          console.log(data);
+          resolve(value);
+        })
+        .catch((err: DatabaseError) => {
+          console.log(err.message);
+          reject(new Error('There is a database error !'));
+        })
+    );
+
+  // Response
+  const responseToClient = (value: Withdraw): Response =>
+    res.json({
+      success: true,
+      message: 'Withdraw success ! good bye.'
+    });
+
+  // Error handler
+  const onError = (err: Error): Response =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+
+  // Promise
+  destoryAccount({ id })
+    .then(responseToClient)
+    .catch(onError);
+};
