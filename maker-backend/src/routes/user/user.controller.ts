@@ -232,11 +232,11 @@ export const requestEmailVerifyCode = (req: Request, res: Response) => {
     User.update(
       { emailkey: value.randomKey },
       {
-        where: { email: value.email },
+        where: { email: value.email, verified: false },
         silent: true
       }
     )
-      .then(() => Promise.resolve(value))
+      .then(data => (data[0] !== 0 ? Promise.resolve(value) : Promise.reject(new Error('There is a unexpected error !'))))
       .catch((err: DatabaseError) => Promise.reject(new Error(err.message)));
 
   // Send mail
@@ -291,16 +291,18 @@ export const checkEmailVerifyCode = (req: Request, res: Response) => {
           silent: true
         }
       )
-        .then(data => resolve(value))
-        .catch((err: DatabaseError) => reject(new Error('Email verify failure !')))
+        .then(data => (data[0] !== 0 ? resolve(value) : reject(new Error('Email verify failure !'))))
+        .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
-  const responseToClient = (): Response =>
+  // Response to client
+  const responseToClient = (valeu: CheckEmailVerifyCode): Response =>
     res.json({
       success: true,
       message: 'Email verify success !'
     });
 
+  // Error handler
   const onError = (err: Error): Response =>
     res.status(409).json({
       success: false,
