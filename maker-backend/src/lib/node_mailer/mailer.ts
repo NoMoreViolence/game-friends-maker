@@ -9,12 +9,12 @@ const caller = createTransport({
   }
 });
 
-const sendMail = (to: string, authentication: number): Promise<SentMessageInfo> => {
+const sendMail = (to: string, authentication: string): Promise<SentMessageInfo> => {
   const options: SendMailOptions = {
     from: `Game Friends Maker email authentication <${mailConfig.mailer.user}>`,
     to,
     subject: 'Game Friends Maker email authentication',
-    html: `<h1>The authentication number is ${authentication.toString()}</h1>`
+    html: `<h1>The authentication number is ${authentication}</h1>`
   };
 
   return caller.sendMail(options);
