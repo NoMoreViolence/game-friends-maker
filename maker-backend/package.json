@@ -41,6 +41,7 @@
     "@types/node": "^10.9.2",
     "@types/nodemailer": "^4.6.2",
     "@types/ramda": "^0.25.36",
+    "@types/randomstring": "^1.1.6",
     "@types/sequelize": "^4.27.25",
     "@types/socket.io": "^1.4.38",
     "dotenv": "^6.0.0",
