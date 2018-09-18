@@ -4,8 +4,13 @@ import * as mailConfig from 'config/mail.config.json';
 const caller = createTransport({
   service: 'Gmail',
   auth: {
+    type: 'OAuth2',
     user: mailConfig.mailer.user,
-    pass: mailConfig.mailer.password
+    clientId: mailConfig.mailer.clientId,
+    clientSecret: mailConfig.mailer.clientSecret,
+    refreshToken: mailConfig.mailer.refreshToken,
+    accessToken: mailConfig.mailer.accessToken,
+    expires: 3600
   }
 });
 
