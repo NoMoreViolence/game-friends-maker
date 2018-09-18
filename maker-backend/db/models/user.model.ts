@@ -2,7 +2,7 @@ import { Table, Model, DataType, Column, Default, Unique, AllowNull, CreatedAt, 
 import lib from 'src/lib';
 const { regex } = lib;
 
-@Table({ timestamps: true, tableName: 'user' })
+@Table({ timestamps: true, tableName: 'user', paranoid: false })
 class User extends Model<User> {
   @Unique
   @Is('username', (value: string) => {

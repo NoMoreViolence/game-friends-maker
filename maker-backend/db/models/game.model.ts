@@ -14,7 +14,7 @@ import {
 import User from './user.model';
 import AllGame from './allgame.model';
 
-@Table({ timestamps: true, tableName: 'game' })
+@Table({ timestamps: true, tableName: 'game', paranoid: false })
 class Game extends Model<Game> {
   @AllowNull(false)
   @ForeignKey(() => User)

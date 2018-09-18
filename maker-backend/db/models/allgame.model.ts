@@ -2,7 +2,7 @@ import { Table, Column, Model, AllowNull, DataType, Unique, Is } from 'sequelize
 import lib from 'src/lib';
 const { regex } = lib;
 
-@Table({ tableName: 'allgame' })
+@Table({ timestamps: true, tableName: 'allgame', paranoid: false })
 class AllGame extends Model<AllGame> {
   @Unique
   @Is('gamename', (value: string) => {
