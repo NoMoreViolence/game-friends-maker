@@ -3,9 +3,10 @@ import { DatabaseError } from 'sequelize';
 import Sequelize, { User } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
+import * as random from 'randomstring';
 
 const { Op } = Sequelize;
-const { salt, regex, validation, encrypto, jwt } = lib;
+const { salt, regex, validation, encrypto, jwt, mailer } = lib;
 
 /* PATCH
   params: 'what',
@@ -213,29 +214,101 @@ export const changeUserPassword = (req: Request, res: Response) => {
 };
 
 /* POST
+  {}
 */
+interface RequestEamilVerifyCode {
+  randomKey: string;
+  email: string;
+}
 export const requestEmailVerifyCode = (req: Request, res: Response) => {
-  const { id, username, email } = res.locals;
+  const { email } = res.locals;
 
-  const responseToClient = () => {
-    //
+  // Create random key
+  const generateRandomKey = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> =>
+    Promise.resolve({ ...value, randomKey: random.generate({ length: 6, charset: 'alphanumeric', readable: true }) });
+
+  // Database update
+  const insertRandomKeyToDatabase = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> =>
+    User.update(
+      { emailkey: value.randomKey },
+      {
+        where: { email: value.email },
+        silent: true
+      }
+    )
+      .then(() => Promise.resolve(value))
+      .catch((err: DatabaseError) => Promise.reject(new Error(err.message)));
+
+  // Send mail
+  const sendMail = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> => {
+    mailer(value.email, value.randomKey)
+      .then(() => console.log('Mail send success !'))
+      .catch(err => console.log('Mail send failure !'));
+    return Promise.resolve(value);
   };
 
-  const onError = () => {
-    //
-  };
+  // Response to client
+  const responseToClient = (value: RequestEamilVerifyCode): Response =>
+    res.json({
+      success: true,
+      message: 'Send mail success !'
+    });
+
+  // Error handler
+  const onError = (err: Error): Response =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+
+  // Promise
+  generateRandomKey({ randomKey: '', email })
+    .then(insertRandomKeyToDatabase)
+    .then(sendMail)
+    .then(responseToClient)
+    .catch(onError);
 };
 
 /* POST
+  Body: {
+    randomKey: string
+  }
 */
+interface CheckEmailVerifyCode {
+  randomKey: string;
+}
 export const checkEmailVerifyCode = (req: Request, res: Response) => {
-  const { id, username, email } = res.locals;
+  const { randomKey } = req.body;
 
-  const responseToClient = () => {
-    //
-  };
+  // Check random key
+  // If random key is same as databases it, 'verified' will update
+  const compareRandomKey = (value: CheckEmailVerifyCode): Promise<CheckEmailVerifyCode> =>
+    new Promise((resolve, reject) =>
+      User.update(
+        { verified: true },
+        {
+          where: { emailkey: value.randomKey },
+          silent: true
+        }
+      )
+        .then(data => resolve(value))
+        .catch((err: DatabaseError) => reject(new Error('Email verify failure !')))
+    );
 
-  const onError = () => {
-    //
-  };
+  const responseToClient = (): Response =>
+    res.json({
+      success: true,
+      message: 'Email verify success !'
+    });
+
+  const onError = (err: Error): Response =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+
+  // Promise
+  compareRandomKey({ randomKey })
+    .then(responseToClient)
+    .catch(onError);
 };
