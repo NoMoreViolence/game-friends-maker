@@ -58,7 +58,7 @@ export const changeUserInfo = (req: Request, res: Response) => {
             });
         })
       : new Promise((resolve, reject) => {
-          User.update({ [value.what]: value.newThing, verified: false }, { where: { [value.what]: value[value.what] } })
+          User.update({ [value.what]: value.newThing, verified: false, emailkey: '.' }, { where: { [value.what]: value[value.what] } })
             .then(() => resolve(value))
             .catch(err => {
               console.log(err.message);
