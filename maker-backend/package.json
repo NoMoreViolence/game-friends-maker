@@ -19,6 +19,7 @@
     "mysql2": "^1.6.1",
     "nodemailer": "^4.6.8",
     "ramda": "^0.25.0",
+    "randomstring": "^1.1.5",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
     "sequelize": "^4.38.0",
