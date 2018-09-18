@@ -46,26 +46,33 @@ export const changeUserInfo = (req: Request, res: Response) => {
         ? Promise.resolve(value)
         : Promise.reject(new Error('There is wrong api request !'));
 
+  // 'duplicate' check
+  const checkDuplicate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    value.what === 'username'
+      ? value.newThing === value.username
+        ? Promise.reject(new Error('There is a duplicate check error !'))
+        : Promise.resolve(value)
+      : value.newThing === value.email
+        ? Promise.reject(new Error('There is a duplicate check error !'))
+        : Promise.resolve(value);
+
   // Update
-  const updateThing = (value: ChangeUserInfo): Promise<ChangeUserInfo> => {
-    return value.what === 'username'
+  const updateThing = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    value.what === 'username'
       ? new Promise((resolve, reject) => {
           User.update({ [value.what]: value.newThing }, { where: { [value.what]: value[value.what] } })
             .then(() => resolve(value))
-            .catch(err => {
-              console.log(err.message);
-              reject(new Error(`There is a duplicate check error !`));
+            .catch((err: DatabaseError) => {
+              reject(new Error(err.message));
             });
         })
       : new Promise((resolve, reject) => {
           User.update({ [value.what]: value.newThing, verified: false, emailkey: '.' }, { where: { [value.what]: value[value.what] } })
             .then(() => resolve(value))
-            .catch(err => {
-              console.log(err.message);
-              reject(new Error(`There is a duplicate check error !`));
+            .catch((err: DatabaseError) => {
+              reject(new Error(err.message));
             });
         });
-  };
 
   // Create jwt token
   const createJWT = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
@@ -105,6 +112,7 @@ export const changeUserInfo = (req: Request, res: Response) => {
   // Promise
   checkNull({ what, id, username, email, newThing, token: '' })
     .then(checkWhatShouldUpdate)
+    .then(checkDuplicate)
     .then(updateThing)
     .then(createJWT)
     .then(responseToClient)
