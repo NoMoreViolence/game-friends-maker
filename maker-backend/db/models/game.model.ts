@@ -10,28 +10,28 @@ import {
   ForeignKey,
   BelongsTo,
   Unique,
-  BelongsToMany
+  HasOne
 } from 'sequelize-typescript';
 import User from './user.model';
 import AllGame from './allgame.model';
 
 @Table({ timestamps: true, tableName: 'game', paranoid: false })
 class Game extends Model<Game> {
-  @AllowNull(false)
   @ForeignKey(() => User)
-  @Column({})
+  @AllowNull(false)
+  @Column
   public userid: number;
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, { onDelete: 'CASCADE' })
   public user: User;
 
-  // @AllowNull(false)
-  // @ForeignKey(() => AllGame)
-  // @Column({})
-  // public gamekey: number;
+  @ForeignKey(() => AllGame)
+  @AllowNull(false)
+  @Column
+  public gamekey: number;
 
-  // @BelongsTo(() => AllGame)
-  // public game: AllGame;
+  @BelongsTo(() => AllGame, { onDelete: 'CASEADE' })
+  public game: AllGame;
 
   @Unique
   @AllowNull(false)

@@ -10,9 +10,7 @@ import {
   UpdatedAt,
   DeletedAt,
   Is,
-  BelongsToMany,
-  BelongsTo,
-  ForeignKey
+  HasMany
 } from 'sequelize-typescript';
 import lib from 'src/lib';
 import Game from './game.model';
@@ -57,6 +55,9 @@ class User extends Model<User> {
   @Column(DataType.STRING)
   public emailkey: string;
 
+  @HasMany(() => Game)
+  public game: Game[];
+
   @CreatedAt
   public creationDate: Date;
 
@@ -65,10 +66,6 @@ class User extends Model<User> {
 
   @DeletedAt
   public deletionDate: Date;
-
-  // @BelongsToMany(() => User, { as: 'game', through: Game, foreignKey: 'userid' })
-  @BelongsToMany(() => User, () => Game, 'userid')
-  public game: Game[];
 }
 
 export default User;

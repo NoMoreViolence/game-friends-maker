@@ -1,4 +1,5 @@
-import { Table, Column, Model, AllowNull, DataType, Unique, Is } from 'sequelize-typescript';
+import { Table, Column, Model, AllowNull, DataType, Unique, Is, HasMany } from 'sequelize-typescript';
+import Game from './game.model';
 import lib from 'src/lib';
 const { regex } = lib;
 
@@ -21,6 +22,9 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
   public console: boolean;
+
+  @HasMany(() => Game)
+  public game: Game[];
 }
 
 export default AllGame;
