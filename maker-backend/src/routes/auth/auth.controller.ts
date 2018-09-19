@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { DatabaseError } from 'sequelize';
-import Sequelize, { User, AllGame, Game } from 'db';
+import Sequelize, { User, Game, AllGame } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 
@@ -331,7 +331,7 @@ export const withdraw = (req: Request, res: Response) => {
 };
 
 setTimeout(() => {
-  User.findOne({ where: { id: 2 }, include: [Game] })
-    .then(data => console.log(data.dataValues))
-    .catch(err => console.log(err));
+  Game.findOne({ where: { id: 2 } })
+    .then(data => console.log(data))
+    .catch(err => console.log(err.message));
 }, 3000);

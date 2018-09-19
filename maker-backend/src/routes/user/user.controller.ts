@@ -67,7 +67,10 @@ export const changeUserInfo = (req: Request, res: Response) => {
             });
         })
       : new Promise((resolve, reject) => {
-          User.update({ [value.what]: value.newThing, verified: false, emailkey: '.' }, { where: { [value.what]: value[value.what] } })
+          User.update(
+            { [value.what]: value.newThing, verified: false, emailkey: '.' },
+            { where: { [value.what]: value[value.what] } }
+          )
             .then(() => resolve(value))
             .catch((err: DatabaseError) => {
               reject(new Error(err.message));
@@ -237,15 +240,17 @@ export const requestEmailVerifyCode = (req: Request, res: Response) => {
 
   // Database update
   const insertRandomKeyToDatabase = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> =>
-    User.update(
-      { emailkey: value.randomKey },
-      {
-        where: { email: value.email, verified: false },
-        silent: true
-      }
-    )
-      .then(data => (data[0] !== 0 ? Promise.resolve(value) : Promise.reject(new Error('There is a unexpected error !'))))
-      .catch((err: DatabaseError) => Promise.reject(new Error(err.message)));
+    new Promise((resolve, reject) =>
+      User.update(
+        { emailkey: value.randomKey },
+        {
+          where: { email: value.email, verified: false },
+          silent: true
+        }
+      )
+        .then(data => (data[0] !== 0 ? resolve(value) : reject(new Error('There is a unexpected error !'))))
+        .catch((err: DatabaseError) => reject(new Error(err.message)))
+    );
 
   // Send mail
   const sendMail = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> => {
