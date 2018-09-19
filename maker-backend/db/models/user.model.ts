@@ -15,7 +15,7 @@ import {
   ForeignKey
 } from 'sequelize-typescript';
 import lib from 'src/lib';
-import { Game } from 'db/models';
+import Game from './game.model';
 const { regex } = lib;
 
 @Table({ timestamps: true, tableName: 'user', paranoid: false })
@@ -67,7 +67,7 @@ class User extends Model<User> {
   public deletionDate: Date;
 
   // @BelongsToMany(() => User, { as: 'game', through: Game, foreignKey: 'userid' })
-  @BelongsToMany(() => User, () => Game)
+  @BelongsToMany(() => User, () => Game, 'userid')
   public game: Game[];
 }
 

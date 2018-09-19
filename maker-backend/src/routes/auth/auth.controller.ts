@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { DatabaseError } from 'sequelize';
-import Sequelize, { User } from 'db';
+import Sequelize, { User, AllGame, Game } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 
@@ -292,12 +292,19 @@ export const withdraw = (req: Request, res: Response) => {
 
   const destoryAccount = (value: Withdraw): Promise<Withdraw> =>
     new Promise((resolve, reject) =>
-      User.destroy({ where: { id }, individualHooks: true, hooks: true })
+      User.destroy({
+        where: { id },
+        individualHooks: true,
+        hooks: true
+      })
         .then(data => {
           console.log(data);
           resolve(value);
         })
         .catch((err: DatabaseError) => {
+          console.log('awejfoiuwaefhiau');
+          // console.log(err);
+          console.log(err.name);
           console.log(err.message);
           reject(new Error('There is a database error !'));
         })
@@ -322,3 +329,9 @@ export const withdraw = (req: Request, res: Response) => {
     .then(responseToClient)
     .catch(onError);
 };
+
+setTimeout(() => {
+  User.findOne({ where: { id: 2 }, include: [Game] })
+    .then(data => console.log(data.dataValues))
+    .catch(err => console.log(err));
+}, 3000);
