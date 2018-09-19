@@ -1,5 +1,21 @@
-import { Table, Model, DataType, Column, Default, Unique, AllowNull, CreatedAt, UpdatedAt, DeletedAt, Is } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  DataType,
+  Column,
+  Default,
+  Unique,
+  AllowNull,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+  Is,
+  BelongsToMany,
+  BelongsTo,
+  ForeignKey
+} from 'sequelize-typescript';
 import lib from 'src/lib';
+import { Game } from 'db/models';
 const { regex } = lib;
 
 @Table({ timestamps: true, tableName: 'user', paranoid: false })
@@ -49,6 +65,10 @@ class User extends Model<User> {
 
   @DeletedAt
   public deletionDate: Date;
+
+  // @BelongsToMany(() => User, { as: 'game', through: Game, foreignKey: 'userid' })
+  @BelongsToMany(() => User, () => Game)
+  public game: Game[];
 }
 
 export default User;

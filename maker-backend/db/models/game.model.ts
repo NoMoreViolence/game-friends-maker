@@ -9,7 +9,8 @@ import {
   DeletedAt,
   ForeignKey,
   BelongsTo,
-  Unique
+  Unique,
+  BelongsToMany
 } from 'sequelize-typescript';
 import User from './user.model';
 import AllGame from './allgame.model';
@@ -24,13 +25,13 @@ class Game extends Model<Game> {
   @BelongsTo(() => User)
   public user: User;
 
-  @AllowNull(false)
-  @ForeignKey(() => AllGame)
-  @Column({})
-  public gamekey: number;
+  // @AllowNull(false)
+  // @ForeignKey(() => AllGame)
+  // @Column({})
+  // public gamekey: number;
 
-  @BelongsTo(() => AllGame)
-  public game: AllGame;
+  // @BelongsTo(() => AllGame)
+  // public game: AllGame;
 
   @Unique
   @AllowNull(false)

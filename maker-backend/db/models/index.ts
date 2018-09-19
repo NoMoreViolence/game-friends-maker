@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import * as config from 'config/database.config.json';
 import User from './user.model';
 import Game from './game.model';
-import AllGame from './allgame.model';
+// import AllGame from './allgame.model';
 const wayToSequelize = process.env.NODE_ENV || 'development';
 const Config = config[wayToSequelize];
 
@@ -18,10 +18,12 @@ const sequelize = new Sequelize({
     max: 20,
     min: 0,
     idle: 10000
-  }
+  },
+  logging: console.log
 });
 
-export { User, Game, AllGame };
+// export { User, Game, AllGame };
+export { User, Game };
 export default sequelize;
 
 // const { Op } = Sequelize;
