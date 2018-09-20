@@ -55,6 +55,11 @@ class User extends Model<User> {
   @Column(DataType.STRING)
   public emailkey: string;
 
+  @AllowNull(false)
+  @Default(true)
+  @Column(DataType.BOOLEAN)
+  public show: boolean;
+
   @HasMany(() => Game)
   public game: Game[];
 

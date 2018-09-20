@@ -42,6 +42,10 @@ class Game extends Model<Game> {
   @Column(DataType.STRING)
   public expert: number;
 
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  public show: boolean;
+
   @CreatedAt
   public creationDate: Date;
 
