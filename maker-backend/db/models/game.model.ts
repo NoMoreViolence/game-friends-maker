@@ -10,10 +10,11 @@ import {
   ForeignKey,
   BelongsTo,
   Unique,
-  HasOne
+  Default
 } from 'sequelize-typescript';
 import User from './user.model';
 import AllGame from './allgame.model';
+import { DatabaseError } from 'sequelize';
 
 @Table({ timestamps: true, tableName: 'game', paranoid: false })
 class Game extends Model<Game> {
@@ -42,6 +43,7 @@ class Game extends Model<Game> {
   @Column(DataType.STRING)
   public expert: number;
 
+  @Default(true)
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
   public show: boolean;
@@ -57,3 +59,31 @@ class Game extends Model<Game> {
 }
 
 export default Game;
+
+// setTimeout(() => {
+//   AllGame.create({
+//     gamename: 'aew122fwea',
+//     window: false,
+//     mac: false,
+//     xbox: false,
+//     ps: false,
+//     nswitch: false
+//   });
+// }, 1000);
+
+// setTimeout(() => {
+//   Game.findOne({ where: { id: 1 }, include: [User] })
+//     .then((data: Game) => {
+//       const a = data.dataValues;
+//       console.log(a.user.dataValues);
+//     })
+//     .catch((err: DatabaseError) => console.log(err.message));
+
+//   User.findOne({ where: { id: 1 }, include: [{ model: Game, attributes: ['expert', 'nickname'] }] })
+//     .then(data => {
+//       const a = data.dataValues;
+//       console.log(a);
+//     })
+//     .catch((err: DatabaseError) => console.log(err.message));
+// }, 2000);
+// insert into game (userid, gamekey, nickname, expert, creationDate, updatedOn) values (1, 1, 'fuckpark', 'master', 20202, 20202);

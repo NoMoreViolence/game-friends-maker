@@ -3,6 +3,7 @@ import * as config from 'config/database.config.json';
 import User from './user.model';
 import Game from './game.model';
 import AllGame from './allgame.model';
+import GenreGame from './genregame.model';
 const wayToSequelize = process.env.NODE_ENV || 'development';
 const Config = config[wayToSequelize];
 
@@ -21,8 +22,7 @@ const sequelize = new Sequelize({
   }
 });
 
-// export { User, Game, AllGame };
-export { User, Game, AllGame };
+export { User, Game, AllGame, GenreGame };
 export default sequelize;
 
 // const { Op } = Sequelize;

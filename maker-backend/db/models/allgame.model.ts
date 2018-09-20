@@ -1,5 +1,6 @@
 import { Table, Column, Model, AllowNull, DataType, Unique, Is, HasMany } from 'sequelize-typescript';
 import Game from './game.model';
+import GenreGame from './genregame.model';
 import lib from 'src/lib';
 const { regex } = lib;
 
@@ -16,15 +17,30 @@ class AllGame extends Model<AllGame> {
   public gamename: string;
 
   @AllowNull(false)
-  @Column(DataType.STRING)
-  public genre: string;
+  @Column(DataType.BOOLEAN)
+  public window: boolean;
 
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
-  public console: boolean;
+  public mac: boolean;
+
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  public xbox: boolean;
+
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  public ps: boolean;
+
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  public nswitch: boolean;
 
   @HasMany(() => Game)
   public game: Game[];
+
+  @HasMany(() => GenreGame)
+  public genregame: GenreGame[];
 }
 
 export default AllGame;
