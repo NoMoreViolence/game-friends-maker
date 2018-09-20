@@ -1,17 +1,18 @@
-import { Table, Column, Model, AllowNull, DataType, Unique, Is, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, AllowNull, DataType, Unique, Is, HasMany, BelongsToMany } from 'sequelize-typescript';
 import Game from './game.model';
 import GenreGame from './genregame.model';
 import lib from 'src/lib';
+import AllGenreGame from './allgenregame.model';
 const { regex } = lib;
 
 @Table({ timestamps: true, tableName: 'allgame', paranoid: false })
 class AllGame extends Model<AllGame> {
   @Unique
-  @Is('gamename', (value: string) => {
-    if (!regex.gamenameRegex.test(value)) {
-      throw new Error('(gamename)');
-    }
-  })
+  // @Is('gamename', (value: string) => {
+  //   if (!regex.gamenameRegex.test(value)) {
+  //     throw new Error('(gamename)');
+  //   }
+  // })
   @AllowNull(false)
   @Column(DataType.STRING)
   public gamename: string;
@@ -39,8 +40,8 @@ class AllGame extends Model<AllGame> {
   @HasMany(() => Game)
   public game: Game[];
 
-  @HasMany(() => GenreGame)
-  public genregame: GenreGame[];
+  @BelongsToMany(() => GenreGame, () => AllGenreGame)
+  public genreid: GenreGame[];
 }
 
 export default AllGame;
