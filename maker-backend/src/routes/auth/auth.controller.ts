@@ -329,9 +329,3 @@ export const withdraw = (req: Request, res: Response) => {
     .then(responseToClient)
     .catch(onError);
 };
-
-setTimeout(() => {
-  Game.findOne({ where: { id: 2 } })
-    .then(data => console.log(data))
-    .catch(err => console.log(err.message));
-}, 3000);
