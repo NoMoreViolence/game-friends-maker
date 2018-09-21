@@ -8,32 +8,57 @@ const { regex } = lib;
 @Table({ timestamps: true, tableName: 'allgame', paranoid: false })
 class AllGame extends Model<AllGame> {
   @Unique
-  // @Is('gamename', (value: string) => {
-  //   if (!regex.gamenameRegex.test(value)) {
-  //     throw new Error('(gamename)');
-  //   }
-  // })
   @AllowNull(false)
+  @Is('gamename', (value: string) => {
+    if (typeof value !== 'string') {
+      throw new Error('(gamename)');
+    }
+  })
   @Column(DataType.STRING)
   public gamename: string;
 
   @AllowNull(false)
+  @Is('window', (value: boolean) => {
+    if (typeof value !== 'boolean') {
+      throw new Error(`(window)`);
+    }
+  })
   @Column(DataType.BOOLEAN)
   public window: boolean;
 
   @AllowNull(false)
+  @Is('mac', (value: boolean) => {
+    if (typeof value !== 'boolean') {
+      throw new Error(`(mac)`);
+    }
+  })
   @Column(DataType.BOOLEAN)
   public mac: boolean;
 
   @AllowNull(false)
+  @Is('xbox', (value: boolean) => {
+    if (typeof value !== 'boolean') {
+      throw new Error(`(xbox)`);
+    }
+  })
   @Column(DataType.BOOLEAN)
   public xbox: boolean;
 
   @AllowNull(false)
+  @Is('ps', (value: boolean) => {
+    if (typeof value !== 'boolean') {
+      throw new Error(`(ps)`);
+    }
+  })
   @Column(DataType.BOOLEAN)
   public ps: boolean;
 
   @AllowNull(false)
+  @Is('nswitch', (value: boolean) => {
+    if (typeof value !== 'boolean') {
+      throw new Error(`(nswitch)`);
+    }
+  })
   @Column(DataType.BOOLEAN)
   public nswitch: boolean;
 
