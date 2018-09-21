@@ -1,4 +1,4 @@
-// allow '_', '-', number, alphabet
-const gamenameRegex: RegExp = /^[A-za-z0-9_-]{2,30}$/;
+// allow '_', '-', number, alphabet, space
+const gamenameRegex: RegExp = /^(\w+ ?)*$/;
 
 export { gamenameRegex };
