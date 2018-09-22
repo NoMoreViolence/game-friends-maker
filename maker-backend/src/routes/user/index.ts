@@ -13,11 +13,11 @@ Router.use('/change/:what', middleware.checkCookie);
 Router.patch('/change/:what', controller.changeUserInfo);
 
 // Send email verify code
-Router.use('/mail', middleware.checkCookie);
-Router.get('/mail', controller.requestEmailVerifyCode);
+Router.use('/email', middleware.checkCookie);
+Router.get('/email', controller.requestEmailVerifyCode);
 
 // Check email verify code
-Router.use('/mail', middleware.checkCookie);
-Router.post('/mail', controller.checkEmailVerifyCode);
+Router.use('/email', middleware.checkCookie);
+Router.post('/email', controller.checkEmailVerifyCode);
 
 export default Router;
