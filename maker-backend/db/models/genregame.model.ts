@@ -1,7 +1,8 @@
-import { Table, Column, Model, AllowNull, DataType, BelongsToMany, Unique } from 'sequelize-typescript';
+import { Table, Column, Model, AllowNull, DataType, BelongsToMany, Unique, Is } from 'sequelize-typescript';
 import AllGame from './allgame.model';
 import AllGenreGame from './allgenregame.model';
-import { DatabaseError } from 'sequelize';
+import lib from 'src/lib';
+const { regex } = lib;
 
 @Table({ timestamps: true, tableName: 'genregame', paranoid: false })
 class GenreGame extends Model<GenreGame> {
@@ -10,6 +11,11 @@ class GenreGame extends Model<GenreGame> {
 
   @Unique
   @AllowNull(false)
+  @Is('gamegenre', (value: string) => {
+    if (!regex.gamegenreRegex.test(value)) {
+      throw new Error('value');
+    }
+  })
   @Column(DataType.STRING)
   public genre: string;
 }

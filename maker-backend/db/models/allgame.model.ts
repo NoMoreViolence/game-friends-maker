@@ -10,7 +10,7 @@ class AllGame extends Model<AllGame> {
   @Unique
   @AllowNull(false)
   @Is('gamename', (value: string) => {
-    if (typeof value !== 'string') {
+    if (!regex.gamenameRegex.test(value)) {
       throw new Error('(gamename)');
     }
   })
