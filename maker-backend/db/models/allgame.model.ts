@@ -62,6 +62,24 @@ class AllGame extends Model<AllGame> {
   @Column(DataType.BOOLEAN)
   public nswitch: boolean;
 
+  @AllowNull(false)
+  @Is('android', (value: boolean) => {
+    if (typeof value !== 'boolean') {
+      throw new Error(`(android)`);
+    }
+  })
+  @Column(DataType.BOOLEAN)
+  public android: boolean;
+
+  @AllowNull(false)
+  @Is('ios', (value: boolean) => {
+    if (typeof value !== 'boolean') {
+      throw new Error(`(ios)`);
+    }
+  })
+  @Column(DataType.BOOLEAN)
+  public ios: boolean;
+
   @HasMany(() => Game)
   public game: Game[];
 
