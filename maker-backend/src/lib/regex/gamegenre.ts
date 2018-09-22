@@ -1,3 +1,4 @@
-const gamegenreRegex: RegExp = /^(\w+ ?)*$/;
+// Only UpperCase
+const gamegenreRegex: RegExp = /^[A-Z]+$/;
 
 export { gamegenreRegex };
