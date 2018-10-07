@@ -40,11 +40,9 @@ export const changeUserInfo = (req: Request, res: Response) => {
 
   // 'what' params is valid check
   const checkWhatShouldUpdate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
-    value.what === 'username'
+    value.what === 'username' || value.what === 'email'
       ? Promise.resolve(value)
-      : value.what === 'email'
-        ? Promise.resolve(value)
-        : Promise.reject(new Error('There is wrong api request !'));
+      : Promise.reject(new Error('There is wrong api request !'));
 
   // 'duplicate' check
   const checkDuplicate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
@@ -67,10 +65,7 @@ export const changeUserInfo = (req: Request, res: Response) => {
             });
         })
       : new Promise((resolve, reject) => {
-          User.update(
-            { [value.what]: value.newThing, verified: false, emailkey: '.' },
-            { where: { [value.what]: value[value.what] } }
-          )
+          User.update({ [value.what]: value.newThing, verified: false, emailkey: '.' }, { where: { [value.what]: value[value.what] } })
             .then(() => resolve(value))
             .catch((err: DatabaseError) => {
               reject(new Error(err.message));
@@ -156,7 +151,7 @@ export const changeUserPassword = (req: Request, res: Response) => {
               ? encrypto({ password: value.newPassword, salt: salt() })
                   .then(pw => resolve({ ...value, newPassword: pw.password, newSalt: pw.salt }))
                   .catch(err => reject(new Error('There is a server error !')))
-              : reject(new Error(`There is a validation error !)`))
+              : reject(new Error('There is a validation error !)'))
         )
         .catch(err => reject(new Error('There is a server error !')))
     );
@@ -184,7 +179,7 @@ export const changeUserPassword = (req: Request, res: Response) => {
         .then(() => resolve(value))
         .catch(err => {
           console.log(err.message);
-          reject(new Error(`There is a duplicate check error !`));
+          reject(new Error('There is a duplicate check error !'));
         });
     });
 
@@ -256,7 +251,7 @@ export const requestEmailVerifyCode = (req: Request, res: Response) => {
   const sendMail = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> => {
     mailer(value.email, value.randomKey)
       .then(() => console.log('Mail send success !'))
-      .catch(err => console.log('Mail send failure !'));
+      .catch(err => console.log('Mail send failure !', err));
     return Promise.resolve(value);
   };
 

@@ -24,9 +24,7 @@ export const checkDuplication = (req: Request, res: Response): void => {
   const { checkvalue } = req.query;
 
   const checkWhatShouldUpdate = (value: CheckDuplication): Promise<CheckDuplication> =>
-    value.what === 'username' || value.what === 'email'
-      ? Promise.resolve(value)
-      : Promise.reject(new Error('There is a wrong request !'));
+    value.what === 'username' || value.what === 'email' ? Promise.resolve(value) : Promise.reject(new Error('There is a wrong request !'));
 
   // Validation check
   const checkValidation = (value: CheckDuplication): Promise<CheckDuplication> =>
@@ -109,7 +107,7 @@ export const register = (req: Request, res: Response): void => {
     new Promise((resolve, reject) =>
       validation
         .checkValidationAll([{ regex: value.regex.passwordRegex, value: value.password, name: 'password' }])
-        .then(data => (data.result === true ? resolve(value) : reject(new Error(`Validation error: (password)`))))
+        .then(data => (data.result === true ? resolve(value) : reject(new Error('Validation error: (password)'))))
         .catch(err => reject(new Error('There is a server error !')))
     );
 
