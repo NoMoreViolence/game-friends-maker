@@ -10,13 +10,13 @@ const caller = createTransport({
     clientSecret: mailConfig.mailer.clientSecret,
     refreshToken: mailConfig.mailer.refreshToken,
     accessToken: mailConfig.mailer.accessToken,
-    expires: 3600
+    expires: 3600 
   }
 });
 
 const sendMail = (to: string, authentication: string): Promise<SentMessageInfo> => {
   const options: SendMailOptions = {
-    from: `Game Friends Maker email authentication <${mailConfig.mailer.user}>`,
+    from: { name: 'Game Friends Maker', address: mailConfig.mailer.user },
     to,
     subject: 'Game Friends Maker email authentication',
     html: `<h1>The authentication number is ${authentication}</h1>`
