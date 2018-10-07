@@ -16,7 +16,7 @@ class GenreGame extends Model<GenreGame> {
       throw new Error('value');
     }
   })
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public genre: string;
 }
 

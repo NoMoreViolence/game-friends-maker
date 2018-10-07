@@ -20,7 +20,7 @@ import { DatabaseError } from 'sequelize';
 class Game extends Model<Game> {
   @ForeignKey(() => User)
   @AllowNull(false)
-  @Column
+  @Column(DataType.INTEGER(11))
   public userid: number;
 
   @BelongsTo(() => User, { onDelete: 'CASCADE' })
@@ -28,7 +28,7 @@ class Game extends Model<Game> {
 
   @ForeignKey(() => AllGame)
   @AllowNull(false)
-  @Column
+  @Column(DataType.INTEGER(11))
   public gamekey: number;
 
   @BelongsTo(() => AllGame, { onDelete: 'CASEADE' })
@@ -36,16 +36,16 @@ class Game extends Model<Game> {
 
   @Unique
   @AllowNull(false)
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public nickname: string;
 
   @AllowNull(false)
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public expert: number;
 
   @Default(true)
   @AllowNull(false)
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public show: boolean;
 
   @CreatedAt

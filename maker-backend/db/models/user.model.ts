@@ -25,7 +25,7 @@ class User extends Model<User> {
     }
   })
   @AllowNull(false)
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public username: string;
 
   @Unique
@@ -35,29 +35,29 @@ class User extends Model<User> {
     }
   })
   @AllowNull(false)
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public email: string;
 
   @AllowNull(false)
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public password: string;
 
   @AllowNull(false)
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public salt: string;
 
   @AllowNull(false)
   @Default(false)
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public verified: boolean;
 
   @Default('.')
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public emailkey: string;
 
   @AllowNull(false)
   @Default(true)
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public show: boolean;
 
   @HasMany(() => Game)

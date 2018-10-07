@@ -14,7 +14,7 @@ class AllGame extends Model<AllGame> {
       throw new Error('(gamename)');
     }
   })
-  @Column(DataType.STRING)
+  @Column(DataType.CHAR(255))
   public gamename: string;
 
   @AllowNull(false)
@@ -23,7 +23,7 @@ class AllGame extends Model<AllGame> {
       throw new Error(`(window)`);
     }
   })
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public window: boolean;
 
   @AllowNull(false)
@@ -32,7 +32,7 @@ class AllGame extends Model<AllGame> {
       throw new Error(`(mac)`);
     }
   })
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public mac: boolean;
 
   @AllowNull(false)
@@ -41,7 +41,7 @@ class AllGame extends Model<AllGame> {
       throw new Error(`(xbox)`);
     }
   })
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public xbox: boolean;
 
   @AllowNull(false)
@@ -50,7 +50,7 @@ class AllGame extends Model<AllGame> {
       throw new Error(`(ps)`);
     }
   })
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public ps: boolean;
 
   @AllowNull(false)
@@ -59,7 +59,7 @@ class AllGame extends Model<AllGame> {
       throw new Error(`(nswitch)`);
     }
   })
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public nswitch: boolean;
 
   @AllowNull(false)
@@ -68,7 +68,7 @@ class AllGame extends Model<AllGame> {
       throw new Error(`(android)`);
     }
   })
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public android: boolean;
 
   @AllowNull(false)
@@ -77,7 +77,7 @@ class AllGame extends Model<AllGame> {
       throw new Error(`(ios)`);
     }
   })
-  @Column(DataType.BOOLEAN)
+  @Column(DataType.TINYINT(1))
   public ios: boolean;
 
   @HasMany(() => Game)
