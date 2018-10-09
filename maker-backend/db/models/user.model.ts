@@ -13,7 +13,7 @@ import {
   HasMany
 } from 'sequelize-typescript';
 import lib from 'src/lib';
-import Game from './game.model';
+import { UserGameUnit } from './user-game-unit.model';
 const { regex } = lib;
 
 @Table({ timestamps: true, tableName: 'user', paranoid: false })
@@ -21,7 +21,7 @@ class User extends Model<User> {
   @Unique
   @Is('username', (value: string) => {
     if (!regex.usernameRegex.test(value)) {
-      throw new Error(`(username)`);
+      throw new Error('(username)');
     }
   })
   @AllowNull(false)
@@ -31,7 +31,7 @@ class User extends Model<User> {
   @Unique
   @Is('email', (value: string) => {
     if (!regex.emailRegex.test(value)) {
-      throw new Error(`(email)`);
+      throw new Error('(email)');
     }
   })
   @AllowNull(false)
@@ -60,8 +60,8 @@ class User extends Model<User> {
   @Column(DataType.TINYINT(1))
   public show: boolean;
 
-  @HasMany(() => Game)
-  public game: Game[];
+  @HasMany(() => UserGameUnit)
+  public game: UserGameUnit[];
 
   @CreatedAt
   public creationDate: Date;

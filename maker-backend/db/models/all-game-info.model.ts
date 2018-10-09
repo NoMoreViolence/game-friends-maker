@@ -1,12 +1,12 @@
 import { Table, Column, Model, AllowNull, DataType, Unique, Is, HasMany, BelongsToMany } from 'sequelize-typescript';
-import Game from './game.model';
-import GenreGame from './genregame.model';
+import { UserGameUnit } from './user-game-unit.model';
+import GenreGame from './genre.model';
 import lib from 'src/lib';
-import AllGenreGame from './allgenregame.model';
+import AllGenreGame from './all-game-info-genre.model';
 const { regex } = lib;
 
-@Table({ timestamps: true, tableName: 'allgame', paranoid: false })
-class AllGame extends Model<AllGame> {
+@Table({ timestamps: true, tableName: 'AllGameInfo', paranoid: false })
+class AllGameInfo extends Model<AllGameInfo> {
   @Unique
   @AllowNull(false)
   @Is('gamename', (value: string) => {
@@ -20,7 +20,7 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Is('window', (value: boolean) => {
     if (typeof value !== 'boolean') {
-      throw new Error(`(window)`);
+      throw new Error('(window)');
     }
   })
   @Column(DataType.TINYINT(1))
@@ -29,7 +29,7 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Is('mac', (value: boolean) => {
     if (typeof value !== 'boolean') {
-      throw new Error(`(mac)`);
+      throw new Error('(mac)');
     }
   })
   @Column(DataType.TINYINT(1))
@@ -38,7 +38,7 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Is('xbox', (value: boolean) => {
     if (typeof value !== 'boolean') {
-      throw new Error(`(xbox)`);
+      throw new Error('(xbox)');
     }
   })
   @Column(DataType.TINYINT(1))
@@ -47,7 +47,7 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Is('ps', (value: boolean) => {
     if (typeof value !== 'boolean') {
-      throw new Error(`(ps)`);
+      throw new Error('(ps)');
     }
   })
   @Column(DataType.TINYINT(1))
@@ -56,7 +56,7 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Is('nswitch', (value: boolean) => {
     if (typeof value !== 'boolean') {
-      throw new Error(`(nswitch)`);
+      throw new Error('(nswitch)');
     }
   })
   @Column(DataType.TINYINT(1))
@@ -65,7 +65,7 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Is('android', (value: boolean) => {
     if (typeof value !== 'boolean') {
-      throw new Error(`(android)`);
+      throw new Error('(android)');
     }
   })
   @Column(DataType.TINYINT(1))
@@ -74,17 +74,17 @@ class AllGame extends Model<AllGame> {
   @AllowNull(false)
   @Is('ios', (value: boolean) => {
     if (typeof value !== 'boolean') {
-      throw new Error(`(ios)`);
+      throw new Error('(ios)');
     }
   })
   @Column(DataType.TINYINT(1))
   public ios: boolean;
 
-  @HasMany(() => Game)
-  public game: Game[];
+  @HasMany(() => UserGameUnit)
+  public gameid: UserGameUnit[];
 
   @BelongsToMany(() => GenreGame, () => AllGenreGame)
   public genreid: GenreGame[];
 }
 
-export default AllGame;
+export default AllGameInfo;

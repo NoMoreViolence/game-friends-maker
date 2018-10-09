@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { DatabaseError } from 'sequelize';
-import Sequelize, { User, Game, AllGame, AllGenreGame } from 'db';
+import Sequelize, { User, Game, AllGame, AllGenreGame, GenreGame } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 
@@ -11,7 +11,7 @@ interface AddGame {
   id: number;
   gameId: number;
   gamename: string;
-  genre: number[];
+  genres: Array<{ name: string }>;
   window: boolean;
   mac: boolean;
   xbox: boolean;
@@ -23,12 +23,10 @@ interface AddGame {
 export const addGame = (req: Request, res: Response) => {
   const { id } = res.locals;
   const { gamename } = req.params;
-  const { genre, window, mac, xbox, ps, nswitch, android, ios } = req.body;
+  const { genres, window, mac, xbox, ps, nswitch, android, ios } = req.body;
 
   const checkValue = (value: AddGame): Promise<AddGame> =>
-    new Promise(
-      (resolve, reject) => (Array.isArray(value.genre) ? resolve(value) : reject(new Error('There is a wrong value (genre)')))
-    );
+    Array.isArray(value.genres) ? Promise.resolve(value) : Promise.reject(new Error('There is a wrong value (genre)'));
 
   const checkAdmin = (value: AddGame): Promise<AddGame> =>
     value.id === 1 ? Promise.resolve(value) : Promise.reject(new Error('You are not admin !'));
@@ -49,18 +47,25 @@ export const addGame = (req: Request, res: Response) => {
         .catch((err: DatabaseError) => reject(new Error(err.message)));
     });
 
-  const addGenre = (value: AddGame): Promise<AddGame> => {
-    value.genre.map((object: number, i: number) =>
-      AllGenreGame.create({
-        allid: value.gameId,
-        genreid: object
-      })
-        .then(() => console.log(`${i}th genre add success !`))
-        .catch(() => console.log(`${i}th genre add failure !`))
-    );
+  const addGenre = (value: AddGame): Promise<AddGame> =>
+    new Promise((resolve, reject) => {
+      const genreIds = [];
+      const cleanGenres = value.genres.filter(genreInfo => typeof genreInfo === 'object');
 
-    return Promise.resolve(value);
-  };
+      value.genres.map(
+        (gnere: { name: string }, i: number) => {
+          // GenreGame.findAll;
+        }
+        // AllGenreGame.create({
+        //   allid: value.gameId,
+        //   genreid: object
+        // })
+        //   .then(() => console.log(`${i}th genre add success !`))
+        //   .catch(() => console.log(`${i}th genre add failure !`))
+      );
+
+      resolve(value);
+    });
 
   // Response to client
   const responseToClient = (value: AddGame): Response =>
@@ -76,7 +81,7 @@ export const addGame = (req: Request, res: Response) => {
       message: err.message
     });
 
-  checkValue({ id, gameId: -1, gamename, genre, window, mac, xbox, ps, nswitch, android, ios })
+  checkValue({ id, gameId: -1, gamename, genres, window, mac, xbox, ps, nswitch, android, ios })
     .then(checkAdmin)
     .then(createGame)
     .then(addGenre)

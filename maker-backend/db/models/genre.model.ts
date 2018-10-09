@@ -1,6 +1,6 @@
 import { Table, Column, Model, AllowNull, DataType, BelongsToMany, Unique, Is } from 'sequelize-typescript';
-import AllGame from './allgame.model';
-import AllGenreGame from './allgenregame.model';
+import AllGame from './all-game-info.model';
+import AllGenreGame from './all-game-info-genre.model';
 import lib from 'src/lib';
 const { regex } = lib;
 
