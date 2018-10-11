@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
 import * as config from 'config/database.config.json';
 import User from './user.model';
-import { UserGameUnit } from './user-game-unit.model';
-import AllGame from './all-game-info.model';
-import GenreGame from './genre.model';
-import AllGenreGame from './all-game-info-genre.model';
+import UserGame from './user-game.model';
+import AllGame from './all-game.model';
+import GameGenre from './game-genre.model';
+import AllGenreGame from './all-genre-game.model';
 const wayToSequelize = process.env.NODE_ENV || 'development';
 const Config = config[wayToSequelize];
 
@@ -23,7 +23,7 @@ const sequelize = new Sequelize({
   }
 });
 
-export { User, UserGameUnit, AllGame, GenreGame, AllGenreGame };
+export { User, UserGame, AllGame, GameGenre, AllGenreGame };
 export default sequelize;
 
 // const { Op } = Sequelize;

@@ -12,12 +12,10 @@ import {
   Unique,
   Default
 } from 'sequelize-typescript';
-import User from './user.model';
-import AllGame from './all-game-info.model';
-import { DatabaseError } from 'sequelize';
+import { User, AllGame } from '.';
 
-@Table({ timestamps: true, tableName: 'game', paranoid: false })
-class UserGameUnit extends Model<UserGameUnit> {
+@Table({ timestamps: true, tableName: 'userGame', paranoid: false })
+class UserGame extends Model<UserGame> {
   @ForeignKey(() => User)
   @AllowNull(false)
   @Column(DataType.INTEGER(11))
@@ -58,7 +56,7 @@ class UserGameUnit extends Model<UserGameUnit> {
   public deletionDate: Date;
 }
 
-export { UserGameUnit };
+export default UserGame;
 
 // setTimeout(() => {
 //   AllGame.create({

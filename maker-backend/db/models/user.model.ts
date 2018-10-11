@@ -13,10 +13,11 @@ import {
   HasMany
 } from 'sequelize-typescript';
 import lib from 'src/lib';
-import { UserGameUnit } from './user-game-unit.model';
+import { UserGame } from '.';
+
 const { regex } = lib;
 
-@Table({ timestamps: true, tableName: 'user', paranoid: false })
+@Table({ timestamps: true, tableName: 'User', paranoid: false })
 class User extends Model<User> {
   @Unique
   @Is('username', (value: string) => {
@@ -60,8 +61,8 @@ class User extends Model<User> {
   @Column(DataType.TINYINT(1))
   public show: boolean;
 
-  @HasMany(() => UserGameUnit)
-  public game: UserGameUnit[];
+  @HasMany(() => UserGame)
+  public game: UserGame[];
 
   @CreatedAt
   public creationDate: Date;

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { DatabaseError } from 'sequelize';
-import Sequelize, { User, Game, AllGame } from 'db';
+import Sequelize, { User, UserGame, AllGame } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 

@@ -42,7 +42,7 @@ app.use((err: createError.HttpError, req: express.Request, res: express.Response
 
 // connect To DB
 sequelize
-  .sync({ force: false })
+  .sync({ force: false, logging: false })
   .then(() => {
     console.log('✓ DB connection success.');
   })

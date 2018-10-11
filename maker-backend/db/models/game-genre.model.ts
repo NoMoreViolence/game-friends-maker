@@ -1,13 +1,13 @@
 import { Table, Column, Model, AllowNull, DataType, BelongsToMany, Unique, Is } from 'sequelize-typescript';
-import AllGame from './all-game-info.model';
-import AllGenreGame from './all-game-info-genre.model';
+import { AllGame, AllGenreGame } from '.';
 import lib from 'src/lib';
+
 const { regex } = lib;
 
-@Table({ timestamps: true, tableName: 'genregame', paranoid: false })
-class GenreGame extends Model<GenreGame> {
+@Table({ timestamps: true, tableName: 'GameGenre', paranoid: false })
+class GameGenre extends Model<GameGenre> {
   @BelongsToMany(() => AllGame, () => AllGenreGame)
-  public allid: AllGame[];
+  public gameId: AllGame[];
 
   @Unique
   @AllowNull(false)
@@ -20,7 +20,7 @@ class GenreGame extends Model<GenreGame> {
   public genre: string;
 }
 
-export default GenreGame;
+export default GameGenre;
 
 setTimeout(() => {
   // GenreGame.findOne({ where: { id: 1 }, include: [{ model: AllGame }] })
