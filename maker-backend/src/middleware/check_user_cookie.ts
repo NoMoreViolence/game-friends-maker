@@ -1,18 +1,24 @@
 import { Request, Response, NextFunction } from 'express';
-import lib from 'src/lib';
-import { JsonWebTokenError } from 'jsonwebtoken';
-import { User } from 'db';
 import { DatabaseError } from 'sequelize';
+import { User } from 'db';
+import { JsonWebTokenError } from 'jsonwebtoken';
+import lib from 'src/lib';
 const { jwt } = lib;
 
 interface Cookie {
   token: string;
 }
+interface JWT {
+  id: number;
+  username: string;
+  email: string;
+  createdAt: Date;
+}
 const checkUserCookie = (req: Request, res: Response, next: NextFunction) => {
   const { accessToken } = req.cookies;
 
   // Check token is exist
-  const checkExistCookie = (cookie: Cookie): Promise<Cookie> => (cookie ? Promise.resolve(cookie) : Promise.reject(new Error('No cookie')));
+  const checkCookieExist = (cookie: Cookie): Promise<Cookie> => (cookie ? Promise.resolve(cookie) : Promise.reject(new Error('No cookie')));
 
   // Verify token
   const verifyToken = (cookie: Cookie): Promise<any> =>
@@ -24,14 +30,14 @@ const checkUserCookie = (req: Request, res: Response, next: NextFunction) => {
     );
 
   // Check token validity
-  const checkDate = (value: any): Promise<any> =>
+  const checkDate = (token: JWT): Promise<JWT> =>
     new Promise((resolve, reject) =>
-      User.findOne({ where: { id: value.id } })
+      User.findOne({ where: { id: token.id } })
         .then((data: User) => {
-          const newData = new Date(value.createdAt);
+          const newData = new Date(token.createdAt);
           data.id
             ? data.dataValues.updatedAt <= newData
-              ? resolve(value)
+              ? resolve(token)
               : reject(new Error('There is a validity error !'))
             : reject(new Error('There is no user !'));
         })
@@ -39,8 +45,8 @@ const checkUserCookie = (req: Request, res: Response, next: NextFunction) => {
     );
 
   // Next function: token verify sucess
-  const nextTo = (value: any): void => {
-    res.locals = value;
+  const nextTo = (token: JWT): void => {
+    res.locals = token;
     next();
   };
 
@@ -52,7 +58,7 @@ const checkUserCookie = (req: Request, res: Response, next: NextFunction) => {
     });
 
   // Promise
-  checkExistCookie(accessToken)
+  checkCookieExist(accessToken)
     .then(verifyToken)
     .then(checkDate)
     .then(nextTo)

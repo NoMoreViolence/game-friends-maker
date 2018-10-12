@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import lib from 'src/lib';
-import { JsonWebTokenError } from 'jsonwebtoken';
-import { User } from 'db';
 import { DatabaseError } from 'sequelize';
+import { User } from 'db';
+import { JsonWebTokenError } from 'jsonwebtoken';
+import lib from 'src/lib';
 const { jwt } = lib;
 
 interface Cookie {
