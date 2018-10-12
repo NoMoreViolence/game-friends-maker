@@ -5,7 +5,7 @@ import middleware from 'src/middleware';
 const Router = express.Router();
 
 // Game Add
-Router.use('/game/:gamename', middleware.checkCookie);
+Router.use('/game/:gamename', middleware.checkAdminCookie);
 Router.post('/game/:gamename', controller.addGame);
 // Game Change
 // Router.use('/game/:gamename', middleware.checkCookie);

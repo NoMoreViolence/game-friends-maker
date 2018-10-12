@@ -11,10 +11,10 @@ Router.post('/register', controller.register);
 // Login
 Router.post('/login', controller.login);
 // Auto Login
-Router.use('/check', middleware.checkCookie);
+Router.use('/check', middleware.checkUserCookie);
 Router.post('/check', controller.check);
 // Withdraw
-Router.use('/withdraw', middleware.checkCookie);
+Router.use('/withdraw', middleware.checkUserCookie);
 Router.get('/withdraw', controller.withdraw);
 
 export default Router;
