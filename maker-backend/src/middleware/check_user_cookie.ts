@@ -8,12 +8,11 @@ const { jwt } = lib;
 interface Cookie {
   token: string;
 }
-const checkCookie = (req: Request, res: Response, next: NextFunction) => {
+const checkUserCookie = (req: Request, res: Response, next: NextFunction) => {
   const { accessToken } = req.cookies;
 
   // Check token is exist
-  const checkExistCookie = (cookie: Cookie): Promise<Cookie> =>
-    cookie ? Promise.resolve(cookie) : Promise.reject(new Error('No cookie'));
+  const checkExistCookie = (cookie: Cookie): Promise<Cookie> => (cookie ? Promise.resolve(cookie) : Promise.reject(new Error('No cookie')));
 
   // Verify token
   const verifyToken = (cookie: Cookie): Promise<any> =>
@@ -31,7 +30,7 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
         .then((data: User) => {
           const newData = new Date(value.createdAt);
           data.id
-            ? data.dataValues.updatedOn <= newData
+            ? data.dataValues.updatedAt <= newData
               ? resolve(value)
               : reject(new Error('There is a validity error !'))
             : reject(new Error('There is no user !'));
@@ -60,4 +59,4 @@ const checkCookie = (req: Request, res: Response, next: NextFunction) => {
     .catch(onError);
 };
 
-export { checkCookie };
+export { checkUserCookie };
