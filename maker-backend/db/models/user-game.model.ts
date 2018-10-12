@@ -14,7 +14,7 @@ import {
 } from 'sequelize-typescript';
 import { User, AllGame } from '.';
 
-@Table({ timestamps: true, tableName: 'userGame', paranoid: false })
+@Table({ timestamps: true, tableName: 'UserGame', paranoid: false })
 class UserGame extends Model<UserGame> {
   @ForeignKey(() => User)
   @AllowNull(false)
@@ -47,13 +47,13 @@ class UserGame extends Model<UserGame> {
   public show: boolean;
 
   @CreatedAt
-  public creationDate: Date;
+  public createdAt: Date;
 
   @UpdatedAt
   public updatedOn: Date;
 
   @DeletedAt
-  public deletionDate: Date;
+  public deletedAt: Date;
 }
 
 export default UserGame;

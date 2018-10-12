@@ -1,4 +1,16 @@
-import { Table, Column, Model, AllowNull, DataType, BelongsToMany, Unique, Is } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  AllowNull,
+  DataType,
+  BelongsToMany,
+  Unique,
+  Is,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt
+} from 'sequelize-typescript';
 import { AllGame, AllGenreGame } from '.';
 import lib from 'src/lib';
 
@@ -18,6 +30,15 @@ class GameGenre extends Model<GameGenre> {
   })
   @Column(DataType.CHAR(255))
   public genre: string;
+
+  @CreatedAt
+  public createdAt: Date;
+
+  @UpdatedAt
+  public updatedAt: Date;
+
+  @DeletedAt
+  public deletedAt: Date;
 }
 
 export default GameGenre;

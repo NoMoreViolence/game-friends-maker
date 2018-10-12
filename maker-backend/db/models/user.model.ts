@@ -62,16 +62,16 @@ class User extends Model<User> {
   public show: boolean;
 
   @HasMany(() => UserGame)
-  public game: UserGame[];
+  public games: UserGame[];
 
   @CreatedAt
-  public creationDate: Date;
+  public createdAt: Date;
 
   @UpdatedAt
-  public updatedOn: Date;
+  public updatedAt: Date;
 
   @DeletedAt
-  public deletionDate: Date;
+  public deletedAt: Date;
 }
 
 export default User;
