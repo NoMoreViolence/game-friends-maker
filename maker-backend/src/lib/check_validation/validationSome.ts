@@ -13,15 +13,18 @@ interface CheckReturnValue {
 // Regex test function
 // return true: some value is valid
 // return false: all value is invalid
-const checkValidationSome = (value: CheckValidation[]): Promise<CheckReturnValue> =>
+const checkValidationSome = (testCases: CheckValidation[]): Promise<CheckReturnValue> =>
   new Promise((resolve, reject) => {
     pipe(
-      map((data: CheckValidation) => data.regex.test(data.value) && !isNil(data.value)),
-      findIndex((data: boolean) => data),
-      (data: number) => {
-        data === -1 ? resolve({ result: false, errRegex: '' }) : resolve({ result: true, errRegex: '' });
+      // Regex Test === true ? true : false
+      map((unit: CheckValidation) => unit.regex.test(unit.value) && !isNil(unit.value)),
+      // unit === -1 ? Success : Failure
+      findIndex((unit: boolean) => unit),
+      // data === -1 ? all regex test failed : at least one of value is successful
+      (unit: number) => {
+        unit === -1 ? resolve({ result: false, errRegex: '' }) : resolve({ result: true, errRegex: '' });
       }
-    )(value);
+    )(testCases);
   });
 
 export { checkValidationSome };
