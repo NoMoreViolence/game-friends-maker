@@ -8,8 +8,8 @@ const Router = express.Router();
 Router.use('/game/:gamename', middleware.checkAdminCookie);
 Router.post('/game/:gamename', controller.addGame);
 // Game Change
-// Router.use('/game/:gamename', middleware.checkCookie);
-// Router.patch('/game/:game', controller.gameChange);
+Router.use('/game/:gamename', middleware.checkAdminCookie);
+Router.patch('/game/:gamename', controller.changeGame);
 // Game delete
 // Router.use('/game/:gamename', middleware.checkCookie);
 // Router.delete('/game/:game', controller.gameDelete);
