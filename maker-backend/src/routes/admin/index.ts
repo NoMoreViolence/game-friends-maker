@@ -14,4 +14,14 @@ Router.post('/game/:gamename', controller.addGame);
 // Router.use('/game/:gamename', middleware.checkCookie);
 // Router.delete('/game/:game', controller.gameDelete);
 
+// Add game genre
+Router.use('/genre/:genre', middleware.checkAdminCookie);
+Router.post('/genre/:genre', controller.addGenre);
+// Change game genre
+Router.use('/genre/:genre', middleware.checkAdminCookie);
+Router.patch('/genre/:genre', controller.changeGenre);
+// Delete game genre
+Router.use('/genre/:genre', middleware.checkAdminCookie);
+Router.delete('/genre/:genre', controller.deleteGenre);
+
 export default Router;
