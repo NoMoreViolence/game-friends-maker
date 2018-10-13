@@ -19,7 +19,7 @@ const { regex } = lib;
 @Table({ timestamps: true, tableName: 'GameGenre', paranoid: false })
 class GameGenre extends Model<GameGenre> {
   @BelongsToMany(() => AllGame, () => AllGenreGame)
-  public gameId: AllGame[];
+  public gameIds: AllGame[];
 
   @Unique
   @AllowNull(false)

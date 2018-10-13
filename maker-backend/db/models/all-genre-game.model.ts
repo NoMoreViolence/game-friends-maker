@@ -5,11 +5,11 @@ import { AllGame, GameGenre } from '.';
 class AllGenreGame extends Model<AllGenreGame> {
   @ForeignKey(() => AllGame)
   @Column
-  public allid: number;
+  public gameId: number;
 
   @ForeignKey(() => GameGenre)
   @Column
-  public genreid: number;
+  public genreId: number;
 
   @CreatedAt
   public createdAt: Date;

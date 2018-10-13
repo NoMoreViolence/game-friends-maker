@@ -93,10 +93,10 @@ class AllGame extends Model<AllGame> {
   public ios: boolean;
 
   @HasMany(() => UserGame)
-  public gameid: UserGame[];
+  public games: UserGame[];
 
   @BelongsToMany(() => GameGenre, () => AllGenreGame)
-  public genreid: GameGenre[];
+  public genreIds: GameGenre[];
 
   @CreatedAt
   public createdAt: Date;

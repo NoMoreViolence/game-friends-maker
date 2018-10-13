@@ -19,7 +19,7 @@ class UserGame extends Model<UserGame> {
   @ForeignKey(() => User)
   @AllowNull(false)
   @Column(DataType.INTEGER(11))
-  public userid: number;
+  public userId: number;
 
   @BelongsTo(() => User, { onDelete: 'CASCADE' })
   public user: User;
@@ -27,7 +27,7 @@ class UserGame extends Model<UserGame> {
   @ForeignKey(() => AllGame)
   @AllowNull(false)
   @Column(DataType.INTEGER(11))
-  public gamekey: number;
+  public gameId: number;
 
   @BelongsTo(() => AllGame, { onDelete: 'CASEADE' })
   public game: AllGame;
