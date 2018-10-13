@@ -85,15 +85,7 @@ export const register = (req: Request, res: Response): void => {
 
   // Null check
   const checkNull = (value: Register): Promise<Register> =>
-    value.username !== null &&
-    value.username !== undefined &&
-    typeof value.username === 'string' &&
-    value.email !== null &&
-    value.email !== undefined &&
-    typeof value.email === 'string' &&
-    value.password !== null &&
-    value.password !== undefined &&
-    typeof value.password === 'string'
+    typeof value.username === 'string' && typeof value.email === 'string' && typeof value.password === 'string'
       ? Promise.resolve({
           ...value,
           username: value.username.trim(),
@@ -194,12 +186,12 @@ export const login = (req: Request, res: Response) => {
     new Promise((resolve, reject) =>
       User.findOne({ where: { email: value.email } })
         .then(
-          (data: User) =>
-            data
-              ? resolve({ ...value, id: data.id, username: data.username, hashedPassword: data.password, salt: data.salt })
+          (user: User) =>
+            user
+              ? resolve({ ...value, id: user.id, username: user.username, hashedPassword: user.password, salt: user.salt })
               : reject(new Error('There is no user data that have request email !'))
         )
-        .catch((err: DatabaseError) => reject(new Error('There is a server error !')))
+        .catch((err: DatabaseError) => reject(new Error('There is no user data that have request email !')))
     );
 
   // Password encryption
@@ -291,21 +283,10 @@ export const withdraw = (req: Request, res: Response) => {
   const destoryAccount = (value: Withdraw): Promise<Withdraw> =>
     new Promise((resolve, reject) =>
       User.destroy({
-        where: { id },
-        individualHooks: true,
-        hooks: true
+        where: { id }
       })
-        .then(data => {
-          console.log(data);
-          resolve(value);
-        })
-        .catch((err: DatabaseError) => {
-          console.log('awejfoiuwaefhiau');
-          // console.log(err);
-          console.log(err.name);
-          console.log(err.message);
-          reject(new Error('There is a database error !'));
-        })
+        .then(data => resolve(value))
+        .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
   // Response

@@ -10,7 +10,7 @@ const createJWT = (id: number, username: string, email: string): Promise<string>
             id,
             username,
             email,
-            createdAt: data.updatedOn
+            createdAt: data.updatedAt
           },
           process.env.JWT_KEY,
           {
