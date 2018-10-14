@@ -12,8 +12,8 @@
     "ordered-imports": false,
     "no-console": false,
     "no-string-literal": false,
-    "no-var-requires": false,
-    "no-input-rename": true,
-    "no-output-rename": true
+    "no-var-requires": false
+    // "no-input-rename": true,
+    // "no-output-rename": true
   }
 }
