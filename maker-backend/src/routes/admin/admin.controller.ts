@@ -216,19 +216,22 @@ export const changeGame = (req: Request, res: Response) => {
 
   // Update game genre
   const updateGenre = (value: ChangeGame): Promise<ChangeGame> =>
-    new Promise(async (resolve, reject) =>
-      AllGenreGame.destroy({ where: { gameId: value.gameId } })
-        .then(() =>
-          value.genres.map((cleanId: number, i: number) =>
-            AllGenreGame.create({
-              gameId: value.gameId,
-              genreId: cleanId
-            })
-              .then(() => value.genres.length - 1 === i && resolve(value))
-              .catch((err: DatabaseError) => console.log(err.message, 'There is an error (genre & game connecting) !'))
-          )
-        )
-        .catch((err: DatabaseError) => console.log(err.message, 'There is an error on (genre & game connecting)'))
+    new Promise(
+      (resolve, reject) =>
+        value.genres.length !== 0
+          ? AllGenreGame.destroy({ where: { gameId: value.gameId } })
+              .then(() =>
+                value.genres.map((cleanId: number, i: number) =>
+                  AllGenreGame.create({
+                    gameId: value.gameId,
+                    genreId: cleanId
+                  })
+                    .then(() => value.genres.length - 1 === i && resolve(value))
+                    .catch((err: DatabaseError) => reject(new Error('There is an error on (genre & game connecting)')))
+                )
+              )
+              .catch((err: DatabaseError) => reject(new Error('There is an error on (genre & game connecting)')))
+          : resolve(value)
     );
 
   // Response to cline
