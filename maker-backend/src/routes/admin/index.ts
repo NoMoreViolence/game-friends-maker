@@ -11,8 +11,8 @@ Router.post('/game/:gamename', controller.addGame);
 Router.use('/game/:gamename', middleware.checkAdminCookie);
 Router.patch('/game/:gamename', controller.changeGame);
 // Game delete
-// Router.use('/game/:gamename', middleware.checkCookie);
-// Router.delete('/game/:game', controller.gameDelete);
+Router.use('/game/:gamename', middleware.checkAdminCookie);
+Router.delete('/game/:gamename', controller.deleteGame);
 
 // Add game genre
 Router.use('/genre/:genre', middleware.checkAdminCookie);

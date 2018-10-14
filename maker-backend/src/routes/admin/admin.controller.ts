@@ -40,7 +40,9 @@ export const addGame = (req: Request, res: Response) => {
   const checkValue = (value: AddGame): Promise<AddGame> =>
     new Promise(async (resolve, reject) => {
       if (Array.isArray(value.genres) && value.genres.every(unit => typeof unit === 'number')) {
-        const dbGenreIds = await GameGenre.findAll({}).then(dbGenres => dbGenres.map(genre => genre.dataValues.id));
+        const dbGenreIds = await GameGenre.findAll({})
+          .then(dbGenres => dbGenres.map(genre => genre.dataValues.id))
+          .catch(() => []);
         const cleanGenres = value.genres.filter(id => dbGenreIds.some(genreId => genreId === id));
         return resolve({ ...value, genres: cleanGenres });
       }
@@ -110,7 +112,6 @@ export const addGame = (req: Request, res: Response) => {
     .then(responseToClient)
     .catch(onError);
 };
-
 /* PATCH
   Params: gamename,
   Body: {
@@ -163,7 +164,9 @@ export const changeGame = (req: Request, res: Response) => {
   const sortValue = (value: ChangeGame): Promise<ChangeGame> =>
     new Promise(async (resolve, reject) => {
       // Sort genre && AllGame model value
-      const dbGenreIds = await GameGenre.findAll({}).then(dbGenres => dbGenres.map(genre => genre.dataValues.id));
+      const dbGenreIds = await GameGenre.findAll({})
+        .then(dbGenres => dbGenres.map(genre => genre.dataValues.id))
+        .catch(() => []);
       const cleanGenres = value.changeValue.genres.filter(id => dbGenreIds.some(genreId => genreId === id));
 
       const changeValues: ChangeValue = value.changeValue;
@@ -252,11 +255,46 @@ export const changeGame = (req: Request, res: Response) => {
     .then(responseToClient)
     .catch(onError);
 };
+/* DELETE
+  Params: [gamename]
+*/
+interface DeleteGame {
+  gamename: string;
+  gameId?: number;
+}
+export const deleteGame = (req: Request, res: Response) => {
+  const { gamename } = req.params;
+
+  // Destory Game
+  const destroyGame = (value: DeleteGame): Promise<DeleteGame> =>
+    new Promise((resolve, reject) =>
+      AllGame.destroy({ where: { gamename: value.gamename } })
+        .then(destroyedValue => (destroyedValue === 1 ? resolve(value) : reject(new Error(`${value.gamename} game is not exist !`))))
+        .catch((err: DatabaseError) => reject(new Error(err.message)))
+    );
+
+  // Response to clinet
+  const responseToClient = (value: DeleteGame): Response =>
+    res.json({
+      success: true,
+      message: `${value.gamename} game is deleted successfully`
+    });
+
+  // Error handler
+  const onError = (err: Error) =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+
+  // Promise
+  destroyGame({ gamename })
+    .then(responseToClient)
+    .catch(onError);
+};
 
 /* POST 
-  Params: {
-    genre: string
-  }
+  Params: [genre] 
 */
 interface AddGenre {
   genre: string;
@@ -293,11 +331,8 @@ export const addGenre = (req: Request, res: Response) => {
     .then(responseToClient)
     .catch(onError);
 };
-
 /* PATCH
-  Params: {
-    genre: string
-  },
+  Params: [genre],
   Body: {
     newGenre: string
   }
@@ -342,11 +377,8 @@ export const changeGenre = (req: Request, res: Response) => {
     .then(responseToClient)
     .catch(onError);
 };
-
 /* DELETE
-  Params: {
-    genre: string
-  }
+  Params: [genre] 
 */
 interface DeleteGenre {
   genre: string;
