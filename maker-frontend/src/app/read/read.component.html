@@ -1,0 +1,10 @@
+<div class="right" *ngIf="persons">
+
+  <h3>Persons</h3>
+  <ul>
+    <li *ngFor="let person of persons | async">
+      <a [href]="person.name" target="_blank">{{ person.age }}</a>
+    </li>
+  </ul>
+
+</div>
