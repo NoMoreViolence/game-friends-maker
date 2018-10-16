@@ -2,8 +2,9 @@
 
   <h3>Persons</h3>
   <ul>
-    <li *ngFor="let person of persons | async">
-      <a [href]="person.name" target="_blank">{{ person.age }}</a>
+    <li *ngFor="let person of persons | async; index as i">
+      <div>{{ person.name }} : {{ person.age }}</div>
+      <button (click)="deletePerson(i)">Delete {{ person.name }}</button>
     </li>
   </ul>
 

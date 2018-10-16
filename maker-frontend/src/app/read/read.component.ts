@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { PersonModel } from './../ngrx/models';
+import { PersonActions } from '../ngrx/actions';
 import { AppState } from './../app.state';
 
 @Component({
@@ -16,6 +17,10 @@ export class ReadComponent implements OnInit {
     this.persons = store.select('persons');
     // store.select('persons').subscribe(value => console.log(value));
     // store.select('prer').subscribe(value => console.log(value));
+  }
+
+  public deletePerson(index: number) {
+    this.store.dispatch(new PersonActions.DeletePerson(index));
   }
 
   ngOnInit() {}

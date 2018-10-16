@@ -1,0 +1,9 @@
+<div class="write-container">
+  <h3>Add person</h3>
+
+  <div>
+    <input type="text" placeholder="name" #name>
+    <input type="text" placeholder="age" #age>
+    <button (click)="addPerson(name.value, age.value)">add person</button>
+  </div>
+</div>

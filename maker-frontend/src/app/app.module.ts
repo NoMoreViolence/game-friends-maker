@@ -9,13 +9,14 @@ import { StoreModule } from '@ngrx/store';
 import { personReducer } from './ngrx/reducer';
 // Components
 import { AppComponent } from './app.component';
+import { ReadComponent } from './read/read.component';
+import { WriteComponent } from './write/write.component';
 // Toast
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { ReadComponent } from './read/read.component';
 
 @NgModule({
-  declarations: [AppComponent, ReadComponent], // Component & Pipes
+  declarations: [AppComponent, ReadComponent, WriteComponent], // Component & Pipes
   imports: [
     BrowserModule,
     HttpClientModule,
