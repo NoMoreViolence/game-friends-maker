@@ -1,0 +1,169 @@
+$mobile: 425px;
+$tablet: 768px;
+
+@mixin shadow-mixin($row, $col, $spread, $color) {
+  -moz-box-shadow: $row $col $spread $color;
+  -webkit-box-shadow: $row $col $spread $color;
+  box-shadow: $row $col $spread $color;
+}
+
+.current-link {
+  border-bottom: 3px solid #039be5;
+  outline: none;
+}
+
+// Header height: 12.5 vh
+@media screen and (max-width: $mobile) {
+  #header {
+    width: 100%;
+    position: fixed;
+    @include shadow-mixin(0px, 3px, 3px, rgb(141, 141, 141));
+
+    #first {
+      width: calc(100%);
+      height: calc(7.5vh);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: solid 1px #dadce0;
+
+      #logo {
+        height: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        div {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+
+          span {
+            flex: 1;
+            padding: 0.25rem;
+            font: {
+              size: 100%;
+            }
+          }
+        }
+      }
+
+      #menu {
+        flex: 1;
+      }
+    }
+
+    #second {
+      width: calc(100% - 0.5rem);
+      height: calc(5vh - 0.5rem);
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.25rem;
+      color: white;
+      #menu {
+        height: 100%;
+        display: flex;
+        flex: 0.5;
+        ul {
+          height: 100%;
+          display: flex;
+          flex: 1;
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          span {
+            flex: 1;
+            img {
+              color: white;
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Header height: 12.5 vh
+@media screen and (min-width: $mobile + 1px) and (max-width: $tablet) {
+  #header {
+    width: 100%;
+    position: fixed;
+    @include shadow-mixin(0px, 3px, 3px, rgb(141, 141, 141));
+    #first {
+      width: calc(100% - 0.5rem);
+      height: calc(7.5vh - 0.5rem);
+      display: flex;
+      align-items: center;
+      padding: 0.25rem;
+      border-bottom: solid 1px #dadce0;
+      #logo {
+        flex: 1;
+        font: {
+          family: 'Fira Sans', sans-serif;
+          size: 3rem;
+        }
+      }
+
+      #menu {
+        flex: 1;
+        ul {
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          li {
+            font: {
+              size: 1.5rem;
+            }
+            padding: {
+              right: 0.5rem;
+              left: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+
+    #second {
+      width: calc(100% - 0.5rem);
+      height: calc(5vh - 0.5rem);
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.25rem;
+      color: white;
+      #menu {
+        height: 100%;
+        display: flex;
+        flex: 0.5;
+        ul {
+          height: 100%;
+          display: flex;
+          flex: 1;
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          span {
+            flex: 1;
+            img {
+              color: white;
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// div {
+//   color: #36428e;
+//   color: #3b82f8;
+//   color: #2eb2fc;
+//   color: #ffffff;
+// }
