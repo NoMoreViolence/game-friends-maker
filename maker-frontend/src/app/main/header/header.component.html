@@ -1,25 +1,27 @@
 <header id="header">
   <div id="first">
-    <nav id="logo">
-      <div>
-        <span routerLink="/main" routerLinkActive="current-link">GFM</span>
-      </div>
-      <!-- <ul>
-        <li><span routerLink="/main" routerLinkActive="current-link">GFM</span></li>
-      </ul> -->
-    </nav>
-    <nav id="menu">
-      <ul>
-        <li routerLink="/sign/in" routerLinkActive="current-link">
-          <span>{{ 'Header.Sign' | translate }} </span>
-          <span>{{ 'Header.Login' | translate }}</span>
-        </li>
-        <li routerLink="sign/up" routerLinkActive="current-link">
-          <span>{{ 'Header.Sign' | translate }} </span>
-          <span>{{ 'Header.Register' | translate }}</span>
-        </li>
-      </ul>
-    </nav>
+    <div id="home">
+      <nav>
+        <ul>
+          <li routerLink="/main" routerLinkActive="current-link">
+            <span id="logo">GFM</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div id="menu">
+      <nav>
+        <ul>
+          <li routerLink="/sign/in" routerLinkActive="current-link">
+            <span>{{ 'Header.Login' | translate }}</span>
+          </li>
+          <li routerLink="/sign/up" routerLinkActive="current-link">
+            <span>{{ 'Header.Register' | translate }}</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
   <div id="second">
     <nav id="menu">

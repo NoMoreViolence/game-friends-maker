@@ -8,7 +8,7 @@ $tablet: 768px;
 }
 
 .current-link {
-  border-bottom: 3px solid #039be5;
+  border-bottom: 3px solid #039be5 !important;
   outline: none;
 }
 
@@ -20,53 +20,89 @@ $tablet: 768px;
     @include shadow-mixin(0px, 3px, 3px, rgb(141, 141, 141));
 
     #first {
-      width: calc(100%);
-      height: calc(7.5vh);
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: stretch;
       border-bottom: solid 1px #dadce0;
 
-      #logo {
-        height: 100%;
+      div#home {
         flex: 1;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
 
-        div {
+        nav {
           flex: 1;
           display: flex;
-          flex-direction: column;
+          justify-content: flex-start;
+          align-content: center;
 
-          span {
-            flex: 1;
-            padding: 0.25rem;
-            font: {
-              size: 100%;
+          ul {
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+              flex: 1;
+              display: flex;
+              align-items: center;
+              border-bottom: 3px solid transparent;
+              font: {
+                size: 2rem;
+              }
+              padding: 0.5rem;
             }
           }
         }
       }
 
-      #menu {
+      div#menu {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        nav {
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+          align-content: center;
+
+          ul {
+            display: flex;
+            align-items: stretch;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+              flex: 1;
+              display: flex;
+              align-items: center;
+              border-bottom: 3px solid transparent;
+              padding: {
+                right: 0.5rem;
+                left: 0.5rem;
+              }
+              font: {
+                size: 1.2rem;
+              }
+            }
+          }
+        }
       }
     }
 
     #second {
       width: calc(100% - 0.5rem);
-      height: calc(5vh - 0.5rem);
       display: flex;
       justify-content: flex-end;
       padding: 0.25rem;
       color: white;
       #menu {
-        height: 100%;
         display: flex;
         flex: 0.5;
         ul {
-          height: 100%;
           display: flex;
           flex: 1;
           list-style-type: none;
