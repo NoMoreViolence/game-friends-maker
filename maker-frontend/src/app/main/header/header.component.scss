@@ -9,191 +9,142 @@ $tablet: 768px;
 
 .current-link {
   border-bottom: 3px solid #039be5 !important;
-  outline: none;
 }
 
-// Header height: 12.5 vh
-@media screen and (max-width: $mobile) {
-  #header {
-    width: 100%;
-    position: fixed;
-    @include shadow-mixin(0px, 3px, 3px, rgb(141, 141, 141));
+#header {
+  width: 100%;
+  position: fixed;
+  @include shadow-mixin(0px, 3px, 3px, rgb(141, 141, 141));
 
-    #first {
+  #first {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    border-bottom: solid 1px #dadce0;
+
+    div {
+      flex: 1;
       display: flex;
-      justify-content: center;
-      align-items: stretch;
-      border-bottom: solid 1px #dadce0;
+      flex-direction: column;
 
-      div#home {
+      #home {
         flex: 1;
         display: flex;
-        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
 
-        nav {
-          flex: 1;
-          display: flex;
-          justify-content: flex-start;
-          align-content: center;
-
-          ul {
-            display: flex;
-            align-items: center;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-
-            li {
-              flex: 1;
-              display: flex;
-              align-items: center;
-              border-bottom: 3px solid transparent;
-              font: {
-                size: 2rem;
-              }
-              padding: 0.5rem;
-            }
-          }
-        }
-      }
-
-      div#menu {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-
-        nav {
-          flex: 1;
-          display: flex;
-          justify-content: flex-end;
-          align-content: center;
-
-          ul {
-            display: flex;
-            align-items: stretch;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-
-            li {
-              flex: 1;
-              display: flex;
-              align-items: center;
-              border-bottom: 3px solid transparent;
-              padding: {
-                right: 0.5rem;
-                left: 0.5rem;
-              }
-              font: {
-                size: 1.2rem;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    #second {
-      width: calc(100% - 0.5rem);
-      display: flex;
-      justify-content: flex-end;
-      padding: 0.25rem;
-      color: white;
-      #menu {
-        display: flex;
-        flex: 0.5;
         ul {
           display: flex;
-          flex: 1;
+          align-items: center;
           list-style-type: none;
           margin: 0;
           padding: 0;
-          span {
+
+          li {
             flex: 1;
-            img {
-              color: white;
-              width: 100%;
-              height: 100%;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            &:focus {
+              outline: none;
+            }
+
+            span {
+              @media screen and (max-width: $mobile) {
+                font: {
+                  size: 2rem;
+                }
+                padding: {
+                  right: 0.5rem;
+                  left: 0.5rem;
+                }
+              }
+              @media screen and (min-width: $mobile + 1px) and (max-width: $tablet) {
+                font: {
+                  size: 3rem;
+                }
+                padding: {
+                  right: 0.75rem;
+                  left: 0.75rem;
+                }
+              }
+              @media screen and (min-width: $tablet + 1px) {
+                font: {
+                  size: 4rem;
+                }
+                padding: {
+                  right: 1rem;
+                  left: 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      #menu {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-content: center;
+
+        ul {
+          display: flex;
+          align-items: stretch;
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+
+          li {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            &:focus {
+              outline: none;
+            }
+
+            span {
+              flex: 1;
+              @media screen and (max-width: $mobile) {
+                padding: {
+                  right: 0.5rem;
+                  left: 0.5rem;
+                }
+                font: {
+                  size: 1rem;
+                }
+              }
+              @media screen and (min-width: $mobile + 1px) and (max-width: $tablet) {
+                padding: {
+                  right: 0.75rem;
+                  left: 0.75rem;
+                }
+                font: {
+                  size: 1.25rem;
+                }
+              }
+              @media screen and (min-width: $tablet + 1) {
+                padding: {
+                  right: 1rem;
+                  left: 1rem;
+                }
+                font: {
+                  size: 1.5rem;
+                }
+              }
             }
           }
         }
       }
     }
   }
-}
 
-// Header height: 12.5 vh
-@media screen and (min-width: $mobile + 1px) and (max-width: $tablet) {
-  #header {
-    width: 100%;
-    position: fixed;
-    @include shadow-mixin(0px, 3px, 3px, rgb(141, 141, 141));
-    #first {
-      width: calc(100% - 0.5rem);
-      height: calc(7.5vh - 0.5rem);
-      display: flex;
-      align-items: center;
-      padding: 0.25rem;
-      border-bottom: solid 1px #dadce0;
-      #logo {
-        flex: 1;
-        font: {
-          family: 'Fira Sans', sans-serif;
-          size: 3rem;
-        }
-      }
-
-      #menu {
-        flex: 1;
-        ul {
-          width: 100%;
-          display: flex;
-          justify-content: flex-end;
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          li {
-            font: {
-              size: 1.5rem;
-            }
-            padding: {
-              right: 0.5rem;
-              left: 0.5rem;
-            }
-          }
-        }
-      }
-    }
-
-    #second {
-      width: calc(100% - 0.5rem);
-      height: calc(5vh - 0.5rem);
-      display: flex;
-      justify-content: flex-end;
-      padding: 0.25rem;
-      color: white;
-      #menu {
-        height: 100%;
-        display: flex;
-        flex: 0.5;
-        ul {
-          height: 100%;
-          display: flex;
-          flex: 1;
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          span {
-            flex: 1;
-            img {
-              color: white;
-              width: 100%;
-              height: 100%;
-            }
-          }
-        }
-      }
-    }
+  #second {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
   }
 }
 

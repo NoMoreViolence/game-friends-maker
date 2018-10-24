@@ -1,7 +1,7 @@
 <header id="header">
   <div id="first">
-    <div id="home">
-      <nav>
+    <div>
+      <nav id="home">
         <ul>
           <li routerLink="/main" routerLinkActive="current-link">
             <span id="logo">GFM</span>
@@ -10,8 +10,8 @@
       </nav>
     </div>
 
-    <div id="menu">
-      <nav>
+    <div>
+      <nav id="menu">
         <ul>
           <li routerLink="/sign/in" routerLinkActive="current-link">
             <span>{{ 'Header.Login' | translate }}</span>
@@ -23,6 +23,7 @@
       </nav>
     </div>
   </div>
+
   <div id="second">
     <nav id="menu">
       <ul>
