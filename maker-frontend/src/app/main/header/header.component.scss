@@ -1,150 +1,60 @@
 $mobile: 425px;
 $tablet: 768px;
 
-@mixin shadow-mixin($row, $col, $spread, $color) {
-  -moz-box-shadow: $row $col $spread $color;
-  -webkit-box-shadow: $row $col $spread $color;
-  box-shadow: $row $col $spread $color;
-}
-
-.current-link {
-  border-bottom: 3px solid #039be5 !important;
+.imhere {
+  color: skyblue;
 }
 
 #header {
-  width: 100%;
-  position: fixed;
-  @include shadow-mixin(0px, 3px, 3px, rgb(141, 141, 141));
+  background-color: #33353a;
+  color: #ffffff;
+  padding: 1rem;
 
-  #first {
+  #nav {
     display: flex;
-    justify-content: center;
-    align-items: stretch;
-    border-bottom: solid 1px #dadce0;
-
-    div {
+    ul {
       flex: 1;
+      padding: 0;
+      margin: 0;
+    }
+
+    span {
+      cursor: pointer;
+      outline: none;
+    }
+
+    #logo {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      font: {
+        size: 2rem;
+      }
+    }
 
-      #home {
-        flex: 1;
+    #menu {
+      display: flex;
+      justify-content: flex-end;
+      list-style-type: none;
+
+      li {
         display: flex;
-        justify-content: flex-start;
-        align-content: center;
+        align-items: center;
+      }
 
-        ul {
-          display: flex;
-          align-items: center;
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-
-          li {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            &:focus {
-              outline: none;
-            }
-
-            span {
-              @media screen and (max-width: $mobile) {
-                font: {
-                  size: 2rem;
-                }
-                padding: {
-                  right: 0.5rem;
-                  left: 0.5rem;
-                }
-              }
-              @media screen and (min-width: $mobile + 1px) and (max-width: $tablet) {
-                font: {
-                  size: 3rem;
-                }
-                padding: {
-                  right: 0.75rem;
-                  left: 0.75rem;
-                }
-              }
-              @media screen and (min-width: $tablet + 1px) {
-                font: {
-                  size: 4rem;
-                }
-                padding: {
-                  right: 1rem;
-                  left: 1rem;
-                }
-              }
-            }
-          }
+      #auth {
+        padding: {
+          right: 0.5rem;
+          left: 0.5rem;
         }
       }
 
-      #menu {
-        flex: 1;
-        display: flex;
-        justify-content: flex-end;
-        align-content: center;
-
-        ul {
-          display: flex;
-          align-items: stretch;
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-
-          li {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            &:focus {
-              outline: none;
-            }
-
-            span {
-              flex: 1;
-              @media screen and (max-width: $mobile) {
-                padding: {
-                  right: 0.5rem;
-                  left: 0.5rem;
-                }
-                font: {
-                  size: 1rem;
-                }
-              }
-              @media screen and (min-width: $mobile + 1px) and (max-width: $tablet) {
-                padding: {
-                  right: 0.75rem;
-                  left: 0.75rem;
-                }
-                font: {
-                  size: 1.25rem;
-                }
-              }
-              @media screen and (min-width: $tablet + 1) {
-                padding: {
-                  right: 1rem;
-                  left: 1rem;
-                }
-                font: {
-                  size: 1.5rem;
-                }
-              }
-            }
-          }
+      #lang {
+        padding: {
+          right: 1.5rem;
+          left: 1.5rem;
         }
       }
     }
-  }
-
-  #second {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
   }
 }
 

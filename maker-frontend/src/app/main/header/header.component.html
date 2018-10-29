@@ -1,42 +1,18 @@
 <header id="header">
-  <div id="first">
-    <div>
-      <nav id="home">
-        <ul>
-          <li routerLink="/main" routerLinkActive="current-link">
-            <span id="logo">GFM</span>
-          </li>
+    <nav id="nav">
+        <ul id="logo">
+            <span routerLink="/main" routerLinkActive="imhere">Game Mate Maker</span>
         </ul>
-      </nav>
-    </div>
-
-    <div>
-      <nav id="menu">
-        <ul>
-          <li routerLink="/sign/in" routerLinkActive="current-link">
-            <span>{{ 'Header.Login' | translate }}</span>
-          </li>
-          <li routerLink="/sign/up" routerLinkActive="current-link">
-            <span>{{ 'Header.Register' | translate }}</span>
-          </li>
+        <ul id="menu">
+            <li id="auth">
+                <span routerLink="/sign/in" routerLinkActive="imhere">{{ 'Header.Login' | translate }}</span>
+            </li>
+            <li id="auth">
+                <span routerLink="/sign/up" routerLinkActive="imhere">{{ 'Header.Register' | translate }}</span>
+            </li>
+            <li id="lang">
+                <span (click)="changeLang(lang)" #lang>{{ 'Header.Lang' | translate }}</span>
+            </li>
         </ul>
-      </nav>
-    </div>
-  </div>
-
-  <div id="second">
-    <nav id="menu">
-      <ul>
-        <span>
-          <img src="/assets/icons/baseline-message-24px.svg" alt="{{ 'Header.Chat' | translate }}">
-        </span>
-        <span>
-          <img src="/assets/icons/baseline-search-24px.svg" alt="{{ 'Header.Choice' | translate }}">
-        </span>
-        <span>
-          <img src="/assets/icons/baseline-border_color-24px.svg" alt="{{ 'Header.Find' | translate}}">
-        </span>
-      </ul>
     </nav>
-  </div>
 </header>
