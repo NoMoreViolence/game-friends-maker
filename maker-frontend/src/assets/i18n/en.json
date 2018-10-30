@@ -1,8 +1,12 @@
 {
+  "Lang": {
+    "lang": "en"
+  },
   "Header": {
+    "Lang": "ko",
     "Sign": "Sign",
-    "Login": "In",
-    "Register": "Up",
+    "Login": "Sign In",
+    "Register": "Sign Up",
     "Chat": "ChatRoom",
     "Choice": "Find GFM",
     "Find": "Upload My Suggest"

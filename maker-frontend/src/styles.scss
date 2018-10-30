@@ -3,5 +3,12 @@ html,
 body {
   margin: 0px;
   padding: 0px;
-  font-family: 'Noto Sans KR', sans-serif;
+  :lang(ko) {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.5;
+  }
+  :lang(en) {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+  }
 }

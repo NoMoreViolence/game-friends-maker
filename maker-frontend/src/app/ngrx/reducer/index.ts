@@ -1,3 +1,3 @@
-import { personReducer } from './person.reducer';
+import { signReducer } from './sign-in.reducer';
 
-export { personReducer };
+export { signReducer };

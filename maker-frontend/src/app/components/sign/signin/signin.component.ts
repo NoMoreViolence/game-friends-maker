@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { User } from '../../ngrx/models';
-import { UserState } from '../../app.state';
-import { SignActions } from '../../ngrx/actions';
-import { SignIn } from '../../ngrx/actions/sign.actions';
+import { User } from '../../../ngrx/models';
+import { UserState } from '../../../app.state';
+import { SignActions } from '../../../ngrx/actions';
+import { SignIn } from '../../../ngrx/actions/sign.actions';
 
 @Component({
   selector: 'app-signin',

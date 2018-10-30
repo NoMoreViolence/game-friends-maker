@@ -1,5 +1,7 @@
-import { PersonModel } from './ngrx/models/';
+import { User } from './ngrx/models';
 
-export interface AppState {
-  readonly persons: PersonModel[];
+interface UserState {
+  readonly user: User;
 }
+
+export { UserState };

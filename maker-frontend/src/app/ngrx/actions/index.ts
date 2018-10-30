@@ -1,3 +1,3 @@
-import * as PersonActions from './person.action';
+import * as SignActions from './sign.actions';
 
-export { PersonActions };
+export { SignActions };

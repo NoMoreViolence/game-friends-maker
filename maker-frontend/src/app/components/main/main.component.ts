@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.state';
-import { NewUserInfo } from '../ngrx/models';
+import { UserState } from '../../app.state';
+import { User } from '../../ngrx/models';
 
 @Component({
   selector: 'app-main',
@@ -10,9 +10,9 @@ import { NewUserInfo } from '../ngrx/models';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  public user: Observable<NewUserInfo[]>;
-  constructor(private store: Store<AppState>) {
-    this.user = this.store.select('users');
+  public user: Observable<User>;
+  constructor(private store: Store<UserState>) {
+    this.user = this.store.select('user');
   }
 
   ngOnInit() {}

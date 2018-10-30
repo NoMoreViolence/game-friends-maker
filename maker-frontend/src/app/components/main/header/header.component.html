@@ -1,0 +1,16 @@
+<nav id="nav">
+    <ul id="logo">
+        <span routerLink="/main" routerLinkActive="imhere">{{ '{' }} Game {{ '}' }} Mate Maker</span>
+    </ul>
+    <ul id="menu">
+        <li id="auth">
+            <span routerLink="/sign/in" routerLinkActive="imhere">{{ 'Header.Login' | translate }}</span>
+        </li>
+        <li id="auth">
+            <span routerLink="/sign/up" routerLinkActive="imhere">{{ 'Header.Register' | translate }}</span>
+        </li>
+        <li id="lang">
+            <span (click)="changeLang(lang)" #lang>{{ 'Header.Lang' | translate }}</span>
+        </li>
+    </ul>
+</nav>
