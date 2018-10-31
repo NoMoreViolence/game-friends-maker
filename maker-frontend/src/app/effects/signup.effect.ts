@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
@@ -12,18 +12,14 @@ class RegisterEffect {
 
   @Effect()
   register$: Observable<Action> = this.actions$.pipe(
-    ofType('REGISTER'),
+    ofType('Fuck You'),
     pluck('payload'),
     mergeMap((action: SignUp) =>
       this.http.post('/api/auth/register', action.payload).pipe(
-        map(data => ({ type: 'REGISTER_SUCCESS', payload: data })),
-        catchError(err => of({ type: 'REGISTER_FAILURE', payload: err }))
+        map((data: HttpResponse<JSON>) => ({ type: 'REGISTER_SUCCESS', payload: data })),
+        catchError((err: HttpErrorResponse) => of({ type: 'REGISTER_FAILURE', payload: err }))
       )
-    ),
-    map(data => {
-      console.log(data);
-      return { type: 'REGISTER_SUCCESS', payload: 'wefa' };
-    })
+    )
   );
 }
 

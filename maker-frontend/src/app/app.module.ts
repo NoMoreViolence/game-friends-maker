@@ -25,7 +25,6 @@ import { ContentComponent } from './components/main/content/content.component';
 import { SignComponent } from './components/sign/sign.component';
 import { SigninComponent } from './components/sign/signin/signin.component';
 import { SignupComponent } from './components/sign/signup/signup.component';
-import { ProgressbarComponent } from './components/main/progressbar/progressbar.component';
 
 export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(http);
 
@@ -39,8 +38,7 @@ export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
     ContentComponent,
     SignComponent,
     SigninComponent,
-    SignupComponent,
-    ProgressbarComponent
+    SignupComponent
   ], // Component & Pipes
   imports: [
     BrowserModule,

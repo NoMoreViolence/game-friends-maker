@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { User } from '../../../ngrx/models';
-import { UserState } from '../../../app.state';
 import { SignActions } from '../../../ngrx/actions';
 import { SignIn } from '../../../ngrx/actions/sign.actions';
 
@@ -12,7 +11,7 @@ import { SignIn } from '../../../ngrx/actions/sign.actions';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
-  constructor(private store: Store<UserState>) {}
+  constructor(private store: Store<User>) {}
 
   ngOnInit() {}
 
