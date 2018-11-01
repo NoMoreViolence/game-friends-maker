@@ -1,5 +1,27 @@
 <div id="sign-in">
-    <input type="text" #email>
-    <input type="password" #password>
-    <button (click)="signIn(email, password)">SignIn</button>
+    <div id="logo">
+        <span>{{ 'Sign.in.logo' | translate }}</span>
+    </div>
+
+    <div id="form">
+        <div id="inputs">
+            <input type="text" placeholder="{{ 'Sign.in.email' | translate }}" [ngClass]="this.showEmailError ? 'success' : 'failure'"
+                #email>
+            <input type="password" placeholder="{{ 'Sign.in.password' | translate }}" [ngClass]="this.showPasswordError ? 'success' : 'failure'"
+                #password>
+        </div>
+
+        <div id="buttons">
+            <button (click)="signIn(email, password)">{{ 'Sign.in.logo' | translate }}</button>
+        </div>
+    </div>
+
+    <div id="comment">
+        <span>
+            {{ 'Sign.in.remember' | translate }}
+            <span routerLink="/sign/findem" id="find">{{ 'Sign.in.email' | translate }}</span>/
+            <span routerLink="/sign/findpw" id="find">{{ 'Sign.in.password' | translate }}</span>
+        </span>
+        <span routerLink="/sign/up" id="find">{{ 'Sign.in.notup' | translate }}</span>
+    </div>
 </div>
