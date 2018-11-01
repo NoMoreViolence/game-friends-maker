@@ -2,12 +2,13 @@ $mobile: 425px;
 $tablet: 768px;
 
 .imhere {
-  color: #2eb2fc;
+  color: #a19192;
 }
 
 #nav {
-  background-color: #33353a;
-  color: #ffffff;
+  box-shadow: 0px 3px 3px 3px #babfd1;
+  background-color: #1d2634;
+  color: #e9e1e0;
   padding: 1.5rem;
   display: flex;
 
@@ -56,9 +57,11 @@ $tablet: 768px;
   }
 }
 
+// Color theme update
 // div {
-//   color: #36428e;
-//   color: #3b82f8;
-//   color: #2eb2fc;
-//   color: #ffffff;
+//   color: #E9E1E0;
+//   color: #CC7C41;
+//   color: #A19192;
+//   color: #AC4A30;
+//   color: #1D2634;
 // }
