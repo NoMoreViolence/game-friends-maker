@@ -10,5 +10,14 @@
     "Chat": "ChatRoom",
     "Choice": "Find GFM",
     "Find": "Upload My Suggest"
+  },
+  "Sign": {
+    "in": {
+      "logo": "Sign In",
+      "email": "Eamil",
+      "password": "Password",
+      "remember": "Can't remember",
+      "notup": "Still don't have account ?"
+    }
   }
 }
