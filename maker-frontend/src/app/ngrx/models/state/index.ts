@@ -1,3 +1,7 @@
 import { User } from './user.model';
 
-export { User };
+interface AppState {
+  user: User;
+}
+
+export { AppState, User };

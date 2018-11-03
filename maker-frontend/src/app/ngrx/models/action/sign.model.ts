@@ -1,7 +1,11 @@
 interface SignInSuccessModel {
-  admin: boolean;
-  username: string;
-  email: string;
+  message: string;
+  success: boolean;
+  value: {
+    admin: boolean;
+    username: string;
+    email: string;
+  };
 }
 
 interface SignUpSuccessModel {

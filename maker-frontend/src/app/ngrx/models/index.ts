@@ -1,4 +1,4 @@
 import { SignInSuccessModel, SignUpSuccessModel } from './action';
-import { User } from './state';
+import { AppState, User } from './state';
 
-export { SignInSuccessModel, SignUpSuccessModel, User };
+export { SignInSuccessModel, SignUpSuccessModel, AppState, User };

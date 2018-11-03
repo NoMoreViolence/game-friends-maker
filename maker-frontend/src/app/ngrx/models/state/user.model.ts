@@ -1,5 +1,7 @@
 interface User {
-  logined: boolean;
+  pending: boolean;
+  success: boolean;
+  failure: boolean;
   admin: boolean;
   username: string;
   email: string;
