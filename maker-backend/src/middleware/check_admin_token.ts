@@ -14,17 +14,17 @@ interface JWT {
   email: string;
   createdAt: Date;
 }
-const checkAdminCookie = (req: Request, res: Response, next: NextFunction) => {
-  const { accessToken } = req.cookies;
+const checkAdminToken = (req: Request, res: Response, next: NextFunction) => {
+  const { jwtToken } = req.headers;
 
   // Check token is exist
-  const checkCookieExist = (cookie: Cookie): Promise<Cookie> => (cookie ? Promise.resolve(cookie) : Promise.reject(new Error('No cookie')));
+  const checkTokenExist = (token: string): Promise<string> => (token ? Promise.resolve(token) : Promise.reject(new Error('No Token')));
 
   // Verify token
-  const verifyToken = (cookie: Cookie): Promise<any> =>
+  const verifyToken = (token: string): Promise<any> =>
     new Promise((resolve, reject) =>
       jwt
-        .decodeJWT(cookie.token)
+        .decodeJWT(token)
         .then(data => resolve(data))
         .catch((err: JsonWebTokenError) => reject(new Error(err.name)))
     );
@@ -62,7 +62,7 @@ const checkAdminCookie = (req: Request, res: Response, next: NextFunction) => {
     });
 
   // Promise
-  checkCookieExist(accessToken)
+  checkTokenExist(jwtToken as string)
     .then(verifyToken)
     .then(checkDate)
     .then(checkAdmin)
@@ -70,4 +70,4 @@ const checkAdminCookie = (req: Request, res: Response, next: NextFunction) => {
     .catch(onError);
 };
 
-export { checkAdminCookie };
+export { checkAdminToken };

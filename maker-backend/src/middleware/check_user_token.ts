@@ -14,17 +14,17 @@ interface JWT {
   email: string;
   createdAt: Date;
 }
-const checkUserCookie = (req: Request, res: Response, next: NextFunction) => {
-  const { accessToken } = req.cookies;
+const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
+  const { jwttoken } = req.headers;
 
   // Check token is exist
-  const checkCookieExist = (cookie: Cookie): Promise<Cookie> => (cookie ? Promise.resolve(cookie) : Promise.reject(new Error('No cookie')));
+  const checkTokenExist = (token: string): Promise<string> => (token ? Promise.resolve(token) : Promise.reject(new Error('No Token')));
 
   // Verify token
-  const verifyToken = (cookie: Cookie): Promise<any> =>
+  const verifyToken = (token: string): Promise<any> =>
     new Promise((resolve, reject) =>
       jwt
-        .decodeJWT(cookie.token)
+        .decodeJWT(token)
         .then(data => resolve(data))
         .catch((err: JsonWebTokenError) => reject(new Error(err.name)))
     );
@@ -58,11 +58,11 @@ const checkUserCookie = (req: Request, res: Response, next: NextFunction) => {
     });
 
   // Promise
-  checkCookieExist(accessToken)
+  checkTokenExist(jwttoken as string)
     .then(verifyToken)
     .then(checkDate)
     .then(nextTo)
     .catch(onError);
 };
 
-export { checkUserCookie };
+export { checkUserToken };

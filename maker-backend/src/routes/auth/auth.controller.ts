@@ -224,7 +224,8 @@ export const login = (req: Request, res: Response) => {
       value: {
         admin: value.id === 1 ? true : false,
         username: value.username,
-        email: value.email
+        email: value.email,
+        token: value.token
       }
     });
   };

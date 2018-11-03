@@ -1,4 +1,4 @@
-import { checkAdminCookie } from './check_admin_cookie';
-import { checkUserCookie } from './check_user_cookie';
+import { checkAdminToken } from './check_admin_token';
+import { checkUserToken } from './check_user_token';
 
-export default { checkAdminCookie, checkUserCookie };
+export default { checkAdminToken, checkUserToken };
