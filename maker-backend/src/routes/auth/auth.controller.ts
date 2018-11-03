@@ -259,12 +259,13 @@ export const login = (req: Request, res: Response) => {
   }
 */
 export const check = (req: Request, res: Response) => {
-  const { username, email } = res.locals;
+  const { username, email, id } = res.locals;
 
   res.json({
     success: true,
     message: 'Token access success !',
     value: {
+      admin: id === 1 ? true : false,
       username,
       email
     }
