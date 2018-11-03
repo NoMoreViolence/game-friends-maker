@@ -5,10 +5,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routing } from './app.routing';
 // Store
-import { StoreModule } from '@ngrx/store';
-import { signReducer } from './ngrx/reducer';
+import { StoreModule, compose, combineReducers } from '@ngrx/store';
+import { metaReducers, signReducer } from './ngrx';
 import { EffectsModule } from '@ngrx/effects';
-import { SignInEffect } from './effects';
+import { SignInEffect, AutoSignInEffect } from './ngrx/effects';
 // Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -43,10 +43,8 @@ export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      user: signReducer
-    }),
-    EffectsModule.forRoot([SignInEffect]),
+    StoreModule.forRoot({ user: metaReducers(signReducer) }),
+    EffectsModule.forRoot([SignInEffect, AutoSignInEffect]),
     RouterModule,
     routing,
     BrowserAnimationsModule,
@@ -57,7 +55,12 @@ export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
         deps: [HttpClient]
       }
     }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      timeOut: 1500,
+      progressBar: true,
+      closeButton: false,
+      positionClass: 'toast-bottom-left'
+    })
   ],
   providers: [], // Service
   bootstrap: [AppComponent]
