@@ -6,6 +6,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 const SIGN_IN = 'SIGN_IN';
 const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE';
+// Auto Sign in
+const AUTO_SIGN_IN = 'AUTO_SIGN_IN';
+const AUTO_SIGN_IN_SUCCESS = 'AUTO_SIGN_IN_SUCCESS';
+const AUTO_SIGN_IN_FAILURE = 'AUTO_SIGN_IN_FAILURE';
 // Sign Up
 const SIGN_UP = 'SIGN_UP';
 const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
@@ -28,6 +32,22 @@ export class SignInFailure implements Action {
   constructor(public payload: HttpErrorResponse) {}
 }
 
+export class AutoSignIn implements Action {
+  readonly type = AUTO_SIGN_IN;
+
+  constructor(public payload: void) {}
+}
+export class AutoSignInSuccess implements Action {
+  readonly type = AUTO_SIGN_IN_SUCCESS;
+
+  constructor(public payload: SignInSuccessModel) {}
+}
+export class AutoSignInFailure implements Action {
+  readonly type = AUTO_SIGN_IN_FAILURE;
+
+  constructor(public payload: HttpErrorResponse) {}
+}
+
 // SignUp
 export class SignUp implements Action {
   readonly type = SIGN_UP;
@@ -45,5 +65,25 @@ export class SignUpFailure implements Action {
   constructor(public payload: HttpErrorResponse) {}
 }
 
-export { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILURE };
-export type Actions = SignIn | SignInSuccess | SignInFailure | SignUp | SignUpSuccess | SignUpFailure;
+export {
+  SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+  AUTO_SIGN_IN,
+  AUTO_SIGN_IN_SUCCESS,
+  AUTO_SIGN_IN_FAILURE,
+  SIGN_UP,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE
+};
+
+export type Actions =
+  | SignIn
+  | SignInSuccess
+  | SignInFailure
+  | AutoSignIn
+  | AutoSignInSuccess
+  | AutoSignInFailure
+  | SignUp
+  | SignUpSuccess
+  | SignUpFailure;
