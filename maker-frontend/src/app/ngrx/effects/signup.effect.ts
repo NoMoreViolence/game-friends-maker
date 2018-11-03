@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, pluck } from 'rxjs/operators';
-import { SignUp } from '../ngrx/actions/sign.actions';
+import { SignUp } from '../actions/sign.actions';
 
 @Injectable()
 class RegisterEffect {
