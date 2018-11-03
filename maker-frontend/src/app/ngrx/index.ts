@@ -1,7 +1,4 @@
-import { MetaReducer } from '@ngrx/store';
-import { metaReducer } from './reducer';
-
-export const metaReducers: MetaReducer<any> = metaReducer();
+export * from './models';
 export * from './actions';
 export * from './effects';
-export { signReducer } from './reducer';
+export { signReducer, metaReducer, reducer } from './reducer';

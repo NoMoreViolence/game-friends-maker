@@ -5,8 +5,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routing } from './app.routing';
 // Store
-import { StoreModule, compose, combineReducers } from '@ngrx/store';
-import { metaReducers, signReducer } from './ngrx';
+import { StoreModule } from '@ngrx/store';
+import { metaReducer, reducer } from './ngrx';
 import { EffectsModule } from '@ngrx/effects';
 import { SignInEffect, AutoSignInEffect } from './ngrx/effects';
 // Translate
@@ -43,7 +43,7 @@ export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreModule.forRoot({ user: metaReducers(signReducer) }),
+    StoreModule.forRoot(reducer),
     EffectsModule.forRoot([SignInEffect, AutoSignInEffect]),
     RouterModule,
     routing,
