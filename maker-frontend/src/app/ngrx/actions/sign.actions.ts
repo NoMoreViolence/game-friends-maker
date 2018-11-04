@@ -10,6 +10,8 @@ const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE';
 const AUTO_SIGN_IN = 'AUTO_SIGN_IN';
 const AUTO_SIGN_IN_SUCCESS = 'AUTO_SIGN_IN_SUCCESS';
 const AUTO_SIGN_IN_FAILURE = 'AUTO_SIGN_IN_FAILURE';
+// LOGOUT
+const LOGOUT = 'LOGOUT';
 // Sign Up
 const SIGN_UP = 'SIGN_UP';
 const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
@@ -35,7 +37,7 @@ export class SignInFailure implements Action {
 export class AutoSignIn implements Action {
   readonly type = AUTO_SIGN_IN;
 
-  constructor(public payload: void) {}
+  constructor(public payload: string) {}
 }
 export class AutoSignInSuccess implements Action {
   readonly type = AUTO_SIGN_IN_SUCCESS;
@@ -46,6 +48,12 @@ export class AutoSignInFailure implements Action {
   readonly type = AUTO_SIGN_IN_FAILURE;
 
   constructor(public payload: HttpErrorResponse) {}
+}
+
+export class Logout implements Action {
+  readonly type = LOGOUT;
+
+  constructor(public payload: void) {}
 }
 
 // SignUp
@@ -72,6 +80,7 @@ export {
   AUTO_SIGN_IN,
   AUTO_SIGN_IN_SUCCESS,
   AUTO_SIGN_IN_FAILURE,
+  LOGOUT,
   SIGN_UP,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE
@@ -84,6 +93,7 @@ export type Actions =
   | AutoSignIn
   | AutoSignInSuccess
   | AutoSignInFailure
+  | Logout
   | SignUp
   | SignUpSuccess
   | SignUpFailure;
