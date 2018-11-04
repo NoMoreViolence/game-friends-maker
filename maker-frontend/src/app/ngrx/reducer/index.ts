@@ -1,4 +1,4 @@
-import { signReducer } from './sign-in.reducer';
+import { signReducer } from './sign.reducer';
 import { metaReducer } from './meta.reducer';
 import { MetaReducer } from '@ngrx/store';
 
