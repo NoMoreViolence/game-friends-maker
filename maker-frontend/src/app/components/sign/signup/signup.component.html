@@ -1,3 +1,35 @@
-<p>
-  signup works!
-</p>
+<div id="sign-up">
+  <div id="logo">
+    <span>{{ 'Sign.up.logo' | translate }}</span>
+  </div>
+
+  <div id="form">
+    <div id="inputs">
+      <div>
+        <span [ngClass]="nError ? 's' : 'f'">{{ 'Sign.up.wname' | translate }}</span>
+      </div>
+      <input type="text" placeholder="{{ 'Sign.up.name' | translate }}" [ngClass]="nError ? 's' : 'f'" #name>
+      <div>
+        <span [ngClass]="eError ? 's' : 'f'">{{ 'Sign.up.wem' | translate }}</span>
+      </div>
+      <input type="text" placeholder="{{ 'Sign.up.em' | translate }}" [ngClass]="eError ? 's' : 'f'" #em>
+      <div>
+        <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.up.wpw1' | translate }}</span>
+        <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.up.wpw2' | translate }}</span>
+      </div>
+      <input type="password" placeholder="{{ 'Sign.up.pw' | translate }}" [ngClass]="pError ? 's' : 'f'" #pw>
+      <div>
+        <span [ngClass]="rpError ? 's' : 'f'">{{ 'Sign.up.wrpw' | translate }}</span>
+      </div>
+      <input type="password" placeholder="{{ 'Sign.up.rpw' | translate }}" [ngClass]="rpError ? 's' : 'f'" #rpw>
+    </div>
+
+    <div id="buttons">
+      <button (click)="signUp(name, em, pw, rpw)">{{ 'Sign.up.logo' | translate }}</button>
+    </div>
+  </div>
+
+  <div id="comment">
+    <span routerLink="/sign/in" id="find">{{ 'Sign.up.signed' | translate }}</span>
+  </div>
+</div>
