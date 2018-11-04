@@ -7,8 +7,9 @@ import { routing } from './app.routing';
 // Store
 import { StoreModule } from '@ngrx/store';
 import { metaReducer, reducer } from './ngrx';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { SignInEffect, AutoSignInEffect } from './ngrx/effects';
+import { SignInEffect, AutoSignInEffect, SignUpEffect } from './ngrx/effects';
 // Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -44,7 +45,8 @@ export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(reducer),
-    EffectsModule.forRoot([SignInEffect, AutoSignInEffect]),
+    StoreDevtoolsModule.instrument({ maxAge: 5 }),
+    EffectsModule.forRoot([SignInEffect, AutoSignInEffect, SignUpEffect]),
     RouterModule,
     routing,
     BrowserAnimationsModule,
