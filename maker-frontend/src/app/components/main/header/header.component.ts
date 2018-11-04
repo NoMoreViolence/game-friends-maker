@@ -16,9 +16,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   constructor(private store: Store<AppState>, private router: Router, private toast: ToastrService, private translate: TranslateService) {
     this.user = this.store.select('user');
-    this.user.subscribe(userData => {
-      console.log(userData);
-    });
   }
 
   public logout = () => {
