@@ -18,7 +18,6 @@ interface CheckDuplication {
   what: string;
   checkvalue: string;
 }
-// Username, E-mail duplication check function
 export const checkDuplication = (req: Request, res: Response): void => {
   const { what } = req.params;
   const { checkvalue } = req.query;
@@ -26,7 +25,6 @@ export const checkDuplication = (req: Request, res: Response): void => {
   const checkWhatShouldUpdate = (value: CheckDuplication): Promise<CheckDuplication> =>
     value.what === 'username' || value.what === 'email' ? Promise.resolve(value) : Promise.reject(new Error('There is a wrong request !'));
 
-  // Validation check
   const checkValidation = (value: CheckDuplication): Promise<CheckDuplication> =>
     new Promise((resolve, reject) =>
       validation
@@ -34,7 +32,6 @@ export const checkDuplication = (req: Request, res: Response): void => {
         .then(data => (data.result === true ? resolve(value) : reject(new Error('There is no information'))))
     );
 
-  // User find
   const DoubleCheck = (value: CheckDuplication): Promise<CheckDuplication> =>
     new Promise((resolve, reject) =>
       User.findOne({
@@ -44,21 +41,18 @@ export const checkDuplication = (req: Request, res: Response): void => {
         .catch((err: DatabaseError) => reject(new Error('There is an user input error !')))
     );
 
-  // Response to client
   const responseToClient = (value: CheckDuplication): Response =>
     res.json({
       success: true,
       message: 'DoubleCheck success !'
     });
 
-  //  Error handler
   const onError = (err: Error) =>
     res.status(409).json({
       success: false,
       message: err.message
     });
 
-  // Promise
   checkWhatShouldUpdate({ what, checkvalue, regex })
     .then(checkValidation)
     .then(DoubleCheck)
@@ -83,7 +77,6 @@ interface Register {
 export const register = (req: Request, res: Response): void => {
   const { username, email, password } = req.body;
 
-  // Null check
   const checkNull = (value: Register): Promise<Register> =>
     typeof value.username === 'string' && typeof value.email === 'string' && typeof value.password === 'string'
       ? Promise.resolve({
@@ -94,7 +87,6 @@ export const register = (req: Request, res: Response): void => {
         })
       : Promise.reject(new Error('There is no data !'));
 
-  // Password validation check
   const checkPasswordValidation = (value: Register): Promise<Register> =>
     new Promise((resolve, reject) =>
       validation
@@ -103,7 +95,6 @@ export const register = (req: Request, res: Response): void => {
         .catch(err => reject(new Error('There is a server error !')))
     );
 
-  // Password encryptio
   const passwordEncryption = (value: Register): Promise<Register> =>
     new Promise((resolve, reject) =>
       encrypto({ password: value.password, salt: salt() })
@@ -111,7 +102,6 @@ export const register = (req: Request, res: Response): void => {
         .catch((err: Error) => reject(new Error('There is a server error !')))
     );
 
-  // Add user
   const addUser = (value: Register): Promise<Register> =>
     new Promise((resolve, reject) =>
       User.create({
@@ -122,26 +112,22 @@ export const register = (req: Request, res: Response): void => {
         verified: false
       })
         .then((data: User) => (data ? resolve(value) : reject(new Error('There is a server Error !'))))
-        .catch((err: DatabaseError) => reject(new Error(err.message)))
+        .catch((err: DatabaseError) => reject(new Error(err.name)))
     );
 
-  // Response
   const responseToClient = (value: Register) =>
-    // res.cookie('hello', 'helo', { httpOnly: true });
     res.json({
       success: true,
       message: 'Register success !',
       value: { username: value.username, email: value.email }
     });
 
-  // Error handler
   const onError = (err: Error) =>
     res.status(409).json({
       success: false,
       message: err.message
     });
 
-  // Promise
   checkNull({ regex, username, email, password, salt: '' })
     .then(checkPasswordValidation)
     .then(passwordEncryption)
@@ -168,7 +154,6 @@ interface Login {
 export const login = (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  // Value validation check
   const checkValidation = (value: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
       validation
@@ -181,7 +166,6 @@ export const login = (req: Request, res: Response) => {
         })
     );
 
-  // Find salt value
   const findData = (value: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
       User.findOne({ where: { email: value.email } })
@@ -194,7 +178,6 @@ export const login = (req: Request, res: Response) => {
         .catch((err: DatabaseError) => reject(new Error('There is no user data that have request email !')))
     );
 
-  // Password encryption
   const passwordEncryption = (value: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
       encrypto({ password: value.password, salt: value.salt })
@@ -202,11 +185,9 @@ export const login = (req: Request, res: Response) => {
         .catch((err: Error) => reject(new Error('There is a server Error !')))
     );
 
-  // Password compare
   const compareData = (value: Login): Promise<Login> =>
     value.password === value.hashedPassword ? Promise.resolve(value) : Promise.reject(new Error('There is a password error !'));
 
-  // Create jwt token
   const createJWT = (value: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
       jwt
@@ -215,7 +196,6 @@ export const login = (req: Request, res: Response) => {
         .catch((err: JsonWebTokenError) => reject(new Error('Server error !')))
     );
 
-  // Response
   const responseToClient = (value: Login) => {
     res.cookie('accessToken', { token: value.token }, { maxAge: 2628000 * 2, httpOnly: true });
     res.json({
@@ -230,14 +210,12 @@ export const login = (req: Request, res: Response) => {
     });
   };
 
-  // Error handler
   const onError = (err: Error) =>
     res.status(409).json({
       success: false,
       message: err.message
     });
 
-  // Promise
   checkValidation({ id: -1, username: '', email, password, hashedPassword: '', salt: '', token: '' })
     .then(findData)
     .then(passwordEncryption)
@@ -291,21 +269,18 @@ export const withdraw = (req: Request, res: Response) => {
         .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
-  // Response
   const responseToClient = (value: Withdraw): Response =>
     res.json({
       success: true,
       message: 'Withdraw success ! good bye.'
     });
 
-  // Error handler
   const onError = (err: Error): Response =>
     res.status(409).json({
       success: false,
       message: err.message
     });
 
-  // Promise
   destoryAccount({ id })
     .then(responseToClient)
     .catch(onError);
