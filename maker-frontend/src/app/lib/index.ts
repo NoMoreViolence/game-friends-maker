@@ -1,3 +1,3 @@
-import { emailRegex, passwordRegex } from './regex';
+import { usernameRegex, emailRegex, passwordRegex } from './regex';
 
-export default { emailRegex, passwordRegex };
+export default { usernameRegex, emailRegex, passwordRegex };
