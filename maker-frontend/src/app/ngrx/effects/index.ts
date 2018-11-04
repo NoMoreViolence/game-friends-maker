@@ -1,4 +1,5 @@
 import { SignInEffect } from './signin.effect';
+import { SignUpEffect } from './signup.effect';
 import { AutoSignInEffect } from './autosignin.effect';
 
-export { SignInEffect, AutoSignInEffect };
+export { SignInEffect, SignUpEffect, AutoSignInEffect };

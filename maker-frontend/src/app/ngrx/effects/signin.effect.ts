@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of, combineLatest } from 'rxjs';
-import { catchError, map, mergeMap, tap, pluck } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { SignActions } from '../actions';
+import { SignActions } from 'src/app/ngrx/actions';
+import { HttpSuccess, Omit } from 'src/app/interface';
 
 @Injectable()
 class SignInEffect {
@@ -20,13 +21,13 @@ class SignInEffect {
   ) {}
 
   @Effect()
-  signIn$: Observable<Action> = this.actions$.pipe(
-    ofType(SignActions.SIGN_IN),
-    pluck('payload'),
+  public signIn$: Observable<Action> = this.actions$.pipe(
+    ofType<SignActions.ActionSignIn>(SignActions.SIGN_IN),
+    map(action => action.payload),
     mergeMap(payload =>
       this.http.post('/api/auth/login', payload).pipe(
-        map((data: HttpResponse<JSON>) => {
-          localStorage.setItem('logined', 'true');
+        map((data: Omit<HttpSuccess, 'value'> & { value: { admin: boolean; username: string; email: string; token: string } }) => {
+          localStorage.setItem('token', data.value.token);
           combineLatest(this.router.navigateByUrl('/main'), this.translate.get('Sign.in.success'), (route, comment) =>
             this.toast.success(comment)
           ).subscribe();

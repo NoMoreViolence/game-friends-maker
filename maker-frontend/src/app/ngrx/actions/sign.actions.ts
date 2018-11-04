@@ -2,22 +2,20 @@ import { Action } from '@ngrx/store';
 import { SignInSuccessModel, SignUpSuccessModel } from '../models';
 import { HttpErrorResponse } from '@angular/common/http';
 
-// Sign In
 const SIGN_IN = 'SIGN_IN';
 const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE';
-// Auto Sign in
+
 const AUTO_SIGN_IN = 'AUTO_SIGN_IN';
 const AUTO_SIGN_IN_SUCCESS = 'AUTO_SIGN_IN_SUCCESS';
 const AUTO_SIGN_IN_FAILURE = 'AUTO_SIGN_IN_FAILURE';
-// LOGOUT
+
 const LOGOUT = 'LOGOUT';
-// Sign Up
+
 const SIGN_UP = 'SIGN_UP';
 const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
-// SignIn
 export class SignIn implements Action {
   readonly type = SIGN_IN;
 
@@ -56,7 +54,6 @@ export class Logout implements Action {
   constructor(public payload: void) {}
 }
 
-// SignUp
 export class SignUp implements Action {
   readonly type = SIGN_UP;
 
@@ -73,6 +70,19 @@ export class SignUpFailure implements Action {
   constructor(public payload: HttpErrorResponse) {}
 }
 
+interface ActionSignIn {
+  readonly type: string;
+  readonly payload: { eamil: string; password: string };
+}
+interface ActionAutoSignIn {
+  readonly type: string;
+  readonly payload: string;
+}
+interface ActionSignUp {
+  readonly type: string;
+  readonly payload: { username: string; email: string; password: string };
+}
+
 export {
   SIGN_IN,
   SIGN_IN_SUCCESS,
@@ -85,6 +95,8 @@ export {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE
 };
+
+export { ActionSignIn, ActionAutoSignIn, ActionSignUp };
 
 export type Actions =
   | SignIn
