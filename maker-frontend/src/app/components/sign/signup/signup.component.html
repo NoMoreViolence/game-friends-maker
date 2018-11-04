@@ -8,11 +8,27 @@
       <div>
         <span [ngClass]="nError ? 's' : 'f'">{{ 'Sign.up.wname' | translate }}</span>
       </div>
-      <input type="text" placeholder="{{ 'Sign.up.name' | translate }}" [ngClass]="nError ? 's' : 'f'" #name>
+      <div id="username">
+        <input type="text" placeholder="{{ 'Sign.up.name' | translate }}" [ngClass]="nError ? 's' : 'f'" #name>
+        <button (click)="doubleCheck(name, 'username')" [disabled]="usernameCheck" [ngClass]="usernameCheck && 'checked'">
+          <div *ngIf="usernamePending === false;else loading">
+            {{ 'Sign.up.check' | translate }}
+          </div>
+          <ng-template #loading><img src="/assets/images/svg-loaders/three-dots.svg"></ng-template>
+        </button>
+      </div>
       <div>
         <span [ngClass]="eError ? 's' : 'f'">{{ 'Sign.up.wem' | translate }}</span>
       </div>
-      <input type="text" placeholder="{{ 'Sign.up.em' | translate }}" [ngClass]="eError ? 's' : 'f'" #em>
+      <div id="email">
+        <input type="text" placeholder="{{ 'Sign.up.em' | translate }}" [ngClass]="eError ? 's' : 'f'" #em>
+        <button (click)="doubleCheck(em, 'email')" [disabled]="emailCheck" [ngClass]="emailCheck && 'checked'">
+          <div *ngIf="emailPending === false;else loading">
+            {{ 'Sign.up.check' | translate }}
+          </div>
+          <ng-template #loading><img src="/assets/images/svg-loaders/three-dots.svg"></ng-template>
+        </button>
+      </div>
       <div>
         <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.up.wpw1' | translate }}</span>
         <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.up.wpw2' | translate }}</span>
