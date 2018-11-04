@@ -23,10 +23,15 @@
       "wpw1": "Least one number, english, special char",
       "wpw2": "Longer than 6 letters",
       "pw": "Password",
+      "notright": "Insert right value !",
       "remember": "Can't remember",
       "notup": "Still don't have account ?"
     },
     "up": {
+      "checkp": "Still working, wait a sec !",
+      "check": "Double check",
+      "checks": "check success !",
+      "checkf": "check failure !",
       "success": "Sing up success",
       "failure": "Sign up failure !",
       "logo": "Sign Up",
@@ -40,6 +45,8 @@
       "pw": "Password",
       "wrpw": "Insert same password",
       "rpw": "Password again",
+      "notchecked": "Please double-check !",
+      "notright": "Insert right value !",
       "signed": "You have account already ?"
     }
   }
