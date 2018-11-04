@@ -3,6 +3,7 @@
     "lang": "en"
   },
   "Header": {
+    "logout": "Logout success",
     "Lang": "ko",
     "Sign": "Sign",
     "Login": "Sign In",
@@ -13,11 +14,33 @@
   },
   "Sign": {
     "in": {
+      "success": "Welcome to GFM",
+      "failure": "Sign in failure !",
+      "already": "You are logined already !",
       "logo": "Sign In",
-      "email": "Eamil",
-      "password": "Password",
+      "wem": "Wrong email vaildation",
+      "em": "Eamil",
+      "wpw1": "Least one number, english, special char",
+      "wpw2": "Longer than 6 letters",
+      "pw": "Password",
       "remember": "Can't remember",
       "notup": "Still don't have account ?"
+    },
+    "up": {
+      "success": "Sing up success",
+      "failure": "Sign up failure !",
+      "logo": "Sign Up",
+      "already": "You are logined already !",
+      "wname": "3 - 16 length, allow '_', '-', number, alphabet",
+      "name": "Username",
+      "wem": "Wrong email vaildation",
+      "em": "Eamil",
+      "wpw1": "Least one number, english, special char",
+      "wpw2": "Longer than 6 letters",
+      "pw": "Password",
+      "wrpw": "Insert same password",
+      "rpw": "Password again",
+      "signed": "You have account already ?"
     }
   }
 }
