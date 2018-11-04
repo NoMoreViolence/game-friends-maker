@@ -3,12 +3,22 @@
         <span routerLink="/main" routerLinkActive="imhere"><strong>{{ '{' }} Game {{ '}' }}</strong> Mate Maker</span>
     </ul>
     <ul id="menu">
-        <li id="auth">
-            <span routerLink="/sign/in" routerLinkActive="imhere">{{ 'Header.Login' | translate }}</span>
-        </li>
-        <li id="auth">
-            <span routerLink="/sign/up" routerLinkActive="imhere">{{ 'Header.Register' | translate }}</span>
-        </li>
+        <ng-template [ngIf]="(user|async).success">
+            <li id="auth">
+                <span (click)="logout()">Logout</span>
+            </li>
+            <li id="auth">
+                <span routerLink="/sign/up" routerLinkActive="imhere">My Info</span>
+            </li>
+        </ng-template>
+        <ng-template [ngIf]="!(user|async).success">
+            <li id="auth">
+                <span routerLink="/sign/in" routerLinkActive="imhere">{{ 'Header.Login' | translate }}</span>
+            </li>
+            <li id="auth">
+                <span routerLink="/sign/up" routerLinkActive="imhere">{{ 'Header.Register' | translate }}</span>
+            </li>
+        </ng-template>
         <li id="lang">
             <span (click)="changeLang(lang)" #lang>{{ 'Header.Lang' | translate }}</span>
         </li>

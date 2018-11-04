@@ -39,6 +39,10 @@ $tablet: 768px;
     li {
       display: flex;
       align-items: center;
+
+      span {
+        font-size: 1.2rem;
+      }
     }
 
     #auth {
