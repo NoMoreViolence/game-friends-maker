@@ -62,18 +62,12 @@ export const signReducer = produce<User, SignActions.Actions>((draft, action) =>
 
     case SignActions.SIGN_UP:
       draft.pending = true;
-      draft.success = false;
-      draft.failure = false;
       return draft;
     case SignActions.SIGN_UP_SUCCESS:
       draft.pending = false;
-      draft.success = true;
-      draft.failure = false;
       return draft;
     case SignActions.SIGN_UP_FAILURE:
       draft.pending = false;
-      draft.success = false;
-      draft.failure = true;
       return draft;
 
     default:
