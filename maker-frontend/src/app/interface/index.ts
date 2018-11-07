@@ -1,2 +1,2 @@
-export { HttpSuccess } from './http-success';
+export { HttpResponse } from './http-response';
 export { Omit } from './omit';
