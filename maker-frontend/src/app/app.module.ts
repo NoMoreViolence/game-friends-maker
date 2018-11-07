@@ -9,13 +9,15 @@ import { StoreModule } from '@ngrx/store';
 import { metaReducer, reducer } from './ngrx';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { SignInEffect, AutoSignInEffect, SignUpEffect } from './ngrx/effects';
+import { SignInEffect, AutoSignInEffect } from './ngrx/effects';
 // Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // Toast
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+// Services
+import { SignService } from 'src/app/services';
 // Components
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
@@ -45,8 +47,8 @@ export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(reducer),
-    StoreDevtoolsModule.instrument({ maxAge: 5 }),
-    EffectsModule.forRoot([SignInEffect, AutoSignInEffect, SignUpEffect]),
+    StoreDevtoolsModule.instrument({}),
+    EffectsModule.forRoot([SignInEffect, AutoSignInEffect]),
     RouterModule,
     routing,
     BrowserAnimationsModule,
@@ -64,7 +66,7 @@ export const HttpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
       positionClass: 'toast-bottom-left'
     })
   ],
-  providers: [], // Service
+  providers: [SignService], // Service
   bootstrap: [AppComponent]
 })
 export class AppModule {}

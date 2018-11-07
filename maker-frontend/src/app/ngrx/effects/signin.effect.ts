@@ -8,7 +8,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { SignActions } from 'src/app/ngrx/actions';
-import { HttpSuccess, Omit } from 'src/app/interface';
+import { HttpResponse, Omit } from 'src/app/interface';
 
 @Injectable()
 class SignInEffect {
@@ -26,7 +26,7 @@ class SignInEffect {
     map(action => action.payload),
     mergeMap(payload =>
       this.http.post('/api/auth/login', payload).pipe(
-        map((data: Omit<HttpSuccess, 'value'> & { value: { admin: boolean; username: string; email: string; token: string } }) => {
+        map((data: Omit<HttpResponse, 'value'> & { value: { admin: boolean; username: string; email: string; token: string } }) => {
           localStorage.setItem('token', data.value.token);
           combineLatest(this.router.navigateByUrl('/main'), this.translate.get('Sign.in.success'), (route, comment) =>
             this.toast.success(comment)

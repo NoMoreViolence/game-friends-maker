@@ -12,10 +12,6 @@ const AUTO_SIGN_IN_FAILURE = 'AUTO_SIGN_IN_FAILURE';
 
 const LOGOUT = 'LOGOUT';
 
-const SIGN_UP = 'SIGN_UP';
-const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
-const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
-
 export class SignIn implements Action {
   readonly type = SIGN_IN;
 
@@ -54,22 +50,6 @@ export class Logout implements Action {
   constructor(public payload: void) {}
 }
 
-export class SignUp implements Action {
-  readonly type = SIGN_UP;
-
-  constructor(public payload: { username: string; email: string; password: string }) {}
-}
-export class SignUpSuccess implements Action {
-  readonly type = SIGN_UP_SUCCESS;
-
-  constructor(public payload: SignUpSuccessModel) {}
-}
-export class SignUpFailure implements Action {
-  readonly type = SIGN_UP_FAILURE;
-
-  constructor(public payload: HttpErrorResponse) {}
-}
-
 interface ActionSignIn {
   readonly type: string;
   readonly payload: { eamil: string; password: string };
@@ -83,29 +63,8 @@ interface ActionSignUp {
   readonly payload: { username: string; email: string; password: string };
 }
 
-export {
-  SIGN_IN,
-  SIGN_IN_SUCCESS,
-  SIGN_IN_FAILURE,
-  AUTO_SIGN_IN,
-  AUTO_SIGN_IN_SUCCESS,
-  AUTO_SIGN_IN_FAILURE,
-  LOGOUT,
-  SIGN_UP,
-  SIGN_UP_SUCCESS,
-  SIGN_UP_FAILURE
-};
+export { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, AUTO_SIGN_IN, AUTO_SIGN_IN_SUCCESS, AUTO_SIGN_IN_FAILURE, LOGOUT };
 
 export { ActionSignIn, ActionAutoSignIn, ActionSignUp };
 
-export type Actions =
-  | SignIn
-  | SignInSuccess
-  | SignInFailure
-  | AutoSignIn
-  | AutoSignInSuccess
-  | AutoSignInFailure
-  | Logout
-  | SignUp
-  | SignUpSuccess
-  | SignUpFailure;
+export type Actions = SignIn | SignInSuccess | SignInFailure | AutoSignIn | AutoSignInSuccess | AutoSignInFailure | Logout;
