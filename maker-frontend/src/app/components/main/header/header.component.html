@@ -8,7 +8,7 @@
                 <span (click)="logout()">Logout</span>
             </li>
             <li id="auth">
-                <span routerLink="/sign/up" routerLinkActive="imhere">My Info</span>
+                <span routerLink="/my" routerLinkActive="imhere">My Info</span>
             </li>
         </ng-template>
         <ng-template [ngIf]="!(user|async).success">
