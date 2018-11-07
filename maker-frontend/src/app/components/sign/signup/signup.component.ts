@@ -1,43 +1,48 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, combineLatest, fromEvent, forkJoin } from 'rxjs';
-import { first, tap, debounceTime, map } from 'rxjs/operators';
+import { Observable, fromEvent, forkJoin, Subscription } from 'rxjs';
+import { first, tap, debounceTime, combineLatest } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { AppState, User, SignActions } from 'src/app/ngrx';
 import lib from 'src/app/lib';
+import { SignService } from 'src/app/services';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements AfterViewInit {
-  private usernameCheck = false;
-  private usernamePending = false;
-  private emailCheck = false;
-  private emailPending = false;
-  // Error: false, success: true
-  private nError = true;
-  private eError = true;
-  private pError = true;
-  private rpError = true;
+export class SignupComponent implements AfterViewInit, OnDestroy {
+  public usernameCheck = false;
+  public usernamePending = false;
+  public emailCheck = false;
+  public emailPending = false;
+  public uError = false;
+  public eError = false;
+  public pError = false;
+  public rpError = false;
   @ViewChild('name')
-  private username: ElementRef<HTMLInputElement>;
+  public username: ElementRef<HTMLInputElement>;
   @ViewChild('em')
-  private email: ElementRef<HTMLInputElement>;
+  public email: ElementRef<HTMLInputElement>;
   @ViewChild('pw')
-  private password: ElementRef<HTMLInputElement>;
+  public password: ElementRef<HTMLInputElement>;
   @ViewChild('rpw')
-  private rpassword: ElementRef<HTMLInputElement>;
-  private user: Observable<User>;
+  public rpassword: ElementRef<HTMLInputElement>;
+  public signUpPending = false;
+  public signUpComment: Observable<string[]> = forkJoin([this.translate.get('Sign.up.success'), this.translate.get('Sign.up.failure')]);
+  public duplicationComment: Observable<string[]> = forkJoin([this.translate.get('Sign.up.checks'), this.translate.get('Sign.up.checkf')]);
+
+  public user: Observable<User>;
+  public subscriptions: Subscription[] = [];
 
   constructor(
     private store: Store<AppState>,
+    private sign: SignService,
     private router: Router,
-    private http: HttpClient,
     private toast: ToastrService,
     private translate: TranslateService
   ) {
@@ -47,116 +52,159 @@ export class SignupComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.user.pipe(first()).subscribe(userData => {
       if (userData.success === true) {
-        combineLatest(this.router.navigateByUrl('/main'), this.translate.get('Sign.up.already'), (route, comment) =>
-          this.toast.info(comment)
-        ).subscribe();
+        this.router.navigateByUrl('/main');
+        this.translate
+          .get('Sign.up.already')
+          .pipe(first())
+          .subscribe(comment => this.toast.info(comment));
       } else {
-        fromEvent(this.username.nativeElement, 'input')
+        const username = fromEvent(this.username.nativeElement, 'input')
           .pipe(
-            tap(x => {
+            tap(() => {
               this.usernameCheck = false;
-              this.nError = true;
+              this.uError = false;
             }),
             debounceTime(600)
           )
-          .subscribe(data => {
+          .subscribe(() => {
             if (this.username.nativeElement.value === '') {
-              this.nError = true;
+              this.uError = false;
             } else {
-              this.nError = lib.usernameRegex.test(this.username.nativeElement.value);
+              this.uError = !lib.usernameRegex.test(this.username.nativeElement.value);
             }
           });
-        fromEvent(this.email.nativeElement, 'input')
+        const email = fromEvent(this.email.nativeElement, 'input')
           .pipe(
-            tap(x => {
+            tap(() => {
               this.emailCheck = false;
-              this.eError = true;
+              this.eError = false;
             }),
             debounceTime(600)
           )
-          .subscribe(data => {
+          .subscribe(() => {
             if (this.email.nativeElement.value === '') {
-              this.eError = true;
+              this.eError = false;
             } else {
-              this.eError = lib.emailRegex.test(this.email.nativeElement.value);
+              this.eError = !lib.emailRegex.test(this.email.nativeElement.value);
             }
           });
-        fromEvent(this.password.nativeElement, 'input')
+        const password = fromEvent(this.password.nativeElement, 'input')
           .pipe(
-            tap(x => (this.pError = true)),
+            tap(() => (this.pError = false)),
             debounceTime(600)
           )
-          .subscribe(data => {
+          .subscribe(() => {
             if (this.password.nativeElement.value === '') {
-              this.pError = true;
+              this.pError = false;
             } else {
-              this.pError = lib.passwordRegex.test(this.password.nativeElement.value);
+              this.pError = !lib.passwordRegex.test(this.password.nativeElement.value);
               this.rpError = this.rpassword.nativeElement.value === this.password.nativeElement.value;
             }
           });
-        fromEvent(this.rpassword.nativeElement, 'input')
+        const rpassword = fromEvent(this.rpassword.nativeElement, 'input')
           .pipe(
-            tap(x => (this.rpError = true)),
+            tap(() => (this.rpError = false)),
             debounceTime(600)
           )
-          .subscribe(data => {
+          .subscribe(() => {
             if (this.rpassword.nativeElement.value === '') {
-              this.rpError = true;
+              this.rpError = false;
             } else {
-              this.rpError = this.rpassword.nativeElement.value === this.password.nativeElement.value;
+              this.rpError = !(this.rpassword.nativeElement.value === this.password.nativeElement.value);
             }
           });
+
+        this.subscriptions.push(username);
+        this.subscriptions.push(email);
+        this.subscriptions.push(password);
+        this.subscriptions.push(rpassword);
       }
     });
   }
 
-  private doubleCheck = (element: HTMLInputElement, what: string) => {
-    if ((what === 'username' && this[`${what}Pending`] === false) || (what === 'email' && this[`${what}Pending`] === false)) {
-      this[`${what}Pending`] = true;
+  ngOnDestroy() {
+    this.subscriptions.map(x => x.unsubscribe());
+  }
 
-      this.http.get(`/api/auth/duplication/${what}?checkvalue=${element.value}`).subscribe(
-        res => {
-          this[`${what}Pending`] = false;
-          this[`${what}Check`] = true;
-          this.translate.get('Sign.up.checks').subscribe(comment => this.toast.info(comment));
-        },
-        err => {
-          this[`${what}Pending`] = false;
-          this[`${what}Check`] = false;
-          this.translate.get('Sign.up.checkf').subscribe(comment => this.toast.error(`${what} ${comment}`));
-        }
-      );
+  public doubleCheck = (element: HTMLInputElement, what: string) => {
+    this[`${what.split('')[0]}Error`] = !lib[`${what}Regex`].test(element.value);
+    if (this[`${what}Pending`] === false && this[`${what.split('')[0]}Error`] === false) {
+      this[`${what}Pending`] = true;
+      this.sign
+        .duplicationCheck(element.value, what)
+        .pipe(combineLatest(this.duplicationComment, (origin, comment) => ({ ...origin, comment })))
+        .subscribe(
+          res => {
+            if (res.success) {
+              this[`${what}Pending`] = false;
+              this[`${what}Check`] = true;
+              this.toast.info(res.comment[0]);
+            } else {
+              this[`${what}Pending`] = false;
+              this[`${what}Check`] = false;
+              this.toast.error(res.comment[1]);
+            }
+          },
+          err => {
+            this[`${what}Pending`] = false;
+            this[`${what}Check`] = false;
+            this.translate
+              .get('Sign.up.checkf')
+              .pipe(first())
+              .subscribe(comment => this.toast.error(`${what} ${comment}`));
+          }
+        );
+    } else if (this[`${what.split('')[0]}Error`]) {
+      this.translate
+        .get('Sign.up.notright')
+        .pipe(first())
+        .subscribe(comment => this.toast.error(comment));
     } else {
-      this.translate.get('Sign.up.checkw').subscribe(comment => this.toast.error(comment));
+      this.translate
+        .get('Sign.up.pending')
+        .pipe(first())
+        .subscribe(comment => this.toast.info(comment));
     }
   }
 
-  private signUp = (username: HTMLInputElement, email: HTMLInputElement, password: HTMLInputElement, rpassword: HTMLInputElement) => {
-    if (
-      !this.nError ||
-      !this.eError ||
-      !this.pError ||
-      !this.rpError ||
-      username.value === '' ||
-      email.value === '' ||
-      password.value === '' ||
-      rpassword.value === '' ||
-      !this.usernameCheck ||
-      !this.emailCheck
-    ) {
+  public signUp = (username: HTMLInputElement, email: HTMLInputElement, password: HTMLInputElement, rpassword: HTMLInputElement) => {
+    this.uError = !lib.usernameRegex.test(username.value);
+    this.eError = !lib.emailRegex.test(email.value);
+    this.pError = !lib.passwordRegex.test(password.value);
+    this.rpError = !(rpassword.value === password.value);
+
+    if (this.uError || this.eError || this.pError || this.rpError || !this.usernameCheck || !this.emailCheck) {
       if (!this.usernameCheck || !this.emailCheck) {
-        this.translate.get('Sign.up.notchecked').subscribe(comment => this.toast.error(comment));
+        this.translate
+          .get('Sign.up.notchecked')
+          .pipe(first())
+          .subscribe(comment => this.toast.error(comment));
       } else {
-        this.translate.get('Sign.up.notright').subscribe(comment => this.toast.error(comment));
+        this.translate
+          .get('Sign.up.notright')
+          .pipe(first())
+          .subscribe(comment => this.toast.error(comment));
       }
     } else {
-      this.store.dispatch(
-        new SignActions.SignUp({
-          username: username.value,
-          email: email.value,
-          password: password.value
-        })
-      );
+      this.signUpPending = true;
+      this.sign
+        .signUp(username.value, email.value, password.value)
+        .pipe(combineLatest(this.signUpComment, (origin, comment) => ({ ...origin, comment })))
+        .subscribe(
+          res => {
+            this.signUpPending = false;
+            if (res.success) {
+              this.router.navigateByUrl('/sign/in');
+              this.toast.success(res.comment[0]);
+            } else {
+              this.toast.error(res.comment[1]);
+            }
+          },
+          err => {
+            this.signUpPending = false;
+            this.toast.error('Unknown Error !');
+          }
+        );
     }
   }
 }
