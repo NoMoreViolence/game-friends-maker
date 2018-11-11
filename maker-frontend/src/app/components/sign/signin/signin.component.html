@@ -1,32 +1,39 @@
 <div id="sign-in">
-    <div id="logo">
-        <span>{{ 'Sign.in.logo' | translate }}</span>
+  <div id="logo">
+    <span>{{ 'Sign.in.logo' | translate }}</span>
+  </div>
+
+  <div id="form">
+    <div id="inputs">
+      <div>
+        <span [ngClass]="eError ? 's' : 'f'">{{ 'Sign.in.wem' | translate }}</span>
+      </div>
+      <input type="text" placeholder="{{ 'Sign.in.em' | translate }}" [ngClass]="eError ? 's' : 'f'" #em />
+      <div>
+        <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.in.wpw1' | translate }}</span>
+        <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.in.wpw2' | translate }}</span>
+      </div>
+      <input type="password" placeholder="{{ 'Sign.in.pw' | translate }}" [ngClass]="pError ? 's' : 'f'" #pw />
     </div>
 
-    <div id="form">
-        <div id="inputs">
-            <div>
-                <span [ngClass]="eError ? 's' : 'f'">{{ 'Sign.in.wem' | translate }}</span>
-            </div>
-            <input type="text" placeholder="{{ 'Sign.in.em' | translate }}" [ngClass]="eError ? 's' : 'f'" #em>
-            <div>
-                <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.in.wpw1' | translate }}</span>
-                <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.in.wpw2' | translate }}</span>
-            </div>
-            <input type="password" placeholder="{{ 'Sign.in.pw' | translate }}" [ngClass]="pError ? 's' : 'f'" #pw>
-        </div>
+    <div id="buttons">
+      <button (click)="signIn(em, pw)">
+        <label [hidden]="(user$ | async).pending">{{ 'Sign.in.logo' | translate }}</label>
+        <img [hidden]="!(user$ | async).pending" src="/assets/images/svg-loaders/three-dots.svg" alt="loading image" />
+      </button>
+    </div>
+  </div>
 
-        <div id="buttons">
-            <button (click)="signIn(em, pw)">{{ 'Sign.in.logo' | translate }}</button>
-        </div>
+  <div id="comment">
+    <div>
+      <span>
+        {{ 'Sign.in.remember' | translate }} <span routerLink="/sign/findem" id="find">{{ 'Sign.in.em' | translate }}</span> /
+        <span routerLink="/sign/findpw" id="find">{{ 'Sign.in.pw' | translate }}</span>
+      </span>
     </div>
 
-    <div id="comment">
-        <span>
-            {{ 'Sign.in.remember' | translate }}
-            <span routerLink="/sign/findem" id="find">{{ 'Sign.in.em' | translate }}</span>/
-            <span routerLink="/sign/findpw" id="find">{{ 'Sign.in.pw' | translate }}</span>
-        </span>
-        <span routerLink="/sign/up" id="find">{{ 'Sign.in.notup' | translate }}</span>
+    <div>
+      <span routerLink="/sign/up" id="find">{{ 'Sign.in.notup' | translate }}</span>
     </div>
+  </div>
 </div>
