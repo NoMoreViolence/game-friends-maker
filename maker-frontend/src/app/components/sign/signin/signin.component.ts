@@ -6,8 +6,8 @@ import { debounceTime, tap, first, filter } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import lib from 'src/app/lib';
-import { AppState, User } from 'src/app/ngrx/models';
-import { SignActions } from 'src/app/ngrx/actions';
+import { AppState, User } from 'src/app/store/models';
+import { SignActions } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-signin',

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import { AppState, User } from './ngrx/models';
 import { Observable } from 'rxjs';
-import { SignActions } from './ngrx/actions';
-import { first } from '../../node_modules/rxjs/operators';
+import { first } from 'rxjs/operators';
+import { AppState, User } from './store/models';
+import { SignActions } from './store/actions';
 
 @Component({
   selector: 'app-root',

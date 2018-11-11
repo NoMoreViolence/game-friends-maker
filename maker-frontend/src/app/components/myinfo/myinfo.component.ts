@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState, User } from 'src/app/ngrx/models';
-import { gameReducer } from 'src/app/ngrx/reducer';
+import { AppState, User } from 'src/app/store/models';
+import { gameReducer } from 'src/app/store/reducer';
 
 @Component({
   selector: 'app-myinfo',

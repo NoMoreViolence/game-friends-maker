@@ -42,9 +42,21 @@ const allGameReducer = (state: Game = initialState, action: allGameActions.Actio
 };
 
 const getAllGameState = createFeatureSelector<Game>('allGame');
-const getCurrentGame = createSelector(getAllGameState, game => game.currentGame);
-const getCurrentGameId = createSelector(getAllGameState, game => game.currentGameId);
-const getAllGames = createSelector(getAllGameState, game => game.entities);
-const getAllGameIds = createSelector(getAllGameState, game => game.ids);
+const getCurrentGame = createSelector(
+  getAllGameState,
+  game => game.currentGame
+);
+const getCurrentGameId = createSelector(
+  getAllGameState,
+  game => game.currentGameId
+);
+const getAllGames = createSelector(
+  getAllGameState,
+  game => game.entities
+);
+const getAllGameIds = createSelector(
+  getAllGameState,
+  game => game.ids
+);
 
 export { allGameReducer, getCurrentGame, getCurrentGameId, getAllGames, getAllGameIds };

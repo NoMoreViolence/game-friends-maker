@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RequestAllGameSuccessModel } from 'src/app/ngrx/models';
+import { RequestAllGameSuccessModel } from 'src/app/store/models';
 
 const GET_ALL_GAME = 'GET_ALL_GAME';
 const GET_ALL_GAME_SUCCESS = 'GET_ALL_GAME_SUCCESS';

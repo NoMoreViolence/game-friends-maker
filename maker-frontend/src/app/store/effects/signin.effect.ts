@@ -6,7 +6,7 @@ import { Observable, of, forkJoin } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { SignActions } from 'src/app/ngrx/actions';
+import { SignActions } from 'src/app/store/actions';
 import { SignService } from 'src/app/services';
 
 @Injectable()

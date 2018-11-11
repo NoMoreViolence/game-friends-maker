@@ -6,7 +6,7 @@ import { first, tap, debounceTime, combineLatest } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import lib from 'src/app/lib';
-import { AppState, User } from 'src/app/ngrx/models';
+import { AppState, User } from 'src/app/store/models';
 import { SignService } from 'src/app/services';
 
 @Component({
