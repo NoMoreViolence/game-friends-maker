@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of, combineLatest } from 'rxjs';
-import { catchError, map, mergeMap, tap, pluck } from 'rxjs/operators';
+import { Observable, of, forkJoin } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { SignActions } from '../actions';
+import { SignService } from 'src/app/services';
 
 @Injectable()
 class AutoSignInEffect {
   constructor(
     private actions$: Actions,
-    private http: HttpClient,
+    private sign: SignService,
     private router: Router,
     private toast: ToastrService,
     private translate: TranslateService
@@ -21,36 +22,22 @@ class AutoSignInEffect {
 
   @Effect()
   signIn$: Observable<Action> = this.actions$.pipe(
-    ofType(SignActions.AUTO_SIGN_IN),
-    pluck('payload'),
+    ofType<SignActions.AutoSignIn>(SignActions.AUTO_SIGN_IN),
+    map(action => action.payload),
     mergeMap(payload =>
-      this.http
-        .post(
-          '/api/auth/check',
-          {},
-          {
-            headers: {
-              jwttoken: payload as string
-            }
-          }
-        )
-        .pipe(
-          tap(data => console.log(data)),
-          map((data: { message: string; success: boolean; value: { admin: boolean; email: string; username: string } }) => {
-            combineLatest(this.router.navigateByUrl('/main'), this.translate.get('Sign.in.success'), (route, comment) =>
-              this.toast.success(comment)
-            ).subscribe();
-            return { type: SignActions.AUTO_SIGN_IN_SUCCESS, payload: data };
-          }),
-          catchError((err: HttpErrorResponse) => {
-            localStorage.removeItem('token');
-            combineLatest(this.router.navigateByUrl('/sign/in'), this.translate.get('Sign.in.failure'), (route, comment) =>
-              this.toast.error(comment)
-            ).subscribe();
-            return of({ type: SignActions.AUTO_SIGN_IN_FAILURE, payload: err });
-          })
-        )
-    )
+      forkJoin([this.sign.autoSignIn(payload), this.translate.get('Sign.in.success'), this.translate.get('Sign.in.failure')])
+    ),
+    map(res => {
+      if (res[0].success) {
+        this.toast.success(res[1]);
+        return new SignActions.AutoSignInSuccess(res[0]);
+      } else {
+        this.toast.error(res[2]);
+        this.router.navigateByUrl('/main');
+        return new SignActions.AutoSignInFailure(undefined);
+      }
+    }),
+    catchError(err => of(new SignActions.AutoSignInFailure(undefined)))
   );
 }
 
