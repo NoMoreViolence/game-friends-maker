@@ -96,7 +96,7 @@ class AllGame extends Model<AllGame> {
   public games: UserGame[];
 
   @BelongsToMany(() => GameGenre, () => AllGenreGame)
-  public genreIds: GameGenre[];
+  public genres: GameGenre[];
 
   @CreatedAt
   public createdAt: Date;

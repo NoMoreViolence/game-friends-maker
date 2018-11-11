@@ -4,6 +4,7 @@ import {
   Model,
   AllowNull,
   DataType,
+  HasMany,
   BelongsToMany,
   Unique,
   Is,
@@ -18,9 +19,6 @@ const { regex } = lib;
 
 @Table({ timestamps: true, tableName: 'GameGenre', paranoid: false })
 class GameGenre extends Model<GameGenre> {
-  @BelongsToMany(() => AllGame, () => AllGenreGame)
-  public gameIds: AllGame[];
-
   @Unique
   @AllowNull(false)
   @Is('gamegenre', (value: string) => {
@@ -30,6 +28,9 @@ class GameGenre extends Model<GameGenre> {
   })
   @Column(DataType.CHAR(255))
   public genre: string;
+
+  @BelongsToMany(() => AllGame, () => AllGenreGame)
+  public games: AllGame[];
 
   @CreatedAt
   public createdAt: Date;
@@ -42,43 +43,3 @@ class GameGenre extends Model<GameGenre> {
 }
 
 export default GameGenre;
-
-setTimeout(() => {
-  // GenreGame.findOne({ where: { id: 1 }, include: [{ model: AllGame }] })
-  //   .then(data => console.log(data))
-  //   .catch((err: DatabaseError) => console.log(err.message));
-  // GenreGame.create({
-  //   genre: 'aieawefawefwf'
-  // })
-  //   .then(data => console.log(data.get()))
-  //   .catch(err => console.log(err.message));
-  // AllGame.create({
-  //   gamename: 'fuck cifa',
-  //   window: false,
-  //   mac: false,
-  //   xbox: false,
-  //   ps: false,
-  //   nswitch: false
-  // })
-  //   .then(data => {
-  //     console.log(data.get());
-  //   })
-  //   .catch(err => console.log(err.message));
-  // AllGenreGame.create({
-  //   allid: 1,
-  //   genreid: 2
-  // });
-  // AllGenreGame.create({
-  //   allid: 2,
-  //   genreid: 1
-  // });
-  // AllGame.findOne({ where: { id: 1 }, include: [{ model: GenreGame, as: 'genreid' }] })
-  //   .then(data => console.log(data.dataValues))
-  //   .catch(err => console.log(err.message));
-  // GenreGame.findOne({ where: { id: 1 }, include: [AllGame] })
-  //   .then(data => console.log(data.dataValues))
-  //   .catch(err => console.log(err.message));
-  // GenreGame.destroy({ where: { id: 1 } })
-  //   .then(data => console.log(data))
-  //   .catch(err => console.log(err.message));
-}, 2000);
