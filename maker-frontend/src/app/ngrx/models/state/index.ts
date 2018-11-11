@@ -1,7 +1,4 @@
 import { User } from './user.model';
+import { Game, GameUnit } from './game.model';
 
-interface AppState {
-  user: User;
-}
-
-export { AppState, User };
+export { User, Game, GameUnit };

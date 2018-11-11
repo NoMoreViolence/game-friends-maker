@@ -1,4 +1,10 @@
-import { SignInSuccessModel, SignUpSuccessModel } from './action';
-import { AppState, User } from './state';
+import { SignInSuccessModel, SignUpSuccessModel, RequestAllGameSuccessModel } from './action';
+import { User, Game, GameUnit } from './state';
 
-export { SignInSuccessModel, SignUpSuccessModel, AppState, User };
+interface AppState {
+  user: User;
+  myGame: Game;
+  allGame: Game;
+}
+
+export { SignInSuccessModel, SignUpSuccessModel, RequestAllGameSuccessModel, AppState, User, Game, GameUnit };
