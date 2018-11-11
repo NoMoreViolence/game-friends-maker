@@ -1,6 +1,7 @@
 import { EntityState } from '@ngrx/entity';
 
 interface GameUnit {
+  id: number;
   gamename: string;
   window: boolean;
   mac: boolean;
@@ -9,7 +10,7 @@ interface GameUnit {
   nswitch: boolean;
   android: boolean;
   ios: boolean;
-  gameGenre: string[];
+  genres: string[];
 }
 
 interface Game extends EntityState<GameUnit> {

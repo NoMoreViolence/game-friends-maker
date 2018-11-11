@@ -8,6 +8,7 @@ interface RequestAllGameSuccessModel {
   nswitch: boolean;
   android: boolean;
   ios: boolean;
+  genres: string[];
 }
 
 export { RequestAllGameSuccessModel };
