@@ -2,7 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { AppState, User, SignActions } from '../../../ngrx';
+import { AppState, User } from 'src/app/ngrx/models';
+import { SignActions } from 'src/app/ngrx/actions';
 import { Store } from '@ngrx/store';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 
