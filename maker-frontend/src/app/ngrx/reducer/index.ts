@@ -1,10 +1,11 @@
-import { signReducer } from './sign.reducer';
-import { metaReducer } from './meta.reducer';
-import { MetaReducer } from '@ngrx/store';
+// import { MetaReducer } from '@ngrx/store';
+// import { metaReducer } from './meta.reducer';
+import * as signReducer from './sign.reducer';
+import * as gameReducer from './all-game.reducer';
 
-const rootMetaReducer: MetaReducer<any> = metaReducer();
-export const reducer = {
-  user: rootMetaReducer(signReducer)
+const reducer = {
+  user: signReducer.signReducer,
+  allGame: gameReducer.allGameReducer
 };
 
-export { signReducer, metaReducer };
+export { reducer, signReducer, gameReducer };
