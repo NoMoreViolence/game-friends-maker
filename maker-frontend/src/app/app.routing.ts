@@ -5,6 +5,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { SignComponent } from './components/sign/sign.component';
 import { SigninComponent } from './components/sign/signin/signin.component';
 import { SignupComponent } from './components/sign/signup/signup.component';
+import { MyinfoComponent } from './components/myinfo/myinfo.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
     component: SignComponent,
     children: [{ path: 'in', component: SigninComponent }, { path: 'up', component: SignupComponent }]
   },
+  { path: 'myinfo', component: MyinfoComponent },
   { path: 'info', component: ContentComponent },
   { path: '**', component: NotfoundComponent } // Wrong url redirect
 ];
