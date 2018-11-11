@@ -8,7 +8,6 @@
 }
 
 #sign-up {
-  background-color: #d88f6d;
   #logo {
     color: white;
     padding: {
@@ -41,6 +40,10 @@
           label {
             cursor: none;
           }
+
+          &:hover {
+            box-shadow: none;
+          }
         }
 
         button {
@@ -50,10 +53,10 @@
           margin: 1rem;
           padding: 0.5rem;
           border: none;
-          border-radius: 4px;
+          border-radius: 8px;
           outline: none;
           color: white;
-          background-color: #d88f6d;
+          background-color: #3367d6;
           transition: 1s;
 
           label {
@@ -99,7 +102,7 @@
         border-bottom: 1.5px solid #e9e1e0;
       }
       input.s {
-        border-bottom: 1.5px solid #d88f6d;
+        border-bottom: 1.5px solid #3367d6;
       }
       input.f {
         border-bottom: 1.5px solid red;
@@ -118,9 +121,9 @@
         margin: 0.5rem;
         padding: 1rem;
         border: none;
-        border-radius: 4px;
+        border-radius: 8px;
         outline: none;
-        background-color: #d88f6d;
+        background-color: #3367d6;
         transition: 1s;
 
         label {
@@ -135,9 +138,12 @@
   }
 
   #comment {
-    background-color: #d88f6d;
     color: white;
-    padding: 1rem;
+    padding: {
+      left: 2rem;
+      top: 1rem;
+      bottom: 1rem;
+    }
     display: flex;
     span {
       padding: 0.5rem;

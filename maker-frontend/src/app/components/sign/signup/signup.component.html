@@ -9,37 +9,61 @@
         <span [ngClass]="uError ? 'f' : 's'">{{ 'Sign.up.wname' | translate }}</span>
       </div>
       <div id="username">
-        <input type="text" placeholder="{{ 'Sign.up.name' | translate }}" [ngClass]="uError ? 'f' : 's'" #name>
+        <input
+          type="text"
+          placeholder="{{ 'Sign.up.name' | translate }}"
+          [ngClass]="uError ? 'f' : 's'"
+          (keyup.enter)="doubleCheck(name, 'username')"
+          #name
+        />
         <button (click)="doubleCheck(name, 'username')" [disabled]="usernameCheck" [ngClass]="usernameCheck && 'checked'">
           <label [hidden]="usernamePending">{{ 'Sign.up.check' | translate }}</label>
-          <img [hidden]="!usernamePending" src="/assets/images/svg-loaders/three-dots.svg" alt="loading image">
+          <img [hidden]="!usernamePending" src="/assets/images/svg-loaders/three-dots.svg" alt="loading image" />
         </button>
       </div>
       <div>
         <span [ngClass]="eError ? 'f' : 's'">{{ 'Sign.up.wem' | translate }}</span>
       </div>
       <div id="email">
-        <input type="text" placeholder="{{ 'Sign.up.em' | translate }}" [ngClass]="eError ? 'f' : 's'" #em>
+        <input
+          type="text"
+          placeholder="{{ 'Sign.up.em' | translate }}"
+          [ngClass]="eError ? 'f' : 's'"
+          (keyup.enter)="doubleCheck(em, 'email')"
+          #em
+        />
         <button (click)="doubleCheck(em, 'email')" [disabled]="emailCheck" [ngClass]="emailCheck && 'checked'">
           <label [hidden]="emailPending">{{ 'Sign.up.check' | translate }}</label>
-          <img [hidden]="!emailPending" src="/assets/images/svg-loaders/three-dots.svg" alt="loading image">
+          <img [hidden]="!emailPending" src="/assets/images/svg-loaders/three-dots.svg" alt="loading image" />
         </button>
       </div>
       <div>
         <span [ngClass]="pError ? 'f' : 's'">{{ 'Sign.up.wpw1' | translate }}</span>
         <span [ngClass]="pError ? 'f' : 's'">{{ 'Sign.up.wpw2' | translate }}</span>
       </div>
-      <input type="password" placeholder="{{ 'Sign.up.pw' | translate }}" [ngClass]="pError ? 'f' : 's'" #pw>
+      <input
+        type="password"
+        placeholder="{{ 'Sign.up.pw' | translate }}"
+        [ngClass]="pError ? 'f' : 's'"
+        (keyup.enter)="changeFocus('rpassword')"
+        #pw
+      />
       <div>
         <span [ngClass]="rpError ? 'f' : 's'">{{ 'Sign.up.wrpw' | translate }}</span>
       </div>
-      <input type="password" placeholder="{{ 'Sign.up.rpw' | translate }}" [ngClass]="rpError ? 'f' : 's'" #rpw>
+      <input
+        type="password"
+        placeholder="{{ 'Sign.up.rpw' | translate }}"
+        [ngClass]="rpError ? 'f' : 's'"
+        (keyup.enter)="signUp(name, em, pw, rpw)"
+        #rpw
+      />
     </div>
 
     <div id="buttons">
       <button (click)="signUp(name, em, pw, rpw)">
         <label [hidden]="signUpPending">{{ 'Sign.up.logo' | translate }}</label>
-        <img [hidden]="!signUpPending" src="/assets/images/svg-loaders/three-dots.svg" alt="loading image">
+        <img [hidden]="!signUpPending" src="/assets/images/svg-loaders/three-dots.svg" alt="loading image" />
       </button>
     </div>
   </div>

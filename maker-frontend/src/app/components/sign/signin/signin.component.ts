@@ -2,12 +2,12 @@ import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@ang
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { fromEvent, Observable, Subscription } from 'rxjs';
-import { debounceTime, tap, first } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import lib from '../../../lib';
-import { AppState, User } from '../../../ngrx/models';
-import { SignActions } from '../../../ngrx/actions';
+import { debounceTime, tap, first, filter } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import lib from 'src/app/lib';
+import { AppState, User } from 'src/app/ngrx/models';
+import { SignActions } from 'src/app/ngrx/actions';
 
 @Component({
   selector: 'app-signin',
@@ -15,12 +15,10 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements AfterViewInit, OnDestroy {
-  public eError = true;
-  public pError = true;
-  @ViewChild('em')
-  public email: ElementRef<HTMLInputElement>;
-  @ViewChild('pw')
-  public password: ElementRef<HTMLInputElement>;
+  public eError = false;
+  public pError = false;
+  @ViewChild('em') public email: ElementRef<HTMLInputElement>;
+  @ViewChild('pw') public password: ElementRef<HTMLInputElement>;
   public user$: Observable<User>;
   public subscriptions: Subscription[] = [];
 
@@ -39,27 +37,31 @@ export class SigninComponent implements AfterViewInit, OnDestroy {
       } else {
         const email = fromEvent(this.email.nativeElement, 'input')
           .pipe(
-            tap(x => (this.eError = true)),
+            tap(x => (this.eError = false)),
             debounceTime(600)
           )
           .subscribe(data => {
             if (this.email.nativeElement.value === '') {
-              this.eError = true;
+              this.eError = false;
             } else {
-              this.eError = lib.emailRegex.test(this.email.nativeElement.value);
+              this.eError = !lib.emailRegex.test(this.email.nativeElement.value);
             }
           });
 
         const password = fromEvent(this.password.nativeElement, 'input')
           .pipe(
-            tap(x => (this.pError = true)),
+            filter(input => {
+              console.log(input.returnValue);
+              return true;
+            }),
+            tap(x => (this.pError = false)),
             debounceTime(600)
           )
           .subscribe(data => {
             if (this.password.nativeElement.value === '') {
-              this.pError = true;
+              this.pError = false;
             } else {
-              this.pError = lib.passwordRegex.test(this.password.nativeElement.value);
+              this.pError = !lib.passwordRegex.test(this.password.nativeElement.value);
             }
           });
 
@@ -73,8 +75,17 @@ export class SigninComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.map(x => x.unsubscribe());
   }
 
-  public signIn = (email: HTMLInputElement, password: HTMLInputElement) => {
-    if (!this.eError || !this.pError || email.value === '' || password.value === '') {
+  public changeFocus = (propertyName: string): void => {
+    if (this[propertyName]) {
+      this[propertyName].nativeElement.focus();
+    }
+  }
+
+  public signIn = (email: HTMLInputElement, password: HTMLInputElement): void => {
+    this.eError = !lib.emailRegex.test(this.email.nativeElement.value);
+    this.pError = !lib.passwordRegex.test(this.password.nativeElement.value);
+
+    if (this.eError || this.pError) {
       this.translate
         .get('Sign.in.notright')
         .pipe(first())

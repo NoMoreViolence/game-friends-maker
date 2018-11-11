@@ -1,13 +1,12 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable, fromEvent, forkJoin, Subscription } from 'rxjs';
 import { first, tap, debounceTime, combineLatest } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { AppState, User, SignActions } from 'src/app/ngrx';
 import lib from 'src/app/lib';
+import { AppState, User } from 'src/app/ngrx/models';
 import { SignService } from 'src/app/services';
 
 @Component({
@@ -126,7 +125,13 @@ export class SignupComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.map(x => x.unsubscribe());
   }
 
-  public doubleCheck = (element: HTMLInputElement, what: string) => {
+  public changeFocus = (propertyName: string): void => {
+    if (this[propertyName]) {
+      this[propertyName].nativeElement.focus();
+    }
+  }
+
+  public doubleCheck = (element: HTMLInputElement, what: string): void => {
     this[`${what.split('')[0]}Error`] = !lib[`${what}Regex`].test(element.value);
     if (this[`${what}Pending`] === false && this[`${what.split('')[0]}Error`] === false) {
       this[`${what}Pending`] = true;
@@ -139,6 +144,8 @@ export class SignupComponent implements AfterViewInit, OnDestroy {
               this[`${what}Pending`] = false;
               this[`${what}Check`] = true;
               this.toast.info(res.comment[0]);
+
+              what === 'username' ? this.changeFocus('email') : this.changeFocus('password');
             } else {
               this[`${what}Pending`] = false;
               this[`${what}Check`] = false;
@@ -167,7 +174,7 @@ export class SignupComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  public signUp = (username: HTMLInputElement, email: HTMLInputElement, password: HTMLInputElement, rpassword: HTMLInputElement) => {
+  public signUp = (username: HTMLInputElement, email: HTMLInputElement, password: HTMLInputElement, rpassword: HTMLInputElement): void => {
     this.uError = !lib.usernameRegex.test(username.value);
     this.eError = !lib.emailRegex.test(email.value);
     this.pError = !lib.passwordRegex.test(password.value);

@@ -6,16 +6,27 @@
   <div id="form">
     <div id="inputs">
       <div>
-        <span [ngClass]="eError ? 's' : 'f'">{{ 'Sign.in.wem' | translate }}</span>
+        <span [ngClass]="eError ? 'f' : 's'">{{ 'Sign.in.wem' | translate }}</span>
       </div>
-      <input type="text" placeholder="{{ 'Sign.in.em' | translate }}" [ngClass]="eError ? 's' : 'f'" #em />
+      <input
+        type="text"
+        placeholder="{{ 'Sign.in.em' | translate }}"
+        [ngClass]="eError ? 'f' : 's'"
+        (keyup.enter)="changeFocus('password')"
+        #em
+      />
       <div>
-        <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.in.wpw1' | translate }}</span>
-        <span [ngClass]="pError ? 's' : 'f'">{{ 'Sign.in.wpw2' | translate }}</span>
+        <span [ngClass]="pError ? 'f' : 's'">{{ 'Sign.in.wpw1' | translate }}</span>
+        <span [ngClass]="pError ? 'f' : 's'">{{ 'Sign.in.wpw2' | translate }}</span>
       </div>
-      <input type="password" placeholder="{{ 'Sign.in.pw' | translate }}" [ngClass]="pError ? 's' : 'f'" #pw />
+      <input
+        type="password"
+        placeholder="{{ 'Sign.in.pw' | translate }}"
+        [ngClass]="pError ? 'f' : 's'"
+        (keyup.enter)="signIn(em, pw)"
+        #pw
+      />
     </div>
-
     <div id="buttons">
       <button (click)="signIn(em, pw)">
         <label [hidden]="(user$ | async).pending">{{ 'Sign.in.logo' | translate }}</label>
