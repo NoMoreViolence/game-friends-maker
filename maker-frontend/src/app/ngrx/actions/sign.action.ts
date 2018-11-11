@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { SignInSuccessModel, SignUpSuccessModel } from '../models';
 import { HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from 'src/app/interface';
 
 const SIGN_IN = 'SIGN_IN';
 const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
@@ -52,19 +53,15 @@ export class Logout implements Action {
 
 interface ActionSignIn {
   readonly type: string;
-  readonly payload: { eamil: string; password: string };
+  readonly payload: { email: string; password: string };
 }
 interface ActionAutoSignIn {
   readonly type: string;
   readonly payload: string;
 }
-interface ActionSignUp {
-  readonly type: string;
-  readonly payload: { username: string; email: string; password: string };
-}
 
 export { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, AUTO_SIGN_IN, AUTO_SIGN_IN_SUCCESS, AUTO_SIGN_IN_FAILURE, LOGOUT };
 
-export { ActionSignIn, ActionAutoSignIn, ActionSignUp };
+export { ActionSignIn, ActionAutoSignIn };
 
 export type Actions = SignIn | SignInSuccess | SignInFailure | AutoSignIn | AutoSignInSuccess | AutoSignInFailure | Logout;
