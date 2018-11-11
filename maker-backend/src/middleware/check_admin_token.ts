@@ -15,7 +15,7 @@ interface JWT {
   createdAt: Date;
 }
 const checkAdminToken = (req: Request, res: Response, next: NextFunction) => {
-  const { jwtToken } = req.headers;
+  const { jwttoken } = req.headers;
 
   // Check token is exist
   const checkTokenExist = (token: string): Promise<string> => (token ? Promise.resolve(token) : Promise.reject(new Error('No Token')));
@@ -62,7 +62,7 @@ const checkAdminToken = (req: Request, res: Response, next: NextFunction) => {
     });
 
   // Promise
-  checkTokenExist(jwtToken as string)
+  checkTokenExist(jwttoken as string)
     .then(verifyToken)
     .then(checkDate)
     .then(checkAdmin)
