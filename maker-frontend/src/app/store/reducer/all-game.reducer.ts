@@ -1,5 +1,6 @@
 import { createEntityAdapter } from '@ngrx/entity';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { produce } from 'immer';
 import { Game, GameUnit } from '../models';
 import { allGameActions, SignActions } from '../actions';
 
@@ -28,18 +29,18 @@ const defaultState: Game = {
 };
 
 const initialState: Game = allGameAdapter.getInitialState(defaultState);
-const allGameReducer = (state: Game = initialState, action: allGameActions.Actions): Game => {
+const allGameReducer = produce<Game, allGameActions.Actions>((draft, action) => {
   switch (action.type) {
     case allGameActions.GET_ALL_GAME:
-      return state;
+      return draft;
     case allGameActions.GET_ALL_GAME_SUCCESS:
-      return state;
+      return draft;
     case allGameActions.GET_ALL_GAME_FAILURE:
-      return state;
+      return draft;
     default:
-      return state;
+      return draft;
   }
-};
+}, initialState);
 
 const getAllGameState = createFeatureSelector<Game>('allGame');
 const getCurrentGame = createSelector(
