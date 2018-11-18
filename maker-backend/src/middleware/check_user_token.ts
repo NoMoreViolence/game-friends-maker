@@ -5,9 +5,6 @@ import { JsonWebTokenError } from 'jsonwebtoken';
 import lib from 'src/lib';
 const { jwt } = lib;
 
-interface Cookie {
-  token: string;
-}
 interface JWT {
   id: number;
   username: string;
@@ -15,10 +12,18 @@ interface JWT {
   createdAt: Date;
 }
 const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
-  const { jwttoken } = req.headers;
+  const { authorization } = req.headers;
 
   // Check token is exist
   const checkTokenExist = (token: string): Promise<string> => (token ? Promise.resolve(token) : Promise.reject(new Error('No Token')));
+
+  const pickUpToken = (token: string): Promise<string> => {
+    const bearerToken = token.split(' ');
+
+    return bearerToken[0] === 'Bearer' && bearerToken[1] !== ''
+      ? Promise.resolve(bearerToken[0])
+      : Promise.reject(new Error('Not Bearer token'));
+  };
 
   // Verify token
   const verifyToken = (token: string): Promise<any> =>
@@ -58,7 +63,8 @@ const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
     });
 
   // Promise
-  checkTokenExist(jwttoken as string)
+  checkTokenExist(authorization)
+    .then(pickUpToken)
     .then(verifyToken)
     .then(checkDate)
     .then(nextTo)
