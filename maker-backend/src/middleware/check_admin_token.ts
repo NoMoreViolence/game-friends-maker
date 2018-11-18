@@ -20,7 +20,7 @@ const checkAdminToken = (req: Request, res: Response, next: NextFunction) => {
     const bearerToken = token.split(' ');
 
     return bearerToken[0] === 'Bearer' && bearerToken[1] !== ''
-      ? Promise.resolve(bearerToken[0])
+      ? Promise.resolve(bearerToken[1])
       : Promise.reject(new Error('Not Bearer token'));
   };
 
