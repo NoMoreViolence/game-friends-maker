@@ -10,9 +10,10 @@ import {
   ForeignKey,
   BelongsTo,
   Unique,
-  Default
+  Default,
+  HasMany
 } from 'sequelize-typescript';
-import { User, AllGame } from '.';
+import { User, AllGame, Post } from '.';
 
 @Table({ timestamps: true, tableName: 'UserGame', paranoid: false })
 class UserGame extends Model<UserGame> {
@@ -45,6 +46,9 @@ class UserGame extends Model<UserGame> {
   @AllowNull(false)
   @Column(DataType.TINYINT(1))
   public show: boolean;
+
+  @HasMany(() => Post)
+  public posts: Post[];
 
   @CreatedAt
   public createdAt: Date;

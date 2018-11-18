@@ -14,6 +14,7 @@ import {
 } from 'sequelize-typescript';
 import { UserGame, GameGenre, AllGenreGame } from '.';
 import lib from 'src/lib';
+import Post from './post.model';
 
 const { regex } = lib;
 
@@ -97,6 +98,9 @@ class AllGame extends Model<AllGame> {
 
   @BelongsToMany(() => GameGenre, () => AllGenreGame)
   public genres: GameGenre[];
+
+  @HasMany(() => Post)
+  public posts: Post[];
 
   @CreatedAt
   public createdAt: Date;

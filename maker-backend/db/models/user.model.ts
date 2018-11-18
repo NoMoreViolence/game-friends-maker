@@ -13,7 +13,7 @@ import {
   HasMany
 } from 'sequelize-typescript';
 import lib from 'src/lib';
-import { UserGame } from '.';
+import { UserGame, Post } from '.';
 
 const { regex } = lib;
 
@@ -63,6 +63,9 @@ class User extends Model<User> {
 
   @HasMany(() => UserGame)
   public games: UserGame[];
+
+  @HasMany(() => Post)
+  public posts: Post[];
 
   @CreatedAt
   public createdAt: Date;

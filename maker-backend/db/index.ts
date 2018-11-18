@@ -1,4 +1,4 @@
-import sequelize, { User, UserGame, AllGame, GameGenre, AllGenreGame } from './models';
+import sequelize, { User, UserGame, AllGame, GameGenre, AllGenreGame, Post } from './models';
 
-export { User, UserGame, AllGame, GameGenre, AllGenreGame };
+export { User, UserGame, AllGame, GameGenre, AllGenreGame, Post };
 export default sequelize;

@@ -4,6 +4,7 @@ import User from './user.model';
 import UserGame from './user-game.model';
 import AllGame from './all-game.model';
 import GameGenre from './game-genre.model';
+import Post from './post.model';
 import AllGenreGame from './all-genre-game.model';
 const wayToSequelize = process.env.NODE_ENV || 'development';
 const Config = config[wayToSequelize];
@@ -23,7 +24,7 @@ const sequelize = new Sequelize({
   }
 });
 
-export { User, UserGame, AllGame, GameGenre, AllGenreGame };
+export { User, UserGame, AllGame, GameGenre, AllGenreGame, Post };
 export default sequelize;
 
 // const { Op } = Sequelize;
