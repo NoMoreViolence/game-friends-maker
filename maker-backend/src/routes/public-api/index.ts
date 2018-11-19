@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as Controller from './game.controller';
+import * as Controller from './public-api.controller';
 
 const Router = express.Router();
 
