@@ -87,3 +87,51 @@ export const getGame = (req: Request, res: Response): void => {
     .then(responseToClient)
     .catch(onError);
 };
+
+/* GET
+ */
+export const getAllGenre = (req: Request, res: Response) => {
+  const findGenre = (): Promise<Array<FilteredModelAttributes<GameGenre & { games: string[] }>>> =>
+    new Promise((resolve, reject) =>
+      GameGenre.findAll({
+        attributes: {
+          include: ['id', 'genre'],
+          exclude: ['createdAt', 'updatedAt']
+        },
+        include: [
+          {
+            model: AllGame,
+            attributes: {
+              include: ['gamename'],
+              exclude: ['window', 'mac', 'xbox', 'ps', 'nswitch', 'android', 'ios', 'createdAt', 'updatedAt']
+            }
+          }
+        ]
+      })
+        .then(genres => {
+          resolve(genres.map(genre => ({ ...genre.dataValues, games: genre.dataValues.games.map(game => game.dataValues.gamename) })));
+        })
+        .catch((err: DatabaseError) => {
+          console.log('I am error');
+          console.log(err.message);
+          reject(new Error(err.name));
+        })
+    );
+
+  const responseToClient = (data: Array<FilteredModelAttributes<GameGenre>>): Response =>
+    res.json({
+      success: true,
+      message: 'Find all genre success',
+      value: data
+    });
+
+  const onError = (err: Error): Response =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+
+  findGenre()
+    .then(responseToClient)
+    .catch(onError);
+};

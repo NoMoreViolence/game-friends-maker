@@ -7,6 +7,6 @@ Router.get('/game/:game', Controller.getGame);
 Router.get('/game', Controller.getAllGame);
 
 Router.get('/genre/:genre');
-Router.get('/genre');
+Router.get('/genre', Controller.getAllGenre);
 
 export default Router;
