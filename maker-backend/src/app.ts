@@ -52,7 +52,7 @@ sequelize
     process.exit();
   });
 
-const port = process.env.port || 3000; // server open
+const port = process.env.port || 3001; // server open
 httpServer.listen(port, () => {
   console.log(`✓ Server is running at http://localhost:${port}`);
 });
