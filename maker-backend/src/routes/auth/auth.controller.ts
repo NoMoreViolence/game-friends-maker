@@ -195,8 +195,7 @@ export const login = (req: Request, res: Response) => {
         .catch((err: JsonWebTokenError) => reject(new Error('Server error !')))
     );
 
-  const responseToClient = (value: Login) => {
-    res.cookie('accessToken', { token: value.token }, { maxAge: 2628000 * 2, httpOnly: true });
+  const responseToClient = (value: Login): Response =>
     res.json({
       success: true,
       message: 'Login success !',
@@ -207,7 +206,6 @@ export const login = (req: Request, res: Response) => {
         token: value.token
       }
     });
-  };
 
   const onError = (err: Error) =>
     res.status(409).json({
