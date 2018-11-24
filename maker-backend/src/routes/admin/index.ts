@@ -4,24 +4,18 @@ import middleware from 'src/middleware';
 
 const Router = express.Router();
 
-// Game Add
-Router.use('/game/:gamename', middleware.checkAdminToken);
+Router.use('/game/:gamename', middleware.checkAdminToken); // Game Add
 Router.post('/game/:gamename', controller.addGame);
-// Game Change
-Router.use('/game/:gamename', middleware.checkAdminToken);
+Router.use('/game/:gamename', middleware.checkAdminToken); // Game Change
 Router.patch('/game/:gamename', controller.changeGame);
-// Game delete
-Router.use('/game/:gamename', middleware.checkAdminToken);
+Router.use('/game/:gamename', middleware.checkAdminToken); // Game delete
 Router.delete('/game/:gamename', controller.deleteGame);
 
-// Add game genre
-Router.use('/genre/:genre', middleware.checkAdminToken);
+Router.use('/genre/:genre', middleware.checkAdminToken); // Add game genre
 Router.post('/genre/:genre', controller.addGenre);
-// Change game genre
-Router.use('/genre/:genre', middleware.checkAdminToken);
+Router.use('/genre/:genre', middleware.checkAdminToken); // Change game genre
 Router.patch('/genre/:genre', controller.changeGenre);
-// Delete game genre
-Router.use('/genre/:genre', middleware.checkAdminToken);
+Router.use('/genre/:genre', middleware.checkAdminToken); // Delete game genre
 Router.delete('/genre/:genre', controller.deleteGenre);
 
 export default Router;

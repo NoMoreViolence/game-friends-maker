@@ -195,9 +195,8 @@ export const changeGame = (req: Request, res: Response) => {
   const findGame = (value: ChangeGame): Promise<ChangeGame> =>
     new Promise((resolve, reject) =>
       AllGame.findOne({ where: { gamename: value.gamename } })
-        .then(
-          game =>
-            game ? resolve({ ...value, gameId: game.dataValues.id }) : reject(new Error(`Game: ${value.gamename} is not in the database`))
+        .then(game =>
+          game ? resolve({ ...value, gameId: game.dataValues.id }) : reject(new Error(`Game: ${value.gamename} is not in the database`))
         )
         .catch((err: DatabaseError) => reject(new Error(err.message)))
     );
@@ -216,22 +215,21 @@ export const changeGame = (req: Request, res: Response) => {
 
   // Update game genre
   const updateGenre = (value: ChangeGame): Promise<ChangeGame> =>
-    new Promise(
-      (resolve, reject) =>
-        value.genres.length !== 0
-          ? AllGenreGame.destroy({ where: { gameId: value.gameId } })
-              .then(() =>
-                value.genres.map((cleanId: number, i: number) =>
-                  AllGenreGame.create({
-                    gameId: value.gameId,
-                    genreId: cleanId
-                  })
-                    .then(() => value.genres.length - 1 === i && resolve(value))
-                    .catch((err: DatabaseError) => reject(new Error('There is an error on (genre & game connecting)')))
-                )
+    new Promise((resolve, reject) =>
+      value.genres.length !== 0
+        ? AllGenreGame.destroy({ where: { gameId: value.gameId } })
+            .then(() =>
+              value.genres.map((cleanId: number, i: number) =>
+                AllGenreGame.create({
+                  gameId: value.gameId,
+                  genreId: cleanId
+                })
+                  .then(() => value.genres.length - 1 === i && resolve(value))
+                  .catch((err: DatabaseError) => reject(new Error('There is an error on (genre & game connecting)')))
               )
-              .catch((err: DatabaseError) => reject(new Error('There is an error on (genre & game connecting)')))
-          : resolve(value)
+            )
+            .catch((err: DatabaseError) => reject(new Error('There is an error on (genre & game connecting)')))
+        : resolve(value)
     );
 
   // Response to cline
@@ -312,7 +310,7 @@ export const addGenre = (req: Request, res: Response) => {
         genre: value.genre.toUpperCase()
       })
         .then(newGenre => resolve(value))
-        .catch((err: DatabaseError) => reject(new Error(err.message)))
+        .catch((err: DatabaseError) => reject(new Error(err.name)))
     );
 
   // Response to client
