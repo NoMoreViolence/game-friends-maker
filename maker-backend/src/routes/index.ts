@@ -9,6 +9,6 @@ import user from './user';
 Router.use('/admin', admin);
 Router.use('/auth', auth);
 Router.use('/user', user);
-Router.use('/api', api);
+Router.use('/public', api);
 
 export default Router;
