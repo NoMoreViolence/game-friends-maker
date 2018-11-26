@@ -109,7 +109,12 @@ export const getAllGenre = (req: Request, res: Response) => {
         ]
       })
         .then(genres => {
-          resolve(genres.map(genre => ({ ...genre.dataValues, games: genre.dataValues.games.map(game => game.dataValues.gamename) })));
+          resolve(
+            genres.map(genre => ({
+              ...genre.dataValues,
+              games: genre.dataValues.games.map(game => game.dataValues.gamename)
+            }))
+          );
         })
         .catch((err: DatabaseError) => {
           console.log('I am error');
