@@ -1,0 +1,49 @@
+@import './../../../index.scss';
+
+#logo {
+  padding: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  background-color: $primary;
+  color: white;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+#comment {
+  display: flex;
+  flex-direction: column;
+  padding: {
+    right: 0.5rem;
+    left: 0.5rem;
+    bottom: 0.5rem;
+  }
+
+  span {
+    margin: {
+      top: 0;
+      bottom: 0;
+      right: 0.5rem;
+      left: 0.5rem;
+    }
+    padding: 0.5rem;
+  }
+
+  #link {
+    font: {
+      size: 1rem;
+      weight: 400;
+    }
+    color: black;
+    text-decoration: none;
+    transition: 0.25s;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { userActions } from 'store/actions';
-import { AppState } from 'store/models';
+import { AppState, userActions } from 'store';
 import Login from 'components/login/login.component';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 interface Props {
   loginSuccess: boolean;
@@ -11,19 +11,28 @@ interface Props {
 }
 
 interface Method {
-  signIn: (value: { email: string; password: string }) => any;
+  login: (value: { email: string; password: string }) => any;
 }
 
-class LoginContainer extends React.PureComponent<Props & Method> {
-  public render = () => <Login loginSuccess={this.props.loginSuccess} loginPending={this.props.loginPending} signIn={this.props.signIn} />;
-}
+const LoginContainer: React.SFC<Props & Method & RouteComponentProps<any>> = props => (
+  <Login
+    loginSuccess={props.loginSuccess}
+    loginPending={props.loginPending}
+    login={props.login}
+    history={props.history}
+    location={props.location}
+    match={props.match}
+  />
+);
 
-export default connect<Props, Method, {}, {}>(
-  ({ user }: AppState) => ({
-    loginSuccess: user.loginSuccess,
-    loginPending: user.loginPending
-  }),
-  dispatch => ({
-    signIn: bindActionCreators(userActions.signIn, dispatch)
-  })
-)(LoginContainer);
+export default withRouter(
+  connect<Props, Method, {}, {}>(
+    ({ user }: AppState) => ({
+      loginSuccess: user.loginSuccess,
+      loginPending: user.loginPending
+    }),
+    dispatch => ({
+      login: bindActionCreators(userActions.login, dispatch)
+    })
+  )(LoginContainer)
+);
