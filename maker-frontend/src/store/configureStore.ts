@@ -1,17 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import promiseMiddleware from 'redux-promise-middleware';
+import createSagaMiddleware from 'redux-saga';
 import { reducer } from './reducers';
+import { rootSaga } from './sagas';
 
-import ReduxThunk from 'redux-thunk';
-const promiseMiddlewareV = promiseMiddleware({
-  promiseTypeSuffixes: ['PENDING', 'SUCCESS', 'FAILURE']
-});
+const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers =
   typeof window === 'object' && ((window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as any)
     ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
-const enhancer = composeEnhancers(applyMiddleware(ReduxThunk, promiseMiddlewareV));
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 const configureStore = createStore(reducer, enhancer);
+sagaMiddleware.run(rootSaga);
 
 export { configureStore };
