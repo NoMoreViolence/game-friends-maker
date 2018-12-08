@@ -1,7 +1,8 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Action } from 'redux-actions';
-import { put, call } from 'redux-saga/effects';
+import { put, call, takeEvery } from 'redux-saga/effects';
 import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from 'store/actions';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
 
 const loginApi = (value: { email: string; password: string }) =>
   axios
@@ -21,7 +22,6 @@ const loginApi = (value: { email: string; password: string }) =>
       ) => res.data.value
     )
     .catch((err: AxiosError) => err.message);
-
 function* loginSaga(action: Action<LOGIN>) {
   if (action.payload) {
     try {
@@ -32,5 +32,17 @@ function* loginSaga(action: Action<LOGIN>) {
     }
   }
 }
+function loginSuccess(action: Action<LOGIN_SUCCESS>) {
+  action.payload ? toast.success(`Hello ${action.payload.username} !`) : toast.error('unknown error !');
+}
+function loginFailure(action: Action<LOGIN_FAILURE>) {
+  action.payload ? toast.error(`Error: ${action.payload.message} !`) : toast.error(`Error !`);
+}
 
-export { loginApi };
+function* userSaga() {
+  yield takeEvery(LOGIN, loginSaga);
+  yield takeEvery(LOGIN_SUCCESS, loginSuccess);
+  yield takeEvery(LOGIN_FAILURE, loginFailure);
+}
+
+export { userSaga };
