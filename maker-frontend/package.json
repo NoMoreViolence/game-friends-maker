@@ -34,9 +34,7 @@
     "react-toastify": "^4.4.3",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
-    "redux-promise-middleware": "^5.1.1",
     "redux-saga": "^0.16.2",
-    "redux-thunk": "^2.3.0",
     "resolve": "1.6.0",
     "rxjs": "^6.3.3",
     "sass-loader": "^7.1.0",
@@ -73,7 +71,6 @@
     "@types/redux-actions": "^2.3.1",
     "@types/redux-promise-middleware": "^0.0.11",
     "@types/redux-saga": "^0.10.5",
-    "@types/redux-thunk": "^2.1.0",
     "cross-env": "^5.2.0",
     "typescript": "^3.1.6"
   },
