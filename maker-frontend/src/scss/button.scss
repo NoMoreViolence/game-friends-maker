@@ -1,0 +1,13 @@
+.primary-button {
+  border: 1px solid $primary;
+  background-color: $white;
+  color: $primary;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    color: white;
+    background-color: $primary;
+  }
+}

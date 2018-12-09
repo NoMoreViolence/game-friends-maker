@@ -1,10 +1,18 @@
+@import 'scss/card.scss';
+@import 'scss/color.scss';
+@import 'scss/font-color.scss';
+@import 'scss/background-color.scss';
+@import 'scss/font-size.scss';
+@import 'scss/link.scss';
+@import 'scss/border.scss';
+@import 'scss/radius.scss';
+@import 'scss/shadow.scss';
+@import 'scss/input.scss';
+@import 'scss/button.scss';
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   background-color: #f7f7f7;
 }
-
-$primary: #64b5f6;
-$light: #9be7ff;
-$dark: #2286c3;

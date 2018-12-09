@@ -1,0 +1,10 @@
+.primary-input {
+  border: 1px solid $primary;
+  background-color: white;
+  outline: none;
+  transition: 0.25s;
+
+  &:focus {
+    border-color: $dark;
+  }
+}

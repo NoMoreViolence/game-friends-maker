@@ -1,0 +1,41 @@
+.white-color {
+  color: $white;
+  &:link {
+    color: white;
+  }
+}
+
+.white-gray-color {
+  color: $white-gray;
+  &:link {
+    color: $white-gray;
+  }
+}
+
+.light-color {
+  color: $light;
+  &:link {
+    color: $light;
+  }
+}
+
+.primary-color {
+  color: $primary;
+  &:link {
+    color: $primary;
+  }
+}
+
+.dark-color {
+  color: $dark;
+  &:link {
+    color: $dark;
+  }
+}
+
+.black-color {
+  color: $black;
+  &:link {
+    color: $black;
+  }
+}
