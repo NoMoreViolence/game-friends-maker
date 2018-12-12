@@ -1,0 +1,41 @@
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+
+  .modal-card {
+    position: static;
+    width: 420px; /* Could be more or less, depending on screen size */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    > div {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    > div:nth-child(1) {
+      margin-top: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    > div:nth-last-child(1) {
+      margin-top: 2rem;
+      margin-bottom: 0.25rem;
+    }
+  }
+}
