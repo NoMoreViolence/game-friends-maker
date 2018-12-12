@@ -32,7 +32,7 @@ class ModalPage extends React.Component<Props, State> {
   };
   public handleClickOutside = (event: MouseEvent) => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target as HTMLBodyElement)) {
-      close();
+      this.props.close();
     }
   };
 
