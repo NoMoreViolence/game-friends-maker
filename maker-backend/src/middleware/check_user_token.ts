@@ -31,7 +31,7 @@ const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
       jwt
         .decodeJWT(token)
         .then(data => resolve(data))
-        .catch((err: JsonWebTokenError) => reject(new Error(err.name)))
+        .catch((err: JsonWebTokenError) => reject(new Error('Wrong token value !')))
     );
 
   // Check token validity
