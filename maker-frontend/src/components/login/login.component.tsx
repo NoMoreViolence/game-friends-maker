@@ -2,77 +2,71 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { emailRegex, passwordRegex } from 'lib';
-
 import './login.component.scss';
 
 interface Props {
   loginSuccess: boolean;
   loginPending: boolean;
-  login: (
-    value: { email: string; password: string }
-  ) => Promise<{
-    action: any;
-    value: {
-      data: {
-        value: {
-          admin: boolean;
-          email: string;
-          username: string;
-          token: string;
-        };
-      };
-    };
-  }>;
+  login: (value: { email: string; password: string }) => void;
 }
-
 interface State {
   email: string;
-  password: string;
+  pw: string;
 }
 
 class LoginComponent extends React.Component<Props & RouteComponentProps<any>, State> {
   state = {
     email: '',
-    password: ''
+    pw: ''
   };
 
-  componentDidMount = () => {};
-
-  componentWillUnmount = () => {};
-
-  public onChange = (value: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({
-      [(value.target.name as 'email') || (value.target.name as 'password')]: value.target.value
-    });
-
-  public login = () => {
-    const { email, password } = this.state;
-
-    if (!emailRegex.test(email) || !passwordRegex.test(password)) {
-      toast.error('Invaild email value');
-    } else {
-      this.props
-        .login({ email, password })
-        .then(res => (toast.success(`Hello ${res.value.data.value.username}`), this.props.history.push('/main')))
-        .catch((err: { response: { data: { message: string } } }) => toast.error(err.response.data.message));
+  componentDidMount = () => {
+    if (this.props.loginSuccess) {
+      toast.info('이미 로그인 상태입니다 !');
+      this.props.history.push('/main');
+    }
+  };
+  componentDidUpdate = (prevProps: Props & RouteComponentProps<any>, prevState: State) => {
+    if (prevProps !== this.props && this.props.loginSuccess) {
+      this.props.history.push('/main');
     }
   };
 
-  render = () => {
-    return (
-      <>
-        <div id="inputs">
-          <input name="email" type="text" placeholder="이메일" onChange={this.onChange} />
-          <input name="password" type="password" placeholder="비밀번호" onChange={this.onChange} />
-        </div>
-        <div id="buttons">
-          <button id="primary" onClick={this.login}>
-            로그인
-          </button>
-        </div>
-      </>
-    );
+  public keyPress = (value: React.KeyboardEvent<HTMLInputElement>) => value.keyCode === 13 && this.login();
+  public onChange = (value: React.ChangeEvent<HTMLInputElement>) =>
+    this.setState({
+      [(value.target.name as 'email') || (value.target.name as 'pw')]: value.target.value
+    });
+  public login = () => {
+    const { email, pw } = this.state;
+
+    if (!emailRegex.test(email) || !passwordRegex.test(pw)) {
+      toast.error('Invaild (email or password) value');
+    } else {
+      this.props.login({ email, password: pw });
+    }
   };
+
+  render = () => (
+    <>
+      <div id="inputs">
+        <input name="email" type="text" className="primary-input radius large-font-size" placeholder="이메일" onChange={this.onChange} />
+        <input
+          name="pw"
+          type="password"
+          className="primary-input radius large-font-size"
+          placeholder="비밀번호"
+          onChange={this.onChange}
+          onKeyDown={this.keyPress}
+        />
+      </div>
+      <div id="buttons">
+        <button className="primary-button radius large-font-size" onClick={this.login}>
+          로그인
+        </button>
+      </div>
+    </>
+  );
 }
 
 export default LoginComponent;

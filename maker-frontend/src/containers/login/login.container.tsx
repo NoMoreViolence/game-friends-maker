@@ -11,7 +11,7 @@ interface Props {
 }
 
 interface Method {
-  login: (value: { email: string; password: string }) => any;
+  login: (value: { email: string; password: string }) => void;
 }
 
 const LoginContainer: React.SFC<Props & Method & RouteComponentProps<any>> = props => (

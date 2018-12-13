@@ -1,24 +1,10 @@
-@import './../../index.scss';
-
 #inputs {
-  flex: 1;
   display: flex;
   flex-direction: column;
 
   input {
     margin: 0.5rem;
-    border: 1px solid $primary;
-    border-radius: 4px;
     padding: 1rem;
-    font: {
-      size: 1.2rem;
-    }
-    outline: none;
-    transition: 0.25s;
-
-    &:focus {
-      border-color: $dark;
-    }
   }
 }
 
@@ -28,21 +14,6 @@
   button {
     flex: 1;
     margin: 0.5rem;
-    border: 1px solid $primary;
-    border-radius: 4px;
     padding: 1rem;
-    outline: none;
-    font: {
-      size: 1.2rem;
-    }
-    background-color: white;
-    color: $primary;
-    cursor: pointer;
-    transition: 0.25s;
-
-    &:hover {
-      color: white;
-      background-color: $primary;
-    }
   }
 }

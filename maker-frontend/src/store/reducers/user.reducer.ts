@@ -1,7 +1,6 @@
-import { handleActions } from 'redux-actions';
+import { handleActions, Action } from 'redux-actions';
 import { produce } from 'immer';
-import { Action } from 'lib';
-import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from './../actions';
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, AUTO_LOGIN, AUTO_LOGIN_SUCCESS, AUTO_LOGIN_FAILURE } from './../actions';
 import { User } from '../models';
 
 const initialState: User = {
@@ -21,13 +20,35 @@ const userReducer = handleActions<User, any>(
       }),
     [LOGIN_SUCCESS]: (state, action: Action<LOGIN_SUCCESS>) =>
       produce(state, draft => {
-        draft.loginPending = false;
-        draft.loginSuccess = true;
-        draft.email = action.payload.email;
-        draft.username = action.payload.username;
-        draft.admin = action.payload.admin;
+        if (action.payload) {
+          draft.loginPending = false;
+          draft.loginSuccess = true;
+          draft.email = action.payload.email;
+          draft.username = action.payload.username;
+          draft.admin = action.payload.admin;
+        }
       }),
     [LOGIN_FAILURE]: (state, action: Action<LOGIN_FAILURE>) =>
+      produce(state, draft => {
+        draft.loginPending = false;
+        draft.loginSuccess = false;
+      }),
+    [AUTO_LOGIN]: (state, action: Action<AUTO_LOGIN>) =>
+      produce(state, draft => {
+        draft.loginPending = true;
+        draft.loginSuccess = false;
+      }),
+    [AUTO_LOGIN_SUCCESS]: (state, action: Action<AUTO_LOGIN_SUCCESS>) =>
+      produce(state, draft => {
+        if (action.payload) {
+          draft.loginPending = false;
+          draft.loginSuccess = true;
+          draft.email = action.payload.email;
+          draft.username = action.payload.username;
+          draft.admin = action.payload.admin;
+        }
+      }),
+    [AUTO_LOGIN_FAILURE]: (state, action: Action<AUTO_LOGIN_FAILURE>) =>
       produce(state, draft => {
         draft.loginPending = false;
         draft.loginSuccess = false;

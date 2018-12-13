@@ -1,26 +1,17 @@
 import * as React from 'react';
-import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import './sign.page.scss';
+
 import LoginPage from './login/login.page';
+import RegisterPage from './register/register.page';
 
-class SignPage extends React.Component<RouteComponentProps, {}> {
-  componentDidMount() {
-    console.log(this.props.history.location);
-  }
+const SignPage: React.SFC<{}> = () => (
+  <div id="sign">
+    <div className="card-shadow white-background radius">
+      <Route path="/sign/login" exact={true} component={LoginPage} />
+      <Route path="/sign/register" exact={true} component={RegisterPage} />
+    </div>
+  </div>
+);
 
-  componentDidUpdate(prevProps: RouteComponentProps, prevState: {}) {
-    console.log(this.props.history.location);
-  }
-
-  render() {
-    return (
-      <div id="sign">
-        <div id="card">
-          <Route path="/sign/login" exact={true} component={LoginPage} />
-        </div>
-      </div>
-    );
-  }
-}
-
-export default withRouter(SignPage);
+export default SignPage;

@@ -7,6 +7,8 @@ interface Props {
 }
 
 class LogoutModalComponent extends React.Component<Props> {
+  logout = () => (this.props.logout(), this.props.close());
+
   render = () => {
     return (
       <>
@@ -15,7 +17,7 @@ class LogoutModalComponent extends React.Component<Props> {
           <img className="large-image-size cursor-image" src="/images/close.svg" alt="Close icon" onClick={this.props.close} />
         </div>
         <div className="modal-footer">
-          <button className="primary-button radius large-font-size" onClick={this.props.logout && this.props.close}>
+          <button className="primary-button radius large-font-size" onClick={this.logout}>
             로그아웃
           </button>
         </div>
