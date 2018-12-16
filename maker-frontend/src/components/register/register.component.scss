@@ -1,0 +1,46 @@
+@import 'src/scss/color.scss';
+
+#register-inputs {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    padding: {
+      right: 1rem;
+      left: 1rem;
+    }
+    transition: 0.25s;
+  }
+  input {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+  button {
+    margin: {
+      top: 0.5rem;
+      bottom: 0.5rem;
+      right: 0.5rem;
+    }
+    padding: 1rem;
+  }
+}
+
+#register-buttons {
+  display: flex;
+
+  button {
+    flex: 1;
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+}
+
+#register-show {
+  height: auto;
+  opacity: 1;
+}
+#register-hide {
+  opacity: 0;
+  height: 0px;
+  overflow: hidden;
+}

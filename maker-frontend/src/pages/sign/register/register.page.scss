@@ -1,16 +1,12 @@
 @import './../../../index.scss';
 
-#register-logo {
+#register-form-logo {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   padding: 2rem;
-  font-size: 2rem;
-  font-weight: 600;
-  background-color: $primary;
-  color: white;
 }
 
 #register-form {
-  display: flex;
-  flex-direction: column;
   padding: 1rem;
 }
 
@@ -34,12 +30,6 @@
   }
 
   #link {
-    font: {
-      size: 1rem;
-      weight: 400;
-    }
-    color: black;
-    text-decoration: none;
     transition: 0.25s;
 
     &:hover {

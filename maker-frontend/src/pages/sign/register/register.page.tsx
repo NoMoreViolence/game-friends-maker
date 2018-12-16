@@ -2,20 +2,20 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import './register.page.scss';
 
-import LoginContainer from 'containers/login/login.container';
+import RegisterContainer from 'containers/register/register.container';
 
 class RegisterPage extends React.PureComponent<{}, {}> {
   render = () => (
     <>
-      <div id="register-logo">
-        <span>회원가입</span>
+      <div id="login-form-logo" className="card-logo primary-background">
+        <span className="title-font-size white-color">회원가입</span>
       </div>
       <div id="register-form">
-        <LoginContainer />
+        <RegisterContainer />
       </div>
       <div id="register-comment">
         <span>
-          <NavLink id="link" to="/sign/login">
+          <NavLink id="link" className="link black-color middle-font-size" to="/sign/login">
             계정이 이미 있나요 ?
           </NavLink>
         </span>
