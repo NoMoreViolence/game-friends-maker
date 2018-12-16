@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import HeaderPage from 'pages/header/header.page';
 import signPage from 'pages/sign/sign.page';
 import AutoLoginContainer from 'containers/auto-login/auto-login.container';
+import Loader from 'pages/loader/loader.page';
 
 import 'components/App.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -17,6 +18,7 @@ const AppComponent: React.SFC<{}> = () => {
         <Route path="/sign" component={signPage} />
       </Switch>
       <AutoLoginContainer />
+      <Loader />
     </div>
   );
 };

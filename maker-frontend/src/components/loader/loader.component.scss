@@ -1,13 +1,14 @@
-/** 6 **/
+.loading-container {
+  display: flex;
+  justify-content: center;
+}
+
 @for $i from 1 through 8 {
   .load6 path:nth-of-type(#{$i}) {
     -webkit-animation: spin_single 1s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
     animation: spin_single 1s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   }
 }
-
-// Transform paths from origin
-// in order to rotate from center.
 .pre path {
   -webkit-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
@@ -18,8 +19,6 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-
-// Spin me 'round.
 @-webkit-keyframes spin_half {
   0% {
     -webkit-transform: rotate(0deg);
@@ -36,7 +35,6 @@
     transform: rotate(360deg);
   }
 }
-
 @-webkit-keyframes spin_full {
   0% {
     -webkit-transform: rotate(0deg);
@@ -53,7 +51,6 @@
     transform: rotate(360deg);
   }
 }
-
 @-webkit-keyframes spin_single_neg {
   0% {
     -webkit-transform: rotate(0deg);
@@ -70,7 +67,6 @@
     transform: rotate(-180deg);
   }
 }
-
 @-webkit-keyframes spin_single {
   0% {
     -webkit-transform: rotate(0deg);
