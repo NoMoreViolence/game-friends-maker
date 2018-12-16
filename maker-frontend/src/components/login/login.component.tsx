@@ -49,7 +49,7 @@ class LoginComponent extends React.Component<Props & RouteComponentProps<any>, S
 
   render = () => (
     <>
-      <div id="inputs">
+      <div id="login-inputs">
         <input name="email" type="text" className="primary-input radius large-font-size" placeholder="이메일" onChange={this.onChange} />
         <input
           name="pw"
@@ -60,7 +60,7 @@ class LoginComponent extends React.Component<Props & RouteComponentProps<any>, S
           onKeyDown={this.keyPress}
         />
       </div>
-      <div id="buttons">
+      <div id="login-buttons">
         <button className="primary-button radius large-font-size" onClick={this.login}>
           로그인
         </button>

@@ -1,4 +1,4 @@
-#inputs {
+#login-inputs {
   display: flex;
   flex-direction: column;
 
@@ -6,9 +6,14 @@
     margin: 0.5rem;
     padding: 1rem;
   }
+
+  button {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
 }
 
-#buttons {
+#login-buttons {
   display: flex;
 
   button {
