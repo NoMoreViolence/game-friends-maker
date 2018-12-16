@@ -4,6 +4,8 @@ interface User {
   admin: boolean;
   loginPending: boolean;
   loginSuccess: boolean;
+  registerPending: boolean;
+  registerSuccess: boolean;
 }
 
 export { User };
