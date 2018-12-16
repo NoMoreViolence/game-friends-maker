@@ -9,7 +9,6 @@ import 'components/App.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const AppComponent: React.SFC<{}> = () => {
-  const a = () => {};
   return (
     <div id="app" lang="ko">
       <ToastContainer newestOnTop={true} />

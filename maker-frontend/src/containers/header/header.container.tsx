@@ -21,7 +21,7 @@ const HeaderContainer: React.SFC<Props & Method & RouteComponentProps<any>> = pr
   return (
     <HeaderComponent
       username={props.username}
-      loginSuccess={props.admin}
+      loginSuccess={props.loginSuccess}
       admin={props.admin}
       logout={props.logout}
       history={history}
