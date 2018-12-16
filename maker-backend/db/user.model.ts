@@ -61,6 +61,10 @@ class User extends Model<User> {
   @Column(DataType.TINYINT(1))
   public show: boolean;
 
+  @AllowNull(true)
+  @Column(DataType.CHAR(255))
+  public introduce: string;
+
   @HasMany(() => UserGame)
   public games: UserGame[];
 
