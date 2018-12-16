@@ -39,3 +39,31 @@
     color: $black;
   }
 }
+
+.secondary-color {
+  color: $secondary;
+  &:link {
+    color: $secondary;
+  }
+}
+
+.secondary-light-color {
+  color: $secondaryLight;
+  &:link {
+    color: $secondaryLight;
+  }
+}
+
+.success-color {
+  color: $success;
+  &:link {
+    color: $success;
+  }
+}
+
+.error-color {
+  color: $error;
+  &:link {
+    color: $error;
+  }
+}

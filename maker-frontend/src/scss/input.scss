@@ -14,3 +14,20 @@
     border-color: $dark;
   }
 }
+
+.secondary-input.success {
+  border: 1px solid $success;
+}
+.secondary-input.error {
+  border: 1px solid $error;
+}
+.secondary-input {
+  border: 1px solid $secondary;
+  background-color: white;
+  outline: none;
+  transition: 0.25s;
+
+  &:focus {
+    border-color: $secondaryLight;
+  }
+}

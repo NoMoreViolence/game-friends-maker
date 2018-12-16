@@ -11,3 +11,31 @@
     background-color: $primary;
   }
 }
+
+.secondary-button {
+  border: 1px solid $secondary;
+  background-color: $white;
+  color: $secondary;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    color: $white;
+    background-color: $secondary;
+  }
+}
+
+.secondary-reverse-button {
+  border: 1px solid $secondary;
+  background-color: $secondary;
+  color: $white;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    color: $secondary;
+    background-color: $white;
+  }
+}

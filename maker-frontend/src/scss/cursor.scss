@@ -1,0 +1,60 @@
+.light-cursor {
+  cursor: pointer;
+  &:hover {
+    background-color: $light;
+    > svg {
+      fill: $primary;
+    }
+    > span {
+      color: $primary;
+    }
+  }
+}
+.primary-cursor {
+  cursor: pointer;
+  &:hover {
+    background-color: $primary;
+    > svg {
+      fill: $dark;
+    }
+    > span {
+      color: $dark;
+    }
+  }
+}
+.dark-cursor {
+  cursor: pointer;
+  &:hover {
+    background-color: $dark;
+    > svg {
+      fill: $white;
+    }
+    > span {
+      color: $white;
+    }
+  }
+}
+.secondary-cursor {
+  cursor: pointer;
+  &:hover {
+    background-color: $secondary;
+    > svg {
+      fill: $secondaryLight;
+    }
+    > span {
+      color: $secondaryLight;
+    }
+  }
+}
+.secondary-light-cursor {
+  cursor: pointer;
+  &:hover {
+    background-color: $secondaryLight;
+    > svg {
+      fill: $secondary;
+    }
+    > span {
+      color: $secondary;
+    }
+  }
+}
