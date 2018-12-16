@@ -9,7 +9,14 @@
 
   .modal-card {
     position: static;
-    width: 420px; /* Could be more or less, depending on screen size */
+
+    @media screen and (max-width: 768px) {
+      width: 300px; /* Could be more or less, depending on screen size */
+    }
+    @media screen and (min-width: 1120px) {
+      width: 420px; /* Could be more or less, depending on screen size */
+    }
+
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
 
