@@ -7,7 +7,7 @@ import RegisterContainer from 'containers/register/register.container';
 class RegisterPage extends React.PureComponent<{}, {}> {
   render = () => (
     <>
-      <div id="login-form-logo" className="card-logo primary-background">
+      <div id="login-form-logo" className="card-logo secondary-background">
         <span className="title-font-size white-color">회원가입</span>
       </div>
       <div id="register-form">

@@ -115,8 +115,8 @@ class RegisterComponent extends React.Component<Props & RouteComponentProps<any>
     if (
       this.state.emailCheck !== 'success' ||
       this.state.usernameCheck !== 'success' ||
-      this.state.password !== 'success' ||
-      this.state.rpassword !== 'success'
+      this.state.passwordCheck !== 'success' ||
+      this.state.rpasswordCheck !== 'success'
     ) {
       return;
     }
@@ -140,7 +140,7 @@ class RegisterComponent extends React.Component<Props & RouteComponentProps<any>
         <input
           name="email"
           type="text"
-          className={`${this.state.emailCheck === 'success' && 'success'} primary-input radius large-font-size `}
+          className={`${this.state.emailCheck === 'success' && 'success'} secondary-input radius large-font-size `}
           placeholder="이메일"
           onChange={this.onChange}
           onBlur={this.regexCheck}
@@ -159,7 +159,7 @@ class RegisterComponent extends React.Component<Props & RouteComponentProps<any>
         <input
           name="username"
           type="text"
-          className={`${this.state.usernameCheck === 'success' && 'success'} primary-input radius large-font-size `}
+          className={`${this.state.usernameCheck === 'success' && 'success'} secondary-input radius large-font-size `}
           placeholder="이름"
           onChange={this.onChange}
           onBlur={this.regexCheck}
@@ -172,7 +172,7 @@ class RegisterComponent extends React.Component<Props & RouteComponentProps<any>
         <input
           name="password"
           type="password"
-          className={`${this.state.passwordCheck === 'success' && 'success'} primary-input radius large-font-size `}
+          className={`${this.state.passwordCheck === 'success' && 'success'} secondary-input radius large-font-size `}
           placeholder="비밀번호"
           onChange={this.onChange}
           onBlur={this.regexCheck}
@@ -185,7 +185,7 @@ class RegisterComponent extends React.Component<Props & RouteComponentProps<any>
         <input
           name="rpassword"
           type="password"
-          className={`${this.state.rpasswordCheck === 'success' && 'success'} primary-input radius large-font-size `}
+          className={`${this.state.rpasswordCheck === 'success' && 'success'} secondary-input radius large-font-size `}
           placeholder="비밀번호 재 입력"
           onChange={this.onChange}
           onKeyDown={this.keyPress}
@@ -193,7 +193,7 @@ class RegisterComponent extends React.Component<Props & RouteComponentProps<any>
         />
       </div>
       <div id="register-buttons">
-        <button className="primary-button radius large-font-size" onClick={this.register}>
+        <button className="secondary-reverse-button radius large-font-size" onClick={this.register}>
           회원가입
         </button>
       </div>

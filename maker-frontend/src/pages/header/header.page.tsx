@@ -3,10 +3,10 @@ import './header.page.scss';
 import { NavLink } from 'react-router-dom';
 import HeaderContainer from 'containers/header/header.container';
 
-const Header: React.SFC<{}> = () => (
+const HeaderPage: React.SFC<{}> = () => (
   <header id="header" className="primary-background">
     <div>
-      <NavLink id="logo-link" className="link title-font-size white-color radius" activeClassName="link-current" to="/main">
+      <NavLink id="logo-link" className="link title-font-size white-color radius" activeStyle={{ color: '#928cf7' }} to="/main">
         GFM
       </NavLink>
     </div>
@@ -16,4 +16,4 @@ const Header: React.SFC<{}> = () => (
   </header>
 );
 
-export default Header;
+export default HeaderPage;

@@ -41,7 +41,7 @@ class LoginComponent extends React.Component<Props & RouteComponentProps<any>, S
     const { email, pw } = this.state;
 
     if (!emailRegex.test(email) || !passwordRegex.test(pw)) {
-      toast.error('Invaild (email or password) value');
+      toast.error('맞지 않는 형식입니다 !');
     } else {
       this.props.login({ email, password: pw });
     }
@@ -50,18 +50,18 @@ class LoginComponent extends React.Component<Props & RouteComponentProps<any>, S
   render = () => (
     <>
       <div id="login-inputs">
-        <input name="email" type="text" className="primary-input radius large-font-size" placeholder="이메일" onChange={this.onChange} />
+        <input name="email" type="text" className="secondary-input radius large-font-size" placeholder="이메일" onChange={this.onChange} />
         <input
           name="pw"
           type="password"
-          className="primary-input radius large-font-size"
+          className="secondary-input radius large-font-size"
           placeholder="비밀번호"
           onChange={this.onChange}
           onKeyDown={this.keyPress}
         />
       </div>
       <div id="login-buttons">
-        <button className="primary-button radius large-font-size" onClick={this.login}>
+        <button className="secondary-reverse-button radius large-font-size" onClick={this.login}>
           로그인
         </button>
       </div>

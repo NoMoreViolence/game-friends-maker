@@ -6,7 +6,7 @@ import LoginContainer from 'containers/login/login.container';
 
 const LoginPage: React.SFC<{}> = () => (
   <>
-    <div id="login-form-logo" className="card-logo primary-background">
+    <div id="login-form-logo" className="card-logo secondary-background">
       <span className="title-font-size white-color">로그인</span>
     </div>
     <div id="login-form">
