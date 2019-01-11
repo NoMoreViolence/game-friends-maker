@@ -1,7 +1,13 @@
 import { createAction } from 'redux-actions';
+import { Action } from 'redux';
 
 export const LOGIN = 'LOGIN';
 export type LOGIN = { email: string; password: string };
+export class Login implements Action {
+  readonly type = LOGIN;
+
+  constructor(public payload: LOGIN) {}
+}
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export type LOGIN_SUCCESS = { admin: boolean; username: string; email: string; token: string };
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -29,3 +35,15 @@ export const userActions = {
   register: createAction(REGISTER, (data: REGISTER) => data),
   logout: createAction(LOGOUT)
 };
+
+export type UserActions =
+  | Login
+  | LOGIN_SUCCESS
+  | LOGIN_FAILURE
+  | LOGOUT
+  | AUTO_LOGIN
+  | AUTO_LOGIN_SUCCESS
+  | AUTO_LOGIN_FAILURE
+  | REGISTER
+  | REGISTER_SUCCESS
+  | REGISTER_FAILURE;

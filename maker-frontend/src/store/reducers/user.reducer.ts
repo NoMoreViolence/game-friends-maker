@@ -10,7 +10,9 @@ import {
   AUTO_LOGIN_FAILURE,
   REGISTER,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE
+  REGISTER_FAILURE,
+  UserActions,
+  Login
 } from './../actions';
 import { User } from '../models';
 
@@ -24,9 +26,9 @@ const initialState: User = {
   registerSuccess: false
 };
 
-const userReducer = handleActions<User, any>(
+const userReducer = handleActions<User, UserActions>(
   {
-    [LOGIN]: (state, action: Action<LOGIN>) =>
+    [LOGIN]: (state, action: Login) =>
       produce(state, draft => {
         draft.loginPending = true;
         draft.loginSuccess = false;
