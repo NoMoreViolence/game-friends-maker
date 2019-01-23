@@ -4,11 +4,14 @@
 
   > a {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     margin: 1rem;
     padding: 1rem;
     text-decoration: none;
 
-    img > svg {
+    > svg {
+      flex: 1;
       &:hover {
         fill: white;
       }

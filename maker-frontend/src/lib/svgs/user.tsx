@@ -10,8 +10,6 @@ const UserSvg: React.SFC<Props> = props => (
       className={props.color && `${props.color}-fill`}
       id="bf987f75-b15a-4b7f-a137-75b4492c4a21"
       data-name="Layer 1"
-      x="0px"
-      y="0px"
       viewBox="0 0 1167.52 756.03"
     >
       <defs>
@@ -237,4 +235,4 @@ const UserSvg: React.SFC<Props> = props => (
   </>
 );
 
-export { UserSvg };
+export default UserSvg;
