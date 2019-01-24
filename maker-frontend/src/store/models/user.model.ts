@@ -2,10 +2,8 @@ interface User {
   email: string;
   username: string;
   admin: boolean;
-  loginPending: boolean;
-  loginSuccess: boolean;
-  registerPending: boolean;
-  registerSuccess: boolean;
+  loginStatus: 'none' | 'success' | 'pending';
+  registerStatus: 'none' | 'success' | 'pending';
 }
 
 export { User };

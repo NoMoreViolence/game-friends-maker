@@ -1,94 +1,64 @@
-import { handleActions, Action } from 'redux-actions';
 import { produce } from 'immer';
-import {
-  LOGIN,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT,
-  AUTO_LOGIN,
-  AUTO_LOGIN_SUCCESS,
-  AUTO_LOGIN_FAILURE,
-  REGISTER,
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-  UserActions,
-  Login
-} from './../actions';
+import { UserActions } from './../actions';
 import { User } from '../models';
 
 const initialState: User = {
   email: '',
   username: '',
   admin: false,
-  loginPending: false,
-  loginSuccess: false,
-  registerPending: false,
-  registerSuccess: false
+  loginStatus: 'none',
+  registerStatus: 'none'
 };
 
-const userReducer = handleActions<User, UserActions>(
-  {
-    [LOGIN]: (state, action: Login) =>
-      produce(state, draft => {
-        draft.loginPending = true;
-        draft.loginSuccess = false;
-      }),
-    [LOGIN_SUCCESS]: (state, action: Action<LOGIN_SUCCESS>) =>
-      produce(state, draft => {
-        if (action.payload) {
-          draft.loginPending = false;
-          draft.loginSuccess = true;
-          draft.email = action.payload.email;
-          draft.username = action.payload.username;
-          draft.admin = action.payload.admin;
-        }
-      }),
-    [LOGIN_FAILURE]: (state, action: Action<LOGIN_FAILURE>) =>
-      produce(state, draft => {
-        draft.loginPending = false;
-        draft.loginSuccess = false;
-      }),
+const userReducer = (state: User = initialState, action: UserActions) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case 'LOGIN':
+        draft.loginStatus = 'pending';
+        break;
+      case 'LOGIN_SUCCESS':
+        draft.loginStatus = 'success';
+        draft.email = action.payload.email;
+        draft.username = action.payload.username;
+        draft.admin = action.payload.admin;
+        break;
+      case 'LOGIN_FAILURE':
+        draft.loginStatus = 'none';
+        break;
 
-    [AUTO_LOGIN]: (state, action: Action<AUTO_LOGIN>) =>
-      produce(state, draft => {
-        draft.loginPending = true;
-        draft.loginSuccess = false;
-      }),
-    [AUTO_LOGIN_SUCCESS]: (state, action: Action<AUTO_LOGIN_SUCCESS>) =>
-      produce(state, draft => {
-        if (action.payload) {
-          draft.loginPending = false;
-          draft.loginSuccess = true;
-          draft.email = action.payload.email;
-          draft.username = action.payload.username;
-          draft.admin = action.payload.admin;
-        }
-      }),
-    [AUTO_LOGIN_FAILURE]: (state, action: Action<AUTO_LOGIN_FAILURE>) =>
-      produce(state, draft => {
-        draft.loginPending = false;
-        draft.loginSuccess = false;
-      }),
+      case 'AUTO_LOGIN':
+        draft.loginStatus = 'pending';
+        break;
+      case 'AUTO_LOGIN_SUCCESS':
+        draft.loginStatus = 'success';
+        draft.email = action.payload.email;
+        draft.username = action.payload.username;
+        draft.admin = action.payload.admin;
+        break;
+      case 'AUTO_LOGIN_FAILURE':
+        draft.loginStatus = 'none';
+        break;
 
-    [REGISTER]: (state, action: Action<REGISTER>) =>
-      produce(state, draft => {
-        draft.registerPending = true;
-        draft.registerSuccess = false;
-      }),
-    [REGISTER_SUCCESS]: (state, action: Action<REGISTER_SUCCESS>) =>
-      produce(state, draft => {
-        draft.registerPending = false;
-        draft.registerSuccess = true;
-      }),
-    [REGISTER_FAILURE]: (state, action: Action<REGISTER_FAILURE>) =>
-      produce(state, draft => {
-        draft.registerPending = false;
-        draft.registerSuccess = false;
-      }),
+      case 'REGISTER':
+        draft.registerStatus = 'pending';
+        break;
+      case 'REGISTER_SUCCESS':
+        draft.registerStatus = 'success';
+        break;
+      case 'REGISTER_FAILURE':
+        draft.registerStatus = 'none';
+        break;
 
-    [LOGOUT]: (state, action: Action<LOGOUT>) => produce(state, draft => initialState)
-  },
-  initialState
-);
+      case 'LOGOUT':
+        draft.admin = false;
+        draft.email = '';
+        draft.loginStatus = 'none';
+        draft.registerStatus = 'none';
+        draft.username = '';
+
+      default:
+        break;
+    }
+  });
 
 export { userReducer };
