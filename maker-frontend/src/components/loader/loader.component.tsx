@@ -2,14 +2,14 @@ import * as React from 'react';
 import './loader.component.scss';
 
 interface Props {
-  loginPending: boolean;
-  registerPending: boolean;
+  loginStatus: 'none' | 'pending' | 'success';
+  registerStatus: 'none' | 'pending' | 'success';
 }
 
 // Thank you for https://codepen.io/akwright/ Alex
 const LoaderComponent: React.SFC<Props> = props => (
   <>
-    {(props.loginPending || props.registerPending) && (
+    {(props.loginStatus === 'pending' || props.registerStatus === 'pending') && (
       <div className="modal transparent-black-background">
         <div className="modal-card loading-container">
           <svg version="1.1" id="preloader6" width="140px" height="140px" viewBox="0 0 200 200">

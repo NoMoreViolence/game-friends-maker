@@ -1,1 +1,1 @@
-export * from './logout.modal.component';
+export { default } from './logout.modal.component';

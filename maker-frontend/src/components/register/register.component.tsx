@@ -5,9 +5,8 @@ import './register.component.scss';
 import * as lib from 'lib';
 
 interface Props {
-  registerPending: boolean;
-  registerSuccess: boolean;
-  loginSuccess: boolean;
+  registerStatus: 'none' | 'pending' | 'success';
+  loginStatus: 'none' | 'pending' | 'success';
   register: (value: { username: string; email: string; password: string }) => void;
 }
 interface State {
@@ -38,12 +37,12 @@ class RegisterComponent extends React.Component<Props & RouteComponentProps<any>
   public rpasswordRef: React.RefObject<HTMLInputElement> = React.createRef();
 
   componentDidMount = () => (
-    this.props.loginSuccess === true && this.props.history.push('/main'),
-    this.props.registerSuccess === true && this.props.history.push('sign/login')
+    this.props.loginStatus === 'success' && this.props.history.push('/main'),
+    this.props.registerStatus === 'success' && this.props.history.push('sign/login')
   );
   componentDidUpdate = () => (
-    this.props.loginSuccess === true && this.props.history.push('/main'),
-    this.props.registerSuccess === true && this.props.history.push('sign/login')
+    this.props.loginStatus === 'success' && this.props.history.push('/main'),
+    this.props.registerStatus === 'success' && this.props.history.push('sign/login')
   );
 
   public onChange = (value: React.ChangeEvent<HTMLInputElement>) =>

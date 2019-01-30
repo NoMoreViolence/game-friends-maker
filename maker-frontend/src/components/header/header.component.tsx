@@ -8,7 +8,7 @@ import './header.component.scss';
 
 interface Props {
   username: string;
-  loginSuccess: boolean;
+  loginStatus: 'none' | 'success' | 'pending';
   admin: boolean;
   logout: () => void;
 }
@@ -24,16 +24,16 @@ class HeaderComponent extends React.Component<Props & RouteComponentProps<any>, 
 
   public close = () => this.setState({ logoutModal: !this.state.logoutModal });
   public logout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.props.logout();
-    toast('로그아웃 성공, 안녕히 가세요');
-    this.props.history.push('/');
+    toast('안녕히 가세요');
+    this.props.history.push('/main');
   };
 
   public render = () => (
     <>
       {this.state.logoutModal && <ModalPage close={this.close} component={logoutModalContainer} />}
-      {this.props.loginSuccess ? (
+      {this.props.loginStatus === 'success' ? (
         <>
           <button className="primary-button middle-font-size radius" id="header-link" onClick={this.close}>
             로그아웃

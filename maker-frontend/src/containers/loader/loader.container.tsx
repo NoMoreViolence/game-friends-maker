@@ -5,20 +5,20 @@ import { AppState, userActions } from 'store';
 import LoaderComponent from 'components/loader/loader.component';
 
 interface Props {
-  loginPending: boolean;
-  registerPending: boolean;
+  loginStatus: 'none' | 'pending' | 'success';
+  registerStatus: 'none' | 'pending' | 'success';
 }
 
 interface Method {}
 
 const LoaderContainer: React.SFC<Props & Method> = props => (
-  <LoaderComponent loginPending={props.loginPending} registerPending={props.registerPending} />
+  <LoaderComponent loginStatus={props.loginStatus} registerStatus={props.registerStatus} />
 );
 
 export default connect<Props, Method, {}, {}>(
   ({ user }: AppState) => ({
-    loginPending: user.loginPending,
-    registerPending: user.registerPending
+    loginStatus: user.loginStatus,
+    registerStatus: user.registerStatus
   }),
   dispatch => ({})
 )(LoaderContainer);

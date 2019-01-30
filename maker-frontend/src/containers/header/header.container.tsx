@@ -7,7 +7,7 @@ import HeaderComponent from 'components/header/header.component';
 
 interface Props {
   username: string;
-  loginSuccess: boolean;
+  loginStatus: 'none' | 'success' | 'pending';
   admin: boolean;
 }
 
@@ -21,7 +21,7 @@ const HeaderContainer: React.SFC<Props & Method & RouteComponentProps<any>> = pr
   return (
     <HeaderComponent
       username={props.username}
-      loginSuccess={props.loginSuccess}
+      loginStatus={props.loginStatus}
       admin={props.admin}
       logout={props.logout}
       history={history}
@@ -35,7 +35,7 @@ export default withRouter(
   connect<Props, Method, {}, {}>(
     ({ user }: AppState) => ({
       username: user.username,
-      loginSuccess: user.loginSuccess,
+      loginStatus: user.loginStatus,
       admin: user.admin
     }),
     dispatch => ({

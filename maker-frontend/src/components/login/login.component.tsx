@@ -5,8 +5,7 @@ import { emailRegex, passwordRegex } from 'lib';
 import './login.component.scss';
 
 interface Props {
-  loginSuccess: boolean;
-  loginPending: boolean;
+  loginStatus: 'none' | 'pending' | 'success';
   login: (value: { email: string; password: string }) => void;
 }
 interface State {
@@ -21,13 +20,13 @@ class LoginComponent extends React.Component<Props & RouteComponentProps<any>, S
   };
 
   componentDidMount = () => {
-    if (this.props.loginSuccess) {
+    if (this.props.loginStatus === 'success') {
       toast.info('이미 로그인 상태입니다 !');
       this.props.history.push('/main');
     }
   };
   componentDidUpdate = (prevProps: Props & RouteComponentProps<any>, prevState: State) => {
-    if (prevProps !== this.props && this.props.loginSuccess) {
+    if (prevProps !== this.props && this.props.loginStatus === 'success') {
       this.props.history.push('/main');
     }
   };

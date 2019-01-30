@@ -6,9 +6,8 @@ import Register from 'components/register/register.component';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 interface Props {
-  registerPending: boolean;
-  registerSuccess: boolean;
-  loginSuccess: boolean;
+  registerStatus: 'none' | 'pending' | 'success';
+  loginStatus: 'none' | 'pending' | 'success';
 }
 
 interface Method {
@@ -17,9 +16,8 @@ interface Method {
 
 const RegisterContainer: React.SFC<Props & Method & RouteComponentProps<any>> = props => (
   <Register
-    registerPending={props.registerPending}
-    registerSuccess={props.registerSuccess}
-    loginSuccess={props.loginSuccess}
+    registerStatus={props.registerStatus}
+    loginStatus={props.loginStatus}
     register={props.register}
     history={props.history}
     location={props.location}
@@ -30,9 +28,8 @@ const RegisterContainer: React.SFC<Props & Method & RouteComponentProps<any>> = 
 export default withRouter(
   connect<Props, Method, {}, {}>(
     ({ user }: AppState) => ({
-      registerSuccess: user.registerSuccess,
-      registerPending: user.registerPending,
-      loginSuccess: user.loginSuccess
+      registerStatus: user.registerStatus,
+      loginStatus: user.loginStatus
     }),
     dispatch => ({
       register: bindActionCreators(userActions.register, dispatch)
