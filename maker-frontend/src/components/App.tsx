@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import HeaderPage from 'pages/header/header.page';
-import signPage from 'pages/sign/sign.page';
-import MyinfoPage from 'pages/myinfo/myinfo.page';
-import AutoLoginContainer from 'containers/auto-login/auto-login.container';
-import Loader from 'pages/loader/loader.page';
+import HeaderPage from 'pages/header';
+import signPage from 'pages/sign';
+import MyinfoPage from 'pages/myinfo';
+import ProfilePage from 'pages/profile';
+import AutoLoginContainer from 'containers/auto-login';
+import Loader from 'pages/loader';
 
 import 'components/App.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -16,6 +17,7 @@ const AppComponent: React.SFC<{}> = () => (
     <HeaderPage />
     <Switch>
       <Route path="/sign" component={signPage} />
+      <Route path="/info/profile" component={ProfilePage} />
       <Route path="/info" component={MyinfoPage} />
     </Switch>
     <AutoLoginContainer />
