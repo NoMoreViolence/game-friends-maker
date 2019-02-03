@@ -4,16 +4,16 @@
 
   .page {
     @media screen and (max-width: 425px) {
-      width: 350px;
+      width: calc(350px - 3rem);
     }
     @media screen and (min-width: 426px) and (max-width: 768px) {
-      width: 426px;
+      width: calc(426px - 3rem);
     }
     @media screen and (min-width: 769px) and (max-width: 1024px) {
-      width: 769px;
+      width: calc(769px - 3rem);
     }
     @media screen and (min-width: 1025px) {
-      width: 1025px;
+      width: calc(1025px - 3rem);
     }
   }
 }
