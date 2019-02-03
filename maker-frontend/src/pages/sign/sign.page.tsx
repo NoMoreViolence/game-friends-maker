@@ -7,7 +7,7 @@ import RegisterPage from './register/register.page';
 
 const SignPage: React.SFC<{}> = () => (
   <div id="sign">
-    <div className="card-shadow white-background radius">
+    <div className="white-gray-border white-background radius">
       <Route path="/sign/login" exact={true} component={LoginPage} />
       <Route path="/sign/register" exact={true} component={RegisterPage} />
     </div>
