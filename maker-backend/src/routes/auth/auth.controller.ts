@@ -4,6 +4,7 @@ import Sequelize, { User, UserGame, AllGame } from 'db';
 import lib, { EncryptoPassword } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import * as random from 'randomstring';
+import { CheckReturnValue } from 'src/lib/check_validation';
 
 const { salt, regex, validation, encrypto, jwt, mailer } = lib;
 
@@ -22,26 +23,35 @@ export const checkDuplication = (req: Request, res: Response): void => {
   const { what } = req.params;
   const { checkvalue } = req.query;
 
-  const checkWhatShouldUpdate = (value: CheckDuplication): Promise<CheckDuplication> =>
-    value.what === 'username' || value.what === 'email' ? Promise.resolve(value) : Promise.reject(new Error('There is a wrong request !'));
+  const checkWhatShouldUpdate = (duplication: CheckDuplication): Promise<CheckDuplication> =>
+    duplication.what === 'username' || duplication.what === 'email'
+      ? Promise.resolve(duplication)
+      : Promise.reject(new Error('There is a wrong request !'));
 
-  const checkValidation = (value: CheckDuplication): Promise<CheckDuplication> =>
+  const checkValidation = (duplications: CheckDuplication): Promise<CheckDuplication> =>
     new Promise((resolve, reject) =>
       validation
-        .checkValidationAll([{ regex: regex[`${value.what}Regex`], value: value.checkvalue, name: value.what }])
-        .then(data => (data.result === true ? resolve(value) : reject(new Error('There is no information'))))
+        .checkValidationAll([
+          {
+            regex: regex[`${duplications.what}Regex`],
+            value: duplications.checkvalue,
+            name: duplications.what
+          }
+        ])
+        .then(() => resolve(duplications))
+        .catch(() => reject(new Error('There is no information')))
     );
 
-  const DoubleCheck = (value: CheckDuplication): Promise<CheckDuplication> =>
+  const DoubleCheck = (duplication: CheckDuplication): Promise<void> =>
     new Promise((resolve, reject) =>
       User.findOne({
-        where: { [what]: value.checkvalue }
+        where: { [what]: duplication.checkvalue }
       })
-        .then((data: User) => (data ? reject(new Error(`There is a duplicate information ${value.what} !`)) : resolve(value)))
-        .catch((err: DatabaseError) => reject(new Error('There is an user input error !')))
+        .then((data: User) => (data ? reject(new Error(`There is a duplicate information ${duplication.what} !`)) : resolve()))
+        .catch(() => reject(new Error('There is an user input error !')))
     );
 
-  const responseToClient = (value: CheckDuplication): Response =>
+  const responseToClient = (): Response =>
     res.json({
       success: true,
       message: 'DoubleCheck success !'
@@ -77,49 +87,55 @@ interface Register {
 export const register = (req: Request, res: Response): void => {
   const { username, email, password } = req.body;
 
-  const checkNull = (value: Register): Promise<Register> =>
-    typeof value.username === 'string' && typeof value.email === 'string' && typeof value.password === 'string'
+  const checkNull = (userRegister: Register): Promise<Register> =>
+    typeof userRegister.username === 'string' && typeof userRegister.email === 'string' && typeof userRegister.password === 'string'
       ? Promise.resolve({
-          ...value,
-          username: value.username.trim(),
-          email: value.email.trim(),
-          password: value.password.trim()
+          ...userRegister,
+          username: userRegister.username.trim(),
+          email: userRegister.email.trim(),
+          password: userRegister.password.trim()
         })
       : Promise.reject(new Error('There is no data !'));
 
-  const checkPasswordValidation = (value: Register): Promise<Register> =>
+  const checkPasswordValidation = (userRegister: Register): Promise<Register> =>
     new Promise((resolve, reject) =>
       validation
-        .checkValidationAll([{ regex: value.regex.passwordRegex, value: value.password, name: 'password' }])
-        .then(data => (data.result === true ? resolve(value) : reject(new Error('Validation error: (password)'))))
-        .catch(err => reject(new Error('There is a server error !')))
+        .checkValidationAll([
+          {
+            regex: userRegister.regex.passwordRegex,
+            value: userRegister.password,
+            name: 'password'
+          }
+        ])
+        .then(() => resolve(userRegister))
+        .catch(() => reject(new Error('Validation error: (password)')))
     );
 
-  const passwordEncryption = (value: Register): Promise<Register> =>
+  const passwordEncryption = (userRegister: Register): Promise<Register> =>
     new Promise((resolve, reject) =>
-      encrypto({ password: value.password, salt: salt() })
-        .then((data: EncryptoPassword) => resolve({ ...value, password: data.password, salt: data.salt }))
+      encrypto({ password: userRegister.password, salt: salt() })
+        .then((data: EncryptoPassword) => resolve({ ...userRegister, password: data.password, salt: data.salt }))
         .catch((err: Error) => reject(new Error('There is a server error !')))
     );
 
-  const addUser = (value: Register): Promise<Register> =>
+  const addUser = (userRegister: Register): Promise<Register> =>
     new Promise((resolve, reject) =>
       User.create({
-        username: value.username,
-        email: value.email,
-        password: value.password,
-        salt: value.salt,
+        username: userRegister.username,
+        email: userRegister.email,
+        password: userRegister.password,
+        salt: userRegister.salt,
         verified: false
       })
-        .then((data: User) => (data ? resolve(value) : reject(new Error('There is a server Error !'))))
+        .then((data: User) => (data ? resolve(userRegister) : reject(new Error('There is a server Error !'))))
         .catch((err: DatabaseError) => reject(new Error(err.name)))
     );
 
-  const responseToClient = (value: Register) =>
+  const responseToClient = (userRegister: Register) =>
     res.json({
       success: true,
       message: 'Register success !',
-      value: { username: value.username, email: value.email }
+      value: { username: userRegister.username, email: userRegister.email }
     });
 
   const onError = (err: Error) =>
@@ -154,56 +170,61 @@ interface Login {
 export const login = (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const checkValidation = (value: Login): Promise<Login> =>
+  const checkValidation = (loginData: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
       validation
         .checkValidationAll([
-          { regex: regex.emailRegex, value: value.email, name: 'email' },
-          { regex: regex.passwordRegex, value: value.password, name: 'password' }
+          { regex: regex.emailRegex, value: loginData.email, name: 'email' },
+          { regex: regex.passwordRegex, value: loginData.password, name: 'password' }
         ])
-        .then(data => {
-          data.result === true ? resolve(value) : reject(new Error(`There is a validation error (${data.errRegex}) ! `));
-        })
+        .then(() => resolve(loginData))
+        .catch((err: CheckReturnValue) => reject(new Error(`There is a validation error (${err.errRegex}) ! `)))
     );
 
-  const findData = (value: Login): Promise<Login> =>
+  const findData = (loginData: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
-      User.findOne({ where: { email: value.email } })
+      User.findOne({ where: { email: loginData.email } })
         .then((user: User) =>
           user
-            ? resolve({ ...value, id: user.id, username: user.username, hashedPassword: user.password, salt: user.salt })
+            ? resolve({
+                ...loginData,
+                id: user.id,
+                username: user.username,
+                hashedPassword: user.password,
+                salt: user.salt
+              })
             : reject(new Error('There is no user data that have request email !'))
         )
-        .catch((err: DatabaseError) => reject(new Error('There is no user data that have request email !')))
+        .catch((err: DatabaseError) => reject(new Error('Server error !')))
     );
 
-  const passwordEncryption = (value: Login): Promise<Login> =>
+  const passwordEncryption = (loginData: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
-      encrypto({ password: value.password, salt: value.salt })
-        .then((data: EncryptoPassword) => resolve({ ...value, password: data.password }))
+      encrypto({ password: loginData.password, salt: loginData.salt })
+        .then((data: EncryptoPassword) => resolve({ ...loginData, password: data.password }))
         .catch((err: Error) => reject(new Error('There is a server Error !')))
     );
 
-  const compareData = (value: Login): Promise<Login> =>
-    value.password === value.hashedPassword ? Promise.resolve(value) : Promise.reject(new Error('There is a password error !'));
+  const compareData = (loginData: Login): Promise<Login> =>
+    loginData.password === loginData.hashedPassword ? Promise.resolve(loginData) : Promise.reject(new Error('There is a password error !'));
 
-  const createJWT = (value: Login): Promise<Login> =>
+  const createToken = (loginData: Login): Promise<Login> =>
     new Promise((resolve, reject) =>
       jwt
-        .createJWT(value.id, value.username, value.email)
-        .then((data: string) => resolve({ ...value, token: data }))
+        .createJWT(loginData.id, loginData.username, loginData.email)
+        .then((data: string) => resolve({ ...loginData, token: data }))
         .catch((err: JsonWebTokenError) => reject(new Error('Server error !')))
     );
 
-  const responseToClient = (value: Login): Response =>
+  const responseToClient = (loginData: Login): Response =>
     res.json({
       success: true,
       message: 'Login success !',
       value: {
-        admin: value.id === 1 ? true : false,
-        username: value.username,
-        email: value.email,
-        token: value.token
+        admin: loginData.id === 1 ? true : false,
+        username: loginData.username,
+        email: loginData.email,
+        token: loginData.token
       }
     });
 
@@ -213,11 +234,19 @@ export const login = (req: Request, res: Response) => {
       message: err.message
     });
 
-  checkValidation({ id: -1, username: '', email, password, hashedPassword: '', salt: '', token: '' })
+  checkValidation({
+    id: -1,
+    username: '',
+    email,
+    password,
+    hashedPassword: '',
+    salt: '',
+    token: ''
+  })
     .then(findData)
     .then(passwordEncryption)
     .then(compareData)
-    .then(createJWT)
+    .then(createToken)
     .then(responseToClient)
     .catch(onError);
 };
@@ -257,16 +286,16 @@ interface Withdraw {
 export const withdraw = (req: Request, res: Response) => {
   const { id } = res.locals;
 
-  const destoryAccount = (value: Withdraw): Promise<Withdraw> =>
+  const destroyAccount = (goodByeUser: Withdraw): Promise<Withdraw> =>
     new Promise((resolve, reject) =>
       User.destroy({
         where: { id }
       })
-        .then(data => resolve(value))
+        .then(data => resolve(goodByeUser))
         .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
-  const responseToClient = (value: Withdraw): Response =>
+  const responseToClient = (): Response =>
     res.json({
       success: true,
       message: 'Withdraw success ! good bye.'
@@ -278,7 +307,7 @@ export const withdraw = (req: Request, res: Response) => {
       message: err.message
     });
 
-  destoryAccount({ id })
+  destroyAccount({ id })
     .then(responseToClient)
     .catch(onError);
 };
@@ -299,68 +328,65 @@ interface ChangeUserInfo {
   token: string;
 }
 export const changeUserInfo = (req: Request, res: Response) => {
-  const { what } = req.params; // username or email, gives direction what has to be change
-  const { username, email, id } = res.locals; // decoded token value, same as databases username and email
-  const { newThing } = req.body; // new change value, it could be username or email
+  const { what } = req.params; // gives direction what has to be change
+  const { username, email, id } = res.locals;
+  const { newThing } = req.body;
 
-  // type Check
-  const typeCheck = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
-    typeof value.newThing === 'string' ? Promise.resolve({ ...value, newThing: value.newThing.trim() }) : Promise.reject(new Error(''));
+  const typeCheck = (userInfo: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    typeof userInfo.newThing === 'string'
+      ? Promise.resolve({ ...userInfo, newThing: userInfo.newThing.trim() })
+      : Promise.reject(new Error(''));
 
-  // 'what' params is valid check
-  const checkWhatShouldUpdate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
-    value.what === 'username' || value.what === 'email'
-      ? Promise.resolve(value)
+  const checkWhatShouldUpdate = (userInfo: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    userInfo.what === 'username' || userInfo.what === 'email'
+      ? Promise.resolve(userInfo)
       : Promise.reject(new Error('There is wrong api request !'));
 
-  // 'duplicate' check
-  const checkDuplicate = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
-    value.newThing === value[what] ? Promise.reject(new Error('There is a duplicate check error !')) : Promise.resolve(value);
+  const checkDuplicate = (userInfo: ChangeUserInfo): Promise<ChangeUserInfo> =>
+    userInfo.newThing === userInfo[what] ? Promise.reject(new Error('You cannot change same as before !')) : Promise.resolve(userInfo);
 
-  // Update
-  const updateThing = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+  const updateThing = (userInfo: ChangeUserInfo): Promise<ChangeUserInfo> =>
     new Promise((resolve, reject) =>
-      User.update({ [value.what]: value.newThing }, { where: { [value.what]: value[value.what] } })
-        .then(() => resolve(value))
+      User.update(
+        {
+          [userInfo.what]: userInfo.newThing
+        },
+        { where: { [userInfo.what]: userInfo[userInfo.what] } }
+      )
+        .then(() => resolve(userInfo))
         .catch((err: DatabaseError) => reject(new Error(err.name)))
     );
 
-  // Create jwt token
-  const createJWT = (value: ChangeUserInfo): Promise<ChangeUserInfo> =>
+  const createJWT = (userInfo: ChangeUserInfo): Promise<ChangeUserInfo> =>
     new Promise((resolve, reject) =>
       jwt
         .createJWT(
-          value.id,
-          value.what === 'username' ? value.newThing : value.username,
-          value.what === 'email' ? value.newThing : value.email
+          userInfo.id,
+          userInfo.what === 'username' ? userInfo.newThing : userInfo.username,
+          userInfo.what === 'email' ? userInfo.newThing : userInfo.email
         )
-        .then((data: string) => resolve({ ...value, token: data }))
-        .catch((err: JsonWebTokenError) => reject(new Error('There is a server error !')))
+        .then((token: string) => resolve({ ...userInfo, token }))
+        .catch(() => reject(new Error('Server error !')))
     );
 
-  // Response
-  const responseToClient = (value: ChangeUserInfo) => {
-    res.cookie('accessToken', { token: value.token }, { maxAge: 2628000 * 2, httpOnly: true });
+  const responseToClient = (userInfo: ChangeUserInfo) =>
     res.json({
       success: true,
       message: 'Change user information success !',
       value: {
-        what: value.what,
-        before: value.what === 'username' ? username : email,
-        after: value.newThing
+        what: userInfo.what,
+        before: userInfo.what === 'username' ? username : email,
+        after: userInfo.newThing,
+        token: userInfo.token
       }
     });
-  };
 
-  // Error handler
-  const onError = (err: Error) => {
+  const onError = (err: Error) =>
     res.status(409).json({
       success: false,
       message: err.message
     });
-  };
 
-  // Promise
   typeCheck({ what, id, username, email, newThing, token: '' })
     .then(checkWhatShouldUpdate)
     .then(checkDuplicate)
@@ -390,79 +416,96 @@ export const changeUserPassword = (req: Request, res: Response) => {
   const { username, email, id } = res.locals; // decoded token value, same as databases id, username and email
   const { oldPassword, newPassword } = req.body;
 
-  // Regex check + new password encryption
-  const checkNewPasswordRegex = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+  const checkNewPasswordRegex = (passwordChange: ChangeUserPassword): Promise<ChangeUserPassword> =>
     new Promise((resolve, reject) =>
       validation
         .checkValidationAll([
-          { regex: regex.passwordRegex, value: value.newPassword, name: 'password' },
-          { regex: regex.passwordRegex, value: value.oldPassword, name: 'password' }
+          { regex: regex.passwordRegex, value: passwordChange.newPassword, name: 'password' },
+          { regex: regex.passwordRegex, value: passwordChange.oldPassword, name: 'password' }
         ])
-        .then(data =>
-          data.result === true
-            ? encrypto({ password: value.newPassword, salt: salt() })
-                .then(pw => resolve({ ...value, newPassword: pw.password, newSalt: pw.salt }))
-                .catch(err => reject(new Error('There is a server error !')))
-            : reject(new Error('There is a validation error !)'))
+        .then(() =>
+          encrypto({ password: passwordChange.newPassword, salt: salt() })
+            .then(pw => resolve({ ...passwordChange, newPassword: pw.password, newSalt: pw.salt }))
+            .catch(() => reject(new Error('There is a server error !')))
         )
-        .catch(err => reject(new Error('There is a server error !')))
+        .catch((err: CheckReturnValue) => reject(new Error(`There is a validation error (${err.errRegex}) !`)))
     );
 
-  // Find old salt
-  const findOldSalt = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
-    new Promise((resolve, reject) => {
-      User.findOne({ where: { id: value.id } }).then(data => {
-        data.dataValues.id ? resolve({ ...value, oldSalt: data.dataValues.salt }) : reject(new Error('Wrong password !'));
-      });
-    });
-
-  // Password encrypto
-  const encryptoOldPassword = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+  const findOldSalt = (passwordChange: ChangeUserPassword): Promise<ChangeUserPassword> =>
     new Promise((resolve, reject) =>
-      encrypto({ password: value.oldPassword, salt: value.oldSalt })
-        .then((data: EncryptoPassword) => resolve({ ...value, oldPassword: data.password }))
+      User.findOne({ where: { id: passwordChange.id } })
+        .then(data =>
+          data.dataValues.id
+            ? resolve({
+                ...passwordChange,
+                oldSalt: data.dataValues.salt
+              })
+            : reject(new Error('Wrong password !'))
+        )
+        .catch(err => reject(new Error('Server error !')))
+    );
+
+  const encryptoOldPassword = (passwordChange: ChangeUserPassword): Promise<ChangeUserPassword> =>
+    new Promise((resolve, reject) =>
+      encrypto({
+        password: passwordChange.oldPassword,
+        salt: passwordChange.oldSalt
+      })
+        .then((data: EncryptoPassword) => resolve({ ...passwordChange, oldPassword: data.password }))
         .catch((err: Error) => reject(new Error('There is a server Error !')))
     );
 
-  // Update
-  const updatePassword = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
-    new Promise((resolve, reject) => {
-      User.update({ password: value.newPassword, salt: value.newSalt }, { where: { password: value.oldPassword } })
-        .then(() => resolve(value))
-        .catch(err => {
-          console.log(err.message);
-          reject(new Error('There is a duplicate check error !'));
-        });
-    });
+  const updatePassword = (passwordChange: ChangeUserPassword): Promise<ChangeUserPassword> =>
+    new Promise((resolve, reject) =>
+      User.update(
+        {
+          password: passwordChange.newPassword,
+          salt: passwordChange.newSalt
+        },
+        {
+          where: {
+            password: passwordChange.oldPassword
+          }
+        }
+      )
+        .then(() => resolve(passwordChange))
+        .catch(err => reject(new Error('Server error !')))
+    );
 
-  // Create jwt token
-  const createJWT = (value: ChangeUserPassword): Promise<ChangeUserPassword> =>
+  const createJWT = (passwordChange: ChangeUserPassword): Promise<ChangeUserPassword> =>
     new Promise((resolve, reject) =>
       jwt
-        .createJWT(value.id, value.username, value.email)
-        .then((data: string) => resolve({ ...value, token: data }))
+        .createJWT(passwordChange.id, passwordChange.username, passwordChange.email)
+        .then((data: string) => resolve({ ...passwordChange, token: data }))
         .catch((err: JsonWebTokenError) => reject(new Error('There is a server error !')))
     );
 
-  // Response
-  const responseToClient = (value: ChangeUserPassword) => {
-    res.cookie('accessToken', { token: value.token }, { maxAge: 2628000 * 2, httpOnly: true });
+  const responseToClient = (passwordChange: ChangeUserPassword) => {
     res.json({
       success: true,
-      message: 'Change user password success !'
+      message: 'Change user password success !',
+      value: {
+        token: passwordChange.token
+      }
     });
   };
 
-  // Error handler
-  const onError = (err: Error) => {
+  const onError = (err: Error) =>
     res.status(409).json({
       success: false,
       message: err.message
     });
-  };
 
-  // Promise
-  checkNewPasswordRegex({ id, username, email, oldPassword, oldSalt: '', newPassword, newSalt: '', token: '' })
+  checkNewPasswordRegex({
+    id,
+    username,
+    email,
+    oldPassword,
+    oldSalt: '',
+    newPassword,
+    newSalt: '',
+    token: ''
+  })
     .then(findOldSalt)
     .then(encryptoOldPassword)
     .then(updatePassword)
@@ -481,11 +524,9 @@ interface RequestEamilVerifyCode {
 export const requestEmailVerifyCode = (req: Request, res: Response) => {
   const { email } = res.locals;
 
-  // Create random key
   const generateRandomKey = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> =>
     Promise.resolve({ ...value, randomKey: random.generate({ length: 6, charset: 'alphanumeric', readable: true }) });
 
-  // Database update
   const insertRandomKeyToDatabase = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> =>
     new Promise((resolve, reject) =>
       User.update(
@@ -499,7 +540,6 @@ export const requestEmailVerifyCode = (req: Request, res: Response) => {
         .catch((err: DatabaseError) => reject(new Error(err.message)))
     );
 
-  // Send mail
   const sendMail = (value: RequestEamilVerifyCode): Promise<RequestEamilVerifyCode> => {
     mailer(value.email, value.randomKey)
       .then(() => console.log('Mail send success !'))
@@ -507,21 +547,18 @@ export const requestEmailVerifyCode = (req: Request, res: Response) => {
     return Promise.resolve(value);
   };
 
-  // Response to client
   const responseToClient = (value: RequestEamilVerifyCode): Response =>
     res.json({
       success: true,
       message: 'Send mail success !'
     });
 
-  // Error handler
   const onError = (err: Error): Response =>
     res.status(409).json({
       success: false,
       message: err.message
     });
 
-  // Promise
   generateRandomKey({ randomKey: '', email })
     .then(insertRandomKeyToDatabase)
     .then(sendMail)
@@ -540,8 +577,6 @@ interface CheckEmailVerifyCode {
 export const checkEmailVerifyCode = (req: Request, res: Response) => {
   const { randomKey } = req.body;
 
-  // Check random key
-  // If random key is same as databases it, 'verified' will update
   const compareRandomKey = (value: CheckEmailVerifyCode): Promise<CheckEmailVerifyCode> =>
     new Promise((resolve, reject) =>
       User.update(
@@ -555,6 +590,39 @@ export const checkEmailVerifyCode = (req: Request, res: Response) => {
         .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
+  const responseToClient = (valeu: CheckEmailVerifyCode): Response =>
+    res.json({
+      success: true,
+      message: 'Email verify success !'
+    });
+
+  const onError = (err: Error): Response =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+
+  compareRandomKey({ randomKey })
+    .then(responseToClient)
+    .catch(onError);
+};
+
+export const profileImageUpload = (req: Request, res: Response) => {
+  const responseToClient = (valeu: CheckEmailVerifyCode): Response =>
+    res.json({
+      success: true,
+      message: 'Email verify success !'
+    });
+
+  const onError = (err: Error): Response =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+};
+
+export const profileImageDelete = (req: Request, res: Response) => {
+  //
   // Response to client
   const responseToClient = (valeu: CheckEmailVerifyCode): Response =>
     res.json({
@@ -568,9 +636,4 @@ export const checkEmailVerifyCode = (req: Request, res: Response) => {
       success: false,
       message: err.message
     });
-
-  // Promise
-  compareRandomKey({ randomKey })
-    .then(responseToClient)
-    .catch(onError);
 };

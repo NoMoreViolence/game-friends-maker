@@ -21,10 +21,8 @@ const checkValidationAll = (testCases: CheckValidation[]): Promise<CheckReturnVa
       // Find Err
       findIndex((unit: boolean) => !unit),
       // unit === -1 ? Success : Failure
-      (unit: number) => {
-        unit === -1 ? resolve({ result: true, errRegex: '' }) : resolve({ result: false, errRegex: testCases[unit].name });
-      }
+      (unit: number) => (unit === -1 ? resolve({ result: true, errRegex: '' }) : reject({ result: false, errRegex: testCases[unit].name }))
     )(testCases);
   });
 
-export { checkValidationAll };
+export { checkValidationAll, CheckReturnValue };
