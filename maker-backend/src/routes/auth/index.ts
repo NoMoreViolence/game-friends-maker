@@ -24,9 +24,6 @@ Router.post('/email', controller.checkEmailVerifyCode);
 Router.use('/password', middleware.checkUserToken); // Change password
 Router.patch('/password', controller.changeUserPassword);
 
-Router.use('/profile/upload', middleware.checkUserToken);
-Router.post('/profile/upload', controller.profileImageUpload);
-
 Router.use('/:what', middleware.checkUserToken); // Change Username & Email
 Router.patch('/:what', controller.changeUserInfo);
 

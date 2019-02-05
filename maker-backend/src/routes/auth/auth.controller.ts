@@ -606,34 +606,3 @@ export const checkEmailVerifyCode = (req: Request, res: Response) => {
     .then(responseToClient)
     .catch(onError);
 };
-
-export const profileImageUpload = (req: Request, res: Response) => {
-  const responseToClient = (valeu: CheckEmailVerifyCode): Response =>
-    res.json({
-      success: true,
-      message: 'Email verify success !'
-    });
-
-  const onError = (err: Error): Response =>
-    res.status(409).json({
-      success: false,
-      message: err.message
-    });
-};
-
-export const profileImageDelete = (req: Request, res: Response) => {
-  //
-  // Response to client
-  const responseToClient = (valeu: CheckEmailVerifyCode): Response =>
-    res.json({
-      success: true,
-      message: 'Email verify success !'
-    });
-
-  // Error handler
-  const onError = (err: Error): Response =>
-    res.status(409).json({
-      success: false,
-      message: err.message
-    });
-};

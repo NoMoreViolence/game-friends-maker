@@ -65,6 +65,10 @@ class User extends Model<User> {
   @Column(DataType.CHAR(255))
   public introduce: string;
 
+  @AllowNull(true)
+  @Column(DataType.CHAR(255))
+  public pictureUrl: string;
+
   @HasMany(() => UserGame)
   public games: UserGame[];
 

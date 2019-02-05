@@ -46,24 +46,20 @@ const checkAdminToken = (req: Request, res: Response, next: NextFunction) => {
         .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
-  // Check admin
   const checkAdmin = (token: JWT): Promise<JWT> =>
     token.id === 1 ? Promise.resolve(token) : Promise.reject(new Error('You are not admin user !'));
 
-  // Next function: token verify sucess
   const nextTo = (token: JWT): void => {
     res.locals = token;
     next();
   };
 
-  // Error handler
   const onError = (err: Error): Response =>
     res.status(401).json({
       success: false,
       message: err.message
     });
 
-  // Promise
   checkTokenExist(authorization)
     .then(pickUpToken)
     .then(verifyToken)

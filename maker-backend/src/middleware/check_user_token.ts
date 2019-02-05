@@ -14,7 +14,6 @@ interface JWT {
 const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
 
-  // Check token is exist
   const checkTokenExist = (token: string): Promise<string> => (token ? Promise.resolve(token) : Promise.reject(new Error('No Token')));
 
   const pickUpToken = (token: string): Promise<string> => {
@@ -25,7 +24,6 @@ const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
       : Promise.reject(new Error('Not Bearer token'));
   };
 
-  // Verify token
   const verifyToken = (token: string): Promise<any> =>
     new Promise((resolve, reject) =>
       jwt
@@ -34,7 +32,6 @@ const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
         .catch((err: JsonWebTokenError) => reject(new Error('Wrong token value !')))
     );
 
-  // Check token validity
   const checkDate = (token: JWT): Promise<JWT> =>
     new Promise((resolve, reject) =>
       User.findOne({ where: { id: token.id } })
@@ -49,20 +46,17 @@ const checkUserToken = (req: Request, res: Response, next: NextFunction) => {
         .catch((err: DatabaseError) => reject(new Error('There is a database error !')))
     );
 
-  // Next function: token verify sucess
-  const nextTo = (token: JWT): void => {
-    res.locals = token;
+  const nextTo = (insideToken: JWT): void => {
+    res.locals = insideToken;
     next();
   };
 
-  // Error handler
   const onError = (err: Error): Response =>
     res.status(401).json({
       success: false,
       message: err.message
     });
 
-  // Promise
   checkTokenExist(authorization)
     .then(pickUpToken)
     .then(verifyToken)
