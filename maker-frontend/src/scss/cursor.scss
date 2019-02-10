@@ -1,3 +1,7 @@
+.cursor {
+  cursor: pointer;
+}
+
 .light-cursor {
   cursor: pointer;
   &:hover {
@@ -56,5 +60,46 @@
     > span {
       color: $secondary;
     }
+  }
+}
+
+.primary-text-cursor {
+  &:hover {
+    color: $primary;
+  }
+  &:active {
+    color: $primary;
+  }
+}
+.dark-text-cursor {
+  &:hover {
+    color: $dark;
+  }
+  &:active {
+    color: $dark;
+  }
+}
+.secondary-text-cursor {
+  &:hover {
+    color: $secondary;
+  }
+  &:active {
+    color: $secondary;
+  }
+}
+.secondary-light-text-cursor {
+  &:hover {
+    color: $secondaryLight;
+  }
+  &:active {
+    color: $secondaryLight;
+  }
+}
+.danger-text-cursor {
+  &:hover {
+    color: $error;
+  }
+  &:active {
+    color: $error;
   }
 }

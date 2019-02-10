@@ -1,3 +1,5 @@
+@import 'scss/color.scss';
+
 #login-inputs {
   display: flex;
   flex-direction: column;
@@ -20,5 +22,9 @@
     flex: 1;
     margin: 0.5rem;
     padding: 1rem;
+    background-color: $secondary;
+    &:hover {
+      background-color: $white;
+    }
   }
 }

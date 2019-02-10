@@ -35,41 +35,31 @@ class HeaderComponent extends React.Component<Props & RouteComponentProps<any>, 
       {this.state.logoutModal && <ModalPage close={this.close} component={logoutModalContainer} />}
       {this.props.loginStatus === 'success' ? (
         <>
-          <button className="primary-button middle-font-size radius" id="header-link" onClick={this.close}>
+          <button className="out-link middle-font-size transparent-border radius header-link" onClick={this.close}>
             로그아웃
           </button>
-          <NavLink id="header-link" className="link white-color middle-font-size radius" to="/find" activeStyle={{ color: '#928cf7' }}>
+          <NavLink className="link white-color middle-font-size radius header-link" to="/find" activeStyle={{ color: '#928cf7' }}>
             게임 친구 찾기
           </NavLink>
-          <NavLink id="header-link" className="link white-color middle-font-size radius" to="/message" activeStyle={{ color: '#928cf7' }}>
+          <NavLink className="link white-color middle-font-size radius header-link" to="/message" activeStyle={{ color: '#928cf7' }}>
             메시지
           </NavLink>
-          <NavLink id="header-link" className="link white-color middle-font-size radius" to="/info" activeStyle={{ color: '#928cf7' }}>
+          <NavLink className="link white-color middle-font-size radius header-link" to="/info" activeStyle={{ color: '#928cf7' }}>
             내 정보
           </NavLink>
         </>
       ) : (
         <>
-          <NavLink
-            id="header-link"
-            className="link white-color middle-font-size radius"
-            to="/sign/login"
-            activeStyle={{ color: '#928cf7' }}
-          >
+          <NavLink className="link white-color middle-font-size radius header-link" to="/sign/login" activeStyle={{ color: '#928cf7' }}>
             로그인
           </NavLink>
-          <NavLink
-            id="header-link"
-            className="link white-color middle-font-size radius"
-            to="/sign/register"
-            activeStyle={{ color: '#928cf7' }}
-          >
+          <NavLink className="link white-color middle-font-size radius header-link" to="/sign/register" activeStyle={{ color: '#928cf7' }}>
             회원가입
           </NavLink>
         </>
       )}
       {this.props.admin && (
-        <NavLink id="header-link" className="link white-color middle-font-size radius" to="/admin" activeStyle={{ color: '#928cf7' }}>
+        <NavLink className="link white-color middle-font-size radius header-link" to="/admin" activeStyle={{ color: '#928cf7' }}>
           관리자실
         </NavLink>
       )}

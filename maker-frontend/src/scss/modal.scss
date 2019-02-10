@@ -13,6 +13,9 @@
     @media screen and (max-width: 768px) {
       width: 300px; /* Could be more or less, depending on screen size */
     }
+    @media screen and (min-width: 769px) and (max-width: 1119px) {
+      width: 360px;
+    }
     @media screen and (min-width: 1120px) {
       width: 420px; /* Could be more or less, depending on screen size */
     }

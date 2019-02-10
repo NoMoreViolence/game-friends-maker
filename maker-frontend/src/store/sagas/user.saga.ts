@@ -108,10 +108,21 @@ function* registerSaga(action: Action<REGISTER>) {
     }
   }
 }
-const registerSuccessSaga = (action: Action<REGISTER_SUCCESS>) =>
-  action.payload ? toast.success(`회원가입 성공, 환영합니다 ${action.payload.username}님 !`) : toast.success(`회원가입 성공, 환영합니다 !`);
-const registerFailureSaga = (action: Action<REGISTER_FAILURE>) =>
-  action.payload ? toast.error(`Error: ${action.payload.message}`) : toast.error(`Error !`);
+const registerSuccessSaga = (action: Action<REGISTER_SUCCESS>) => {
+  if (action.payload) {
+    toast.success(`회원가입 성공, 환영합니다 ${action.payload.username}님 !`);
+    return;
+  }
+  toast.success(`회원가입 성공, 환영합니다 !`);
+};
+
+const registerFailureSaga = (action: Action<REGISTER_FAILURE>) => {
+  if (action.payload) {
+    toast.error(`Error: ${action.payload.message}`);
+    return;
+  }
+  toast.error(`Error !`);
+};
 
 function* userSaga() {
   yield takeEvery(LOGIN, loginSaga);

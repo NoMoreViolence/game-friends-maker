@@ -1,20 +1,34 @@
 .primary-button {
   border: 1px solid $primary;
-  background-color: $white;
+  background-color: transparent;
   color: $primary;
   outline: none;
   cursor: pointer;
   transition: 0.25s;
 
   &:hover {
-    color: white;
+    color: $white;
     background-color: $primary;
+  }
+}
+
+.primary-reverse-button {
+  border: 1px solid $primary;
+  background-color: $primary;
+  color: $white;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    color: $primary;
+    background-color: $white;
   }
 }
 
 .secondary-button {
   border: 1px solid $secondary;
-  background-color: $white;
+  background-color: transparent;
   color: $secondary;
   outline: none;
   cursor: pointer;

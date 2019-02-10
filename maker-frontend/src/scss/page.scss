@@ -1,6 +1,7 @@
 .page-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   .page {
     @media screen and (max-width: 425px) {

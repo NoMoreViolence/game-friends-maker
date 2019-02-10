@@ -13,18 +13,13 @@ interface State {
 class ModalPage extends React.Component<Props, State> {
   public wrapperRef: HTMLDivElement | null = null;
 
-  constructor(props: Props) {
-    super(props);
-
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-  }
-
   componentDidMount = () => {
     document.addEventListener('mousedown', this.handleClickOutside, false);
+    document.addEventListener('keydown', this.detectEscClick, false);
   };
   componentWillUnmount = () => {
     document.removeEventListener('mousedown', this.handleClickOutside, false);
+    document.addEventListener('keydown', this.detectEscClick, false);
   };
 
   public setWrapperRef = (node: HTMLDivElement) => {
@@ -32,6 +27,11 @@ class ModalPage extends React.Component<Props, State> {
   };
   public handleClickOutside = (event: MouseEvent) => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target as HTMLBodyElement)) {
+      this.props.close();
+    }
+  };
+  public detectEscClick = (event: KeyboardEvent) => {
+    if (event.keyCode === 27) {
       this.props.close();
     }
   };
