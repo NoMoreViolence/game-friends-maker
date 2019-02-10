@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { DatabaseError } from 'sequelize';
 import Sequelize, { User } from 'db';
-import lib, { EncryptoPassword } from 'src/lib';
+import lib, { EncryptoPassword, Omit } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import * as random from 'randomstring';
 
@@ -14,13 +14,14 @@ interface DecodedToken {
   email: string;
 }
 
+/* GET
+ */
 interface Profile {
   username: string;
   introduce: string;
   pictureUrl: string;
   visibility: boolean;
 }
-
 export const getMyProfile = (req: Request, res: Response) => {
   const { id, username, email }: DecodedToken = res.locals;
 
@@ -57,6 +58,65 @@ export const getMyProfile = (req: Request, res: Response) => {
     });
 
   getData({ id, username, email })
+    .then(responseToClient)
+    .catch(onError);
+};
+
+/* PATCH
+  params: {
+  },
+  body: {
+    username: string,
+    introduce: string,
+    visibility: 1 | 0
+  }
+*/
+interface Changes {
+  id: number;
+  username?: string;
+  introduce?: string;
+  visibility?: 1 | 0;
+}
+export const changeMyProfile = (req: Request, res: Response) => {
+  const { id } = res.locals;
+  const { username, introduce, visibility } = req.body;
+
+  const createObject = (changes: Changes) => {
+    return Promise.resolve({
+      id: changes.id,
+      changes: Object.assign(
+        {},
+        changes.introduce ? { introduce: changes.introduce } : {},
+        changes.username ? { username: changes.username } : {},
+        changes.visibility ? { visibility: changes.visibility } : {}
+      )
+    });
+  };
+
+  const changeProfile = (update: { id: number; changes: Omit<Changes, 'id'> }) =>
+    new Promise((resolve, reject) => {
+      User.update(update.changes, {
+        where: { id: update.id },
+        silent: true
+      })
+        .then(updated => resolve())
+        .catch((err: DatabaseError) => reject(new Error(err.name)));
+    });
+
+  const responseToClient = (): Response =>
+    res.json({
+      success: true,
+      message: ''
+    });
+
+  const onError = (err: Error): Response =>
+    res.status(409).json({
+      success: false,
+      message: err.message
+    });
+
+  createObject({ id, username, introduce, visibility })
+    .then(changeProfile)
     .then(responseToClient)
     .catch(onError);
 };

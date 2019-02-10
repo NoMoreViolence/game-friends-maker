@@ -12,4 +12,7 @@ Router.post('/profile/upload', controller.profileImageUpload);
 Router.use('/profile', middleware.checkUserToken);
 Router.get('/profile', controller.getMyProfile);
 
+Router.use('/profile', middleware.checkUserToken);
+Router.patch('/profile', controller.changeMyProfile);
+
 export default Router;
