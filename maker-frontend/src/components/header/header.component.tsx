@@ -5,19 +5,13 @@ import ModalPage from 'pages/modal/modal.page';
 import logoutModalContainer from 'containers/modal/logout.modal.container';
 
 import './header.component.scss';
-
-interface Props {
-  username: string;
-  loginStatus: 'none' | 'success' | 'pending';
-  admin: boolean;
-  logout: () => void;
-}
+import { HeaderProps, HeaderMethod } from 'containers/header/header.container';
 
 interface State {
   logoutModal: boolean;
 }
 
-class HeaderComponent extends React.Component<Props & RouteComponentProps<any>, State> {
+class HeaderComponent extends React.Component<HeaderProps & HeaderMethod & RouteComponentProps<any>, State> {
   public state = {
     logoutModal: false
   };

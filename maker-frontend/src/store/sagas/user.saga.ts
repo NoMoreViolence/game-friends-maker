@@ -77,8 +77,9 @@ const autoLoginSuccessSaga = (action: Action<AUTO_LOGIN_SUCCESS>) =>
   action.payload
     ? (toast.success(`안녕하세요 ${action.payload.username}님 !`), localStorage.setItem('name', action.payload.username))
     : toast.error('알 수 없는 에러 !');
-const autoLoginFailureSaga = (action: Action<AUTO_LOGIN_FAILURE>) =>
-  action.payload ? toast.error(`에러: ${action.payload.message}`) : toast.error(`에러 !`);
+const autoLoginFailureSaga = (action: Action<AUTO_LOGIN_FAILURE>) => (
+  action.payload ? toast.error(`에러: ${action.payload.message}`) : toast.error(`에러 !`), localStorage.clear()
+);
 
 const logoutSaga = (action: Action<LOGOUT>) => {
   localStorage.removeItem('token');

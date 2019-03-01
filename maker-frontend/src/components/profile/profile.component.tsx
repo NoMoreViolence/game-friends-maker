@@ -50,6 +50,11 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
   };
   public changeProfile = () => {
     this.changeEditMode();
+    this.props.changeMyProfile({
+      token: this.props.token,
+      username: this.state.username,
+      introduce: this.state.introduce
+    });
   };
 
   public changeVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {

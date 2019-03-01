@@ -3,8 +3,9 @@ interface User {
   username: string;
   admin: boolean;
   token: string;
-  loginStatus: 'none' | 'success' | 'pending';
-  registerStatus: 'none' | 'success' | 'pending';
+  loginStatus: 'none' | 'success' | 'pending' | 'error';
+  autoLoginStatus: 'none' | 'success' | 'pending' | 'error';
+  registerStatus: 'none' | 'success' | 'pending' | 'error';
 }
 
 export { User };

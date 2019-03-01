@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { AppState, userActions } from 'store';
 import LoaderComponent from 'components/loader/loader.component';
 
-interface Props {
-  loginStatus: 'none' | 'pending' | 'success';
-  registerStatus: 'none' | 'pending' | 'success';
+export interface LoaderProps {
+  loginStatus: 'none' | 'pending' | 'success' | 'error';
+  registerStatus: 'none' | 'pending' | 'success' | 'error';
 }
 
-interface Method {}
+export interface LoaderMethod {}
 
-const LoaderContainer: React.SFC<Props & Method> = props => (
+const LoaderContainer: React.SFC<LoaderProps & LoaderMethod> = props => (
   <LoaderComponent loginStatus={props.loginStatus} registerStatus={props.registerStatus} />
 );
 
-export default connect<Props, Method, {}, {}>(
+export default connect<LoaderProps, LoaderMethod, {}, {}>(
   ({ user }: AppState) => ({
     loginStatus: user.loginStatus,
     registerStatus: user.registerStatus

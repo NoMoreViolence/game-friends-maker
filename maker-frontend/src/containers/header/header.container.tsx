@@ -5,17 +5,17 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { AppState, userActions } from 'store';
 import HeaderComponent from 'components/header/header.component';
 
-interface Props {
+export interface HeaderProps {
   username: string;
-  loginStatus: 'none' | 'success' | 'pending';
+  loginStatus: 'none' | 'success' | 'pending' | 'error';
   admin: boolean;
 }
 
-interface Method {
+export interface HeaderMethod {
   logout: () => void;
 }
 
-const HeaderContainer: React.SFC<Props & Method & RouteComponentProps<any>> = props => {
+const HeaderContainer: React.SFC<HeaderProps & HeaderMethod & RouteComponentProps<any>> = props => {
   const { match, location, history } = props;
 
   return (
@@ -32,7 +32,7 @@ const HeaderContainer: React.SFC<Props & Method & RouteComponentProps<any>> = pr
 };
 
 export default withRouter(
-  connect<Props, Method, {}, {}>(
+  connect<HeaderProps, HeaderMethod, {}, {}>(
     ({ user }: AppState) => ({
       username: user.username,
       loginStatus: user.loginStatus,

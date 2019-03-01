@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators, Action, AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { AppState, profileActions } from 'store';
+import { AppState, profileActions, CHANGE_PROFILE } from 'store';
 import ProfileComponent from 'components/profile';
 import { ActionFunction1 } from 'redux-actions';
 
@@ -11,11 +11,12 @@ interface ProfileProps {
   pictureUrl: string;
   visibility: 1 | 0;
   token: string;
-  loginStatus: 'none' | 'success' | 'pending';
-  getMyProfileStatus: 'none' | 'success' | 'pending';
+  loginStatus: 'none' | 'success' | 'pending' | 'error';
+  getMyProfileStatus: 'none' | 'success' | 'pending' | 'error';
 }
 interface ProfileMethod {
-  getMyProfile: ActionFunction1<string, Action<string>>;
+  getMyProfile: (token: string) => void;
+  changeMyProfile: (changes: CHANGE_PROFILE) => void;
 }
 
 const ProfileContainer: React.SFC<ProfileProps & ProfileMethod> = props => (
@@ -28,6 +29,7 @@ const ProfileContainer: React.SFC<ProfileProps & ProfileMethod> = props => (
     loginStatus={props.loginStatus}
     getMyProfileStatus={props.getMyProfileStatus}
     getMyProfile={props.getMyProfile}
+    changeMyProfile={props.changeMyProfile}
   />
 );
 
@@ -43,6 +45,7 @@ export default connect<ProfileProps, ProfileMethod, {}>(
     getMyProfileStatus: profile.getMyProfileStatus
   }),
   dispatch => ({
-    getMyProfile: bindActionCreators(profileActions.getMyProfile, dispatch)
+    getMyProfile: bindActionCreators(profileActions.getMyProfile, dispatch),
+    changeMyProfile: bindActionCreators(profileActions.changeProfile, dispatch)
   })
 )(ProfileContainer);

@@ -5,16 +5,16 @@ import { AppState, userActions } from 'store';
 import Register from 'components/register/register.component';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-interface Props {
-  registerStatus: 'none' | 'pending' | 'success';
-  loginStatus: 'none' | 'pending' | 'success';
+export interface RegisterProps {
+  registerStatus: 'none' | 'pending' | 'success' | 'error';
+  loginStatus: 'none' | 'pending' | 'success' | 'error';
 }
 
-interface Method {
+export interface RegisterMethod {
   register: (value: { username: string; email: string; password: string }) => void;
 }
 
-const RegisterContainer: React.SFC<Props & Method & RouteComponentProps<any>> = props => (
+const RegisterContainer: React.SFC<RegisterProps & RegisterMethod & RouteComponentProps<any>> = props => (
   <Register
     registerStatus={props.registerStatus}
     loginStatus={props.loginStatus}
@@ -26,7 +26,7 @@ const RegisterContainer: React.SFC<Props & Method & RouteComponentProps<any>> = 
 );
 
 export default withRouter(
-  connect<Props, Method, {}, {}>(
+  connect<RegisterProps, RegisterMethod, {}, {}>(
     ({ user }: AppState) => ({
       registerStatus: user.registerStatus,
       loginStatus: user.loginStatus

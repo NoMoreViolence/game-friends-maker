@@ -8,12 +8,17 @@ const initialState: User = {
   admin: false,
   token: '',
   loginStatus: 'none',
+  autoLoginStatus: 'none',
   registerStatus: 'none'
 };
 
 const userReducer = (state: User = initialState, action: UserActions) =>
   produce(state, draft => {
     switch (action.type) {
+      case 'CHANGE_USERNAME':
+        draft.username = action.payload;
+        break;
+
       case 'LOGIN':
         draft.loginStatus = 'pending';
         break;
@@ -25,22 +30,25 @@ const userReducer = (state: User = initialState, action: UserActions) =>
         draft.loginStatus = 'success';
         break;
       case 'LOGIN_FAILURE':
-        draft.loginStatus = 'none';
+        draft.loginStatus = 'error';
         break;
 
       case 'AUTO_LOGIN':
         draft.token = action.payload.token;
         draft.loginStatus = 'pending';
+        draft.autoLoginStatus = 'pending';
         break;
       case 'AUTO_LOGIN_SUCCESS':
         draft.loginStatus = 'success';
+        draft.autoLoginStatus = 'success';
         draft.email = action.payload.email;
         draft.username = action.payload.username;
         draft.admin = action.payload.admin;
         break;
       case 'AUTO_LOGIN_FAILURE':
         draft.token = '';
-        draft.loginStatus = 'none';
+        draft.loginStatus = 'error';
+        draft.autoLoginStatus = 'error';
         break;
 
       case 'REGISTER':
@@ -50,7 +58,7 @@ const userReducer = (state: User = initialState, action: UserActions) =>
         draft.registerStatus = 'success';
         break;
       case 'REGISTER_FAILURE':
-        draft.registerStatus = 'none';
+        draft.registerStatus = 'error';
         break;
 
       case 'LOGOUT':

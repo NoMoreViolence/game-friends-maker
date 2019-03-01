@@ -71,38 +71,38 @@ export class DeleteProfilePictureFailure implements Action {
 }
 
 export const CHANGE_PROFILE = 'CHANGE_PROFILE';
-export type CHANGE_PROFILE = any;
+export type CHANGE_PROFILE = { token: string; username: string; introduce: string };
 export class ChangeProfile implements Action {
   readonly type = CHANGE_PROFILE;
   constructor(public payload: CHANGE_PROFILE) {}
 }
 export const CHANGE_PROFILE_SUCCESS = 'CHANGE_PROFILE_SUCCESS';
-export type CHANGE_PROFILE_SUCCESS = any;
+export type CHANGE_PROFILE_SUCCESS = CHANGE_PROFILE;
 export class ChangeProfileSuccess implements Action {
   readonly type = CHANGE_PROFILE_SUCCESS;
   constructor(public payload: CHANGE_PROFILE_SUCCESS) {}
 }
 export const CHANGE_PROFILE_FAILURE = 'CHANGE_PROFILE_FAILURE';
-export type CHANGE_PROFILE_FAILURE = any;
+export type CHANGE_PROFILE_FAILURE = {};
 export class ChangeProfileFailure implements Action {
   readonly type = CHANGE_PROFILE_FAILURE;
   constructor(public payload: CHANGE_PROFILE_FAILURE) {}
 }
 
 export const CHANGE_PROFILE_VISIBILITY = 'CHANGE_PROFILE_VISIBILITY';
-export type CHANGE_PROFILE_VISIBILITY = any;
+export type CHANGE_PROFILE_VISIBILITY = { token: string; visibility: 1 | 0 };
 export class ChangeProfileVisibility implements Action {
   readonly type = CHANGE_PROFILE_VISIBILITY;
   constructor(public payload: CHANGE_PROFILE_VISIBILITY) {}
 }
 export const CHANGE_PROFILE_VISIBILITY_SUCCESS = 'CHANGE_PROFILE_VISIBILITY_SUCCESS';
-export type CHANGE_PROFILE_VISIBILITY_SUCCESS = any;
+export type CHANGE_PROFILE_VISIBILITY_SUCCESS = {};
 export class ChangeProfileVisibilitySuccess implements Action {
   readonly type = CHANGE_PROFILE_VISIBILITY_SUCCESS;
   constructor(public payload: CHANGE_PROFILE_VISIBILITY_SUCCESS) {}
 }
 export const CHANGE_PROFILE_VISIBILITY_FAILURE = 'CHANGE_PROFILE_VISIBILITY_FAILURE';
-export type CHANGE_PROFILE_VISIBILITY_FAILURE = any;
+export type CHANGE_PROFILE_VISIBILITY_FAILURE = {};
 export class ChangeProfileVisibilityFailure implements Action {
   readonly type = CHANGE_PROFILE_VISIBILITY_FAILURE;
   constructor(public payload: CHANGE_PROFILE_VISIBILITY_FAILURE) {}

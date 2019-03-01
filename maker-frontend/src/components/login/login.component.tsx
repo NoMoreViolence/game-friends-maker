@@ -3,17 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { emailRegex, passwordRegex } from 'lib';
 import './login.component.scss';
+import { LoginProps, LoginMethod } from 'containers/login/login.container';
 
-interface Props {
-  loginStatus: 'none' | 'pending' | 'success';
-  login: (value: { email: string; password: string }) => void;
-}
 interface State {
   email: string;
   pw: string;
 }
 
-class LoginComponent extends React.Component<Props & RouteComponentProps<any>, State> {
+class LoginComponent extends React.Component<LoginProps & LoginMethod & RouteComponentProps<any>, State> {
   state = {
     email: '',
     pw: ''
@@ -25,7 +22,7 @@ class LoginComponent extends React.Component<Props & RouteComponentProps<any>, S
       this.props.history.push('/main');
     }
   };
-  componentDidUpdate = (prevProps: Props & RouteComponentProps<any>, prevState: State) => {
+  componentDidUpdate = (prevProps: LoginProps & LoginMethod & RouteComponentProps<any>, prevState: State) => {
     if (prevProps !== this.props && this.props.loginStatus === 'success') {
       this.props.history.push('/main');
     }

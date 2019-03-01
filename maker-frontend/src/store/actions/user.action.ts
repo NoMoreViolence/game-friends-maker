@@ -63,11 +63,19 @@ export class RegisterFailure implements Action {
   constructor(public payload: REGISTER_FAILURE) {}
 }
 
+export const CHANGE_USERNAME = 'CHANGE_USERNAME';
+export type CHANGE_USERNAME = string;
+export class ChangeUsername implements Action {
+  readonly type = CHANGE_USERNAME;
+  constructor(public payload: CHANGE_USERNAME) {}
+}
+
 export const userActions = {
   login: createAction(LOGIN, (data: LOGIN) => data),
   autoLogin: createAction(AUTO_LOGIN, (data: AUTO_LOGIN) => data),
   register: createAction(REGISTER, (data: REGISTER) => data),
-  logout: createAction(LOGOUT)
+  logout: createAction(LOGOUT),
+  changeUsername: createAction(CHANGE_USERNAME, (data: CHANGE_USERNAME) => data)
 };
 
 export type UserActions =
@@ -80,4 +88,5 @@ export type UserActions =
   | AutoLoginFailure
   | Register
   | RegisterSuccess
-  | RegisterFailure;
+  | RegisterFailure
+  | ChangeUsername;

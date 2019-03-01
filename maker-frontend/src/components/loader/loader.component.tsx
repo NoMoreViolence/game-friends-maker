@@ -1,13 +1,9 @@
 import * as React from 'react';
 import './loader.component.scss';
-
-interface Props {
-  loginStatus: 'none' | 'pending' | 'success';
-  registerStatus: 'none' | 'pending' | 'success';
-}
+import { LoaderProps, LoaderMethod } from 'containers/loader/loader.container';
 
 // Thank you for https://codepen.io/akwright/ Alex
-const LoaderComponent: React.SFC<Props> = props => (
+const LoaderComponent: React.SFC<LoaderProps & LoaderMethod> = props => (
   <>
     {(props.loginStatus === 'pending' || props.registerStatus === 'pending') && (
       <div className="modal transparent-black-background">

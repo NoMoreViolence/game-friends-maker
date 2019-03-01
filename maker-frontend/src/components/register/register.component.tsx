@@ -3,12 +3,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import './register.component.scss';
 import * as lib from 'lib';
+import { RegisterProps, RegisterMethod } from 'containers/register/register.container';
 
-interface Props {
-  registerStatus: 'none' | 'pending' | 'success';
-  loginStatus: 'none' | 'pending' | 'success';
-  register: (value: { username: string; email: string; password: string }) => void;
-}
 interface State {
   email: string;
   username: string;
@@ -20,7 +16,7 @@ interface State {
   rpasswordCheck: 'none' | 'regex' | 'notSame' | 'success';
 }
 
-class RegisterComponent extends React.Component<Props & RouteComponentProps<any>, State> {
+class RegisterComponent extends React.Component<RegisterProps & RegisterMethod & RouteComponentProps<any>, State> {
   public state = {
     email: '',
     username: '',
