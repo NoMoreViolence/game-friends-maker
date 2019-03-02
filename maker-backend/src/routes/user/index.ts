@@ -7,7 +7,6 @@ const Router = express.Router();
 Router.get('/profile/:username', controller.getProfile);
 
 Router.use('/profile/upload', middleware.checkUserToken);
-Router.use('/profile/upload', middleware.upload.single());
 Router.post('/profile/upload', controller.profileImageUpload);
 
 Router.use('/profile', middleware.checkUserToken);

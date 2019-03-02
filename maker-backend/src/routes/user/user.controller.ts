@@ -1,10 +1,12 @@
-import { Request, Response } from 'express';
+import { Request, Response, response } from 'express';
 import { DatabaseError } from 'sequelize';
 import Sequelize, { User } from 'db';
 import lib, { EncryptoPassword, Omit } from 'src/lib';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import * as random from 'randomstring';
+import middleware from 'src/middleware';
 
+const imageUpload = middleware.upload.single('myjapanhistory');
 const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt, mailer } = lib;
 
@@ -122,17 +124,47 @@ export const changeMyProfile = (req: Request, res: Response) => {
 };
 
 export const profileImageUpload = (req: Request, res: Response) => {
-  const responseToClient = (): Response =>
-    res.json({
-      success: true,
-      message: ''
-    });
+  const { id }: DecodedToken = res.locals;
 
-  const onError = (err: Error): Response =>
-    res.status(409).json({
-      success: false,
-      message: err.message
-    });
+  return imageUpload(req, res, (err: Error) => {
+    const errorChecking = (error: Error, request: Request, userId: number) =>
+      new Promise((resolve, reject) => {
+        if (!error) {
+          return resolve({ request, userId });
+        }
+        console.log(err);
+        reject(new Error(err.message));
+      });
+
+    const saveToDatabase = (saves: { request: Request; userId: number }) =>
+      new Promise((resolve, reject) => {
+        User.update(
+          {
+            pictureUrl: (saves.request.file as any).location
+          },
+          { where: { id }, silent: true }
+        )
+          .then(updated => resolve())
+          .catch((error: DatabaseError) => reject(new Error(error.name)));
+      });
+
+    const responseToClient = (): Response =>
+      res.json({
+        success: true,
+        message: ''
+      });
+
+    const onError = (error: Error): Response =>
+      res.status(409).json({
+        success: false,
+        message: error.message
+      });
+
+    errorChecking(err, req, id)
+      .then(saveToDatabase)
+      .then(responseToClient)
+      .catch(onError);
+  });
 };
 export const profileImageDelete = (req: Request, res: Response) => {
   const responseToClient = (): Response =>
