@@ -77,8 +77,7 @@ function* autoLoginSaga(action: Action<AUTO_LOGIN>) {
     }
   }
 }
-const autoLoginSuccessSaga = (action: Action<AUTO_LOGIN_SUCCESS>) =>
-  action.payload ? toast.success(`자동 인증 완료.`) : toast.error('알 수 없는 에러 !');
+const autoLoginSuccessSaga = (action: Action<AUTO_LOGIN_SUCCESS>) => {};
 const autoLoginFailureSaga = (action: Action<AUTO_LOGIN_FAILURE>) => (
   action.payload ? toast.error(`에러: ${action.payload.message}`) : toast.error(`에러 !`), localStorage.clear()
 );
