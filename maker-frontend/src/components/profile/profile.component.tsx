@@ -3,11 +3,14 @@ import './profile.component.scss';
 import styled from 'styled-components';
 import { ProfileProps, ProfileMethod } from 'containers/profile';
 import { toast } from 'react-toastify';
+import ModalPage from 'pages/modal';
+import { DeleteProfilePhotoModalComponent } from 'components/modal';
 
 interface State {
   editMode: boolean;
   username: string;
   introduce: string;
+  reallyDeleteProfilePhoto: boolean;
 }
 
 const Circle = styled.div`
@@ -19,7 +22,8 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
   state: State = {
     editMode: false,
     username: '',
-    introduce: ''
+    introduce: '',
+    reallyDeleteProfilePhoto: false
   };
 
   componentDidUpdate(prevProps: ProfileProps & ProfileMethod) {
@@ -52,10 +56,17 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
       return;
     }
 
-    this.props.uploadMyProfile({
+    this.props.uploadMyProfilePicture({
       token: this.props.token,
       image: file
     });
+  };
+
+  public changeReallyDeleteProfilePhotoModal = () => {
+    this.setState({ reallyDeleteProfilePhoto: !this.state.reallyDeleteProfilePhoto });
+  };
+  public profileImageDelete = () => {
+    this.props.deleteMyProfilePicture({ token: this.props.token });
   };
 
   public handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -130,13 +141,22 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
             )}
           </div>
           <div id="profile-content">
+            {this.state.reallyDeleteProfilePhoto && (
+              <ModalPage
+                close={this.changeReallyDeleteProfilePhotoModal}
+                action={this.profileImageDelete}
+                component={DeleteProfilePhotoModalComponent}
+              />
+            )}
             <div id="profile-image">
               <Circle url={this.props.pictureUrl} className="white-gray-background">
                 <span onClick={this.clickProfileImageChange} className="black-color middle-font-size">
                   이미지 변경하기
                 </span>
                 <input onChange={this.profileImageChange} type="file" ref={this.imageUploadInput} />
-                <span className="black-color middle-font-size">이미지 삭제하기</span>
+                <span onClick={this.changeReallyDeleteProfilePhotoModal} className="black-color middle-font-size">
+                  이미지 삭제하기
+                </span>
               </Circle>
             </div>
             <div id="profile-text">

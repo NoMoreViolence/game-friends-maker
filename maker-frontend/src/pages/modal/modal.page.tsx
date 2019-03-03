@@ -1,10 +1,13 @@
 import * as React from 'react';
 
+interface Action {
+  action?: (value?: any) => any;
+}
 interface Close {
   close: () => void;
 }
-interface Props extends Close {
-  component?: React.ComponentClass<Close>;
+interface Props extends Close, Action {
+  component?: React.ComponentClass<Close & Action>;
 }
 interface State {
   wrapperRef: HTMLDivElement | null;
@@ -39,7 +42,7 @@ class ModalPage extends React.Component<Props, State> {
   render = () => (
     <div className="modal transparent-black-background">
       <div ref={this.setWrapperRef} className="modal-card white-background white-gray-border radius transparent-shadow">
-        {this.props.component && <this.props.component close={this.props.close} />}
+        {this.props.component && <this.props.component action={this.props.action} close={this.props.close} />}
       </div>
     </div>
   );

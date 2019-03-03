@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators, Action, AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { AppState, profileActions, CHANGE_PROFILE, UPLOAD_PROFILE_PICTURE } from 'store';
+import { AppState, profileActions, CHANGE_PROFILE, UPLOAD_PROFILE_PICTURE, DELETE_PROFILE_PICTURE } from 'store';
 import ProfileComponent from 'components/profile';
 
 interface ProfileProps {
@@ -16,7 +16,8 @@ interface ProfileProps {
 interface ProfileMethod {
   getMyProfile: (token: string) => void;
   changeMyProfile: (changes: CHANGE_PROFILE) => void;
-  uploadMyProfile: (changes: UPLOAD_PROFILE_PICTURE) => void;
+  uploadMyProfilePicture: (changes: UPLOAD_PROFILE_PICTURE) => void;
+  deleteMyProfilePicture: (changes: DELETE_PROFILE_PICTURE) => void;
 }
 
 const ProfileContainer: React.SFC<ProfileProps & ProfileMethod> = props => (
@@ -30,7 +31,8 @@ const ProfileContainer: React.SFC<ProfileProps & ProfileMethod> = props => (
     actionStatus={props.actionStatus}
     getMyProfile={props.getMyProfile}
     changeMyProfile={props.changeMyProfile}
-    uploadMyProfile={props.uploadMyProfile}
+    uploadMyProfilePicture={props.uploadMyProfilePicture}
+    deleteMyProfilePicture={props.deleteMyProfilePicture}
   />
 );
 
@@ -48,6 +50,7 @@ export default connect<ProfileProps, ProfileMethod, {}>(
   dispatch => ({
     getMyProfile: bindActionCreators(profileActions.getMyProfile, dispatch),
     changeMyProfile: bindActionCreators(profileActions.changeProfile, dispatch),
-    uploadMyProfile: bindActionCreators(profileActions.uploadProfile, dispatch)
+    uploadMyProfilePicture: bindActionCreators(profileActions.uploadProfilePicture, dispatch),
+    deleteMyProfilePicture: bindActionCreators(profileActions.deleteProfilePicture, dispatch)
   })
 )(ProfileContainer);

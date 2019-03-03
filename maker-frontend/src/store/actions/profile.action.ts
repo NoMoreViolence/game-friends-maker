@@ -103,8 +103,8 @@ export class ChangeProfileVisibilityFailure implements Action {
 export const profileActions = {
   getMyProfile: createAction(GET_MY_PROFILE, (data: GET_MY_PROFILE) => data),
   changeProfileMode: createAction(CHANGE_PROFILE_MODE, (data: CHANGE_PROFILE_MODE) => data),
-  uploadProfile: createAction(UPLOAD_PROFILE_PICTURE, (data: UPLOAD_PROFILE_PICTURE) => data),
-  deleteProfile: createAction(DELETE_PROFILE_PICTURE, (data: DELETE_PROFILE_PICTURE) => data),
+  uploadProfilePicture: createAction(UPLOAD_PROFILE_PICTURE, (data: UPLOAD_PROFILE_PICTURE) => data),
+  deleteProfilePicture: createAction(DELETE_PROFILE_PICTURE, (data: DELETE_PROFILE_PICTURE) => data),
   changeProfile: createAction(CHANGE_PROFILE, (data: CHANGE_PROFILE) => data),
   changeProfileVisibility: createAction(CHANGE_PROFILE_VISIBILITY, (data: CHANGE_PROFILE_VISIBILITY) => data)
 };
