@@ -33,41 +33,33 @@ export class ChangeProfileMode implements Action {
 }
 
 export const UPLOAD_PROFILE_PICTURE = 'UPLOAD_PROFILE_PICTURE';
-export type UPLOAD_PROFILE_PICTURE = any;
+export type UPLOAD_PROFILE_PICTURE = { token: string; image: File };
 export class UploadProfilePicture implements Action {
   readonly type = UPLOAD_PROFILE_PICTURE;
   constructor(public payload: UPLOAD_PROFILE_PICTURE) {}
 }
 export const UPLOAD_PROFILE_PICTURE_SUCCESS = 'UPLOAD_PROFILE_PICTURE_SUCCESS';
-export type UPLOAD_PROFILE_PICTURE_SUCCESS = any;
 export class UploadProfilePictureSuccess implements Action {
   readonly type = UPLOAD_PROFILE_PICTURE_SUCCESS;
-  constructor(public payload: UPLOAD_PROFILE_PICTURE_SUCCESS) {}
 }
 export const UPLOAD_PROFILE_PICTURE_FAILURE = 'UPLOAD_PROFILE_PICTURE_FAILURE';
-export type UPLOAD_PROFILE_PICTURE_FAILURE = any;
 export class UploadProfilePictureFailure implements Action {
   readonly type = UPLOAD_PROFILE_PICTURE_FAILURE;
-  constructor(public payload: UPLOAD_PROFILE_PICTURE_FAILURE) {}
 }
 
 export const DELETE_PROFILE_PICTURE = 'DELETE_PROFILE_PICTURE';
-export type DELETE_PROFILE_PICTURE = any;
+export type DELETE_PROFILE_PICTURE = { token: string };
 export class DeleteProfilePicture implements Action {
   readonly type = DELETE_PROFILE_PICTURE;
   constructor(public payload: DELETE_PROFILE_PICTURE) {}
 }
 export const DELETE_PROFILE_PICTURE_SUCCESS = 'DELETE_PROFILE_PICTURE_SUCCESS';
-export type DELETE_PROFILE_PICTURE_SUCCESS = any;
 export class DeleteProfilePictureSuccess implements Action {
   readonly type = DELETE_PROFILE_PICTURE_SUCCESS;
-  constructor(public payload: DELETE_PROFILE_PICTURE_SUCCESS) {}
 }
 export const DELETE_PROFILE_PICTURE_FAILURE = 'DELETE_PROFILE_PICTURE_FAILURE';
-export type DELETE_PROFILE_PICTURE_FAILURE = any;
 export class DeleteProfilePictureFailure implements Action {
   readonly type = DELETE_PROFILE_PICTURE_FAILURE;
-  constructor(public payload: DELETE_PROFILE_PICTURE_FAILURE) {}
 }
 
 export const CHANGE_PROFILE = 'CHANGE_PROFILE';

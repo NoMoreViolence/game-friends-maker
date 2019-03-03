@@ -7,7 +7,10 @@ import {
   CHANGE_PROFILE,
   CHANGE_PROFILE_SUCCESS,
   CHANGE_PROFILE_FAILURE,
-  CHANGE_USERNAME
+  CHANGE_USERNAME,
+  UPLOAD_PROFILE_PICTURE,
+  UPLOAD_PROFILE_PICTURE_SUCCESS,
+  UPLOAD_PROFILE_PICTURE_FAILURE
 } from 'store/actions';
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
@@ -17,25 +20,11 @@ const getMyProfile = (token: string) =>
     .get('/api/user/profile', {
       headers: { Authorization: `Bearer ${token}` }
     })
-    .then(
-      (
-        res: AxiosResponse<{
-          success: boolean;
-          message: string;
-          value: {
-            username: string;
-            introduce: string;
-            pictureUrl: string;
-            visibility: boolean;
-          };
-        }>
-      ) => res.data.value
-    );
+    .then(res => res.data.value);
 function* getMyProfileSaga(action: Action<GET_MY_PROFILE>) {
   if (action.payload) {
     try {
       const response = yield call(getMyProfile, action.payload);
-      console.log(response);
       yield put({ type: GET_MY_PROFILE_SUCCESS, payload: response });
     } catch (e) {
       yield put({ type: GET_MY_PROFILE_FAILURE, payload: e.response.data });
@@ -71,11 +60,39 @@ function* changeMyProfileSuccessSaga(action: Action<CHANGE_PROFILE_SUCCESS>) {
     yield put({ type: CHANGE_USERNAME, payload: action.payload.username });
   }
 }
+function changeMyProfileFailureSaga(action: Action<CHANGE_PROFILE_FAILURE>) {}
+
+const uploadMyProfile = (changes: { token: string; image: File }) => {
+  const formData = new FormData();
+  formData.append('profile-image', changes.image);
+
+  return axios
+    .post('/api/user/profile/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${changes.token}`
+      }
+    })
+    .then(res => ({}));
+};
+function* uploadMyProfileSaga(action: Action<UPLOAD_PROFILE_PICTURE>) {
+  if (action.payload) {
+    try {
+      yield call(uploadMyProfile, action.payload);
+      yield put({ type: UPLOAD_PROFILE_PICTURE_SUCCESS });
+      yield put({ type: GET_MY_PROFILE, payload: action.payload.token });
+    } catch (e) {
+      yield put({ type: UPLOAD_PROFILE_PICTURE_FAILURE });
+    }
+  }
+}
 
 function* profileSaga() {
   yield takeEvery(GET_MY_PROFILE, getMyProfileSaga);
   yield takeEvery(CHANGE_PROFILE, changeMyProfileSaga);
   yield takeEvery(CHANGE_PROFILE_SUCCESS, changeMyProfileSuccessSaga);
+  yield takeEvery(CHANGE_PROFILE_FAILURE, changeMyProfileFailureSaga);
+  yield takeEvery(UPLOAD_PROFILE_PICTURE, uploadMyProfileSaga);
 }
 
 export { profileSaga };

@@ -39,7 +39,12 @@
           justify-content: center;
           align-items: center;
           border-radius: 50%;
+          background-position: 50% 50%; /* Sets reference point to scale from */
+          background-size: cover;
 
+          > input {
+            display: none;
+          }
           > span {
             display: none;
             margin: 0.5rem;

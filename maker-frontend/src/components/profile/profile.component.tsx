@@ -15,7 +15,8 @@ const Circle = styled.div`
   color: red;
 `;
 class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, State> {
-  state = {
+  public imageUploadInput = React.createRef<HTMLInputElement>();
+  state: State = {
     editMode: false,
     username: '',
     introduce: ''
@@ -31,6 +32,31 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
       this.props.getMyProfile(this.props.token);
     }
   }
+
+  public clickProfileImageChange = () => {
+    if (this.imageUploadInput.current !== null) {
+      this.imageUploadInput.current.click();
+    }
+  };
+  public profileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) {
+      return;
+    }
+    const file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      toast.error('프로필 사진에는 사진 파일만 올려 주세요.');
+      return;
+    }
+
+    this.props.uploadMyProfile({
+      token: this.props.token,
+      image: file
+    });
+  };
 
   public handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     this.setState({
@@ -57,18 +83,18 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
     });
   };
 
-  public changeVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (
-      (e.currentTarget.id === 'profile-everyone-visibility' && this.props.visibility === 1) ||
-      (e.currentTarget.id === 'profile-justme-visibility' && this.props.visibility === 0)
-    ) {
-      toast.info('이미 적용되어 있는 설정입니다.');
-    }
-
-    if (e.currentTarget.id === 'profile-everyone-visibility') {
-      return;
-    }
-  };
+  // public changeVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   if (
+  //     (e.currentTarget.id === 'profile-everyone-visibility' && this.props.visibility === 1) ||
+  //     (e.currentTarget.id === 'profile-justme-visibility' && this.props.visibility === 0)
+  //   ) {
+  //     toast.info('이미 적용되어 있는 설정입니다.');
+  //   } else if (e.currentTarget.id === 'profile-everyone-visibility') {
+  //     return;
+  //   } else if (e.currentTarget.id === 'profile-justme-visibility') {
+  //     return;
+  //   }
+  // };
 
   render() {
     const renderIntroduce = (introduce: string | null) => {
@@ -106,8 +132,11 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
           <div id="profile-content">
             <div id="profile-image">
               <Circle url={this.props.pictureUrl} className="white-gray-background">
-                <span className="secondary-color middle-font-size">이미지 변경하기</span>
-                <span className="secondary-color middle-font-size">이미지 삭제하기</span>
+                <span onClick={this.clickProfileImageChange} className="black-color middle-font-size">
+                  이미지 변경하기
+                </span>
+                <input onChange={this.profileImageChange} type="file" ref={this.imageUploadInput} />
+                <span className="black-color middle-font-size">이미지 삭제하기</span>
               </Circle>
             </div>
             <div id="profile-text">
@@ -152,6 +181,8 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
           </div>
         </div>
 
+        {/*
+          비활성화 처리
         <div id="profile-public-or-private" className="page card-form white-gray-border radius">
           <div>
             <span className="title-font-size primary-color">내 프로필 공개 여부</span>
@@ -176,7 +207,7 @@ class ProfileComponent extends React.Component<ProfileProps & ProfileMethod, Sta
               나만 보기
             </button>
           </div>
-        </div>
+        </div> */}
       </>
     );
   }
