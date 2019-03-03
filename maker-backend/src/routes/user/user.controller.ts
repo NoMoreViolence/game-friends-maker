@@ -6,7 +6,7 @@ import { JsonWebTokenError } from 'jsonwebtoken';
 import * as random from 'randomstring';
 import middleware from 'src/middleware';
 
-const imageUpload = middleware.upload.single('myjapanhistory');
+const imageUpload = middleware.upload.single('profile-image');
 const { Op } = Sequelize;
 const { salt, regex, validation, encrypto, jwt, mailer } = lib;
 
@@ -123,6 +123,13 @@ export const changeMyProfile = (req: Request, res: Response) => {
     .catch(onError);
 };
 
+/* POST 
+  params: {
+  },
+  body: {
+    profile-image: File
+  }
+*/
 export const profileImageUpload = (req: Request, res: Response) => {
   const { id }: DecodedToken = res.locals;
 
@@ -166,6 +173,11 @@ export const profileImageUpload = (req: Request, res: Response) => {
       .catch(onError);
   });
 };
+
+/* DELETE
+  params: {},
+  body: {}
+*/
 export const profileImageDelete = (req: Request, res: Response) => {
   const responseToClient = (): Response =>
     res.json({
@@ -180,6 +192,7 @@ export const profileImageDelete = (req: Request, res: Response) => {
     });
 };
 
+// Public api
 export const getProfile = (req: Request, res: Response) => {
   res.json({});
 };
