@@ -67,3 +67,10 @@
     color: $error;
   }
 }
+
+.black-color {
+  color: $black;
+  &:link {
+    color: $black;
+  }
+}
