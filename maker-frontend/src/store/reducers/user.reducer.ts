@@ -4,7 +4,6 @@ import { User } from '../models';
 
 const initialState: User = {
   email: '',
-  username: '',
   admin: false,
   token: '',
   loginStatus: 'none',
@@ -15,17 +14,12 @@ const initialState: User = {
 const userReducer = (state: User = initialState, action: UserActions) =>
   produce(state, draft => {
     switch (action.type) {
-      case 'CHANGE_USERNAME':
-        draft.username = action.payload;
-        break;
-
       case 'LOGIN':
         draft.loginStatus = 'pending';
         break;
       case 'LOGIN_SUCCESS':
         draft.token = action.payload.token;
         draft.email = action.payload.email;
-        draft.username = action.payload.username;
         draft.admin = action.payload.admin;
         draft.loginStatus = 'success';
         break;
@@ -42,7 +36,6 @@ const userReducer = (state: User = initialState, action: UserActions) =>
         draft.loginStatus = 'success';
         draft.autoLoginStatus = 'success';
         draft.email = action.payload.email;
-        draft.username = action.payload.username;
         draft.admin = action.payload.admin;
         break;
       case 'AUTO_LOGIN_FAILURE':
@@ -66,7 +59,6 @@ const userReducer = (state: User = initialState, action: UserActions) =>
         draft.email = '';
         draft.loginStatus = 'none';
         draft.registerStatus = 'none';
-        draft.username = '';
 
       default:
         break;

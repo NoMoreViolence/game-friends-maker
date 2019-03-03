@@ -33,8 +33,8 @@ const HeaderContainer: React.SFC<HeaderProps & HeaderMethod & RouteComponentProp
 
 export default withRouter(
   connect<HeaderProps, HeaderMethod, {}, {}>(
-    ({ user }: AppState) => ({
-      username: user.username,
+    ({ user, profile }: AppState) => ({
+      username: profile.username,
       loginStatus: user.loginStatus,
       admin: user.admin
     }),

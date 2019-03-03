@@ -10,7 +10,8 @@ import {
   AUTO_LOGIN_FAILURE,
   REGISTER,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE
+  REGISTER_FAILURE,
+  GET_MY_PROFILE
 } from 'store/actions';
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
@@ -40,12 +41,15 @@ function* loginSaga(action: Action<LOGIN>) {
     }
   }
 }
-const loginSuccessSaga = (action: Action<LOGIN_SUCCESS>) =>
-  action.payload
-    ? (toast.success(`안녕하세요 ${action.payload.username}님 !`),
-      localStorage.setItem('token', action.payload.token),
-      localStorage.setItem('name', action.payload.username))
-    : toast.error('알 수 없는 에러 !');
+function* loginSuccessSaga(action: Action<LOGIN_SUCCESS>) {
+  if (action.payload) {
+    localStorage.setItem('token', action.payload.token);
+    toast.success(`로그인 성공.`);
+    yield put({ type: GET_MY_PROFILE, payload: action.payload.token });
+    return;
+  }
+  return toast.error('알 수 없는 에러 !');
+}
 const loginFailureSaga = (action: Action<LOGIN_FAILURE>) =>
   action.payload ? toast.error(`에러: ${action.payload.message}`) : toast.error(`에러 !`);
 
@@ -74,9 +78,7 @@ function* autoLoginSaga(action: Action<AUTO_LOGIN>) {
   }
 }
 const autoLoginSuccessSaga = (action: Action<AUTO_LOGIN_SUCCESS>) =>
-  action.payload
-    ? (toast.success(`안녕하세요 ${action.payload.username}님 !`), localStorage.setItem('name', action.payload.username))
-    : toast.error('알 수 없는 에러 !');
+  action.payload ? toast.success(`자동 인증 완료.`) : toast.error('알 수 없는 에러 !');
 const autoLoginFailureSaga = (action: Action<AUTO_LOGIN_FAILURE>) => (
   action.payload ? toast.error(`에러: ${action.payload.message}`) : toast.error(`에러 !`), localStorage.clear()
 );
