@@ -130,7 +130,7 @@ export const changeMyProfile = (req: Request, res: Response) => {
     profile-image: File
   }
 */
-export const profileImageUpload = (req: Request, res: Response) => {
+export const uploadProfileImage = (req: Request, res: Response) => {
   const { id }: DecodedToken = res.locals;
 
   return imageUpload(req, res, (err: Error) => {
@@ -178,7 +178,21 @@ export const profileImageUpload = (req: Request, res: Response) => {
   params: {},
   body: {}
 */
-export const profileImageDelete = (req: Request, res: Response) => {
+export const deleteProfileImage = (req: Request, res: Response) => {
+  const { id }: DecodedToken = res.locals;
+
+  const deleteProfileImageUrl = (userId: number) =>
+    new Promise((resolve, reject) => {
+      User.update(
+        {
+          pictureUrl: ''
+        },
+        { where: { id: userId }, silent: true }
+      )
+        .then(updated => resolve())
+        .catch((error: DatabaseError) => reject(new Error(error.name)));
+    });
+
   const responseToClient = (): Response =>
     res.json({
       success: true,
@@ -190,6 +204,10 @@ export const profileImageDelete = (req: Request, res: Response) => {
       success: false,
       message: err.message
     });
+
+  deleteProfileImageUrl(id)
+    .then(responseToClient)
+    .catch(onError);
 };
 
 // Public api
