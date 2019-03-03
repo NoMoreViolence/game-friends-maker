@@ -5,7 +5,7 @@ import { LoaderProps, LoaderMethod } from 'containers/loader/loader.container';
 // Thank you for https://codepen.io/akwright/ Alex
 const LoaderComponent: React.SFC<LoaderProps & LoaderMethod> = props => (
   <>
-    {(props.loginStatus === 'pending' || props.registerStatus === 'pending') && (
+    {(props.loginStatus === 'pending' || props.registerStatus === 'pending' || props.profileStatus === 'pending') && (
       <div className="modal transparent-black-background">
         <div className="modal-card loading-container">
           <svg version="1.1" id="preloader6" width="140px" height="140px" viewBox="0 0 200 200">
