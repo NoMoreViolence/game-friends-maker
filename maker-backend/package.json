@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "NODE_PATH=./ ts-node src/app.ts",
-    "dev": "nodemon"
+    "start:dev": "nodemon",
+    "start:build": "NODE_PATH=./dist node dist/src/app.js",
+    "build": "node_modules/typescript/bin/tsc"
   },
   "dependencies": {
     "aws-sdk": "^2.395.0",

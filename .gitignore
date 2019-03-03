@@ -50,3 +50,4 @@ Thumbs.db
 /maker-backend/.env
 /maker-backend/config
 /maker-backend/yarn.lock
+/maker-backend/dist

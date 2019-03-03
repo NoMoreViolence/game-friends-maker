@@ -3,6 +3,7 @@
     "charset": "utf8",
     "baseUrl": ".",
     "lib": ["esnext"],
+    "outDir": "dist",
     "target": "esnext",
     "module": "commonjs",
     "resolveJsonModule": true, // Allow import json file
