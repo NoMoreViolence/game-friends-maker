@@ -13,7 +13,7 @@ import {
   Default,
   HasMany
 } from 'sequelize-typescript';
-import { User, AllGame, Post } from '.';
+import { User, AllGame } from '.';
 
 @Table({ timestamps: true, tableName: 'UserGame', paranoid: false })
 class UserGame extends Model<UserGame> {
@@ -39,16 +39,17 @@ class UserGame extends Model<UserGame> {
   public nickname: string;
 
   @AllowNull(false)
-  @Column(DataType.CHAR(255))
+  @Column(DataType.INTEGER(11))
   public expert: number;
+
+  @AllowNull(false)
+  @Column(DataType.CHAR(255))
+  public comment: string;
 
   @Default(true)
   @AllowNull(false)
   @Column(DataType.TINYINT(1))
   public show: boolean;
-
-  @HasMany(() => Post)
-  public posts: Post[];
 
   @CreatedAt
   public createdAt: Date;
