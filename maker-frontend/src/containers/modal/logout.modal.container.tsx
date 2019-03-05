@@ -1,24 +1,28 @@
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { AppState, userActions } from 'store';
 import LogoutModalComponent from 'components/modal/logout.modal.component';
 
-interface RealProps {
+export interface LogoutProps {
   close: () => void;
 }
-interface Props {}
-interface Method {
+export interface LogoutMethod {
   logout: () => void;
 }
 
-const LogoutModalContainer: React.SFC<RealProps & Props & Method> = props => {
-  return <LogoutModalComponent close={props.close} logout={props.logout} />;
+const LogoutModalContainer: React.SFC<LogoutProps & LogoutMethod & RouteComponentProps> = props => {
+  return (
+    <LogoutModalComponent history={props.history} location={props.location} match={props.match} close={props.close} logout={props.logout} />
+  );
 };
 
-export default connect<Props, Method, {}, {}>(
-  ({ user }: AppState) => ({}),
-  dispatch => ({
-    logout: bindActionCreators(userActions.logout, dispatch)
-  })
-)(LogoutModalContainer);
+export default withRouter(
+  connect<{}, LogoutMethod, LogoutProps & RouteComponentProps, {}>(
+    ({  }: AppState) => ({}),
+    (dispatch: Dispatch<Action<any>>) => ({
+      logout: bindActionCreators(userActions.logout, dispatch)
+    })
+  )(LogoutModalContainer)
+);

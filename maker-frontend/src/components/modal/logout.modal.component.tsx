@@ -1,13 +1,10 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import './logout.modal.component.scss';
+import { LogoutProps, LogoutMethod } from 'containers/modal/logout.modal.container';
 
-interface Props {
-  logout: () => void;
-  close: () => void;
-}
-
-class LogoutModalComponent extends React.Component<Props> {
-  logout = () => (this.props.logout(), this.props.close());
+class LogoutModalComponent extends React.Component<LogoutProps & LogoutMethod & RouteComponentProps> {
+  logout = () => (this.props.logout(), this.props.close(), this.props.history.push(''));
 
   render = () => {
     return (
