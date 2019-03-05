@@ -6,7 +6,6 @@ import { AllGame, GameGenre } from 'db';
 /* GET
  */
 export const getAllGame = (req: Request, res: Response): void => {
-  console.log('fuck');
   const findAllGame = (): Promise<Array<FilteredModelAttributes<AllGame & { genres: string[] }>>> =>
     new Promise((resolve, reject) =>
       AllGame.findAll({
