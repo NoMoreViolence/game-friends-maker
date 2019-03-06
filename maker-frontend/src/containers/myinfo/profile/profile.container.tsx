@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators, Action, AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { AppState, profileActions, CHANGE_PROFILE, UPLOAD_PROFILE_PICTURE, DELETE_PROFILE_PICTURE } from 'store';
-import ProfileComponent from 'components/profile';
+import ProfileComponent from 'components/myinfo/profile';
 
 interface ProfileProps {
   username: string;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './profile.component.scss';
 import styled from 'styled-components';
-import { ProfileProps, ProfileMethod } from 'containers/profile';
+import { ProfileProps, ProfileMethod } from 'containers/myinfo/profile';
 import { toast } from 'react-toastify';
 import ModalPage from 'pages/modal';
 import { DeleteProfilePhotoModalComponent } from 'components/modal';
