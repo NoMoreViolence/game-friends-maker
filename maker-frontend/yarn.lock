@@ -5102,6 +5102,11 @@ immer@1.10.0:
   resolved "https://registry.yarnpkg.com/immer/-/immer-1.10.0.tgz#bad67605ba9c810275d91e1c2a47d4582e98286d"
   integrity sha512-O3sR1/opvCDGLEVcvrGTMtLac8GJ5IwZC4puPrLuRj3l7ICKvkmA0vGuU9OW8mV9WIBRnaxp5GJh9IEAaNOoYg==
 
+immer@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-3.1.1.tgz#eddd2c28403f494df604992c554eade8d9e5c2bb"
+  integrity sha512-8mH3vMqkvCy0jADoJGJR/+RNsIJOsrVhN1/8NBSLGV+Y4S8bSQ5i2VsDHu+1fm+IFhd8cZFX0shms2nsTBJUbA==
+
 immutable@^3.7.4:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
@@ -6396,6 +6401,11 @@ loader-utils@1.2.3, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.
     big.js "^5.2.2"
     emojis-list "^2.0.0"
     json5 "^1.0.1"
+
+localized-strings@^0.2.00:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/localized-strings/-/localized-strings-0.2.2.tgz#25620bd07c30946cae2f60d878d3a14b343651b7"
+  integrity sha512-00SLj5499BxJPjMPYJXqnva14T/ebRNnLoWTrOqogrmR3gSYR6NidA7xXb3bjMTkSPtrPhFDlx6cGC8cym+LEA==
 
 locate-path@^2.0.0:
   version "2.0.0"
@@ -9051,10 +9061,10 @@ react-dev-utils@^9.0.0:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
-react-dom@^16.8.6:
+"react-dom@npm:@hot-loader/react-dom":
   version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
-  integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
+  resolved "https://registry.yarnpkg.com/@hot-loader/react-dom/-/react-dom-16.8.6.tgz#7923ba27db1563a7cc48d4e0b2879a140df461ea"
+  integrity sha512-+JHIYh33FVglJYZAUtRjfT5qZoT2mueJGNzU5weS2CVw26BgbxGKSujlJhO85BaRbg8sqNWyW1hYBILgK3ZCgA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -9100,6 +9110,14 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-localization@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/react-localization/-/react-localization-1.0.13.tgz#7a1da114c61c8b4814fed2abc699b45ad6bb32b8"
+  integrity sha512-VKbcCpf6FnjhUs1QpEpxGeZCVyAGRknk58w1fG4L4CWHfju/v9A6eyPgRnw6WmKgn2A5EJZt9ewkiP1pQFEwEA==
+  dependencies:
+    localized-strings "^0.2.00"
+    react "^16.0.0"
 
 react-redux@^7.0.3:
   version "7.0.3"
@@ -9153,7 +9171,7 @@ react-slick@~0.24.0:
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
 
-react@^16.8.6:
+react@^16.0.0, react@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==

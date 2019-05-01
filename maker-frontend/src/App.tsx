@@ -1,17 +1,14 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
-import { Button } from 'antd';
-
-const MainDiv = styled.div`
-  position: relative;
-  background-color: #64b5f6;
-`;
+import { hot } from 'react-hot-loader';
+import { Switch, Route } from 'react-router-dom';
+import MainPage from './pages/main/main.page';
 
 const App: FC = () => (
-  <MainDiv>
-    <img src="/images/illustrators/background-1-color.svg" alt="" />
-    <Button type="primary">Fucking</Button>
-  </MainDiv>
+  <>
+    <Switch>
+      <Route path="/" component={MainPage} />
+    </Switch>
+  </>
 );
 
-export default App;
+export default hot(module)(App);
