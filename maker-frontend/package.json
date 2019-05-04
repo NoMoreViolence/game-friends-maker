@@ -51,7 +51,7 @@
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.0",
     "react-dev-utils": "^9.0.0",
-    "react-dom": "npm:@hot-loader/react-dom",
+    "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
     "react-localization": "^1.0.13",
     "react-redux": "^7.0.3",
