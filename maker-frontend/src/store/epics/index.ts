@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable';
-import { startCountdownEpic } from './test.epic';
+import { loginEpic } from './sign.epic';
 
-const rootEpic = combineEpics(startCountdownEpic);
+const rootEpic = combineEpics(loginEpic);
 
 export { rootEpic };
