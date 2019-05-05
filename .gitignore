@@ -40,6 +40,7 @@ Thumbs.db
 /maker-frontendyarn-error.log
 /maker-frontendtestem.log
 /maker-frontend/typings
+/maker-frontend/yarn.lock
 # frontend-output
 /maker-frontend/dist
 /maker-frontend/tmp

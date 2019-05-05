@@ -1,14 +1,29 @@
-import * as express from 'express';
-const Router = express.Router();
+import { combineRoutes, HttpError, httpListener, HttpStatus, r } from '@marblejs/core';
+import { bodyParser$ } from '@marblejs/middleware-body';
+import { cors$ } from '@marblejs/middleware-cors';
+import { logger$ } from '@marblejs/middleware-logger';
+import { throwError } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import sign$ from './sign';
 
-import admin from './admin';
-import auth from './auth';
-import api from './public-api';
-import user from './user';
+const api$ = combineRoutes('/api', [sign$]);
+const notFound$ = r.pipe(
+  r.matchPath('*'),
+  r.matchType('*'),
+  r.useEffect(req$ => req$.pipe(mergeMap(() => throwError(new HttpError('Route not found', HttpStatus.NOT_FOUND)))))
+);
 
-Router.use('/admin', admin);
-Router.use('/auth', auth);
-Router.use('/user', user);
-Router.use('/public', api);
+const effects = [api$, notFound$];
+const middlewares = [
+  bodyParser$(),
+  logger$(),
+  cors$({
+    allowHeaders: '*',
+    maxAge: 3600,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    optionsSuccessStatus: 204,
+    origin: '*'
+  })
+];
 
-export default Router;
+export default httpListener({ effects, middlewares });
