@@ -2,7 +2,9 @@ import React, { FC } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import LocalizedStrings from 'react-localization';
+import { GoogleLogin } from 'react-google-login';
 import { Button, Icon } from 'antd';
+import { googleClientKey } from '../../constants';
 
 const MainDiv = styled('div')<{ backgroundImage: string }>`
   display: flex;
@@ -130,7 +132,7 @@ const MainDiv = styled('div')<{ backgroundImage: string }>`
   }
 `;
 
-const MainPage: FC<RouteComponentProps> = () => {
+const MainPage: FC<RouteComponentProps> = ({ history, location, match }) => {
   const renderCommentUnit = (string: 'match' | 'quick' | 'everywhere') => {
     return (
       <div className="comment-unit">
@@ -138,6 +140,10 @@ const MainPage: FC<RouteComponentProps> = () => {
         <span>{strings[string]}</span>
       </div>
     );
+  };
+
+  const responseGoogle = (response: any) => {
+    console.log(response);
   };
 
   return (
@@ -165,6 +171,14 @@ const MainPage: FC<RouteComponentProps> = () => {
         <Button type="default" size="large">
           {strings.start}
         </Button>
+
+        <GoogleLogin
+          clientId={googleClientKey}
+          buttonText="Start With Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
       </div>
     </MainDiv>
   );
