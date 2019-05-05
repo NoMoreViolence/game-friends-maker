@@ -32,6 +32,7 @@
     "@marblejs/middleware-io": "^2.1.0",
     "@marblejs/middleware-jwt": "^2.1.0",
     "@marblejs/middleware-logger": "^2.1.0",
+    "axios": "^0.18.0",
     "crypto": "^1.0.1",
     "date-fns": "^1.30.1",
     "dotenv": "^7.0.0",
@@ -48,6 +49,7 @@
     "delay": "300"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/dotenv": "^6.1.1",
     "@types/node": "^11.13.4",
     "@types/randomstring": "^1.1.6",
