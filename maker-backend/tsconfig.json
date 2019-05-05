@@ -3,7 +3,7 @@
     "baseUrl": "./src",
     "outDir": "./dist/",
     "paths": {
-      "@lib/*": ["lib/*"],
+      "@lib": ["lib"],
       "@database": ["database"],
       "@middlewares": ["middlewares"],
       "@utils": ["utils"]
