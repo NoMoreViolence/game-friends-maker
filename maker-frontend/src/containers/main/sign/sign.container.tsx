@@ -1,18 +1,26 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import { AppState } from '../../../store/models';
-import { SignActions } from '../../../store/actions';
+import { AppState, Status } from '../../../store/models';
+import { loginActions, ILoginPayload, ILogin, SignActions } from '../../../store/actions';
+import SignComponent from '../../../components/main/sign/sign.component';
+import { bindActionCreators, Dispatch } from 'redux';
 
-const mapStateToProps = (state: AppState) => ({
-  token: state.user.token,
-  expiresIn: state.user.expiresIn
+export interface ISignComponentProps {
+  loginStatus: Status;
+}
+
+export interface ISignComponentMethod {
+  login: (value: ILoginPayload) => ILogin;
+}
+
+const mapStateToProps = ({ user }: AppState): ISignComponentProps => ({
+  loginStatus: user.loginStatus
 });
 
-const mapDispatchToProps = (dispatch: SignActions) => ({});
-
-const a = () => <div />;
+const mapDispatchToProps = (dispatch: Dispatch<SignActions>) => ({
+  login: bindActionCreators(loginActions.login, dispatch)
+});
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(a);
+)(SignComponent);

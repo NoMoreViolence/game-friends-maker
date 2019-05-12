@@ -2,9 +2,8 @@ import React, { FC } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import LocalizedStrings from 'react-localization';
-import { GoogleLogin } from 'react-google-login';
 import { Button, Icon } from 'antd';
-import { googleClientKey } from '../../constants';
+import SignContainer from '../../containers/main/sign/sign.container';
 
 const MainDiv = styled('div')<{ backgroundImage: string }>`
   display: flex;
@@ -17,7 +16,9 @@ const MainDiv = styled('div')<{ backgroundImage: string }>`
     display: flex;
     flex-direction: column;
     background-image: ${(props: any) =>
-      props.backgroundImage ? `linear-gradient(rgba(245, 245, 245, 0), rgba(245, 245, 245, 0)), url(${props.backgroundImage})` : ''};
+      props.backgroundImage
+        ? `linear-gradient(rgba(245, 245, 245, 0), rgba(245, 245, 245, 0)), url(${props.backgroundImage})`
+        : ''};
     background-position: 50% 50%;
     background-size: cover;
 
@@ -67,11 +68,15 @@ const MainDiv = styled('div')<{ backgroundImage: string }>`
   .enter-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 1rem;
 
-    /* background-color: #ffffff; */
     background-color: #f06292;
+
+    > button:nth-child(2) {
+      margin-top: 2rem;
+    }
   }
 
   /* Mobile */
@@ -172,13 +177,7 @@ const MainPage: FC<RouteComponentProps> = ({ history, location, match }) => {
           {strings.start}
         </Button>
 
-        <GoogleLogin
-          clientId={googleClientKey}
-          buttonText="Start With Google"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
+        <SignContainer />
       </div>
     </MainDiv>
   );
