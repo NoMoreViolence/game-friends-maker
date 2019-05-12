@@ -1,7 +1,8 @@
 import { createEpicMiddleware } from 'redux-observable';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, Reducer, AnyAction } from 'redux';
 import { rootEpic } from './epics';
-import { rootReducer } from './reducers';
+import { metaReducer } from './reducers';
+import { AppState } from '@models';
 
 const epicMiddleware = createEpicMiddleware();
 const composeEnhancers =
@@ -11,7 +12,7 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware(epicMiddleware));
 
 export default () => {
-  const store = createStore(rootReducer, enhancer);
+  const store = createStore(metaReducer as Reducer<AppState, AnyAction>, enhancer);
   epicMiddleware.run(rootEpic);
   return store;
 };

@@ -147,10 +147,6 @@ const MainPage: FC<RouteComponentProps> = ({ history, location, match }) => {
     );
   };
 
-  const responseGoogle = (response: any) => {
-    console.log(response);
-  };
-
   return (
     <MainDiv backgroundImage={'/images/illustrators/background-1-color.svg'}>
       <div className="main-introduce">
