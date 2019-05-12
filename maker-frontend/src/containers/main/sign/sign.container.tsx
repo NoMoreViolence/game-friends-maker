@@ -1,23 +1,23 @@
 import { connect } from 'react-redux';
 import { AppState, Status } from '../../../store/models';
-import { loginActions, ILoginPayload, ILogin, SignActions } from '../../../store/actions';
+import { signActions, IRegisterPayload, IRegister, SignActions } from '../../../store/actions';
 import SignComponent from '../../../components/main/sign/sign.component';
 import { bindActionCreators, Dispatch } from 'redux';
 
 export interface ISignComponentProps {
-  loginStatus: Status;
+  registerStatus: Status;
 }
 
 export interface ISignComponentMethod {
-  login: (value: ILoginPayload) => ILogin;
+  register: (value: IRegisterPayload) => IRegister;
 }
 
 const mapStateToProps = ({ user }: AppState): ISignComponentProps => ({
-  loginStatus: user.loginStatus
+  registerStatus: user.registerStatus
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<SignActions>) => ({
-  login: bindActionCreators(loginActions.login, dispatch)
+  register: bindActionCreators(signActions.register, dispatch)
 });
 
 export default connect(

@@ -15,11 +15,13 @@ export const createToken = (user: User): { token: string; expiresIn: number } =>
 export const checkEmailAndPassword = (trans: {
   user: User;
   body: {
+    name: string;
     email: string;
-    password: string;
+    googleId: string;
+    googleIdToken: string;
   };
 }) => {
-  const userInputPassword = reCreatePassword({ password: trans.body.password, salt: trans.user.salt });
+  const userInputPassword = reCreatePassword({ password: trans.body.googleId, salt: trans.user.salt });
 
   if (trans.user.googleId !== userInputPassword.password) {
     throw new HttpError('Unauthorized', HttpStatus.UNAUTHORIZED);

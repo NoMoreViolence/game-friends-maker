@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import { googleClientKey } from './../../../constants';
-import { ISignComponentProps, ISignComponentMethod } from '../../../containers/main/sign/sign.container';
-
-const MySwal = withReactContent(Swal);
+import { googleClientKey } from '@constants';
+import { ISignComponentProps, ISignComponentMethod } from '@src/containers/main/sign/sign.container';
+import { toast } from '@lib';
 
 interface IGoogleLoginSuccessPayload {
   googleId: string;
@@ -18,27 +15,17 @@ interface IGoogleLoginSuccessPayload {
 
 class SignComponent extends Component<ISignComponentProps & ISignComponentMethod> {
   public responseToGoogle = (response: any) =>
-    this.props.login({
+    this.props.register({
       googleId: (response as IGoogleLoginSuccessPayload).googleId,
       googleIdToken: (response as IGoogleLoginSuccessPayload).tokenId,
       email: (response as IGoogleLoginSuccessPayload).profileObj.email,
       name: (response as IGoogleLoginSuccessPayload).profileObj.name
     });
+  public errorToGoogle = (response: any) => toast('info', 'Login Failure', response.error);
 
-  public errorToGoogle = (response: any) =>
-    MySwal.fire({
-      type: 'info',
-      toast: true,
-      position: 'top-right',
-      title: 'Login Failure',
-      text: response.error,
-      timer: 2000,
-      showConfirmButton: false
-    });
-
-  public render = () => (
+  render = () => (
     <>
-      {this.props.loginStatus !== 'success' && (
+      {this.props.registerStatus !== 'success' && (
         <GoogleLogin
           clientId={googleClientKey}
           buttonText="Start With Google"

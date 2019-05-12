@@ -1,6 +1,6 @@
 import { HttpEffect, HttpError, HttpStatus, use } from '@marblejs/core';
 import { requestValidator$, t } from '@marblejs/middleware-io';
-import { createNewPassword, everNullable } from '@utils';
+import { createNewPassword, everNullable, neverNullable, reCreatePassword } from '@utils';
 import { User } from 'database/models';
 import { createUser, getUserByEmail } from 'database/queries';
 import { of, throwError } from 'rxjs';
@@ -8,7 +8,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { getRepository } from 'typeorm';
 import { checkGoogleIdVaildation, checkSameValueVaildation, createToken } from '../utils';
 
-const registerVaildater$ = requestValidator$({
+const loginVaildater$ = requestValidator$({
   body: t.type({
     name: t.string,
     email: t.string,
@@ -17,11 +17,11 @@ const registerVaildater$ = requestValidator$({
   })
 });
 
-export const googleRegisterEffect$: HttpEffect = req$ => {
+export const googleLoginEffect$: HttpEffect = req$ => {
   const userEntity = getRepository(User);
 
   return req$.pipe(
-    use(registerVaildater$),
+    use(loginVaildater$),
     mergeMap(req =>
       of(req).pipe(
         mergeMap(() => checkGoogleIdVaildation(req.body)),
@@ -34,14 +34,7 @@ export const googleRegisterEffect$: HttpEffect = req$ => {
             req.body.email
           )
         ),
-        mergeMap(everNullable),
-        map(() => createNewPassword({ password: req.body.googleId })),
-        mergeMap(trans =>
-          createUser({
-            entity: userEntity,
-            userData: { ...req.body, ...trans }
-          })
-        ),
+        mergeMap(neverNullable),
         map(createToken),
         map(trans => ({
           body: {
