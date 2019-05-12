@@ -2,6 +2,14 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "src",
+    "paths": {
+      "@actions": ["store/actions"],
+      "@models": ["store/models"],
+      "@lib": ["lib"],
+      "@constants": ["constants"],
+      "@src/*": ["./*"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
