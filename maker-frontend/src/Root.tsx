@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import configureStore from './store';
+import { configureStore, history } from './store';
 import AppComponent from './App';
+import { ConnectedRouter } from 'connected-react-router';
 
 const store = configureStore();
 
 const Root: FC<{}> = () => (
   <Provider store={store}>
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <AppComponent />
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>
 );
 

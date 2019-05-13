@@ -10,9 +10,12 @@ import {
   ILoginFailure,
   ILoginSuccess,
   ILogin,
-  IGetMyInfo
+  IGetMyInfo,
+  IGetMyInfoSuccess,
+  IGetMyInfoFailure
 } from '@actions';
-import { register, login } from './sign.request';
+import { register, login, getMyInfo } from './sign.request';
+import { push } from 'connected-react-router';
 
 export const registerEpic$ = (actions$: ActionsObservable<SignActions>) =>
   actions$.pipe(
@@ -72,4 +75,31 @@ export const loginEpic$ = (actions$: ActionsObservable<SignActions>) =>
       )
     ),
     catchError(() => of({ type: 'LOGIN_FAILURE' } as ILoginFailure))
+  );
+
+export const getMyInfoEpic$ = (actions$: ActionsObservable<SignActions>) =>
+  actions$.pipe(
+    filter(isOfType(SignActionTypes.GET_MY_INFO)),
+    pluck('payload'),
+    mergeMap(payload =>
+      of(payload).pipe(
+        mergeMap(getMyInfo),
+        switchMap(response => {
+          if (response.error === true && response.status === 401) {
+            return [{ type: 'GET_MY_INFO_FAILURE' } as IGetMyInfoFailure, { type: 'RESET' }];
+          }
+
+          return [
+            {
+              type: 'GET_MY_INFO_SUCCESS',
+              payload: {
+                email: response.user.email,
+                name: response.user.name
+              }
+            } as IGetMyInfoSuccess,
+            push('/posts')
+          ];
+        })
+      )
+    )
   );

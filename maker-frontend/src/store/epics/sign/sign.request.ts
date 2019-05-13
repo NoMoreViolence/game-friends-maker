@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import { IRegisterPayload, ILoginPayload } from '@src/store/actions';
+import { IRegisterPayload, ILoginPayload, IGetMyInfoPayload } from '@src/store/actions';
 import { ErrorResponse, HttpCommonResponse } from '@models';
 import { urlChange } from '@src/lib';
 
@@ -30,6 +30,23 @@ export const login = (payload: ILoginPayload): Promise<SignInResponse> =>
     .catch((err: AxiosError) => ({
       expiresIn: 0,
       token: '',
+      error: true,
+      message: (err.response as AxiosResponse<ErrorResponse>).data.error.message,
+      status: (err.response as AxiosResponse<ErrorResponse>).data.error.status
+    }));
+
+interface GetMyInfoResponse extends HttpCommonResponse {
+  user: {
+    email: string;
+    name: string;
+  };
+}
+export const getMyInfo = (payload: IGetMyInfoPayload): Promise<GetMyInfoResponse> =>
+  axios
+    .get(urlChange('/api/sign/check'), { headers: { Authorization: `Bearer ${payload.token}` } })
+    .then((res: AxiosResponse<GetMyInfoResponse>) => ({ ...res.data, error: false }))
+    .catch((err: AxiosError) => ({
+      user: { email: '', name: '' },
       error: true,
       message: (err.response as AxiosResponse<ErrorResponse>).data.error.message,
       status: (err.response as AxiosResponse<ErrorResponse>).data.error.status

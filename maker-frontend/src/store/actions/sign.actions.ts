@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { RouteComponentProps } from 'react-router';
 
 export enum SignActionTypes {
   REGISTER = 'REGISTER',

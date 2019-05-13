@@ -1,4 +1,4 @@
 import { combineEpics } from 'redux-observable';
-import { registerEpic$, loginEpic$ } from './sign.epic';
+import { registerEpic$, loginEpic$, getMyInfoEpic$ } from './sign.epic';
 
-export const signEpic = combineEpics(registerEpic$, loginEpic$);
+export const signEpic = combineEpics(registerEpic$, loginEpic$, getMyInfoEpic$);
