@@ -1,5 +1,12 @@
 export type Status = 'initial' | 'pending' | 'success' | 'failure';
 
+export interface GoogleTokenPayload {
+  name: string;
+  email: string;
+  googleId: string;
+  googleIdToken: string;
+}
+
 export interface ErrorResponse {
   error: {
     message: string;
@@ -62,5 +69,5 @@ export declare enum HttpStatus {
   SERVICE_UNAVAILABLE = 503,
   GATEWAY_TIMEOUT = 504,
   HTTP_VERSION_NOT_SUPPORTED = 505,
-  NETWORK_AUTHENTICATION_REQUIRED = 511
+  NETWORK_AUTHENTICATION_REQUIRED = 511,
 }

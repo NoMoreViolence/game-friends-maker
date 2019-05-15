@@ -9,15 +9,15 @@ export const alert = (type: SweetAlertType, title: string, text: string, isTimer
     type,
     ...(isTimer
       ? {
-          showConfirmButton: false,
-          showCloseButton: false,
-          showCancelButton: false,
-          timer: 1500
-        }
+        showConfirmButton: false,
+        showCloseButton: false,
+        showCancelButton: false,
+        timer: 1500,
+      }
       : {
-          showConfirmButton: true,
-          showCloseButton: true
-        })
+        showConfirmButton: true,
+        showCloseButton: true,
+      }),
   });
 };
 
@@ -29,5 +29,5 @@ export const toast = (type: SweetAlertType, title: string, text: string) =>
     text,
     type,
     showConfirmButton: false,
-    timer: 1500
+    timer: 1500,
   });

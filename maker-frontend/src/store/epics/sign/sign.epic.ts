@@ -1,21 +1,24 @@
 import { ActionsObservable } from 'redux-observable';
 import { isOfType } from 'typesafe-actions';
 import { of } from 'rxjs';
-import { filter, pluck, catchError, mergeMap, switchMap } from 'rxjs/operators';
+import {
+  filter, pluck, catchError, mergeMap, switchMap,
+} from 'rxjs/operators';
 import {
   SignActions,
+  RegisterFailure,
+  Login,
+  RegisterSuccess,
+  GetMyInfo,
+  LoginFailure,
+  LoginSuccess,
+  GetMyInfoFailure,
+  GetMyInfoSuccess,
   SignActionTypes,
-  IRegisterSuccess,
-  IRegisterFailure,
-  ILoginFailure,
-  ILoginSuccess,
-  ILogin,
-  IGetMyInfo,
-  IGetMyInfoSuccess,
-  IGetMyInfoFailure
 } from '@actions';
-import { register, login, getMyInfo } from './sign.request';
 import { push } from 'connected-react-router';
+import { toast } from '@lib';
+import { register, login, getMyInfo } from './sign.request';
 
 export const registerEpic$ = (actions$: ActionsObservable<SignActions>) =>
   actions$.pipe(
@@ -24,29 +27,22 @@ export const registerEpic$ = (actions$: ActionsObservable<SignActions>) =>
     mergeMap(payload =>
       of(payload).pipe(
         mergeMap(register),
-        switchMap(response => {
+        switchMap((response) => {
           if (response.error === true && response.status === 409) {
-            return [{ type: 'REGISTER_FAILURE' } as IRegisterFailure, { type: 'LOGIN', payload } as ILogin];
+            return [Object.assign({}, new RegisterFailure()), Object.assign({}, new Login(payload))];
           }
 
           if (response.error === true) {
-            return [{ type: 'REGISTER_FAILURE' } as IRegisterFailure];
+            return [Object.assign({}, new RegisterFailure())];
           }
 
           return [
-            {
-              type: 'REGISTER_SUCCESS',
-              payload: { token: response.token, expiresIn: response.expiresIn }
-            } as IRegisterSuccess,
-            {
-              type: 'GET_MY_INFO',
-              payload: response
-            }
+            Object.assign({}, new RegisterSuccess({ token: response.token, expiresIn: response.expiresIn })),
+            Object.assign({}, new GetMyInfo(response)),
           ];
-        })
-      )
-    ),
-    catchError(() => of({ type: 'REGISTER_FAILURE' } as IRegisterFailure))
+        }),
+      )),
+    catchError(() => of(Object.assign({}, new RegisterFailure()))),
   );
 
 export const loginEpic$ = (actions$: ActionsObservable<SignActions>) =>
@@ -56,25 +52,18 @@ export const loginEpic$ = (actions$: ActionsObservable<SignActions>) =>
     mergeMap(payload =>
       of(payload).pipe(
         mergeMap(login),
-        switchMap(response => {
+        switchMap((response) => {
           if (response.error === true) {
-            return [{ type: 'LOGIN_FAILURE' } as ILoginFailure];
+            return [Object.assign({}, new LoginFailure())];
           }
 
           return [
-            {
-              type: 'LOGIN_SUCCESS',
-              payload: { token: response.token, expiresIn: response.expiresIn }
-            } as ILoginSuccess,
-            {
-              type: 'GET_MY_INFO',
-              payload: { token: response.token }
-            } as IGetMyInfo
+            Object.assign({}, new LoginSuccess({ token: response.token, expiresIn: response.expiresIn })),
+            Object.assign({}, new GetMyInfo({ token: response.token })),
           ];
-        })
-      )
-    ),
-    catchError(() => of({ type: 'LOGIN_FAILURE' } as ILoginFailure))
+        }),
+      )),
+    catchError(() => of(Object.assign({}, new LoginFailure()))),
   );
 
 export const getMyInfoEpic$ = (actions$: ActionsObservable<SignActions>) =>
@@ -84,22 +73,26 @@ export const getMyInfoEpic$ = (actions$: ActionsObservable<SignActions>) =>
     mergeMap(payload =>
       of(payload).pipe(
         mergeMap(getMyInfo),
-        switchMap(response => {
+        switchMap((response) => {
           if (response.error === true && response.status === 401) {
-            return [{ type: 'GET_MY_INFO_FAILURE' } as IGetMyInfoFailure, { type: 'RESET' }];
+            toast('error', '인증 해제됨', '재 로그인해 주세요.');
+            return [Object.assign({}, new GetMyInfoFailure()), { type: 'RESET' }, push('/')];
+          }
+
+          if (response.error === true) {
+            return [Object.assign({}, new GetMyInfoFailure()), { type: 'RESET' }, push('/')];
           }
 
           return [
-            {
-              type: 'GET_MY_INFO_SUCCESS',
-              payload: {
+            Object.assign(
+              {},
+              new GetMyInfoSuccess({
                 email: response.user.email,
-                name: response.user.name
-              }
-            } as IGetMyInfoSuccess,
-            push('/posts')
+                name: response.user.name,
+              }),
+            ),
+            push('/posts'),
           ];
-        })
-      )
-    )
+        }),
+      )),
   );

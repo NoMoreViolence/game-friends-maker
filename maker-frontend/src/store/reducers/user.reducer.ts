@@ -10,7 +10,7 @@ export const userInitialState: User = {
   expiresIn: 0,
   loginStatus: 'initial',
   registerStatus: 'initial',
-  getMyInfoStatus: 'initial'
+  getMyInfoStatus: 'initial',
 };
 
 export const userReducer = (state: User = userInitialState, action: SignActions) =>
@@ -60,11 +60,11 @@ export const userReducer = (state: User = userInitialState, action: SignActions)
 export const getStatusSelector = (state: User) => ({
   loginStatus: state.loginStatus,
   registerStatus: state.registerStatus,
-  getMyInfoStatus: state.getMyInfoStatus
+  getMyInfoStatus: state.getMyInfoStatus,
 });
 
 export const isUserPending = createSelector(
   [getStatusSelector],
   (userPendings: { [key: string]: Status }) =>
-    !(Object.values(userPendings).filter(state => state === 'pending').length === 0)
+    !(Object.values(userPendings).filter(state => state === 'pending').length === 0),
 );

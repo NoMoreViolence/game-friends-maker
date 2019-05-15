@@ -1,5 +1,6 @@
 import { Action } from 'redux';
-import { RouteComponentProps } from 'react-router';
+import { GoogleTokenPayload } from '@models';
+import { createStandardAction } from 'typesafe-actions';
 
 export enum SignActionTypes {
   REGISTER = 'REGISTER',
@@ -10,93 +11,80 @@ export enum SignActionTypes {
   LOGIN_FAILURE = 'LOGIN_FAILURE',
   GET_MY_INFO = 'GET_MY_INFO',
   GET_MY_INFO_SUCCESS = 'GET_MY_INFO_SUCCESS',
-  GET_MY_INFO_FAILURE = 'GET_MY_INFO_FAILURE'
+  GET_MY_INFO_FAILURE = 'GET_MY_INFO_FAILURE',
 }
 
-export interface IGoogleTokenPayload {
-  name: string;
-  email: string;
-  googleId: string;
-  googleIdToken: string;
-}
+export interface RegisterPayload extends GoogleTokenPayload {}
+export class Register implements Action {
+  public readonly type = SignActionTypes.REGISTER;
 
-export interface IRegisterPayload extends IGoogleTokenPayload {}
-export interface IRegister extends Action {
-  type: SignActionTypes.REGISTER;
-  payload: IRegisterPayload;
+  public constructor(public payload: RegisterPayload) {}
 }
-
-export interface IRegisterSuccessPayload {
+export interface RegisterSuccessPayload {
   token: string;
   expiresIn: number;
 }
-export interface IRegisterSuccess extends Action {
-  type: SignActionTypes.REGISTER_SUCCESS;
-  payload: IRegisterSuccessPayload;
+export class RegisterSuccess implements Action {
+  public readonly type = SignActionTypes.REGISTER_SUCCESS;
+
+  public constructor(public payload: RegisterSuccessPayload) {}
+}
+export class RegisterFailure implements Action {
+  public readonly type = SignActionTypes.REGISTER_FAILURE;
 }
 
-export interface IRegisterFailure extends Action {
-  type: SignActionTypes.REGISTER_FAILURE;
-}
+export interface LoginPayload extends GoogleTokenPayload {}
+export class Login implements Action {
+  public readonly type = SignActionTypes.LOGIN;
 
-export interface ILoginPayload extends IGoogleTokenPayload {}
-export interface ILogin extends Action {
-  type: SignActionTypes.LOGIN;
-  payload: ILoginPayload;
+  public constructor(public payload: LoginPayload) {}
 }
-export interface ILoginSuccessPayload {
+export interface LoginSuccessPayload {
   token: string;
   expiresIn: number;
 }
-export interface ILoginSuccess extends Action {
-  type: SignActionTypes.LOGIN_SUCCESS;
-  payload: ILoginSuccessPayload;
+export class LoginSuccess implements Action {
+  public readonly type = SignActionTypes.LOGIN_SUCCESS;
+
+  public constructor(public payload: LoginSuccessPayload) {}
 }
-export interface ILoginFailure extends Action {
-  type: SignActionTypes.LOGIN_FAILURE;
+export class LoginFailure implements Action {
+  public readonly type = SignActionTypes.LOGIN_FAILURE;
 }
 
-export interface IGetMyInfoPayload {
+export interface GetMyInfoPayload {
   token: string;
 }
-export interface IGetMyInfo {
-  type: SignActionTypes.GET_MY_INFO;
-  payload: IGetMyInfoPayload;
+export class GetMyInfo implements Action {
+  public readonly type = SignActionTypes.GET_MY_INFO;
+
+  public constructor(public payload: GetMyInfoPayload) {}
 }
-export interface IGetMyInfoSuccessPayload {
+export interface GetMyInfoSuccessPayload {
   email: string;
   name: string;
 }
-export interface IGetMyInfoSuccess {
-  type: SignActionTypes.GET_MY_INFO_SUCCESS;
-  payload: IGetMyInfoSuccessPayload;
+export class GetMyInfoSuccess implements Action {
+  public readonly type = SignActionTypes.GET_MY_INFO_SUCCESS;
+
+  public constructor(public payload: GetMyInfoSuccessPayload) {}
 }
-export interface IGetMyInfoFailure {
-  type: SignActionTypes.GET_MY_INFO_FAILURE;
+export class GetMyInfoFailure implements Action {
+  public readonly type = SignActionTypes.GET_MY_INFO_FAILURE;
 }
 
 export const signActions = {
-  register: (payload: IRegisterPayload): IRegister => ({
-    type: SignActionTypes.REGISTER,
-    payload
-  }),
-  login: (payload: ILoginPayload): ILogin => ({
-    type: SignActionTypes.LOGIN,
-    payload
-  }),
-  getMyInfo: (payload: IGetMyInfoPayload): IGetMyInfo => ({
-    type: SignActionTypes.GET_MY_INFO,
-    payload
-  })
+  register: createStandardAction(SignActionTypes.REGISTER)<RegisterPayload>(),
+  login: createStandardAction(SignActionTypes.LOGIN)<LoginPayload>(),
+  getMyInfo: createStandardAction(SignActionTypes.GET_MY_INFO)<GetMyInfoPayload>(),
 };
 
-export type SignActions =
-  | IRegister
-  | IRegisterSuccess
-  | IRegisterFailure
-  | ILogin
-  | ILoginSuccess
-  | ILoginFailure
-  | IGetMyInfo
-  | IGetMyInfoSuccess
-  | IGetMyInfoFailure;
+export type SignActions = | Register
+| RegisterSuccess
+| RegisterFailure
+| Login
+| LoginSuccess
+| LoginFailure
+| GetMyInfo
+| GetMyInfoSuccess
+| GetMyInfoFailure;

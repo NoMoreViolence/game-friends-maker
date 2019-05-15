@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import { IRegisterPayload, ILoginPayload, IGetMyInfoPayload } from '@src/store/actions';
+import { RegisterPayload, LoginPayload, GetMyInfoPayload } from '@src/store/actions';
 import { ErrorResponse, HttpCommonResponse } from '@models';
 import { urlChange } from '@src/lib';
 
@@ -7,7 +7,7 @@ interface SignUpResponse extends HttpCommonResponse {
   expiresIn: number;
   token: string;
 }
-export const register = (payload: IRegisterPayload): Promise<SignUpResponse> =>
+export const register = (payload: RegisterPayload): Promise<SignUpResponse> =>
   axios
     .post(urlChange('/api/sign/register/google'), payload, { headers: { 'Content-Type': 'application/json' } })
     .then((res: AxiosResponse<SignUpResponse>) => ({ ...res.data, error: false }))
@@ -16,14 +16,14 @@ export const register = (payload: IRegisterPayload): Promise<SignUpResponse> =>
       token: '',
       error: true,
       message: (err.response as AxiosResponse<ErrorResponse>).data.error.message,
-      status: (err.response as AxiosResponse<ErrorResponse>).data.error.status
+      status: (err.response as AxiosResponse<ErrorResponse>).data.error.status,
     }));
 
 interface SignInResponse extends HttpCommonResponse {
   expiresIn: number;
   token: string;
 }
-export const login = (payload: ILoginPayload): Promise<SignInResponse> =>
+export const login = (payload: LoginPayload): Promise<SignInResponse> =>
   axios
     .post(urlChange('/api/sign/login/google'), payload, { headers: { 'Content-Type': 'application/json' } })
     .then((res: AxiosResponse<SignInResponse>) => ({ ...res.data, error: false }))
@@ -32,7 +32,7 @@ export const login = (payload: ILoginPayload): Promise<SignInResponse> =>
       token: '',
       error: true,
       message: (err.response as AxiosResponse<ErrorResponse>).data.error.message,
-      status: (err.response as AxiosResponse<ErrorResponse>).data.error.status
+      status: (err.response as AxiosResponse<ErrorResponse>).data.error.status,
     }));
 
 interface GetMyInfoResponse extends HttpCommonResponse {
@@ -41,7 +41,7 @@ interface GetMyInfoResponse extends HttpCommonResponse {
     name: string;
   };
 }
-export const getMyInfo = (payload: IGetMyInfoPayload): Promise<GetMyInfoResponse> =>
+export const getMyInfo = (payload: GetMyInfoPayload): Promise<GetMyInfoResponse> =>
   axios
     .get(urlChange('/api/sign/check'), { headers: { Authorization: `Bearer ${payload.token}` } })
     .then((res: AxiosResponse<GetMyInfoResponse>) => ({ ...res.data, error: false }))
@@ -49,5 +49,5 @@ export const getMyInfo = (payload: IGetMyInfoPayload): Promise<GetMyInfoResponse
       user: { email: '', name: '' },
       error: true,
       message: (err.response as AxiosResponse<ErrorResponse>).data.error.message,
-      status: (err.response as AxiosResponse<ErrorResponse>).data.error.status
+      status: (err.response as AxiosResponse<ErrorResponse>).data.error.status,
     }));

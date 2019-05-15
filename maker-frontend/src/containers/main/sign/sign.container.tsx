@@ -1,26 +1,30 @@
 import { connect } from 'react-redux';
-import { AppState, Status } from '../../../store/models';
-import { signActions, IRegisterPayload, IRegister, SignActions } from '../../../store/actions';
-import SignComponent from '../../../components/main/sign/sign.component';
 import { bindActionCreators, Dispatch } from 'redux';
+import { AppState, Status } from '../../../store/models';
+import {
+  RegisterPayload, Register, SignActions, signActions,
+} from '@actions';
+import SignComponent from '../../../components/main/sign/sign.component';
 
-export interface ISignComponentProps {
+export interface SignComponentProps {
   registerStatus: Status;
+  loginStatus: Status;
 }
 
-export interface ISignComponentMethod {
-  register: (value: IRegisterPayload) => IRegister;
+export interface SignComponentMethod {
+  register: (value: RegisterPayload) => Register;
 }
 
-const mapStateToProps = ({ user }: AppState): ISignComponentProps => ({
-  registerStatus: user.registerStatus
+const mapStateToProps = ({ user }: AppState): SignComponentProps => ({
+  registerStatus: user.registerStatus,
+  loginStatus: user.loginStatus,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<SignActions>) => ({
-  register: bindActionCreators(signActions.register, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch<SignActions>): SignComponentMethod => ({
+  register: bindActionCreators(signActions.register, dispatch),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SignComponent);

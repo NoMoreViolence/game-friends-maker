@@ -10,11 +10,11 @@ export interface ILoadingComponentProps {
 export interface ILoadingComponentMethod {}
 
 const mapStateToProps = (state: AppState): ILoadingComponentProps => ({
-  pending: isUserPending(state.user)
+  pending: isUserPending(state.user),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({});
 
 export default connect<ILoadingComponentProps, ILoadingComponentMethod, {}, any>(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(LoadingComponent);
