@@ -8,6 +8,9 @@
       "@models": ["store/models"],
       "@lib": ["lib"],
       "@constants": ["constants"],
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@containers/*": ["containers/*"],
       "@src/*": ["./*"]
     },
     "allowJs": true,
