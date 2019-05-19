@@ -15,7 +15,7 @@ const MainDiv = styled('div')<{ backgroundImage: string }>`
   .main-introduce {
     display: flex;
     flex-direction: column;
-    background-image: ${(props: any) =>
+    background-image: ${(props: { backgroundImage: string }) =>
     (props.backgroundImage
       ? `linear-gradient(rgba(245, 245, 245, 0), rgba(245, 245, 245, 0)), url(${props.backgroundImage})`
       : '')};

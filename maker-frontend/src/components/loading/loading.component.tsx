@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { ILoadingComponentProps, ILoadingComponentMethod } from '../../containers/loading/loading.container';
+import { LoadingComponentProps, LoadingComponentMethod } from '../../containers/loading/loading.container';
 import { LoadingUtil } from '../../utils';
 
-const LoadingComponent: FC<ILoadingComponentProps & ILoadingComponentMethod> = ({ pending }) => (
+const LoadingComponent: FC<LoadingComponentProps & LoadingComponentMethod> = ({ pending }) => (
   <>{pending && <LoadingUtil />}</>
 );
 

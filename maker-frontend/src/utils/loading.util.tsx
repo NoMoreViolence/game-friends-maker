@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { SelfBuildingSquareSpinner } from 'react-epic-spinners';
 import './loading.util.scss';
 

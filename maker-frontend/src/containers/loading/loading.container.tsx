@@ -1,20 +1,21 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppState } from '@src/store/models';
+import { isPostPending } from '@src/store/reducers/post.reducer';
 import { isUserPending } from '../../store/reducers/user.reducer';
 import LoadingComponent from '../../components/loading/loading.component';
 
-export interface ILoadingComponentProps {
+export interface LoadingComponentProps {
   pending: boolean;
 }
-export interface ILoadingComponentMethod {}
+export interface LoadingComponentMethod {}
 
-const mapStateToProps = (state: AppState): ILoadingComponentProps => ({
-  pending: isUserPending(state.user),
+const mapStateToProps = (state: AppState): LoadingComponentProps => ({
+  pending: isUserPending(state.user) || isPostPending(state.post),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({});
 
-export default connect<ILoadingComponentProps, ILoadingComponentMethod, {}, any>(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(LoadingComponent);
