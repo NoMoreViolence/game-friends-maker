@@ -23,6 +23,9 @@ export class Post {
   @Column({ type: 'text' })
   public description: string;
 
+  @Column({ type: 'tinyint', precision: 1 })
+  public isMatched: boolean;
+
   @ManyToOne(type => User, user => user.posts, { onDelete: 'CASCADE' })
   public user: User;
 
