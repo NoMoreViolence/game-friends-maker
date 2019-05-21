@@ -8,11 +8,11 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { getRepository } from 'typeorm';
 
 const getPostVaildator$ = requestValidator$({
-  body: t.type({
+  query: t.type({
     searchInput: optional(t.string),
-    game: optional(t.array(t.string)),
-    offset: t.number,
-    limit: t.number
+    game: optional(t.union([t.array(t.string), t.string])),
+    offset: t.string,
+    limit: t.string
   })
 });
 
@@ -28,8 +28,11 @@ export const getPostsEffect$: HttpEffect = req$ => {
             {
               entity: postEntity
             },
-            req.body,
-            { skip: req.body.offset, take: req.body.offset }
+            {
+              ...req.query,
+              game: req.query.game ? (Array.isArray(req.query.game) ? req.query.game : [req.query.game]) : []
+            },
+            { skip: Number(req.query.offset), take: Number(req.query.offset) }
           )
         ),
         map(([raws, count]: [Post[], number]) => ({

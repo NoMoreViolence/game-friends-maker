@@ -11,12 +11,22 @@ export const getPosts = (
 ): Promise<[Post[], number]> =>
   trans.entity.findAndCount({
     relations: ['game'],
-    where: {
-      ...(findValue.searchInput.trim() === '' ? {} : { name: Like(`%${findValue.searchInput.trim()} #%`) }),
-      ...(findValue.game.length === 0 ? {} : { name: findValue.game }),
-      isMatched: false,
-      updatedAt: AfterDate(subMinutes(new Date(), 10)),
-      deletedAt: all ? Any([Not(IsNull()), IsNull()]) : IsNull()
-    },
+    where:
+      Array.isArray(findValue.game) && findValue.game.length !== 0
+        ? findValue.game.map(gameName => ({
+            ...(findValue.searchInput.trim() === '' ? {} : { name: Like(`%${findValue.searchInput.trim()} #%`) }),
+            game: {
+              name: gameName
+            },
+            isMatched: false,
+            updatedAt: AfterDate(subMinutes(new Date(), 10)),
+            deletedAt: all ? Any([Not(IsNull()), IsNull()]) : IsNull()
+          }))
+        : {
+            ...(findValue.searchInput.trim() === '' ? {} : { name: Like(`%${findValue.searchInput.trim()} #%`) }),
+            isMatched: false,
+            updatedAt: AfterDate(subMinutes(new Date(), 10)),
+            deletedAt: all ? Any([Not(IsNull()), IsNull()]) : IsNull()
+          },
     ...option
   });
