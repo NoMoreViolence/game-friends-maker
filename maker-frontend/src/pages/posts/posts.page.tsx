@@ -1,14 +1,20 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import HeaderPage from '@pages/header/header.page';
 import './posts.page.scss';
+import HeaderPage from '@pages/header/header.page';
+import PostsListContainer from '@containers/posts/posts-list';
+import PostsConfigContainer from '@containers/posts/posts-config';
 
-const PostsPage: React.FC<RouteComponentProps> = ({ history, match, location }) => (
+const PostsPage = ({ history, match, location }: RouteComponentProps) => (
   <div id="posts-container">
     <HeaderPage />
     <div className="posts-content">
-      <div className="posts-list">나는 포스트다</div>
-      <div className="posts-config">나는 설정이다</div>
+      <div className="posts-list">
+        <PostsListContainer />
+      </div>
+      <div className="posts-config">
+        <PostsConfigContainer />
+      </div>
     </div>
   </div>
 );

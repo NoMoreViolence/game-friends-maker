@@ -4,7 +4,9 @@ import HeaderContainer from '@containers/header/header.container';
 
 const HeaderPage: FC = () => (
   <div id="header-container">
-    <HeaderContainer />
+    <div className="header-content">
+      <HeaderContainer />
+    </div>
   </div>
 );
 

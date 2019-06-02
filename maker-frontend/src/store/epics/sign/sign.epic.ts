@@ -17,7 +17,7 @@ import {
   SignActionTypes,
 } from '@actions';
 import { push } from 'connected-react-router';
-import { toast } from '@lib';
+import { toast, pureObject } from '@lib';
 import { register, login, getMyInfo } from './sign.request';
 
 export const registerEpic$ = (actions$: ActionsObservable<SignActions>) =>
@@ -29,20 +29,20 @@ export const registerEpic$ = (actions$: ActionsObservable<SignActions>) =>
         mergeMap(register),
         switchMap((response) => {
           if (response.error === true && response.status === 409) {
-            return [Object.assign({}, new RegisterFailure()), Object.assign({}, new Login(payload))];
+            return [pureObject(new RegisterFailure()), pureObject(new Login(payload))];
           }
 
           if (response.error === true) {
-            return [Object.assign({}, new RegisterFailure())];
+            return [pureObject(new RegisterFailure())];
           }
 
           return [
-            Object.assign({}, new RegisterSuccess({ token: response.token, expiresIn: response.expiresIn })),
-            Object.assign({}, new GetMyInfo(response)),
+            pureObject(new RegisterSuccess({ token: response.token, expiresIn: response.expiresIn })),
+            pureObject(new GetMyInfo(response)),
           ];
         }),
       )),
-    catchError(() => of(Object.assign({}, new RegisterFailure()))),
+    catchError(() => of(pureObject(new RegisterFailure()))),
   );
 
 export const loginEpic$ = (actions$: ActionsObservable<SignActions>) =>
@@ -54,16 +54,16 @@ export const loginEpic$ = (actions$: ActionsObservable<SignActions>) =>
         mergeMap(login),
         switchMap((response) => {
           if (response.error === true) {
-            return [Object.assign({}, new LoginFailure())];
+            return [pureObject(new LoginFailure())];
           }
 
           return [
-            Object.assign({}, new LoginSuccess({ token: response.token, expiresIn: response.expiresIn })),
-            Object.assign({}, new GetMyInfo({ token: response.token })),
+            pureObject(new LoginSuccess({ token: response.token, expiresIn: response.expiresIn })),
+            pureObject(new GetMyInfo({ token: response.token })),
           ];
         }),
       )),
-    catchError(() => of(Object.assign({}, new LoginFailure()))),
+    catchError(() => of(pureObject(new LoginFailure()))),
   );
 
 export const getMyInfoEpic$ = (actions$: ActionsObservable<SignActions>) =>
@@ -76,16 +76,15 @@ export const getMyInfoEpic$ = (actions$: ActionsObservable<SignActions>) =>
         switchMap((response) => {
           if (response.error === true && response.status === 401) {
             toast('error', '인증 해제됨', '재 로그인해 주세요.');
-            return [Object.assign({}, new GetMyInfoFailure()), { type: 'RESET' }, push('/')];
+            return [pureObject(new GetMyInfoFailure()), { type: 'RESET' }, push('/')];
           }
 
           if (response.error === true) {
-            return [Object.assign({}, new GetMyInfoFailure()), { type: 'RESET' }, push('/')];
+            return [pureObject(new GetMyInfoFailure()), { type: 'RESET' }, push('/')];
           }
 
           return [
-            Object.assign(
-              {},
+            pureObject(
               new GetMyInfoSuccess({
                 email: response.user.email,
                 name: response.user.name,

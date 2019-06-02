@@ -1,15 +1,16 @@
 #header-container {
-  min-height: 40px;
   position: sticky;
   top: 0;
   width: 100%;
-  height: 40px;
+  height: 3.75rem;
+  min-height: 3.75rem;
+  max-height: 3.75rem;
   display: flex;
-  flex-direction: space-between;
-  background-color: #eb4fa9;
+  justify-content: center;
+  align-items: center;
+  background-color: $secondary;
 
-  .posts-content {
-    margin-top: 3rem;
+  .header-content {
     display: flex;
     justify-content: space-between;
 
@@ -22,13 +23,6 @@
     @include media('screen', '>=desktop') {
       min-width: 1000px;
       max-width: 1000px;
-
-      > .posts-list {
-        margin-right: 2.5rem;
-      }
-
-      > .posts-config {
-      }
     }
   }
 }

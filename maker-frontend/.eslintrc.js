@@ -9,6 +9,7 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint', 'react'],
   rules: {
+    "@typescript-eslint/explicit-member-accessibility": 0,
     'max-len': [2, { "code": 120, "tabWidth": 2, "ignoreUrls": true }],
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/explicit-function-return-type': 0,

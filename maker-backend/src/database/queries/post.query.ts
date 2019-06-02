@@ -12,7 +12,7 @@ export const getPosts = (
   trans.entity.findAndCount({
     relations: ['game'],
     where:
-      Array.isArray(findValue.game) && findValue.game.length !== 0
+      findValue.game.length !== 0
         ? findValue.game.map(gameName => ({
             ...(findValue.searchInput.trim() === '' ? {} : { name: Like(`%${findValue.searchInput.trim()} #%`) }),
             game: {

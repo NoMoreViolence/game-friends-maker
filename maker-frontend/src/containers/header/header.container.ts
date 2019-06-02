@@ -7,6 +7,9 @@ import HeaderComponent from '@components/header/header.component';
 
 export interface HeaderComponentProps {
   searchInput: string;
+  game: string[];
+  limit: number;
+  offset: number;
   signStatus: Status;
 }
 export interface HeaderComponentMethod {
@@ -16,6 +19,9 @@ export type HeaderProps = HeaderComponentProps & HeaderComponentMethod & RouteCo
 
 const mapStateToProps = ({ user, post }: AppState, ownProps: RouteComponentProps): HeaderComponentProps => ({
   searchInput: post.postsData.searchInput,
+  game: post.postsData.searchGames,
+  limit: post.postsData.limit,
+  offset: post.postsData.offset,
   signStatus: user.loginStatus,
 });
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: RouteComponentProps): HeaderComponentMethod => ({

@@ -2,7 +2,7 @@ import { Status } from './common.model';
 
 export interface Post {
   postsData: PostData;
-  getPostStatus: Status;
+  postStatus: PostStatus;
 }
 
 export interface PostData {
@@ -10,6 +10,7 @@ export interface PostData {
   limit: number;
   offset: number;
   searchInput: string;
+  searchGames: string[];
 }
 
 export interface PostUnit {
@@ -17,4 +18,8 @@ export interface PostUnit {
   name: string;
   content: string;
   date: Date;
+}
+
+export interface PostStatus {
+  getPostStatus: Status;
 }
