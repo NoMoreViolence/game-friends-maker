@@ -4,8 +4,11 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "src",
     "paths": {
+      "@bootstrap": ["bootstrap"],
+      "@bootstrap/*": ["bootstrap/*"],
       "@actions": ["store/actions"],
       "@models": ["store/models"],
+      "@reducers": ["store/reducers"],
       "@lib": ["lib"],
       "@constants": ["constants"],
       "@components/*": ["components/*"],

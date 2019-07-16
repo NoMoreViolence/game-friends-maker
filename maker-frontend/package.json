@@ -25,7 +25,7 @@
     "dotenv-expand": "4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1",
-    "eslint-loader": "2.1.2",
+    "eslint-loader": "^2.2.1",
     "eslint-plugin-flowtype": "2.50.1",
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-jsx-a11y": "6.2.1",
@@ -59,6 +59,7 @@
     "react-dom": "^16.8.6",
     "react-epic-spinners": "^0.3.0",
     "react-google-login": "^5.0.4",
+    "react-intl": "^2.9.0",
     "react-localization": "^1.0.13",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
@@ -111,7 +112,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "prettier": "^1.17.1",
+    "prettier": "^1.18.2",
     "tsconfig-paths-webpack-plugin": "^3.2.0"
   },
   "jest": {

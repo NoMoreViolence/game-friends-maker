@@ -1,4 +1,4 @@
-export type Status = 'initial' | 'pending' | 'success' | 'failure';
+export type Status = 'initial' | 'pending' | 'success' | 'failure' | 'nothing';
 
 export interface GoogleTokenPayload {
   name: string;

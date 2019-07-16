@@ -1,55 +1,36 @@
 import { produce } from 'immer';
 import { createSelector } from 'reselect';
 import { User, Status } from '../models';
-import { SignActions } from '../actions';
+import { UserActions } from '@actions';
 
 export const userInitialState: User = {
-  email: '',
-  name: 'NodeMasterLee',
-  token: '',
-  expiresIn: 0,
-  loginStatus: 'initial',
-  registerStatus: 'initial',
-  getMyInfoStatus: 'initial',
+  userInfo: {
+    email: '',
+    name: 'NodeMasterLee',
+    token: '',
+    expiresIn: 0,
+  },
+  userLoaderStatus: {
+    loginStatus: 'initial',
+    registerStatus: 'initial',
+    getMyInfoStatus: 'initial',
+  },
+  userStatus: {},
 };
 
-export const userReducer = (state: User = userInitialState, action: SignActions) =>
+export const userReducer = (state: User = userInitialState, action: UserActions) =>
   produce(state, (draft: User) => {
     switch (action.type) {
       case 'REGISTER':
-        draft.registerStatus = 'pending';
+        draft.userLoaderStatus.registerStatus = 'pending';
         break;
       case 'REGISTER_SUCCESS':
-        draft.registerStatus = 'success';
-        draft.expiresIn = action.payload.expiresIn;
-        draft.token = action.payload.token;
+        draft.userLoaderStatus.registerStatus = 'success';
+        draft.userInfo.expiresIn = action.payload.expiresIn;
+        draft.userInfo.token = action.payload.token;
         break;
       case 'REGISTER_FAILURE':
-        draft.registerStatus = 'failure';
-        break;
-
-      case 'LOGIN':
-        draft.loginStatus = 'pending';
-        break;
-      case 'LOGIN_SUCCESS':
-        draft.loginStatus = 'success';
-        draft.expiresIn = action.payload.expiresIn;
-        draft.token = action.payload.token;
-        break;
-      case 'LOGIN_FAILURE':
-        draft.loginStatus = 'failure';
-        break;
-
-      case 'GET_MY_INFO':
-        draft.getMyInfoStatus = 'pending';
-        break;
-      case 'GET_MY_INFO_SUCCESS':
-        draft.getMyInfoStatus = 'success';
-        draft.email = action.payload.email;
-        draft.name = action.payload.name;
-        break;
-      case 'GET_MY_INFO_FAILURE':
-        draft.getMyInfoStatus = 'failure';
+        draft.userLoaderStatus.registerStatus = 'failure';
         break;
 
       default:
@@ -57,14 +38,12 @@ export const userReducer = (state: User = userInitialState, action: SignActions)
     }
   });
 
-export const getStatusSelector = (state: User) => ({
-  loginStatus: state.loginStatus,
-  registerStatus: state.registerStatus,
-  getMyInfoStatus: state.getMyInfoStatus,
+export const getUserStatusSelector = (state: User) => ({
+  ...state.userLoaderStatus,
 });
 
 export const isUserPending = createSelector(
-  [getStatusSelector],
+  [getUserStatusSelector],
   (userPendings: { [key: string]: Status }) =>
     !(Object.values(userPendings).filter(state => state === 'pending').length === 0),
 );
