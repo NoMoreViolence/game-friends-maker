@@ -16,6 +16,7 @@
       "@containers/*": ["containers/*"],
       "@src/*": ["./*"]
     },
+    "strictNullChecks": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
