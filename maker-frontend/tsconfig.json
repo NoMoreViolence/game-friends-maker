@@ -4,17 +4,18 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "src",
     "paths": {
+      "@src/*": ["./*"],
+      "@constants": ["constants"],
+      "@locale": ["locale"],
+      "@helpers": ["helpers"],
+      "@lib": ["lib"],
       "@bootstrap": ["bootstrap"],
       "@bootstrap/*": ["bootstrap/*"],
       "@actions": ["store/actions"],
       "@models": ["store/models"],
       "@reducers": ["store/reducers"],
-      "@lib": ["lib"],
-      "@constants": ["constants"],
       "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"],
-      "@containers/*": ["containers/*"],
-      "@src/*": ["./*"]
+      "@containers/*": ["containers/*"]
     },
     "strictNullChecks": true,
     "allowJs": true,
