@@ -436,10 +436,6 @@ module.exports = function (webpackEnv) {
                 options: {
                   includePaths: [paths.appSrc + '/styles'],
                   sourceMap: isEnvProduction && shouldUseSourceMap,
-                  data: `
-                    @import '~include-media/dist/include-media';
-                    @import 'color.scss';
-                  `
                 }
               }),
               // Don't consider CSS imports dead code even if the
