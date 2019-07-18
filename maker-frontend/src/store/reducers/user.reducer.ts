@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { createSelector } from 'reselect';
-import { User, Status } from '../models';
+import { User, Status } from '@models';
 import { UserActions } from '@actions';
 
 export const userInitialState: User = {
@@ -18,7 +18,7 @@ export const userInitialState: User = {
   userStatus: {},
 };
 
-export const userReducer = (state: User = userInitialState, action: UserActions) =>
+export const userReducer = (state: User = userInitialState, action: UserActions): User =>
   produce(state, (draft: User) => {
     switch (action.type) {
       case 'REGISTER':

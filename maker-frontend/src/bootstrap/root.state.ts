@@ -1,15 +1,16 @@
 import { RouterState } from 'connected-react-router';
-import { User } from '@models';
-import { userInitialState } from '@reducers';
-import { createBrowserHistory } from 'history';
+import { history } from '@bootstrap';
+import { User, Global } from '@models';
+import { userInitialState, globalInitialState } from '@reducers';
 
 export interface AppState {
+  global: Global;
   user: User;
   router: RouterState;
 }
 
-const history = createBrowserHistory();
 export const preLoadedState: AppState = {
+  global: globalInitialState,
   user: userInitialState,
   router: history,
 };

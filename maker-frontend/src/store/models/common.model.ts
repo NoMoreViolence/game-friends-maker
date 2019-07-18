@@ -1,5 +1,7 @@
 export type Status = 'initial' | 'pending' | 'success' | 'failure' | 'nothing';
 
+export type Lang = 'en' | 'ko';
+
 export interface GoogleTokenPayload {
   name: string;
   email: string;
