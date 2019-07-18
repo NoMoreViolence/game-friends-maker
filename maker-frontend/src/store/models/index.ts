@@ -1,3 +1,3 @@
-export * from './common.model';
+export * from './common';
 export * from './global';
 export * from './user';

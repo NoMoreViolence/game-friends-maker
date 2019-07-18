@@ -17,6 +17,7 @@ export type AlertInfo = CommonAlertInfo &
 export interface ToastInfo extends CommonAlertInfo {}
 
 export interface GlobalInfo {
-  alerts: (AlertInfo | ToastInfo)[];
+  alerts: AlertInfo[];
+  toasts: ToastInfo[];
   language: Lang;
 }

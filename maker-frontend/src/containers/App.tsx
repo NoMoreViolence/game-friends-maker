@@ -1,37 +1,18 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useSelector, useStore, useDispatch, shallowEqual } from 'react-redux';
-import { userActions } from '@actions';
+import React from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import { AppState } from '@bootstrap';
-import useReactRouter from 'use-react-router';
+import { getLanguageSelector } from '@src/store/reducers';
+import GlobalComponent from '@containers/global';
+import locale from '@locale';
 
 const App = () => {
-  // const [store, setStore] = useState(() => useStore<AppState>());
-  // const [state, setState] = useState(() => store.getState());
-
-  // console.log(state);
-  // console.log(useStore<AppState>().getState());
-
-  const { location } = useSelector((state: AppState) => state.router, shallowEqual);
-  console.log(location);
-
-  const { history } = useReactRouter();
-  console.log(history);
+  const language = useSelector((state: AppState) => getLanguageSelector(state.global), shallowEqual);
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          // store.dispatch(
-          //             userActions.register({
-          //               name: '',
-          //               email: '',
-          //               googleId: '',
-          //               googleIdToken: '',
-          //             }),
-          //           )
-        }}
-      ></button>
-    </div>
+    <IntlProvider locale={language} messages={locale[language]}>
+      <GlobalComponent />
+    </IntlProvider>
   );
 };
 
