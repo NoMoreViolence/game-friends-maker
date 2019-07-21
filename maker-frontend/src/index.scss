@@ -132,3 +132,12 @@ table {
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
+
+button,
+span,
+input,
+div {
+  outline-width: 0.5px;
+  // outline-style: solid;
+  outline-color: rgb(71, 156, 255);
+}
