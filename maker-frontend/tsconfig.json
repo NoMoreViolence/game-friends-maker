@@ -4,7 +4,8 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "src",
     "paths": {
-      "@src/*": ["./*"],
+      "@svgs": ["svgs"],
+      "@svgs/*": ["svgs/*"],
       "@constants": ["constants"],
       "@locale": ["locale"],
       "@helpers": ["helpers"],
@@ -15,7 +16,9 @@
       "@models": ["store/models"],
       "@reducers": ["store/reducers"],
       "@components/*": ["components/*"],
-      "@containers/*": ["containers/*"]
+      "@containers/*": ["containers/*"],
+      "@styles": ["styles"],
+      "@src/*": ["./*"]
     },
     "strictNullChecks": true,
     "allowJs": true,
