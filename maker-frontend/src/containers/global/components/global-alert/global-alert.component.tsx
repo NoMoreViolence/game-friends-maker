@@ -1,15 +1,15 @@
-import React from 'react';
-import { useIntl } from 'react-intl';
+import React, { memo } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { AppState } from '@bootstrap';
-import { getAlertsSelector, getToastssSelector } from '@src/store/reducers';
-import AlertComponent from '@src/components/alert';
-import ToastComponent from '@src/components/toast';
+import { getAlertsSelector, getToastsSelector } from '@reducers';
+import AlertComponent from '@components/alert';
+import ToastComponent from '@components/toast';
 
-const GlobalAlertComponent = () => {
+const _GlobalAlertComponent = () => {
   const { formatMessage } = useIntl();
   const alerts = useSelector((state: AppState) => getAlertsSelector(state.global), shallowEqual);
-  const toasts = useSelector((state: AppState) => getToastssSelector(state.global), shallowEqual);
+  const toasts = useSelector((state: AppState) => getToastsSelector(state.global), shallowEqual);
 
   return (
     <>
@@ -22,5 +22,6 @@ const GlobalAlertComponent = () => {
     </>
   );
 };
+const GlobalAlertComponent = memo(_GlobalAlertComponent);
 
 export default GlobalAlertComponent;

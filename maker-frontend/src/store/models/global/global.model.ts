@@ -1,4 +1,4 @@
-import { GlobalInfo } from './global-info.model';
+import { GlobalInfo } from '@models';
 
 export interface Global {
   globalInfo: GlobalInfo;

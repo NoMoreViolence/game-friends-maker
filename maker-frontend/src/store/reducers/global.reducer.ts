@@ -36,7 +36,7 @@ export const getAlertsSelector = createSelector(
   [globalSelector],
   state => state.globalInfo.alerts,
 );
-export const getToastssSelector = createSelector(
+export const getToastsSelector = createSelector(
   [globalSelector],
   state => state.globalInfo.toasts,
 );

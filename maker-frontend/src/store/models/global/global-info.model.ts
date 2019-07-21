@@ -1,4 +1,4 @@
-import { SweetAlertType } from 'sweetalert2';
+import swal, { SweetAlertType } from 'sweetalert2';
 import { Lang } from '@models';
 
 export interface CommonAlertInfo {
@@ -7,7 +7,12 @@ export interface CommonAlertInfo {
   text: string;
 }
 
+export interface AfterAlert {
+  resolve(): void;
+  reject(): void;
+}
 export type AlertInfo = CommonAlertInfo &
+  AfterAlert &
   (
     | ({
         showConfirmButton: true;
