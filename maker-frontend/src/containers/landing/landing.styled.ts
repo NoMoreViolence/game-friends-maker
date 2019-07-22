@@ -4,7 +4,7 @@ import { zIndex, color, device } from '@src/styles';
 export const LandingComponentRootDiv = styled('div')`
   display: flex;
   flex-direction: column;
-  background-color: #26262b;
+  background-color: ${color.primary};
 `;
 
 export const LandingComponentHeaderDiv = styled('div')`
@@ -14,7 +14,7 @@ export const LandingComponentHeaderDiv = styled('div')`
   align-items: center;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
-  background-color: #26262b;
+  background-color: ${color.primary};
 
   span {
     font-size: 1rem;
@@ -120,7 +120,7 @@ export const LandingComponentLoginContentDiv = styled('div')<{ backgroundColor?:
         background-color: ${color.white};
 
         &:hover {
-          background-color: ${color.blackLandingBackground};
+          background-color: ${color.primary};
           > span {
             color: ${color.white};
           }

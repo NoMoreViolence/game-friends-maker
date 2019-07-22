@@ -15,6 +15,8 @@ import {
 } from './landing.styled';
 import { color } from '@styles';
 import GoogleLogoSvg from '@svgs/google-logo';
+import ModalComponent from '@components/modal';
+import TermsComponent from './components/terms';
 
 const LandingComponent = () => {
   const dispatch = useDispatch();
@@ -49,7 +51,7 @@ const LandingComponent = () => {
             </span>
           </div>
         </LandingComponentHeaderDiv>
-        <LandingComponentLoginContentDiv backgroundColor={color.blackLandingBackground}>
+        <LandingComponentLoginContentDiv backgroundColor={color.primary}>
           <div>
             <span className="main-message">{formatMessage({ id: 'landing.main.message' })}</span>
             <span className="sub-message">{formatMessage({ id: 'landing.sub.message' })}</span>
@@ -86,7 +88,12 @@ const LandingComponent = () => {
         </div>
       </LandingComponentContentDiv> */}
       </LandingComponentRootDiv>
-      {displayTerms && <div></div>}
+
+      {displayTerms && (
+        <ModalComponent exit={changeDisplayTerms}>
+          <TermsComponent exit={changeDisplayTerms} />
+        </ModalComponent>
+      )}
     </>
   );
 };
