@@ -46,7 +46,7 @@ export const LandingComponentLoginContentDiv = styled('div')<{ backgroundColor?:
   justify-content: space-between;
   padding: 3rem;
 
-  @media screen and ${device.mobile} {
+  @media screen and ${device.mobileToDesktop} {
     flex-direction: column;
   }
 

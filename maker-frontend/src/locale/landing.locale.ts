@@ -6,7 +6,7 @@ export const landingLocale = {
     'landing.startWithGoogle': '구글 계정으로 로그인 or 가입',
   },
   en: {
-    'landing.main.message': 'Play online game someone you want.',
+    'landing.main.message': 'Play online game with someone you want.',
     'landing.sub.message': "'Cooperative' helps you find the people you want and enjoy the game together.",
     'landing.startWithGoogleAgree': "By clicking the button, you consent to the terms of 'Cooperative'",
     'landing.startWithGoogle': 'Start with google',

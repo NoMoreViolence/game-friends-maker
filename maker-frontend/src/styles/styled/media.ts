@@ -13,6 +13,6 @@ export const device = {
   mobile: `(min-width: ${size.mobileS}px) and (max-width: ${size.tablet - 1}px)`,
   tablet: `(min-width: ${size.tablet}px) and (max-width: ${size.laptop - 1}px)`,
   desktop: `(min-width: ${size.laptop}px)`,
-  mobileToDesktop: `(min-width: ${size.mobileS}px)`,
+  mobileToDesktop: `(min-width: ${size.mobileS}px) and (max-width: ${size.laptop - 1}px)`,
   tabletToDesktop: `(min-width: ${size.tabletL}px)`,
 };

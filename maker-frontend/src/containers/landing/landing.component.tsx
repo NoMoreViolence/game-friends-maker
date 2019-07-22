@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useIntl, FormattedMessage } from 'react-intl';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { CSSTransition } from 'react-transition-group';
 import { googleClientKey } from '@constants';
 import { AppState } from '@bootstrap';
 import { Lang } from '@models';
@@ -89,11 +90,11 @@ const LandingComponent = () => {
       </LandingComponentContentDiv> */}
       </LandingComponentRootDiv>
 
-      {displayTerms && (
+      <CSSTransition in={displayTerms} timeout={250} unmountOnExit={true} classNames="animation">
         <ModalComponent exit={changeDisplayTerms}>
           <TermsComponent exit={changeDisplayTerms} />
         </ModalComponent>
-      )}
+      </CSSTransition>
     </>
   );
 };
