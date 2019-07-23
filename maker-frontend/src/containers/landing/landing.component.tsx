@@ -6,18 +6,18 @@ import { CSSTransition } from 'react-transition-group';
 import { googleClientKey } from '@constants';
 import { AppState } from '@bootstrap';
 import { Lang } from '@models';
-import { globalActions } from '@actions';
+import { globalActions, userActions } from '@actions';
 import { getLanguageSelector } from '@reducers';
+import { color, SmallSpan, MiddleSpan, BigSpan, MiddleBigSpan } from '@styles';
 import {
   LandingComponentRootDiv,
   LandingComponentHeaderDiv,
   LandingComponentLoginContentDiv,
   LandingComponentContentDiv,
 } from './landing.styled';
-import { color } from '@styles';
 import GoogleLogoSvg from '@svgs/google-logo';
 import ModalComponent from '@components/modal';
-import TermsComponent from './components/terms';
+import TermsComponent from '@containers/landing/components/terms';
 
 const LandingComponent = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,18 @@ const LandingComponent = () => {
   const setLanguage = useCallback((lang: Lang) => dispatch(globalActions.setLanguage({ lang })), []);
   const changeDisplayTerms = useCallback(() => setTerms(!displayTerms), [displayTerms]);
   const responseToGoogle = useCallback((response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    // (response as unknown as GoogleLoginResponse)
+    const googleResponse = (response as unknown) as GoogleLoginResponse;
+    const authResponse = googleResponse.getAuthResponse();
+    const { getEmail, getName } = googleResponse.getBasicProfile();
+
+    dispatch(
+      userActions.register({
+        email: getEmail(),
+        name: getName(),
+        googleId: authResponse.id_token,
+        googleIdToken: authResponse.access_token,
+      }),
+    );
   }, []);
   const errorToGoogle = useCallback((response: { error: () => void }) => {
     // console.log(response);
@@ -40,28 +51,53 @@ const LandingComponent = () => {
       <LandingComponentRootDiv>
         <LandingComponentHeaderDiv>
           <div>
-            <span>Cooperative</span>
+            <MiddleSpan color={color.white} weight={'bold'}>
+              Coöperative
+            </MiddleSpan>
           </div>
           <div>
-            <span className={lang === 'ko' ? 'activate' : ''} onClick={() => setLanguage('ko')}>
+            <MiddleSpan
+              className={lang === 'ko' ? 'activate' : ''}
+              color={lang === 'ko' ? color.white : color.whiteSoft}
+              cursor={lang === 'en'}
+              onClick={() => setLanguage('ko')}
+            >
               KO
-            </span>
-            <span> / </span>
-            <span className={lang === 'en' ? 'activate' : ''} onClick={() => setLanguage('en')}>
+            </MiddleSpan>
+            <MiddleSpan color={color.white} weight={'bold'}>
+              {' / '}
+            </MiddleSpan>
+            <MiddleSpan
+              className={lang === 'en' ? 'activate' : ''}
+              color={lang === 'en' ? color.white : color.whiteSoft}
+              cursor={lang === 'ko'}
+              onClick={() => setLanguage('en')}
+            >
               EN
-            </span>
+            </MiddleSpan>
           </div>
         </LandingComponentHeaderDiv>
+
         <LandingComponentLoginContentDiv backgroundColor={color.primary}>
           <div>
-            <span className="main-message">{formatMessage({ id: 'landing.main.message' })}</span>
-            <span className="sub-message">{formatMessage({ id: 'landing.sub.message' })}</span>
+            <BigSpan className="main-message" color={color.white} weight={'bold'}>
+              {formatMessage({ id: 'landing.main.message' })}
+            </BigSpan>
+            <MiddleSpan className="sub-message" color={color.whiteSoft} weight={'300'}>
+              {formatMessage({ id: 'landing.sub.message' })}
+            </MiddleSpan>
           </div>
           <div>
             <div className="terms">
-              <span onClick={changeDisplayTerms}>
+              <SmallSpan
+                onClick={changeDisplayTerms}
+                cursor={true}
+                color={color.whiteSoft}
+                hover={true}
+                hoverColor={color.white}
+              >
                 <FormattedMessage id={'landing.startWithGoogleAgree'} />
-              </span>
+              </SmallSpan>
             </div>
             <GoogleLogin
               clientId={googleClientKey}
@@ -73,7 +109,9 @@ const LandingComponent = () => {
                   <div className="google-button">
                     <button onClick={p.onClick}>
                       <GoogleLogoSvg />
-                      <span>{formatMessage({ id: 'landing.startWithGoogle' })}</span>
+                      <MiddleSpan color={color.black} weight={'400'} hover={true} hoverColor={color.white}>
+                        {formatMessage({ id: 'landing.startWithGoogle' })}
+                      </MiddleSpan>
                     </button>
                   </div>
                 ) : (
@@ -82,12 +120,22 @@ const LandingComponent = () => {
               }
             />
           </div>
+          <div className="bottom-wave"></div>
         </LandingComponentLoginContentDiv>
-        {/* <LandingComponentContentDiv backgroundColor={color.primaryDark}>
-        <div>
-          <img className="landing" src="/images/illustrators/landing-background.png" alt="Landing background" />
-        </div>
-      </LandingComponentContentDiv> */}
+        <LandingComponentContentDiv backgroundColor={color.primaryDark}>
+          <div>
+            <img className="landing" src="/images/illustrators/landing-background.png" alt="Landing background" />
+          </div>
+
+          <div>
+            <MiddleBigSpan color={color.white} weight={'bold'}>
+              <FormattedMessage id={'landing.firstform.title'} />
+            </MiddleBigSpan>
+            <MiddleSpan color={color.whiteSoft} weight={'300'}>
+              <FormattedMessage id={'landing.firstform.content'} />
+            </MiddleSpan>
+          </div>
+        </LandingComponentContentDiv>
       </LandingComponentRootDiv>
 
       <CSSTransition in={displayTerms} timeout={250} unmountOnExit={true} classNames="animation">
