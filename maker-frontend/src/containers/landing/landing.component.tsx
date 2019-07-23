@@ -131,8 +131,14 @@ const LandingComponent = () => {
             <MiddleBigSpan color={color.white} weight={'bold'}>
               <FormattedMessage id={'landing.firstform.title'} />
             </MiddleBigSpan>
-            <MiddleSpan color={color.whiteSoft} weight={'300'}>
-              <FormattedMessage id={'landing.firstform.content'} />
+            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
+              <FormattedMessage id={'landing.firstform.content.first'} />
+            </MiddleSpan>
+            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
+              <FormattedMessage id={'landing.firstform.content.second'} />
+            </MiddleSpan>
+            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
+              <FormattedMessage id={'landing.firstform.content.third'} />
             </MiddleSpan>
           </div>
         </LandingComponentContentDiv>

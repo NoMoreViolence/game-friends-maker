@@ -7,6 +7,7 @@ interface SpanProps {
   cursor?: boolean;
   hover?: boolean;
   hoverColor?: string;
+  align?: string;
 }
 
 const CommonSpanStyle = css`
@@ -24,6 +25,7 @@ const returnHover = (hover?: boolean, hoverColor?: string) =>
         color: ${hoverColor ? hoverColor : color.black};
       }`
     : '';
+const returnAlign = (align?: string) => `text-align: ${align ? align : 'unset'}`;
 
 export const SmallSpan = styled('span')<SpanProps>`
   ${CommonSpanStyle};
@@ -31,6 +33,7 @@ export const SmallSpan = styled('span')<SpanProps>`
   ${p => returnCursor(p.cursor)}
   ${p => returnWeight(p.weight)}
   ${p => returnHover(p.hover, p.hoverColor)}
+  ${p => returnAlign(p.align)}
 
   font-size: 0.75rem;
   transition: 0.25s;
@@ -42,6 +45,7 @@ export const SmallMiddleSpan = styled('span')<SpanProps>`
   ${p => returnWeight(p.weight)}
   ${p => returnCursor(p.cursor)}
   ${p => returnHover(p.hover, p.hoverColor)}
+  ${p => returnAlign(p.align)}
 
   font-size: 0.875rem;
   transition: 0.25s;
@@ -53,6 +57,7 @@ export const MiddleSpan = styled('span')<SpanProps>`
   ${p => returnWeight(p.weight)}
   ${p => returnCursor(p.cursor)}
   ${p => returnHover(p.hover, p.hoverColor)}
+  ${p => returnAlign(p.align)}
 
   font-size: 1rem;
   transition: 0.25s;
@@ -64,6 +69,7 @@ export const MiddleBigSpan = styled('span')<SpanProps>`
   ${p => returnWeight(p.weight)}
   ${p => returnCursor(p.cursor)}
   ${p => returnHover(p.hover, p.hoverColor)}
+  ${p => returnAlign(p.align)}
 
   font-size: 1.5rem;
   transition: 0.25s;
@@ -75,6 +81,7 @@ export const BigSpan = styled('span')<SpanProps>`
   ${p => returnWeight(p.weight)}
   ${p => returnCursor(p.cursor)}
   ${p => returnHover(p.hover, p.hoverColor)}
+  ${p => returnAlign(p.align)}
 
   font-size: 2rem;
   transition: 0.25s;

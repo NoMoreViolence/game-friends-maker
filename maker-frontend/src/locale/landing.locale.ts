@@ -6,7 +6,9 @@ export const landingLocale = {
     'landing.startWithGoogle': '구글 계정으로 로그인 or 가입',
 
     'landing.firstform.title': '오늘도 혼자서 게임하시나요?',
-    'landing.firstform.content': 'Coöperative와 함께 당신의 친구를 찾아보아요.',
+    'landing.firstform.content.first': 'Coöperative와 함께 즐겁게 게임하세요.',
+    'landing.firstform.content.second': `오랜만에 게임하러 들어갔는데,`,
+    'landing.firstform.content.third': `같이 즐길 사람이 없군요..!`,
   },
   en: {
     'landing.main.message': 'Play online game with someone you want.',
@@ -15,6 +17,8 @@ export const landingLocale = {
     'landing.startWithGoogle': 'Start with google',
 
     'landing.firstform.title': '오늘도 혼자서 게임하시나요?',
-    'landing.firstform.content': 'Coöperative와 함께 당신의 친구를 찾아보아요.',
+    'landing.firstform.content.first': 'Coöperative와 함께 즐겁게 게임하세요.',
+    'landing.firstform.content.second': `오랜만에 게임하러 들어갔는데,`,
+    'landing.firstform.content.third': `같이 즐길 사람이 없군요..!`,
   },
 };

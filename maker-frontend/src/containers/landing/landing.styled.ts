@@ -117,12 +117,14 @@ export const LandingComponentLoginContentDiv = styled('div')<{ backgroundColor?:
 
 export const LandingComponentContentDiv = styled('div')<{ backgroundColor?: string }>`
   height: calc(90vh - 6rem);
+  padding: 3rem;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  padding: 3rem;
 
   @media screen and ${device.mobileToDesktop} {
+    height: calc(90vh - 4rem);
+    padding: 2rem;
     flex-direction: column-reverse;
 
     > div:nth-child(1) {
@@ -133,7 +135,7 @@ export const LandingComponentContentDiv = styled('div')<{ backgroundColor?: stri
 
       > img.landing {
         border-radius: 0.75rem;
-        height: calc(60vh - 3rem);
+        height: calc(60vh - 4rem);
       }
     }
 
