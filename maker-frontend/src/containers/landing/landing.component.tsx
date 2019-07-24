@@ -79,7 +79,7 @@ const LandingComponent = () => {
 
         <LandingComponentLoginContentDiv>
           <div>
-            <ScrollAnimation animateIn="bounceInLeft" animateOut="bounceOutLeft" duration={1000} animateOnce={true}>
+            <ScrollAnimation animateIn="bounceInLeft" animateOut="bounceOutLeft" duration={1.5} animateOnce={true}>
               <MiddleBigSpan className="main-message" color={color.white} weight={'bold'} align={'center'}>
                 {formatMessage({ id: 'landing.main.message' })}
               </MiddleBigSpan>
@@ -92,8 +92,8 @@ const LandingComponent = () => {
             <ScrollAnimation
               animateIn="bounceInRight"
               animateOut="bounceOutRight"
+              duration={1.5}
               animateOnce={true}
-              duration={1000}
               className="terms"
             >
               <SmallSpan
@@ -113,7 +113,13 @@ const LandingComponent = () => {
               cookiePolicy={'single_host_origin'}
               render={(p?: { onClick: () => void }) =>
                 p ? (
-                  <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true} className="google-button">
+                  <ScrollAnimation
+                    animateIn="bounceInRight"
+                    animateOut="bounceOutRight"
+                    duration={1.5}
+                    animateOnce={true}
+                    className="google-button"
+                  >
                     <button onClick={p.onClick}>
                       <GoogleLogoSvg />
                       <MiddleSpan color={color.black} weight={'400'}>
