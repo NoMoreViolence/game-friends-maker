@@ -11,6 +11,7 @@
     "@types/react-dom": "16.8.4",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "animate.css": "^3.7.2",
     "axios": "^0.19.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
@@ -53,6 +54,7 @@
     "postcss-safe-parser": "4.0.1",
     "qs": "^6.7.0",
     "react": "^16.8.6",
+    "react-animate-on-scroll": "^2.1.5",
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
@@ -110,6 +112,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/qs": "^6.5.3",
+    "@types/react-animate-on-scroll": "^2.1.2",
     "@types/react-redux": "^7.1.1",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-transition-group": "^2.9.2",
