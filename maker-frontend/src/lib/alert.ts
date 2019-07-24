@@ -12,12 +12,12 @@ export const alert = (type: SweetAlertType, title: string, text: string, isTimer
           showConfirmButton: false,
           showCloseButton: false,
           showCancelButton: false,
-          timer: 1500
+          timer: 1500,
         }
       : {
           showConfirmButton: true,
-          showCloseButton: true
-        })
+          showCloseButton: true,
+        }),
   });
 };
 
@@ -29,5 +29,5 @@ export const toast = (type: SweetAlertType, title: string, text: string) =>
     text,
     type,
     showConfirmButton: false,
-    timer: 1500
+    timer: 1500,
   });

@@ -435,7 +435,7 @@ module.exports = function (webpackEnv) {
                 loader: require.resolve('sass-loader'),
                 options: {
                   includePaths: [paths.appSrc + '/styles'],
-                  sourceMap: isEnvProduction && shouldUseSourceMap
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
                 }
               }),
               // Don't consider CSS imports dead code even if the

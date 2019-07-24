@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Post } from './post.model';
 
 @Entity()
 export class User {
@@ -16,6 +17,9 @@ export class User {
 
   @Column({ type: 'varchar', length: 50 })
   public salt: string;
+
+  @OneToMany(type => Post, post => post.user, { onDelete: 'CASCADE' })
+  public posts: Post[];
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;
