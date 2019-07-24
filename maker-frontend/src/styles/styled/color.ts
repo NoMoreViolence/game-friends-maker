@@ -11,5 +11,6 @@ export const color = {
   whiteSoft: '#ffffff94',
   black: '#000000',
   'modal-dim': 'rgba(0, 0, 0, 0.5)',
+  transparent: 'transparent',
   ...background,
 };

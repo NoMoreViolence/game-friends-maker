@@ -1,12 +1,14 @@
 import React, { useRef, useEffect, useCallback, memo } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { ModalRootDiv } from './modal.styled';
 
 interface Props {
+  display: boolean;
   exit?(): void;
   children?: JSX.Element;
 }
 
-const ModalComponent = ({ exit, children }: Props) => {
+const ModalComponent = ({ display, exit, children }: Props) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   const handleClick = useCallback(
@@ -37,7 +39,11 @@ const ModalComponent = ({ exit, children }: Props) => {
     };
   }, []);
 
-  return <ModalRootDiv ref={divRef}>{children && children}</ModalRootDiv>;
+  return (
+    <CSSTransition in={display} timeout={250} unmountOnExit={true} classNames="animation">
+      <ModalRootDiv ref={divRef}>{children && children}</ModalRootDiv>
+    </CSSTransition>
+  );
 };
 
 export default memo(ModalComponent);

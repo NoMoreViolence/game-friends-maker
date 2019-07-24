@@ -4,7 +4,7 @@ import { color } from './color';
 interface SpanProps {
   weight?: string;
   color?: string;
-  cursor?: boolean;
+  cursor?: string;
   hover?: boolean;
   hoverColor?: string;
   align?: string;
@@ -17,7 +17,7 @@ const CommonSpanStyle = css`
   letter-spacing: normal;
 `;
 const returnColor = (returnColor?: string) => `color: ${returnColor ? returnColor : color.black};`;
-const returnCursor = (cusror?: boolean) => `cursor: ${cusror ? 'pointer' : 'unset'};`;
+const returnCursor = (cusror?: string) => `cursor: ${cusror ? 'pointer' : 'unset'};`;
 const returnWeight = (weight?: string) => `font-weight: ${weight ? weight : 'normal'};`;
 const returnHover = (hover?: boolean, hoverColor?: string) =>
   hover

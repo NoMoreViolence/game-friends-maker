@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { zIndex, color, device } from '@src/styles';
+import { zIndex, color, device, shadow } from '@src/styles';
 
 export const LandingComponentRootDiv = styled('div')`
   display: flex;
@@ -12,28 +12,34 @@ export const LandingComponentHeaderDiv = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-  background-color: ${color.primary};
+
+  > div:nth-child(1) {
+    height: 100%;
+    flex: calc(60% - 1.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 1.5rem;
+    background-color: ${color.primary};
+  }
 
   > div:nth-child(2) {
-    > span:nth-child(1).activate,
-    > span:nth-last-child(1).activate {
-      color: ${color.white};
+    height: 100%;
+    flex: calc(40% - 1.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1.5rem;
+    background-color: ${color.white};
+    @media screen and ${device.mobileToDesktop} {
+      background-color: ${color.primary};
     }
   }
 `;
 
-export const LandingComponentLoginContentDiv = styled('div')<{ backgroundColor?: string }>`
-  position: relative;
-  height: calc(90vh - 6rem);
+export const LandingComponentLoginContentDiv = styled('div')`
   display: flex;
   justify-content: space-between;
-  padding: 3rem;
-
-  @media screen and ${device.mobileToDesktop} {
-    flex-direction: column;
-  }
 
   > div:nth-child(1) {
     flex: 0.6;
@@ -41,21 +47,27 @@ export const LandingComponentLoginContentDiv = styled('div')<{ backgroundColor?:
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: ${color.primary};
 
-    > span.main-message {
-      margin-bottom: 1rem;
-    }
+    > div {
+      display: flex;
+      flex-direction: column;
 
-    > span.sub-message {
+      > span.main-message {
+        margin-bottom: 1rem;
+      }
+
+      > span.sub-message {
+      }
     }
   }
-
   > div:nth-child(2) {
     flex: 0.4;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: ${color.white};
 
     > div.terms {
       margin-bottom: 1rem;
@@ -66,19 +78,18 @@ export const LandingComponentLoginContentDiv = styled('div')<{ backgroundColor?:
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 0.25rem;
-        border-color: transparent;
+        border-radius: 0.75rem;
+        border: 1px solid ${color.transparent};
         padding: 1rem;
+        box-shadow: ${shadow.default};
+        font-family: inherit;
         transition: 0.25s;
 
         cursor: pointer;
         background-color: ${color.white};
 
         &:hover {
-          background-color: ${color.primary};
-          > span {
-            color: ${color.white};
-          }
+          box-shadow: ${shadow.hover};
         }
 
         > svg {
@@ -87,91 +98,123 @@ export const LandingComponentLoginContentDiv = styled('div')<{ backgroundColor?:
       }
     }
   }
-  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : color.black)};
 
-  &::before,
-  &::after {
-    border-bottom: 5px solid black;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 40px;
-    background-size: 80px 160px;
-    background-image: radial-gradient(circle at 40px -60px, transparent 80px, black 84px);
-  }
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 60px;
-    background-size: 160px 160px;
-    background-image: radial-gradient(circle at 40px 104px, black 80px, transparent 84px);
-  }
-`;
-
-export const LandingComponentContentDiv = styled('div')<{ backgroundColor?: string }>`
-  height: calc(90vh - 6rem);
-  padding: 3rem;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-
-  @media screen and ${device.mobileToDesktop} {
-    height: calc(90vh - 4rem);
-    padding: 2rem;
-    flex-direction: column-reverse;
+  @media screen and ${device.mobile} {
+    flex-direction: column;
 
     > div:nth-child(1) {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    > div:nth-child(2) {
+      background-color: ${color.primary};
+      padding-top: 3rem;
+      padding-bottom: 5rem;
+    }
+  }
 
-      > img.landing {
-        border-radius: 0.75rem;
-        height: calc(60vh - 4rem);
-      }
+  @media screen and ${device.tablet} {
+    flex-direction: column;
+
+    > div:nth-child(1) {
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+    }
+    > div:nth-child(2) {
+      background-color: ${color.primary};
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  @media screen and ${device.desktop} {
+    > div:nth-child(1) {
+      padding-top: 20rem;
+      padding-bottom: 20rem;
     }
 
     > div:nth-child(2) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      > span:nth-child(1) {
-        margin-bottom: 1rem;
-      }
+      padding-top: 20rem;
+      padding-bottom: 20rem;
     }
   }
+`;
 
-  > div:nth-child(1) {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+export const LandingComponentContentDiv = styled('div')<{ backgroundColor?: string; reverse?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    > img.landing {
-      border-radius: 0.75rem;
-      height: calc(60vh - 3rem);
-    }
-  }
-  > div:nth-child(2) {
-    flex: 1;
+  > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    > img {
+      border: 0px solid transparent;
+      border-radius: 0.75rem;
+    }
+
     > span:nth-child(1) {
+      width: 100%;
       margin-bottom: 1rem;
     }
   }
 
+  @media screen and ${device.mobile} {
+    flex-direction: column;
+    padding: 2rem;
+
+    > div {
+      margin-bottom: 1rem;
+
+      > img {
+        width: calc(375px - 4rem);
+      }
+    }
+  }
+
+  @media screen and ${device.tablet} {
+    flex-direction: ${p => (p.reverse ? 'row-reverse' : 'row')};
+    padding: 3rem;
+
+    > div {
+      flex: 1;
+      > img {
+        width: calc(400px - 6rem);
+      }
+    }
+  }
+
+  @media screen and ${device.desktop} {
+    flex-direction: ${p => (p.reverse ? 'row-reverse' : 'row')};
+    padding: 5rem;
+
+    > div {
+      flex: 1;
+      > img {
+        width: calc(650px - 10rem);
+      }
+    }
+  }
+
   background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : color.black)};
+`;
+
+export const LandingComponentBottom = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: ${color.white};
+
+  > div {
+    display: flex;
+    align-items: center;
+
+    > img {
+      width: 150px;
+    }
+  }
 `;

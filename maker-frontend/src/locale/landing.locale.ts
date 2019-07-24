@@ -7,8 +7,11 @@ export const landingLocale = {
 
     'landing.firstform.title': '오늘도 혼자서 게임하시나요?',
     'landing.firstform.content.first': 'Coöperative와 함께 즐겁게 게임하세요.',
-    'landing.firstform.content.second': `오랜만에 게임하러 들어갔는데,`,
-    'landing.firstform.content.third': `같이 즐길 사람이 없군요..!`,
+    'landing.firstform.content.second': `하고 싶은 게임을 찾아 포스트 하세요.`,
+
+    'landing.secondform.title': '새로운 친구와 함께 추억을 쌓으세요.',
+    'landing.secondform.content.first': '당신을 기다리고 있는 사람들이 있습니다.',
+    // 'landing.secondform.second': 'Coöpe',
   },
   en: {
     'landing.main.message': 'Play online game with someone you want.',
@@ -16,9 +19,11 @@ export const landingLocale = {
     'landing.startWithGoogleAgree': "By clicking the button, you consent to the terms of 'Coöperative'",
     'landing.startWithGoogle': 'Start with google',
 
-    'landing.firstform.title': '오늘도 혼자서 게임하시나요?',
-    'landing.firstform.content.first': 'Coöperative와 함께 즐겁게 게임하세요.',
-    'landing.firstform.content.second': `오랜만에 게임하러 들어갔는데,`,
-    'landing.firstform.content.third': `같이 즐길 사람이 없군요..!`,
+    'landing.firstform.title': 'Are you alone today?',
+    'landing.firstform.content.first': "Play game with 'Coöperative'.",
+    'landing.firstform.content.second': `You just post what you want to play game`,
+
+    'landing.secondform.title': 'Make memories with new friends.',
+    'landing.secondform.content.first': 'There are many people want play game with you.',
   },
 };

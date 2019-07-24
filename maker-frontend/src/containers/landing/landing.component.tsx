@@ -2,18 +2,19 @@ import React, { useCallback, useState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useIntl, FormattedMessage } from 'react-intl';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { CSSTransition } from 'react-transition-group';
+import ScrollAnimation from 'react-animate-on-scroll';
 import { googleClientKey } from '@constants';
 import { AppState } from '@bootstrap';
 import { Lang } from '@models';
 import { globalActions, userActions } from '@actions';
 import { getLanguageSelector } from '@reducers';
-import { color, SmallSpan, MiddleSpan, BigSpan, MiddleBigSpan } from '@styles';
+import { color, SmallSpan, MiddleSpan, MiddleBigSpan } from '@styles';
 import {
   LandingComponentRootDiv,
   LandingComponentHeaderDiv,
   LandingComponentLoginContentDiv,
   LandingComponentContentDiv,
+  LandingComponentBottom,
 } from './landing.styled';
 import GoogleLogoSvg from '@svgs/google-logo';
 import ModalComponent from '@components/modal';
@@ -51,26 +52,24 @@ const LandingComponent = () => {
       <LandingComponentRootDiv>
         <LandingComponentHeaderDiv>
           <div>
-            <MiddleSpan color={color.white} weight={'bold'}>
+            <MiddleBigSpan color={color.white} weight={'bold'}>
               Coöperative
-            </MiddleSpan>
+            </MiddleBigSpan>
           </div>
           <div>
             <MiddleSpan
-              className={lang === 'ko' ? 'activate' : ''}
-              color={lang === 'ko' ? color.white : color.whiteSoft}
-              cursor={lang === 'en'}
+              color={lang === 'ko' ? color.primaryDark : color.primaryLight}
+              cursor={lang === 'en' ? 'pointer' : 'unset'}
               onClick={() => setLanguage('ko')}
             >
               KO
             </MiddleSpan>
-            <MiddleSpan color={color.white} weight={'bold'}>
+            <MiddleSpan color={color.primaryDark} weight={'bold'}>
               {' / '}
             </MiddleSpan>
             <MiddleSpan
-              className={lang === 'en' ? 'activate' : ''}
-              color={lang === 'en' ? color.white : color.whiteSoft}
-              cursor={lang === 'ko'}
+              color={lang === 'en' ? color.primaryDark : color.primaryLight}
+              cursor={lang === 'ko' ? 'pointer' : 'unset'}
               onClick={() => setLanguage('en')}
             >
               EN
@@ -78,27 +77,35 @@ const LandingComponent = () => {
           </div>
         </LandingComponentHeaderDiv>
 
-        <LandingComponentLoginContentDiv backgroundColor={color.primary}>
+        <LandingComponentLoginContentDiv>
           <div>
-            <BigSpan className="main-message" color={color.white} weight={'bold'}>
-              {formatMessage({ id: 'landing.main.message' })}
-            </BigSpan>
-            <MiddleSpan className="sub-message" color={color.whiteSoft} weight={'300'}>
-              {formatMessage({ id: 'landing.sub.message' })}
-            </MiddleSpan>
+            <ScrollAnimation animateIn="bounceInLeft" animateOut="bounceOutLeft" duration={1000} animateOnce={true}>
+              <MiddleBigSpan className="main-message" color={color.white} weight={'bold'} align={'center'}>
+                {formatMessage({ id: 'landing.main.message' })}
+              </MiddleBigSpan>
+              <MiddleSpan className="sub-message" color={color.whiteSoft} weight={'300'} align={'center'}>
+                {formatMessage({ id: 'landing.sub.message' })}
+              </MiddleSpan>
+            </ScrollAnimation>
           </div>
           <div>
-            <div className="terms">
+            <ScrollAnimation
+              animateIn="bounceInRight"
+              animateOut="bounceOutRight"
+              animateOnce={true}
+              duration={1000}
+              className="terms"
+            >
               <SmallSpan
                 onClick={changeDisplayTerms}
-                cursor={true}
-                color={color.whiteSoft}
+                cursor={'pointer'}
+                color={color.primaryLight}
                 hover={true}
                 hoverColor={color.white}
               >
                 <FormattedMessage id={'landing.startWithGoogleAgree'} />
               </SmallSpan>
-            </div>
+            </ScrollAnimation>
             <GoogleLogin
               clientId={googleClientKey}
               onSuccess={responseToGoogle}
@@ -106,29 +113,24 @@ const LandingComponent = () => {
               cookiePolicy={'single_host_origin'}
               render={(p?: { onClick: () => void }) =>
                 p ? (
-                  <div className="google-button">
+                  <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true} className="google-button">
                     <button onClick={p.onClick}>
                       <GoogleLogoSvg />
-                      <MiddleSpan color={color.black} weight={'400'} hover={true} hoverColor={color.white}>
+                      <MiddleSpan color={color.black} weight={'400'}>
                         {formatMessage({ id: 'landing.startWithGoogle' })}
                       </MiddleSpan>
                     </button>
-                  </div>
+                  </ScrollAnimation>
                 ) : (
                   <></>
                 )
               }
             />
           </div>
-          <div className="bottom-wave"></div>
         </LandingComponentLoginContentDiv>
         <LandingComponentContentDiv backgroundColor={color.primaryDark}>
-          <div>
-            <img className="landing" src="/images/illustrators/landing-background.png" alt="Landing background" />
-          </div>
-
-          <div>
-            <MiddleBigSpan color={color.white} weight={'bold'}>
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+            <MiddleBigSpan color={color.white} weight={'bold'} align={'center'}>
               <FormattedMessage id={'landing.firstform.title'} />
             </MiddleBigSpan>
             <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
@@ -137,18 +139,39 @@ const LandingComponent = () => {
             <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
               <FormattedMessage id={'landing.firstform.content.second'} />
             </MiddleSpan>
-            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
-              <FormattedMessage id={'landing.firstform.content.third'} />
-            </MiddleSpan>
-          </div>
+          </ScrollAnimation>
+
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+            <img className="landing" src="/images/illustrators/landing-background.png" alt="Landing background" />
+          </ScrollAnimation>
         </LandingComponentContentDiv>
+
+        <LandingComponentContentDiv backgroundColor={color.primaryLight} reverse={true}>
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+            <MiddleBigSpan color={color.white} weight={'bold'} align={'center'}>
+              <FormattedMessage id={'landing.secondform.title'} />
+            </MiddleBigSpan>
+            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
+              <FormattedMessage id={'landing.secondform.content.first'} />
+            </MiddleSpan>
+          </ScrollAnimation>
+
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+            <img className="landing" src="/images/illustrators/play-game.svg" alt="Landing background" />
+          </ScrollAnimation>
+        </LandingComponentContentDiv>
+
+        <LandingComponentBottom>
+          <div>
+            <img src="/images/logo/logo-text.svg" alt="Logo" />
+          </div>
+          <div>{/* <SmallSpan color={color.white}>© 2019 JIHOON LEE, INC. ALL RIGHTS RESERVED</SmallSpan> */}</div>
+        </LandingComponentBottom>
       </LandingComponentRootDiv>
 
-      <CSSTransition in={displayTerms} timeout={250} unmountOnExit={true} classNames="animation">
-        <ModalComponent exit={changeDisplayTerms}>
-          <TermsComponent exit={changeDisplayTerms} />
-        </ModalComponent>
-      </CSSTransition>
+      <ModalComponent display={displayTerms} exit={changeDisplayTerms}>
+        <TermsComponent exit={changeDisplayTerms} />
+      </ModalComponent>
     </>
   );
 };
