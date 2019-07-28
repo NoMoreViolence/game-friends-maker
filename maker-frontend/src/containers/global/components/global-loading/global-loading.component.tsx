@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { createSelector } from 'reselect';
 import { AppState } from '@bootstrap';
 import { isUserPending } from '@reducers';
-import MainLogoSvg from '@svgs/main-logo';
+import LoadingLogoSvg from '@svgs/loading-logo';
 import { GlobalLoadingRootDiv } from './global-loading.styled';
 
 const getAllPendings = ({ user }: AppState): boolean[] => [isUserPending(user)];
@@ -19,7 +19,7 @@ const _GlobalLoadingComponent = () => {
     <>
       {loadingFlag && (
         <GlobalLoadingRootDiv>
-          <MainLogoSvg />
+          <LoadingLogoSvg />
         </GlobalLoadingRootDiv>
       )}
     </>
