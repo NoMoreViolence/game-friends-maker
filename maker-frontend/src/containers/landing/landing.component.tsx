@@ -21,25 +21,26 @@ import ModalComponent from '@components/modal';
 import TermsComponent from '@containers/landing/components/terms';
 
 const LandingComponent = () => {
-  const dispatch = useDispatch();
   const { formatMessage } = useIntl();
+  const dispatch = useDispatch();
   const lang = useSelector(({ global }: AppState) => getLanguageSelector(global), shallowEqual);
 
-  const [displayTerms, setTerms] = useState(false);
+  const [displayTerms, setDisplayTerms] = useState(false);
 
   const setLanguage = useCallback((lang: Lang) => dispatch(globalActions.setLanguage({ lang })), []);
-  const changeDisplayTerms = useCallback(() => setTerms(!displayTerms), [displayTerms]);
+  const changeDisplayTerms = useCallback(() => setDisplayTerms(!displayTerms), [displayTerms]);
+
   const responseToGoogle = useCallback((response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     const googleResponse = (response as unknown) as GoogleLoginResponse;
     const authResponse = googleResponse.getAuthResponse();
-    const { getEmail, getName } = googleResponse.getBasicProfile();
+    const basicProfile = googleResponse.getBasicProfile();
 
     dispatch(
       userActions.register({
-        email: getEmail(),
-        name: getName(),
-        googleId: authResponse.id_token,
-        googleIdToken: authResponse.access_token,
+        email: basicProfile.getEmail(),
+        name: basicProfile.getName(),
+        googleId: authResponse.access_token,
+        googleIdToken: authResponse.id_token,
       }),
     );
   }, []);
@@ -171,7 +172,6 @@ const LandingComponent = () => {
           <div>
             <img src="/images/logo/logo-text.svg" alt="Logo" />
           </div>
-          <div>{/* <SmallSpan color={color.white}>© 2019 JIHOON LEE, INC. ALL RIGHTS RESERVED</SmallSpan> */}</div>
         </LandingComponentBottom>
       </LandingComponentRootDiv>
 

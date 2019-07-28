@@ -3,8 +3,8 @@ import { Lang } from '@models';
 
 export interface CommonAlertInfo {
   type: SweetAlertType;
-  title: string;
-  text: string;
+  title: string | [{ id: string }, { [key: string]: string }];
+  text: string | [{ id: string }, { [key: string]: string }];
 }
 
 export interface AfterAlert {
