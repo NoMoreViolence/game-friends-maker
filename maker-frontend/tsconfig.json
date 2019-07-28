@@ -10,6 +10,7 @@
       "@locale": ["locale"],
       "@helpers": ["helpers"],
       "@lib": ["lib"],
+      "@utils": ["utils"],
       "@bootstrap": ["bootstrap"],
       "@bootstrap/*": ["bootstrap/*"],
       "@actions": ["store/actions"],
