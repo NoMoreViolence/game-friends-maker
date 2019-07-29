@@ -4,8 +4,11 @@ export const devServerUrl = 'http://localhost:3001';
 export const serverUrl = 'FuckingUrl';
 
 export const detectEnvironment = (): AxiosInstance => {
-  if (process.env.NODE_ENV === 'development') {
+  const url = new URL(document.URL);
+
+  if (url.host.includes('localhost')) {
+    return axios.create({ baseURL: devServerUrl });
+  } else {
     return axios.create({ baseURL: devServerUrl });
   }
-  return axios.create({ baseURL: serverUrl });
 };
