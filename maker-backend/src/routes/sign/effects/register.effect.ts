@@ -4,7 +4,7 @@ import { createNewPassword, everNullable } from '@utils';
 import { User } from 'database/models';
 import { createUser, getUserByEmail } from 'database/queries';
 import { of, throwError } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { getRepository } from 'typeorm';
 import { checkGoogleIdVaildation, checkSameValueVaildation, createToken } from '../utils';
 

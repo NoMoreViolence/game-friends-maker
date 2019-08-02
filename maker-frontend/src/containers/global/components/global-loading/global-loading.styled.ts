@@ -2,16 +2,24 @@ import styled from 'styled-components';
 import { color, zIndex } from '@src/styles';
 
 export const GlobalLoadingRootDiv = styled('div')`
-  position: absolute;
   z-index: ${zIndex.heaven};
+  background-color: ${color['modal-dim']};
+
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  max-height: stretch;
+  min-height: stretch;
+  max-width: stretch;
+  min-width: stretch;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: stretch;
-  max-height: stretch;
-  min-height: stretch;
-  background-color: ${color.loadingBackground};
 
   .svg-logo {
     width: 150px;

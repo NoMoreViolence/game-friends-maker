@@ -20,17 +20,44 @@ export const userInitialState: User = {
 
 export const userReducer = (state: User = userInitialState, action: UserActions): User =>
   produce(state, (draft: User) => {
+    console.log(action);
     switch (action.type) {
       case 'REGISTER':
         draft.userLoaderStatus.registerStatus = 'pending';
         break;
       case 'REGISTER_SUCCESS':
         draft.userLoaderStatus.registerStatus = 'success';
+        draft.userLoaderStatus.loginStatus = 'success';
         draft.userInfo.expiresIn = action.payload.expiresIn;
         draft.userInfo.token = action.payload.token;
         break;
       case 'REGISTER_FAILURE':
         draft.userLoaderStatus.registerStatus = 'failure';
+        break;
+
+      case 'LOGIN':
+        draft.userLoaderStatus.loginStatus = 'pending';
+        break;
+      case 'LOGIN_SUCCESS':
+        draft.userLoaderStatus.loginStatus = 'success';
+        draft.userInfo.expiresIn = action.payload.expiresIn;
+        draft.userInfo.token = action.payload.token;
+        break;
+      case 'LOGIN_FAILURE':
+        draft.userLoaderStatus.loginStatus = 'failure';
+        break;
+
+      case 'GET_MY_INFO':
+        draft.userLoaderStatus.getMyInfoStatus = 'pending';
+        draft.userInfo.token = action.payload.token;
+        break;
+      case 'GET_MY_INFO_SUCCESS':
+        draft.userLoaderStatus.getMyInfoStatus = 'success';
+        draft.userInfo.name = action.payload.user.name;
+        draft.userInfo.email = action.payload.user.email;
+        break;
+      case 'GET_MY_INFO_FAILURE':
+        draft.userLoaderStatus.getMyInfoStatus = 'failure';
         break;
 
       default:

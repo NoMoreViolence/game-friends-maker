@@ -92,7 +92,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "deploy:dev": "aws s3 sync ./build s3://coopnow.net --profile=coop-dev-s3"
   },
   "eslintConfig": {
     "extends": "react-app"

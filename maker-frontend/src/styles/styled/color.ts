@@ -1,5 +1,5 @@
 export const background = {
-  loadingBackground: '#fcea3252',
+  loadingBackground: 'rgba(95, 93, 100, 0.55)',
   primary: '#26262b',
 };
 
