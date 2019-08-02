@@ -3,11 +3,24 @@ import { createSelector } from 'reselect';
 import { Global } from '@models';
 import { GlobalActions } from '@actions';
 
+const userLang = navigator.language || ((navigator as unknown) as any).userLanguage;
+const localLang = localStorage.getItem('lang');
+
+const lang =
+  localLang !== null && (localLang.includes('ko') || localLang.includes('en'))
+    ? localLang.includes('ko')
+      ? 'ko'
+      : 'en'
+    : userLang === 'ko'
+    ? 'ko'
+    : 'en';
+localStorage.setItem('lang', lang);
+
 export const globalInitialState: Global = {
   globalInfo: {
     alerts: [],
     toasts: [],
-    language: 'en',
+    language: lang,
   },
 };
 
@@ -17,6 +30,7 @@ export const globalReducer = (state: Global = globalInitialState, action: Global
       case 'INIT_LANGUAGE':
         break;
       case 'SET_LANGUAGE':
+        localStorage.setItem('lang', action.payload.lang);
         draft.globalInfo.language = action.payload.lang;
         break;
       case 'TOAST':

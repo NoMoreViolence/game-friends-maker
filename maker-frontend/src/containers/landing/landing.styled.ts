@@ -34,9 +34,19 @@ export const LandingComponentHeaderDiv = styled('div')`
   }
 `;
 
-export const LandingComponentLoginContentDiv = styled('div')`
+export const LandingComponentLoginContentDiv = styled('div')<{ backgroundUrl: string }>`
   display: flex;
   justify-content: space-between;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    
+  background-image: linear-gradient(
+          rgba(0, 0, 0, 0.7), 
+          rgba(0, 0, 0, 0.7)
+        ), url('${p => p.backgroundUrl}');
+      
+
 
   > div:nth-child(1) {
     flex: 0.6;
@@ -44,7 +54,6 @@ export const LandingComponentLoginContentDiv = styled('div')`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${color.white};
 
     > div {
       display: flex;
@@ -64,18 +73,14 @@ export const LandingComponentLoginContentDiv = styled('div')`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${color.white};
-
-    > div.terms {
-      margin-bottom: 1rem;
-    }
 
     > div.google-button {
+      margin-bottom: 1rem;
       > button {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 0.75rem;
+        border-radius: 0.1875rem;
         border: 1px solid ${color.transparent};
         padding: 1rem;
         box-shadow: ${shadow.default};
@@ -94,6 +99,9 @@ export const LandingComponentLoginContentDiv = styled('div')`
         }
       }
     }
+
+    > div.terms {
+    }
   }
 
   @media screen and ${device.mobile} {
@@ -104,7 +112,6 @@ export const LandingComponentLoginContentDiv = styled('div')`
       padding-bottom: 5rem;
     }
     > div:nth-child(2) {
-      background-color: ${color.white};
       padding-top: 2.5rem;
       padding-bottom: 1.25rem;
     }
@@ -118,7 +125,6 @@ export const LandingComponentLoginContentDiv = styled('div')`
       padding-bottom: 10rem;
     }
     > div:nth-child(2) {
-      background-color: ${color.white};
       padding-top: 5rem;
       padding-bottom: 2.5rem;
     }

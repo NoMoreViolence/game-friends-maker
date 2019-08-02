@@ -93,7 +93,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "deploy:dev": "aws s3 sync ./build s3://coopnow.net --profile=coop-dev-s3"
+    "deploy:dev": "aws s3 sync ./build s3://coopnow.net --profile=coop-dev-s3",
+    "clear:dev": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E179967HJCF1UW --paths / /index.html /service-worker.js /manifest.json /favicon.ico"
   },
   "eslintConfig": {
     "extends": "react-app"

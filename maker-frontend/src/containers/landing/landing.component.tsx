@@ -8,7 +8,7 @@ import { AppState } from '@bootstrap';
 import { Lang } from '@models';
 import { globalActions, userActions } from '@actions';
 import { getLanguageSelector } from '@reducers';
-import { color, SmallSpan, MiddleSpan, MiddleBigSpan } from '@styles';
+import { color, SmallSpan, MiddleSpan, MiddleBigSpan, TinySpan, BigSpan, GiantSpan } from '@styles';
 import {
   LandingComponentRootDiv,
   LandingComponentHeaderDiv,
@@ -78,35 +78,18 @@ const LandingComponent = () => {
           </div>
         </LandingComponentHeaderDiv>
 
-        <LandingComponentLoginContentDiv>
+        <LandingComponentLoginContentDiv backgroundUrl={'/images/illustrators/main-background.jpg'}>
           <div>
             <ScrollAnimation animateIn="bounceInLeft" animateOut="bounceOutLeft" duration={1.5} animateOnce={true}>
-              <MiddleBigSpan className="main-message" color={color.black} weight={'bold'} align={'center'}>
+              <GiantSpan className="main-message" color={color.white} weight={'bold'} align={'center'}>
                 {formatMessage({ id: 'landing.main.message' })}
-              </MiddleBigSpan>
-              <MiddleSpan className="sub-message" color={color.black} weight={'300'} align={'center'}>
+              </GiantSpan>
+              <MiddleSpan className="sub-message" color={color.white} weight={'300'} align={'center'}>
                 {formatMessage({ id: 'landing.sub.message' })}
               </MiddleSpan>
             </ScrollAnimation>
           </div>
           <div>
-            <ScrollAnimation
-              animateIn="bounceInRight"
-              animateOut="bounceOutRight"
-              duration={1.5}
-              animateOnce={true}
-              className="terms"
-            >
-              <SmallSpan
-                onClick={changeDisplayTerms}
-                cursor={'pointer'}
-                color={color.primaryLight}
-                hover={true}
-                hoverColor={color.primary}
-              >
-                <FormattedMessage id={'landing.startWithGoogleAgree'} />
-              </SmallSpan>
-            </ScrollAnimation>
             <GoogleLogin
               clientId={googleClientKey}
               onSuccess={responseToGoogle}
@@ -133,10 +116,28 @@ const LandingComponent = () => {
                 )
               }
             />
+
+            <ScrollAnimation
+              animateIn="bounceInRight"
+              animateOut="bounceOutRight"
+              duration={1.5}
+              animateOnce={true}
+              className="terms"
+            >
+              <TinySpan
+                onClick={changeDisplayTerms}
+                cursor={'pointer'}
+                color={color.whiteSoft}
+                hover={true}
+                hoverColor={color.white}
+              >
+                <FormattedMessage id={'landing.startWithGoogleAgree'} />
+              </TinySpan>
+            </ScrollAnimation>
           </div>
         </LandingComponentLoginContentDiv>
         <LandingComponentContentDiv backgroundColor={color.white}>
-          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true}>
             <MiddleBigSpan color={color.black} weight={'bold'} align={'center'}>
               <FormattedMessage id={'landing.firstform.title'} />
             </MiddleBigSpan>
@@ -148,13 +149,13 @@ const LandingComponent = () => {
             </MiddleSpan>
           </ScrollAnimation>
 
-          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true}>
             <img className="landing" src="/images/illustrators/background-01.jpg" alt="Landing background" />
           </ScrollAnimation>
         </LandingComponentContentDiv>
 
-        <LandingComponentContentDiv backgroundColor={color.primaryLight} reverse={true}>
-          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+        <LandingComponentContentDiv backgroundColor={color.primaryDark} reverse={true}>
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true}>
             <MiddleBigSpan color={color.white} weight={'bold'} align={'center'}>
               <FormattedMessage id={'landing.secondform.title'} />
             </MiddleBigSpan>
@@ -163,7 +164,7 @@ const LandingComponent = () => {
             </MiddleSpan>
           </ScrollAnimation>
 
-          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
+          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true}>
             <img className="landing" src="/images/illustrators/play-game.svg" alt="Landing background" />
           </ScrollAnimation>
         </LandingComponentContentDiv>
