@@ -53,7 +53,7 @@ const LandingComponent = () => {
       <LandingComponentRootDiv>
         <LandingComponentHeaderDiv>
           <div>
-            <MiddleBigSpan color={color.white} weight={'bold'}>
+            <MiddleBigSpan color={color.black} weight={'bold'}>
               Coöperative
             </MiddleBigSpan>
           </div>
@@ -81,10 +81,10 @@ const LandingComponent = () => {
         <LandingComponentLoginContentDiv>
           <div>
             <ScrollAnimation animateIn="bounceInLeft" animateOut="bounceOutLeft" duration={1.5} animateOnce={true}>
-              <MiddleBigSpan className="main-message" color={color.white} weight={'bold'} align={'center'}>
+              <MiddleBigSpan className="main-message" color={color.black} weight={'bold'} align={'center'}>
                 {formatMessage({ id: 'landing.main.message' })}
               </MiddleBigSpan>
-              <MiddleSpan className="sub-message" color={color.whiteSoft} weight={'300'} align={'center'}>
+              <MiddleSpan className="sub-message" color={color.black} weight={'300'} align={'center'}>
                 {formatMessage({ id: 'landing.sub.message' })}
               </MiddleSpan>
             </ScrollAnimation>
@@ -102,7 +102,7 @@ const LandingComponent = () => {
                 cursor={'pointer'}
                 color={color.primaryLight}
                 hover={true}
-                hoverColor={color.white}
+                hoverColor={color.primary}
               >
                 <FormattedMessage id={'landing.startWithGoogleAgree'} />
               </SmallSpan>
@@ -135,21 +135,21 @@ const LandingComponent = () => {
             />
           </div>
         </LandingComponentLoginContentDiv>
-        <LandingComponentContentDiv backgroundColor={color.primaryDark}>
+        <LandingComponentContentDiv backgroundColor={color.white}>
           <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
-            <MiddleBigSpan color={color.white} weight={'bold'} align={'center'}>
+            <MiddleBigSpan color={color.black} weight={'bold'} align={'center'}>
               <FormattedMessage id={'landing.firstform.title'} />
             </MiddleBigSpan>
-            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
+            <MiddleSpan color={color.black} weight={'300'} align={'center'}>
               <FormattedMessage id={'landing.firstform.content.first'} />
             </MiddleSpan>
-            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
+            <MiddleSpan color={color.black} weight={'300'} align={'center'}>
               <FormattedMessage id={'landing.firstform.content.second'} />
             </MiddleSpan>
           </ScrollAnimation>
 
           <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
-            <img className="landing" src="/images/illustrators/landing-background.png" alt="Landing background" />
+            <img className="landing" src="/images/illustrators/background-01.jpg" alt="Landing background" />
           </ScrollAnimation>
         </LandingComponentContentDiv>
 

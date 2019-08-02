@@ -4,7 +4,7 @@ import { zIndex, color, device, shadow } from '@src/styles';
 export const LandingComponentRootDiv = styled('div')`
   display: flex;
   flex-direction: column;
-  background-color: ${color.primary};
+  background-color: ${color.white};
 `;
 
 export const LandingComponentHeaderDiv = styled('div')`
@@ -20,7 +20,7 @@ export const LandingComponentHeaderDiv = styled('div')`
     align-items: center;
     justify-content: flex-start;
     padding-left: 1.5rem;
-    background-color: ${color.primary};
+    background-color: ${color.white};
   }
 
   > div:nth-child(2) {
@@ -31,9 +31,6 @@ export const LandingComponentHeaderDiv = styled('div')`
     justify-content: flex-end;
     padding-right: 1.5rem;
     background-color: ${color.white};
-    @media screen and ${device.mobileToDesktop} {
-      background-color: ${color.primary};
-    }
   }
 `;
 
@@ -47,7 +44,7 @@ export const LandingComponentLoginContentDiv = styled('div')`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${color.primary};
+    background-color: ${color.white};
 
     > div {
       display: flex;
@@ -107,9 +104,9 @@ export const LandingComponentLoginContentDiv = styled('div')`
       padding-bottom: 5rem;
     }
     > div:nth-child(2) {
-      background-color: ${color.primary};
-      padding-top: 3rem;
-      padding-bottom: 5rem;
+      background-color: ${color.white};
+      padding-top: 2.5rem;
+      padding-bottom: 1.25rem;
     }
   }
 
@@ -121,21 +118,23 @@ export const LandingComponentLoginContentDiv = styled('div')`
       padding-bottom: 10rem;
     }
     > div:nth-child(2) {
-      background-color: ${color.primary};
+      background-color: ${color.white};
       padding-top: 5rem;
-      padding-bottom: 5rem;
+      padding-bottom: 2.5rem;
     }
   }
 
   @media screen and ${device.desktop} {
+    flex-direction: column;
+
     > div:nth-child(1) {
-      padding-top: 20rem;
-      padding-bottom: 20rem;
+      padding-top: 10rem;
+      padding-bottom: 10rem;
     }
 
     > div:nth-child(2) {
-      padding-top: 20rem;
-      padding-bottom: 20rem;
+      padding-top: 5rem;
+      padding-bottom: 7.5rem;
     }
   }
 `;
@@ -153,7 +152,6 @@ export const LandingComponentContentDiv = styled('div')<{ backgroundColor?: stri
 
     > img {
       border: 0px solid transparent;
-      border-radius: 0.75rem;
     }
 
     > span:nth-child(1) {
@@ -164,37 +162,42 @@ export const LandingComponentContentDiv = styled('div')<{ backgroundColor?: stri
 
   @media screen and ${device.mobile} {
     flex-direction: column;
-    padding: 2rem;
+
+    > div:nth-child(1) {
+      margin-top: 4.125rem;
+      margin-bottom: 5rem;
+    }
 
     > div {
-      margin-bottom: 1rem;
-
       > img {
-        width: calc(375px - 4rem);
+        width: 100%;
       }
     }
   }
 
   @media screen and ${device.tablet} {
-    flex-direction: ${p => (p.reverse ? 'row-reverse' : 'row')};
-    padding: 3rem;
+    flex-direction: column;
+
+    > div:nth-child(1) {
+      margin-top: 7.5rem;
+      margin-bottom: 5rem;
+    }
 
     > div {
       flex: 1;
       > img {
-        width: calc(400px - 6rem);
+        width: 100%;
       }
     }
   }
 
   @media screen and ${device.desktop} {
     flex-direction: ${p => (p.reverse ? 'row-reverse' : 'row')};
-    padding: 5rem;
 
     > div {
       flex: 1;
       > img {
-        width: calc(650px - 10rem);
+        width: 100%;
       }
     }
   }
