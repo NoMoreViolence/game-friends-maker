@@ -10,27 +10,44 @@ export const LandingComponentRootDiv = styled('div')`
 export const LandingComponentHeaderDiv = styled('div')`
   height: 60px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  width: 100%;
 
-  > div:nth-child(1) {
-    height: 100%;
-    flex: calc(60% - 1.5rem);
+  > div {
+    flex: 1;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start;
-    padding-left: 1.5rem;
-    background-color: ${color.white};
-  }
+    max-width: 720px;
 
-  > div:nth-child(2) {
-    height: 100%;
-    flex: calc(40% - 1.5rem);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 1.5rem;
-    background-color: ${color.white};
+    > div:nth-child(1) {
+      height: 100%;
+      flex: 0.6;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background-color: ${color.white};
+
+      @media screen and ${device.mobileToTablet} {
+        flex: calc(60% - 1.5rem);
+        padding-left: 1.5rem;
+      }
+    }
+
+    > div:nth-child(2) {
+      height: 100%;
+      flex: 0.4;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      background-color: ${color.white};
+
+      @media screen and ${device.mobileToTablet} {
+        flex: calc(40% - 1.5rem);
+        padding-right: 1.5rem;
+      }
+    }
   }
 `;
 
@@ -216,7 +233,7 @@ export const LandingComponentBottom = styled('div')`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: ${color.white};
+  background-color: ${color.black};
 
   > div {
     display: flex;

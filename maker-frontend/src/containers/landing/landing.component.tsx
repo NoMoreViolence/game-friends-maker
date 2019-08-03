@@ -53,28 +53,30 @@ const LandingComponent = () => {
       <LandingComponentRootDiv>
         <LandingComponentHeaderDiv>
           <div>
-            <MiddleBigSpan color={color.black} weight={'bold'}>
-              Coöperative
-            </MiddleBigSpan>
-          </div>
-          <div>
-            <MiddleSpan
-              color={lang === 'ko' ? color.primaryDark : color.primaryLight}
-              cursor={lang === 'en' ? 'pointer' : 'unset'}
-              onClick={() => setLanguage('ko')}
-            >
-              KO
-            </MiddleSpan>
-            <MiddleSpan color={color.primaryDark} weight={'bold'}>
-              {' / '}
-            </MiddleSpan>
-            <MiddleSpan
-              color={lang === 'en' ? color.primaryDark : color.primaryLight}
-              cursor={lang === 'ko' ? 'pointer' : 'unset'}
-              onClick={() => setLanguage('en')}
-            >
-              EN
-            </MiddleSpan>
+            <div>
+              <MiddleBigSpan color={color.black} weight={'bold'}>
+                Coöperative
+              </MiddleBigSpan>
+            </div>
+            <div>
+              <MiddleSpan
+                color={lang === 'ko' ? color.primaryDark : color.primaryLight}
+                cursor={lang === 'en' ? 'pointer' : 'unset'}
+                onClick={() => setLanguage('ko')}
+              >
+                KO
+              </MiddleSpan>
+              <MiddleSpan color={color.primaryDark} weight={'bold'}>
+                {' / '}
+              </MiddleSpan>
+              <MiddleSpan
+                color={lang === 'en' ? color.primaryDark : color.primaryLight}
+                cursor={lang === 'ko' ? 'pointer' : 'unset'}
+                onClick={() => setLanguage('en')}
+              >
+                EN
+              </MiddleSpan>
+            </div>
           </div>
         </LandingComponentHeaderDiv>
 
@@ -138,13 +140,13 @@ const LandingComponent = () => {
         </LandingComponentLoginContentDiv>
         <LandingComponentContentDiv backgroundColor={color.white}>
           <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true}>
-            <MiddleBigSpan color={color.black} weight={'bold'} align={'center'}>
+            <MiddleBigSpan color={color.primaryDark} weight={'bold'} align={'center'}>
               <FormattedMessage id={'landing.firstform.title'} />
             </MiddleBigSpan>
-            <MiddleSpan color={color.black} weight={'300'} align={'center'}>
+            <MiddleSpan color={color.primary} weight={'300'} align={'center'}>
               <FormattedMessage id={'landing.firstform.content.first'} />
             </MiddleSpan>
-            <MiddleSpan color={color.black} weight={'300'} align={'center'}>
+            <MiddleSpan color={color.primary} weight={'300'} align={'center'}>
               <FormattedMessage id={'landing.firstform.content.second'} />
             </MiddleSpan>
           </ScrollAnimation>
@@ -154,18 +156,18 @@ const LandingComponent = () => {
           </ScrollAnimation>
         </LandingComponentContentDiv>
 
-        <LandingComponentContentDiv backgroundColor={color.primaryDark} reverse={true}>
+        <LandingComponentContentDiv backgroundColor={color.white} reverse={true}>
           <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true}>
-            <MiddleBigSpan color={color.white} weight={'bold'} align={'center'}>
+            <MiddleBigSpan color={color.primaryDark} weight={'bold'} align={'center'}>
               <FormattedMessage id={'landing.secondform.title'} />
             </MiddleBigSpan>
-            <MiddleSpan color={color.whiteSoft} weight={'300'} align={'center'}>
+            <MiddleSpan color={color.primary} weight={'300'} align={'center'}>
               <FormattedMessage id={'landing.secondform.content.first'} />
             </MiddleSpan>
           </ScrollAnimation>
 
           <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" animateOnce={true}>
-            <img className="landing" src="/images/illustrators/play-game.svg" alt="Landing background" />
+            <img className="landing" src="/images/illustrators/background-03.jpg" alt="Landing background" />
           </ScrollAnimation>
         </LandingComponentContentDiv>
 
