@@ -52,3 +52,6 @@ Thumbs.db
 /maker-backend/config
 /maker-backend/yarn.lock
 /maker-backend/dist
+/maker-backend/.serverless
+/maker-backend/env.yml
+/maker-backend/yarn-error.log

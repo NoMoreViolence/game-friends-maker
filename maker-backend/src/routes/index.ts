@@ -1,30 +1,20 @@
-import { combineRoutes, HttpError, httpListener, HttpStatus, r } from '@marblejs/core';
-import { bodyParser$ } from '@marblejs/middleware-body';
-import { cors$ } from '@marblejs/middleware-cors';
-import { logger$ } from '@marblejs/middleware-logger';
-import { throwError } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import posts$ from './posts';
-import sign$ from './sign';
+import { Router, Request, Response } from 'express';
 
-const api$ = combineRoutes('/api', [sign$, posts$]);
-const notFound$ = r.pipe(
-  r.matchPath('*'),
-  r.matchType('*'),
-  r.useEffect(req$ => req$.pipe(mergeMap(() => throwError(new HttpError('Route not found', HttpStatus.NOT_FOUND)))))
-);
+const router = Router();
 
-const effects = [api$, notFound$];
-const middlewares = [
-  bodyParser$(),
-  logger$(),
-  cors$({
-    allowHeaders: '*',
-    maxAge: 3600,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    optionsSuccessStatus: 204,
-    origin: '*'
-  })
-];
+router.get('/hello', async (req: Request, res: Response) => {
+  res.status(201).json({
+    env: process.env.NODE_ENV,
+    message: 'success /hello request',
+  });
+});
 
-export default httpListener({ effects, middlewares });
+router.get('/', async (req: Request, res: Response) => {
+  console.log(process.env.KEY_OF_FUCKING_SECRET);
+  res.status(200).json({
+    env: process.env.NODE_ENV,
+    message: 'success',
+  });
+});
+
+export default router;

@@ -1,0 +1,45 @@
+service:
+  name: CoHope-app-server
+
+custom:
+  env: ${file(./env.yml):${opt:stage, self:provider.stage}}
+  webpack:
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    includeModules: true # Node modules configuration for packaging
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
+    websocketApiRouteSelectionExpression: $request.body.action
+
+plugins:
+  - serverless-webpack
+  - serverless-websockets-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  stage: dev # default is dev
+  region: ap-northeast-2
+  runtime: nodejs10.x
+  environment:
+    NODE_ENV: ${self:custom.env.NODE_ENV}
+  timeout: 30
+
+functions:
+  app:
+    handler: src/index.run
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+
+  websocketHandler:
+    handler: src/socket/index.connect
+    events:
+      - websocket:
+          routeKey: $connect
+      - websocket:
+          routeKey: $disconnect

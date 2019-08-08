@@ -1,20 +1,3 @@
-import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+// import * as mongoose from 'mongoose';
 
-createConnection({
-  database: 'new_gfm_test',
-  entities: [__dirname + '/models/*.model.ts'],
-  host: 'localhost',
-  logging: true,
-  password: process.env.DATABASE_PASSWORD ? process.env.DATABASE_PASSWORD : '',
-  port: 3306,
-  synchronize: true,
-  type: 'mysql',
-  username: process.env.DATABASE_USERNAME ? process.env.DATABASE_USERNAME : ''
-})
-  .then(connection => {
-    console.log('Database connected.');
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// mongoose.connect('mongodb://localhost:27017/test');
