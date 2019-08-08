@@ -3,21 +3,17 @@ const path = require('path');
 const slsw = require('serverless-webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const zopfli = require('@gfx/zopfli');
-
-console.log(slsw.lib.entries);
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 module.exports = {
-  optimization: {
-    minimizer: [
-      new TerserWebpackPlugin({
-        parallel: true, // Enable/disable multi-process parallel running.
-      }),
-    ],
-  },
+  ...(!slsw.lib.webpack.isLocal ? {
+    optimization: {
+      minimizer: [
+        new TerserWebpackPlugin({
+          parallel: true, // Enable/disable multi-process parallel running.
+        }),
+      ],
+    }
+  } : {}),
   // plugins: [
   //   new CompressionPlugin({
   //     compressionOptions: {
