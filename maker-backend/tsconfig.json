@@ -5,6 +5,8 @@
     "paths": {
       "@lib/*": ["lib/*"],
       "@lib": ["lib"],
+      "@models": ["database/models"],
+      "@models/*": ["database/models/*"],
       "@database/*": ["database/*"],
       "@database": ["database"],
       "@middlewares/*": ["middlewares/*"],
@@ -25,7 +27,7 @@
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": false,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": false,
     "pretty": true,
     "target": "esnext",
