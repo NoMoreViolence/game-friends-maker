@@ -1,13 +1,14 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 import * as bodyParser from 'body-parser';
+import serverlessHttp = require('serverless-http');
 import cors = require('cors');
 import express = require('express');
 import helmet = require('helmet');
 import morgan = require('morgan');
 import router from '@routes';
+import '@database';
 
-import serverlessHttp = require('serverless-http');
 const app: express.Application = express();
 
 app.use(cors());

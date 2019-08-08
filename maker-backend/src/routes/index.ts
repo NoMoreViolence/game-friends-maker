@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { UserModel } from '@models';
 
 const router = Router();
 
@@ -10,7 +11,6 @@ router.get('/hello', async (req: Request, res: Response) => {
 });
 
 router.get('/', async (req: Request, res: Response) => {
-  console.log(process.env.KEY_OF_FUCKING_SECRET);
   res.status(200).json({
     env: process.env.NODE_ENV,
     message: 'success',

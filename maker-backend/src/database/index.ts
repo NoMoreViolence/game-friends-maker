@@ -1,3 +1,13 @@
-// import * as mongoose from 'mongoose';
+import { connect } from 'mongoose';
+import 'reflect-metadata';
+const { DATABASE_URL } = process.env;
 
-// mongoose.connect('mongodb://localhost:27017/test');
+export default connect(DATABASE_URL as string)
+  .then(() => {
+    console.log('MONGO DB CONNECTED', DATABASE_URL);
+    return true;
+  })
+  .catch(() => {
+    console.log('MONGO DB CONNECT FAILURE', DATABASE_URL);
+    return false;
+  });
