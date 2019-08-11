@@ -56,7 +56,7 @@ const LandingComponent = () => {
           <div>
             <div>
               <MiddleBigSpan color={color.black} weight={'bold'}>
-                Coöperative
+                CoHope
               </MiddleBigSpan>
             </div>
             <div>
