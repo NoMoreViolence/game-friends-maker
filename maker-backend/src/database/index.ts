@@ -1,20 +1,13 @@
+import { connect } from 'mongoose';
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+const { DATABASE_URL } = process.env;
 
-createConnection({
-  database: 'new_gfm_test',
-  entities: [__dirname + '/models/*.model.ts'],
-  host: 'localhost',
-  logging: true,
-  password: process.env.DATABASE_PASSWORD ? process.env.DATABASE_PASSWORD : '',
-  port: 3306,
-  synchronize: true,
-  type: 'mysql',
-  username: process.env.DATABASE_USERNAME ? process.env.DATABASE_USERNAME : ''
-})
-  .then(connection => {
-    console.log('Database connected.');
+export default connect(DATABASE_URL as string)
+  .then(() => {
+    console.log('MONGO DB CONNECTED', DATABASE_URL);
+    return true;
   })
-  .catch(error => {
-    console.log(error);
+  .catch(() => {
+    console.log('MONGO DB CONNECT FAILURE', DATABASE_URL);
+    return false;
   });

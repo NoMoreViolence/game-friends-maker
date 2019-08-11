@@ -1,32 +1,18 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Post } from './post.model';
+import { prop, Typegoose } from 'typegoose';
 
-@Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  public id: number;
+class User extends Typegoose {
+  @prop({ required: true, unique: true })
+  userTokenId!: number;
 
-  @Column({ type: 'varchar', length: 200 })
-  public name: string;
+  @prop({ required: true })
+  name!: string;
 
-  @Column({ type: 'varchar', length: 50 })
-  public email: string;
+  @prop({ required: true })
+  email!: string;
 
-  @Column({ type: 'varchar', length: 200 })
-  public googleId: string;
-
-  @Column({ type: 'varchar', length: 50 })
-  public salt: string;
-
-  @OneToMany(type => Post, post => post.user, { onDelete: 'CASCADE' })
-  public posts: Post[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
-
-  @Column({ type: 'timestamp', default: null })
-  public deletedAt: Date;
+  @prop()
+  googleId?: string;
 }
+const UserModel = new User().getModelForClass(User, { schemaOptions: { timestamps: true } });
+
+export { User, UserModel };
