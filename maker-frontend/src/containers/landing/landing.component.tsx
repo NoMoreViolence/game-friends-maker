@@ -40,7 +40,7 @@ const LandingComponent = () => {
       userActions.register({
         email: basicProfile.getEmail(),
         name: basicProfile.getName(),
-        googleId: authResponse.access_token,
+        googleId: basicProfile.getId(),
         googleIdToken: authResponse.id_token,
       }),
     );

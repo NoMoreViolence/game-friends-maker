@@ -12,7 +12,7 @@ interface RegisterResponse {
 }
 export const registerRequest = (payload: RegisterPayload): Promise<RegisterResponse> =>
   axios
-    .post('/api/sign/register/google', payload, {
+    .post('/api/sign/up/google', payload, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,7 +27,7 @@ interface LoginResponse {
 }
 export const loginRequest = (payload: LoginPayload): Promise<LoginResponse> =>
   axios
-    .post('/api/sign/login/google', payload, {
+    .post('/api/sign/in/google', payload, {
       headers: {
         'Content-Type': 'application/json',
       },
