@@ -53,6 +53,7 @@
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
     "qs": "^6.7.0",
+    "randomstring": "^1.1.5",
     "react": "^16.8.6",
     "react-animate-on-scroll": "^2.1.5",
     "react-app-polyfill": "^1.0.1",
@@ -62,6 +63,7 @@
     "react-google-login": "^5.0.4",
     "react-intl": "^3.0.0-beta.18",
     "react-localization": "^1.0.13",
+    "react-mailchimp-subscribe": "^2.1.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.0",
     "react-router-redux": "^4.0.8",
@@ -93,8 +95,10 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "deploy:prod": "aws s3 sync ./build s3://cohope.io --profile=coop-dev-s3",
+    "clear:prod": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E179967HJCF1UW --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
     "deploy:dev": "aws s3 sync ./build s3://coopnow.net --profile=coop-dev-s3",
-    "clear:dev": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E179967HJCF1UW --paths / /index.html /service-worker.js /manifest.json /favicon.ico"
+    "clear:dev": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E179967HJCF1UW --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -114,7 +118,9 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/qs": "^6.5.3",
+    "@types/randomstring": "^1.1.6",
     "@types/react-animate-on-scroll": "^2.1.2",
+    "@types/react-mailchimp-subscribe": "^2.0.2",
     "@types/react-redux": "^7.1.1",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-transition-group": "^2.9.2",
