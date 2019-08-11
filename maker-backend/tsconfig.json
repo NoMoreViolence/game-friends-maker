@@ -5,6 +5,7 @@
     "paths": {
       "@lib/*": ["lib/*"],
       "@lib": ["lib"],
+      "@helpers": ["helpers"],
       "@models": ["database/models"],
       "@models/*": ["database/models/*"],
       "@database/*": ["database/*"],
@@ -14,7 +15,8 @@
       "@utils/*": ["utils/*"],
       "@utils": ["utils"],
       "@routes/*": ["routes/*"],
-      "@routes": ["routes"]
+      "@routes": ["routes"],
+      "@constants": ["constants"]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
