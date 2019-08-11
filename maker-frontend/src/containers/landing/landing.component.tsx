@@ -19,6 +19,7 @@ import {
 import GoogleLogoSvg from '@svgs/google-logo';
 import ModalComponent from '@components/modal';
 import TermsComponent from '@containers/landing/components/terms';
+import MailChimpComponent from '@components/mail-chimp/mail-chimp.component';
 
 const LandingComponent = () => {
   const { formatMessage } = useIntl();
@@ -92,7 +93,8 @@ const LandingComponent = () => {
             </ScrollAnimation>
           </div>
           <div>
-            <GoogleLogin
+            <MailChimpComponent />
+            {/* <GoogleLogin
               clientId={googleClientKey}
               onSuccess={responseToGoogle}
               onFailure={errorToGoogle}
@@ -118,7 +120,6 @@ const LandingComponent = () => {
                 )
               }
             />
-
             <ScrollAnimation
               animateIn="bounceInRight"
               animateOut="bounceOutRight"
@@ -135,7 +136,7 @@ const LandingComponent = () => {
               >
                 <FormattedMessage id={'landing.startWithGoogleAgree'} />
               </TinySpan>
-            </ScrollAnimation>
+            </ScrollAnimation> */}
           </div>
         </LandingComponentLoginContentDiv>
         <LandingComponentContentDiv backgroundColor={color.white}>

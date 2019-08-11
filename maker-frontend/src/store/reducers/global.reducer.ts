@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { Global } from '@models';
 import { GlobalActions } from '@actions';
 
-const userLang = navigator.language || ((navigator as unknown) as any).userLanguage;
+const userLang = navigator.language || ((navigator as unknown) as { userLanguage: string }).userLanguage;
 const localLang = localStorage.getItem('lang');
 
 const lang =

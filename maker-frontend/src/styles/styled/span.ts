@@ -26,7 +26,7 @@ const returnHover = (hover?: boolean, hoverColor?: string) =>
         color: ${hoverColor ? hoverColor : color.black};
       }`
     : '';
-const returnAlign = (align?: string) => `text-align: ${align ? align : 'unset'}`;
+const returnAlign = (align?: string) => `text-align: ${align ? align : 'unset'};`;
 
 // 10px
 export const TinySpan = styled('span')<SpanProps>`

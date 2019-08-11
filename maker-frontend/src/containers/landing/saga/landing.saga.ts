@@ -79,11 +79,12 @@ function* getMyInfo(action: GetMyInfo) {
     } catch (e) {
       const { error } = getErrorResponse(e);
 
-      if (error.status === HttpStatus.UNAUTHORIZED) {
-        yield all([put(userActions.getMyInfoFailure())]);
-      } else {
-        yield all([put(userActions.getMyInfoFailure())]);
-      }
+      yield all([put(userActions.getMyInfoFailure())]);
+      // if (error.status === HttpStatus.UNAUTHORIZED) {
+      //   yield all([put(userActions.getMyInfoFailure())]);
+      // } else {
+      //   yield all([put(userActions.getMyInfoFailure())]);
+      // }
     }
   }
 }
