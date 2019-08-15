@@ -20,7 +20,8 @@ app.use(
     extended: true,
   }),
 );
-app.use(router);
+app.use('/api', router);
+
 const run = serverlessHttp(app);
 
 export { run };

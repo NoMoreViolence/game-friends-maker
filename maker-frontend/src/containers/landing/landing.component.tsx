@@ -40,7 +40,7 @@ const LandingComponent = () => {
       userActions.register({
         email: basicProfile.getEmail(),
         name: basicProfile.getName(),
-        googleId: authResponse.access_token,
+        googleId: basicProfile.getId(),
         googleIdToken: authResponse.id_token,
       }),
     );
@@ -93,8 +93,8 @@ const LandingComponent = () => {
             </ScrollAnimation>
           </div>
           <div>
-            <MailChimpComponent />
-            {/* <GoogleLogin
+            {/* <MailChimpComponent /> */}
+            <GoogleLogin
               clientId={googleClientKey}
               onSuccess={responseToGoogle}
               onFailure={errorToGoogle}
@@ -136,7 +136,7 @@ const LandingComponent = () => {
               >
                 <FormattedMessage id={'landing.startWithGoogleAgree'} />
               </TinySpan>
-            </ScrollAnimation> */}
+            </ScrollAnimation>
           </div>
         </LandingComponentLoginContentDiv>
         <LandingComponentContentDiv backgroundColor={color.white}>

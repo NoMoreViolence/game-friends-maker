@@ -55,3 +55,5 @@ Thumbs.db
 /maker-backend/.serverless
 /maker-backend/env.yml
 /maker-backend/yarn-error.log
+/maker-backend/.build
+/maker-backend/.webpack
