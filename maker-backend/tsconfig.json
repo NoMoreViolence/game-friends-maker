@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "rootDir": "./",
     "baseUrl": "./src",
-    "outDir": "./dist/",
+    "outDir": "lib",
+    "preserveConstEnums": true,
     "paths": {
       "@lib/*": ["lib/*"],
       "@lib": ["lib"],
@@ -28,7 +30,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "pretty": true,
@@ -41,5 +43,5 @@
     "isolatedModules": false,
     "typeRoots": ["./node_modules/@types", "@types/*"]
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "@types", "dist"]
 }

@@ -4,15 +4,14 @@ service:
 custom:
   env: ${file(./env.yml):${opt:stage, self:provider.stage}}
   webpack:
-    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    webpackConfig: webpack.config.js
     includeModules: true # Node modules configuration for packaging
-    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
-    websocketApiRouteSelectionExpression: $request.body.action
+  websocketApiRouteSelectionExpression: $request.body.action
 
 plugins:
   - serverless-webpack
-  - serverless-websockets-plugin
   - serverless-offline
+  - serverless-websockets-plugin
 
 provider:
   name: aws
@@ -39,11 +38,10 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
-
-  websocketHandler:
-    handler: src/socket/index.connect
-    events:
-      - websocket:
-          routeKey: $connect
-      - websocket:
-          routeKey: $disconnect
+  # websocketHandler:
+  #   handler: dist/src/socket/index.connect
+  #   events:
+  #     - websocket:
+  #         routeKey: $connect
+  #     - websocket:
+  #         routeKey: $disconnect
