@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { zIndex, color, device, shadow } from '@src/styles';
+import { color, device, shadow } from '@src/styles';
 
 export const LandingComponentRootDiv = styled('div')`
   display: flex;

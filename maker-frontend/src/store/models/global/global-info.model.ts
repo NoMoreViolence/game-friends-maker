@@ -1,4 +1,4 @@
-import swal, { SweetAlertType } from 'sweetalert2';
+import { SweetAlertType } from 'sweetalert2';
 import { Lang } from '@models';
 
 export interface CommonAlertInfo {

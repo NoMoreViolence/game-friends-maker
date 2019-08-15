@@ -8,7 +8,7 @@ import { AppState } from '@bootstrap';
 import { Lang } from '@models';
 import { globalActions, userActions } from '@actions';
 import { getLanguageSelector } from '@reducers';
-import { color, SmallSpan, MiddleSpan, MiddleBigSpan, TinySpan, BigSpan, GiantSpan } from '@styles';
+import { color, MiddleSpan, MiddleBigSpan, TinySpan, GiantSpan } from '@styles';
 import {
   LandingComponentRootDiv,
   LandingComponentHeaderDiv,
@@ -19,7 +19,7 @@ import {
 import GoogleLogoSvg from '@svgs/google-logo';
 import ModalComponent from '@components/modal';
 import TermsComponent from '@containers/landing/components/terms';
-import MailChimpComponent from '@components/mail-chimp/mail-chimp.component';
+// import MailChimpComponent from '@components/mail-chimp/mail-chimp.component';
 
 const LandingComponent = () => {
   const { formatMessage } = useIntl();
@@ -46,7 +46,7 @@ const LandingComponent = () => {
     );
   }, []);
   const errorToGoogle = useCallback((response: { error: () => void }) => {
-    // console.log(response);
+    console.log(response);
   }, []);
 
   return (

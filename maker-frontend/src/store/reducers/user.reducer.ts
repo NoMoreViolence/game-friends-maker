@@ -72,5 +72,5 @@ export const getUserStatusSelector = (state: User) => ({
 export const isUserPending = createSelector(
   [getUserStatusSelector],
   (userPendings: { [key: string]: Status }) =>
-    !(Object.values(userPendings).filter(state => state === 'pending').length === 0),
+    Object.values(userPendings).filter(state => state === 'pending').length !== 0,
 );
