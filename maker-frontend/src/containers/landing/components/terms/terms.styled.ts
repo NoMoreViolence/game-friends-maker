@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color, shadow } from '@styles';
+import { color } from '@styles';
 
 export const TermsRootDiv = styled('div')`
   width: calc(350px - 3rem);

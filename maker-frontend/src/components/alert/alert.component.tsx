@@ -45,6 +45,6 @@ const _AlertComponent = (props: Props) => {
   }, []);
   return <></>;
 };
-const AlertComponent = memo(_AlertComponent, (prevProps, nextProps) => false);
+const AlertComponent = memo(_AlertComponent, () => false);
 
 export default AlertComponent;

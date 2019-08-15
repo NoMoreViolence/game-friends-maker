@@ -39,6 +39,6 @@ const _ToastComponent = ({ type, title, text, formatMessage }: Props) => {
   }, []);
   return <></>;
 };
-const ToastComponent = memo(_ToastComponent, (prevProps, nextProps) => false);
+const ToastComponent = memo(_ToastComponent, () => false);
 
 export default ToastComponent;
