@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import * as Joi from '@hapi/joi';
 import { HttpStatusCode } from '@constants';
 import { NewError, getErrorResponse, checkGoogleIdToken, encodeToken } from '@helpers';
-import * as Joi from '@hapi/joi';
 import { UserModel } from '@models';
 
 interface LoginPayload {

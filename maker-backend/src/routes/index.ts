@@ -1,5 +1,4 @@
-import { Router, Request, Response } from 'express';
-import { UserModel } from '@models';
+import { Router } from 'express';
 import { signRouter } from '@routes/sign';
 
 const router = Router();
