@@ -59,13 +59,9 @@ function* login(action: Login) {
         ),
       ]);
     } catch (e) {
-      const { error } = getErrorResponse(e);
+      // const { error } = getErrorResponse(e);
 
-      if (error.status === HttpStatus.CONFLICT) {
-        yield all([put(userActions.loginFailure())]);
-      } else {
-        yield all([put(userActions.loginFailure())]);
-      }
+      yield all([put(userActions.loginFailure())]);
     }
   }
 }
@@ -77,14 +73,14 @@ function* getMyInfo(action: GetMyInfo) {
 
       yield all([put(userActions.getMyInfoSuccess(getMyInfoResponse))]);
     } catch (e) {
-      const { error } = getErrorResponse(e);
+      // const { error } = getErrorResponse(e);
 
       yield all([put(userActions.getMyInfoFailure())]);
-      if (error.status === HttpStatus.UNAUTHORIZED) {
-        yield all([put(userActions.getMyInfoFailure())]);
-      } else {
-        yield all([put(userActions.getMyInfoFailure())]);
-      }
+      // if (error.status === HttpStatus.UNAUTHORIZED) {
+      //   yield all([put(userActions.getMyInfoFailure())]);
+      // } else {
+      //   yield all([put(userActions.getMyInfoFailure())]);
+      // }
     }
   }
 }
