@@ -1,8 +1,8 @@
 import { prop, Typegoose } from 'typegoose';
 
 class User extends Typegoose {
-  @prop({ required: true, unique: true })
-  userTokenId!: number;
+  @prop({ unique: true })
+  userTokenId!: string;
 
   @prop({ required: true })
   name!: string;
