@@ -35,7 +35,7 @@ export const login = async (req: Request, res: Response) => {
       throw new NewError(HttpStatusCode.BAD_REQUEST);
     }
 
-    const token = encodeToken(user._id);
+    const token = encodeToken(user.userTokenId);
 
     res.status(HttpStatusCode.OK).json({
       token,

@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { login } from './controller';
+import { login, register } from './controller';
 
 const signRouter = Router();
 
 signRouter.get('/check');
-signRouter.post('/up/google');
+signRouter.post('/up/google', register);
 signRouter.post('/in/google', login);
 
 export { signRouter };
