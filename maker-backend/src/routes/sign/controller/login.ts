@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import * as Joi from '@hapi/joi';
 import { HttpStatusCode } from '@constants';
 import { NewError, getErrorResponse, checkGoogleIdToken, encodeToken } from '@helpers';
-import * as Joi from '@hapi/joi';
 import { UserModel } from '@models';
 
 interface LoginPayload {
@@ -35,7 +35,7 @@ export const login = async (req: Request, res: Response) => {
       throw new NewError(HttpStatusCode.BAD_REQUEST);
     }
 
-    const token = encodeToken(user._id);
+    const token = encodeToken(user.userTokenId);
 
     res.status(HttpStatusCode.OK).json({
       token,

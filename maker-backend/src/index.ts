@@ -7,8 +7,9 @@ import express = require('express');
 import helmet = require('helmet');
 import morgan = require('morgan');
 import router from '@routes';
-import '@database';
+import { databaseConnect } from '@database';
 
+databaseConnect();
 const app: express.Application = express();
 
 app.use(cors());
