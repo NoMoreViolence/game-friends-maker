@@ -21,6 +21,7 @@ provider:
   environment:
     NODE_ENV: ${self:custom.env.NODE_ENV}
     KEY_OF_FUCKING_SECRET: ${self:custom.env.KEY_OF_FUCKING_SECRET}
+    DATABASE: ${self:custom.env.DATABASE}
     DATABASE_URL: ${self:custom.env.DATABASE_URL}
     GOOGLE_SECRET: ${self:custom.env.GOOGLE_SECRET}
     GOOGLE_CLIENT: ${self:custom.env.GOOGLE_CLIENT}
