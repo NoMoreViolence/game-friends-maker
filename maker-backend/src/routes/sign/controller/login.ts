@@ -41,6 +41,8 @@ export const login = async (req: Request, res: Response) => {
     const token = encodeToken(user.userTokenId);
 
     res.status(HttpStatusCode.OK).json({
+      status: HttpStatusCode.OK,
+      message: 'Login success',
       token,
     });
   } catch (e) {

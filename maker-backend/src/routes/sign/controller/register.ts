@@ -50,6 +50,8 @@ export const register = async (req: Request, res: Response) => {
     const token = encodeToken(userTokenId);
 
     res.status(HttpStatusCode.CREATED).json({
+      status: HttpStatusCode.CREATED,
+      message: 'Register success',
       token,
     });
   } catch (e) {

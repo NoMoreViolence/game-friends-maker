@@ -16,6 +16,7 @@ export const check = async (req: Request, res: Response) => {
 
     const { email, name } = user;
     res.status(HttpStatusCode.OK).json({
+      status: HttpStatusCode.OK,
       message: 'Check success',
       value: {
         name,
