@@ -1,14 +1,12 @@
 import { AxiosResponse } from 'axios';
 import { detectEnvironment } from '@constants';
+import { HttpCommonResponse } from '@models';
 import { RegisterPayload, LoginPayload, GetMyInfoPayload, GetMyInfoSuccessPayload } from '@actions';
 
 const axios = detectEnvironment();
 
-interface RegisterResponse {
-  expiresIn: number;
+interface RegisterResponse extends HttpCommonResponse {
   token: string;
-  message: string;
-  status: number;
 }
 export const registerRequest = (payload: RegisterPayload): Promise<RegisterResponse> =>
   axios
@@ -19,11 +17,8 @@ export const registerRequest = (payload: RegisterPayload): Promise<RegisterRespo
     })
     .then((res: AxiosResponse<RegisterResponse>) => res.data);
 
-interface LoginResponse {
-  expiresIn: number;
+interface LoginResponse extends HttpCommonResponse {
   token: string;
-  message: string;
-  status: number;
 }
 export const loginRequest = (payload: LoginPayload): Promise<LoginResponse> =>
   axios
@@ -34,10 +29,7 @@ export const loginRequest = (payload: LoginPayload): Promise<LoginResponse> =>
     })
     .then((res: AxiosResponse<LoginResponse>) => res.data);
 
-interface GetMyInfoResponse extends GetMyInfoSuccessPayload {
-  message: string;
-  status: number;
-}
+interface GetMyInfoResponse extends GetMyInfoSuccessPayload, HttpCommonResponse {}
 export const getMyInfoRequest = (payload: GetMyInfoPayload): Promise<GetMyInfoResponse> =>
   axios
     .get('/api/sign/check', {

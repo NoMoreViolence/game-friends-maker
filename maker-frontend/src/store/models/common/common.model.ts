@@ -10,14 +10,10 @@ export interface GoogleTokenPayload {
 }
 
 export interface ErrorResponse {
-  error: {
-    message: string;
-    status: number;
-  };
+  error: HttpCommonResponse;
 }
 
 export interface HttpCommonResponse {
-  error: boolean;
   message: string;
   status: number;
 }
