@@ -1,18 +1,31 @@
-import { prop, Typegoose } from 'typegoose';
+import { Column, CreateDateColumn, Entity, UpdateDateColumn, ObjectIdColumn } from 'typeorm';
+import { generateUUID } from 'helpers/uuid';
 
-class User extends Typegoose {
-  @prop({ unique: true })
-  userTokenId!: string;
+@Entity({ name: 'users' })
+class User {
+  @ObjectIdColumn({ name: '_id' })
+  id: string = generateUUID();
 
-  @prop({ required: true })
-  name!: string;
+  @Column()
+  userTokenId: string;
 
-  @prop({ required: true })
-  email!: string;
+  @Column()
+  name: string;
 
-  @prop()
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
   googleId?: string;
-}
-const UserModel = new User().getModelForClass(User, { schemaOptions: { timestamps: true } });
 
-export { User, UserModel };
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
+
+  @Column({ type: 'timestamp', default: null })
+  deletedAt: Date;
+}
+
+export { User };

@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
+import { getMongoManager } from 'typeorm';
 import * as Joi from '@hapi/joi';
 import { HttpStatusCode } from '@constants';
+import { User } from '@models';
 import { NewError, getErrorResponse, checkGoogleIdToken, encryption, encodeToken } from '@helpers';
-import { UserModel } from '@models';
 
 interface RegisterPayload {
   name: string;
@@ -20,6 +21,8 @@ const body = Joi.object({
 
 export const register = async (req: Request, res: Response) => {
   try {
+    const userRepo = getMongoManager().getRepository(User);
+
     const { error, value } = body.validate(req.body as RegisterPayload);
     if (error) {
       throw new NewError(HttpStatusCode.BAD_REQUEST);
@@ -30,20 +33,19 @@ export const register = async (req: Request, res: Response) => {
       throw new NewError(HttpStatusCode.UNAUTHORIZED);
     }
 
-    const user = await UserModel.findOne({ googleId: value.googleId });
+    const user = await userRepo.findOne({ googleId: value.googleId });
     if (user) {
       throw new NewError(HttpStatusCode.CONFLICT);
     }
 
-    const createdUser = await UserModel.create({
+    const createdUser = await userRepo.save({
       name: value.name,
       email: value.email,
       googleId: value.googleId,
     });
-    const userTokenId = encryption(createdUser._id.toString());
-    await createdUser.update({
-      userTokenId,
-    });
+
+    const userTokenId = encryption(createdUser.id.toString());
+    await userRepo.update(createdUser, { userTokenId });
 
     const token = encodeToken(userTokenId);
 
