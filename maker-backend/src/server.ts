@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import serverless from 'serverless-http';
+import { getConnectionManager } from 'typeorm';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -17,8 +18,13 @@ class Server {
 
   public ensureDb = (): Promise<void> =>
     new Promise((resolve, reject) => {
-      let counter = 0;
+      const manager = getConnectionManager();
 
+      if (manager.connections.length !== 0 && manager.connections[0].isConnected === true) {
+        return resolve();
+      }
+
+      let counter = 0;
       const tryConnect = async () => {
         const db = await databaseConnect();
         if (db.success === true) {

@@ -4,12 +4,11 @@ import { User } from '@models';
 
 export const databaseConnect = (): Promise<{ success: boolean; alreadyHasConnection: boolean }> =>
   createConnection({
-    entities: [User],
-    database: process.env.DATABASE,
     logging: true,
+    entities: [User],
     synchronize: true,
-    port: 27017,
     type: 'mongodb',
+    url: process.env.DATABASE_URL,
   })
     .then(() => {
       console.log('MONGO CONNECTED');
