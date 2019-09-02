@@ -10,7 +10,6 @@ export interface Register extends Action {
 }
 export interface RegisterSuccessPayload {
   token: string;
-  expiresIn: number;
 }
 export interface RegisterSuccess extends Action {
   readonly type: UserActionTypes.REGISTER_SUCCESS;

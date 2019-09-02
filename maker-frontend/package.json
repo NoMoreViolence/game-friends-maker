@@ -1,5 +1,5 @@
 {
-  "name": "maker-frontend",
+  "name": "cohope-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -61,6 +61,7 @@
     "react-dom": "^16.8.6",
     "react-epic-spinners": "^0.3.0",
     "react-google-login": "^5.0.4",
+    "react-helmet": "^5.2.1",
     "react-intl": "^3.0.0-beta.18",
     "react-localization": "^1.0.13",
     "react-mailchimp-subscribe": "^2.1.0",
@@ -120,6 +121,7 @@
     "@types/qs": "^6.5.3",
     "@types/randomstring": "^1.1.6",
     "@types/react-animate-on-scroll": "^2.1.2",
+    "@types/react-helmet": "^5.0.9",
     "@types/react-mailchimp-subscribe": "^2.0.2",
     "@types/react-redux": "^7.1.1",
     "@types/react-router-dom": "^4.3.4",

@@ -1,4 +1,4 @@
-import { NewError, ErrorReturn } from './error';
+import { NewError, ErrorReturn } from '@helpers';
 
 export const getErrorResponse = (e: unknown): ErrorReturn => {
   if (e instanceof NewError) {

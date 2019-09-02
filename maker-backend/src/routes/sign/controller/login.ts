@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
+import { getMongoManager } from 'typeorm';
 import * as Joi from '@hapi/joi';
 import { HttpStatusCode } from '@constants';
+import { User } from '@models';
 import { NewError, getErrorResponse, checkGoogleIdToken, encodeToken } from '@helpers';
-import { UserModel } from '@models';
 
 interface LoginPayload {
   name: string;
@@ -20,6 +21,8 @@ const body = Joi.object({
 
 export const login = async (req: Request, res: Response) => {
   try {
+    const userRepo = getMongoManager().getRepository(User);
+
     const { error, value } = body.validate(req.body as LoginPayload);
     if (error) {
       throw new NewError(HttpStatusCode.BAD_REQUEST);
@@ -30,7 +33,7 @@ export const login = async (req: Request, res: Response) => {
       throw new NewError(HttpStatusCode.UNAUTHORIZED);
     }
 
-    const user = await UserModel.findOne({ googleId: value.googleId });
+    const user = await userRepo.findOne({ googleId: value.googleId });
     if (!user) {
       throw new NewError(HttpStatusCode.BAD_REQUEST);
     }
@@ -38,6 +41,8 @@ export const login = async (req: Request, res: Response) => {
     const token = encodeToken(user.userTokenId);
 
     res.status(HttpStatusCode.OK).json({
+      status: HttpStatusCode.OK,
+      message: 'Login success',
       token,
     });
   } catch (e) {

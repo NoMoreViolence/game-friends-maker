@@ -1,28 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-import * as bodyParser from 'body-parser';
-import serverlessHttp = require('serverless-http');
-import cors = require('cors');
-import express = require('express');
-import helmet = require('helmet');
-import morgan = require('morgan');
-import router from '@routes';
-import { databaseConnect } from '@database';
+import { Server } from './server';
 
-databaseConnect();
-const app: express.Application = express();
+const server: Server = new Server();
 
-app.use(cors());
-app.use(helmet());
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  }),
-);
-app.use('/api', router);
-
-const run = serverlessHttp(app);
-
-export { run };
+export const run = server.serverless();

@@ -8,7 +8,6 @@ export const userInitialState: User = {
     email: '',
     name: 'NodeMasterLee',
     token: '',
-    expiresIn: 0,
   },
   userLoaderStatus: {
     loginStatus: 'initial',
@@ -28,7 +27,6 @@ export const userReducer = (state: User = userInitialState, action: UserActions)
       case 'REGISTER_SUCCESS':
         draft.userLoaderStatus.registerStatus = 'success';
         draft.userLoaderStatus.loginStatus = 'success';
-        draft.userInfo.expiresIn = action.payload.expiresIn;
         draft.userInfo.token = action.payload.token;
         break;
       case 'REGISTER_FAILURE':
@@ -40,7 +38,6 @@ export const userReducer = (state: User = userInitialState, action: UserActions)
         break;
       case 'LOGIN_SUCCESS':
         draft.userLoaderStatus.loginStatus = 'success';
-        draft.userInfo.expiresIn = action.payload.expiresIn;
         draft.userInfo.token = action.payload.token;
         break;
       case 'LOGIN_FAILURE':

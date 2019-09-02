@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { NewError } from './error';
 import { HttpStatusCode } from '@constants';
+import { NewError } from '@helpers';
 
 interface GoogleTokenResponse {
   name: string;
