@@ -1,5 +1,9 @@
-import { MessageDescriptor, MessageFormatPrimitiveValue } from 'react-intl';
+import { MessageDescriptor } from 'react-intl';
+import { PrimitiveType, FormatXMLElementFn } from 'intl-messageformat';
 
 export interface IntlProps {
-  formatMessage(descriptor: MessageDescriptor, values?: Record<string, MessageFormatPrimitiveValue>): string;
+  formatMessage(
+    descriptor: MessageDescriptor,
+    values?: Record<string, PrimitiveType | React.ReactElement | FormatXMLElementFn>,
+  ): string;
 }
