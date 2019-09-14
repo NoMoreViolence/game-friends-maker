@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { device } from '@styles';
 
-export const Landing01RootDiv = styled('div')`
+export const Landing02RootDiv = styled('div')`
   flex: 1;
   box-sizing: border-box;
   width: 100%;
@@ -13,21 +13,21 @@ export const Landing01RootDiv = styled('div')`
     padding: 2rem;
   }
   @media screen and ${device.mobileToLaptop} {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 `;
 
-export const Landing01TextDiv = styled('div')`
+export const Landing02TextDiv = styled('div')`
   flex-basis: calc(100% - 2.5rem);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 
-  padding-right: 2.5rem;
+  padding-left: 2.5rem;
 
   @media screen and ${device.mobileToLaptop} {
-    padding-right: unset;
+    padding-left: unset;
     flex-basis: 100%;
   }
 
@@ -43,11 +43,10 @@ export const Landing01TextDiv = styled('div')`
     flex-direction: column;
 
     margin-top: 0.75rem;
-    margin-bottom: 4rem;
   }
 `;
 
-export const Landing01ImageDiv = styled('div')`
+export const Landing02ImageDiv = styled('div')`
   box-sizing: border-box;
   flex-basis: calc(100% - 2.5rem);
   display: flex;
@@ -56,8 +55,8 @@ export const Landing01ImageDiv = styled('div')`
 
   padding-top: 5rem;
   padding-bottom: 5rem;
-  padding-left: 2.5rem;
-  padding-right: unset;
+  padding-right: 2.5rem;
+  padding-left: unset;
   @media screen and ${device.mobileToLaptop} {
     flex-basis: calc(100% - 3rem);
     padding: 1.5rem;

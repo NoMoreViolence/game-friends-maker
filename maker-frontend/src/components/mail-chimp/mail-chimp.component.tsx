@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { MailChimpFormRootDiv } from './mail-chimp.styled';
 import MailchimpSubscribe, { FormHooks, EmailFormFields } from 'react-mailchimp-subscribe';
 import { FormattedMessage } from 'react-intl';
-import { MiddleBigSpan, SmallMiddleSpan, MiddleInput, MiddleSpan, color, MiddleButton } from '@styles';
+import { Span1D5rem, SpanD875rem, MiddleInput, Span1rem, color, Button1rem } from '@styles';
 import { useDebounce } from '@helpers';
 import { emailRegex, isEnterTyped } from '@utils';
 
@@ -44,33 +44,33 @@ const MailChimpForm = ({ subscribe, status, message }: FormHooks<EmailFormFields
   return (
     <MailChimpFormRootDiv>
       <div className="title">
-        <MiddleBigSpan>
+        <Span1D5rem>
           <FormattedMessage id={'mailchimp.title'} />
-        </MiddleBigSpan>
-        <SmallMiddleSpan>
+        </Span1D5rem>
+        <SpanD875rem>
           <FormattedMessage id={'mailchimp.comment'} />
-        </SmallMiddleSpan>
+        </SpanD875rem>
       </div>
 
       {status === 'error' && (
         <div>
-          <MiddleSpan
+          <Span1rem
             align={'center'}
             dangerouslySetInnerHTML={message ? { __html: message } : { __html: 'awefawef' }}
             color={color.error}
-          ></MiddleSpan>
+          ></Span1rem>
         </div>
       )}
 
       {status === 'sending' && (
         <div>
-          <MiddleSpan color={'skyblue'}>Loading ...</MiddleSpan>
+          <Span1rem color={'skyblue'}>Loading ...</Span1rem>
         </div>
       )}
 
       {status === 'success' && (
         <div>
-          <MiddleSpan color={'green'}>Thank you for subscribing</MiddleSpan>
+          <Span1rem color={'green'}>Thank you for subscribing</Span1rem>
         </div>
       )}
 
@@ -84,9 +84,9 @@ const MailChimpForm = ({ subscribe, status, message }: FormHooks<EmailFormFields
           />
         </div>
         <div>
-          <MiddleButton disabled={isEmailError} onClick={subScribe}>
+          <Button1rem disabled={isEmailError} onClick={subScribe}>
             Subscribe
-          </MiddleButton>
+          </Button1rem>
         </div>
       </div>
     </MailChimpFormRootDiv>

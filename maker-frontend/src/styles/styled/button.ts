@@ -1,60 +1,80 @@
 import styled, { css } from 'styled-components';
 import { color } from './color';
 import { device } from './media';
-import { shadow } from './shadow';
+import { SpanProps } from './span';
 
-interface ButtonProps {
-  weight?: string;
-  color?: string;
-  border?: string;
-  error?: boolean;
+const { white } = color;
+
+export interface ButtonProps extends SpanProps {
+  hover?: boolean;
+
+  backgroundColor?: string;
+  hoverBackgroundColor?: string;
+
+  borderColor?: string;
+  hoverBorderColor?: string;
+
+  cursor?: string;
+  transition?: boolean;
 }
 
 const CommonButtonStyle = css`
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-
-  border: 0px;
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-
-  transition: 0.25s;
-
-  box-shadow: ${shadow.default};
-  &:hover {
-    cursor: pointer;
-    box-shadow: ${shadow.hover};
-  }
-
-  &:disabled {
-    cursor: unset;
-    background-color: ${color.loadingBackground};
-    box-shadow: ${shadow.default};
-  }
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  background-color: white;
 `;
+const returnStyle = ({
+  hover,
+  color,
+  hoverColor,
+  backgroundColor,
+  hoverBackgroundColor,
+  borderColor,
+  hoverBorderColor,
+  cursor,
+  transition,
 
-const returnOnError = (onError?: boolean) =>
-  `${
-    onError === true
-      ? `
-        color: ${color.error};
-        &::placeholder {
-          color: ${color.error};
-        };
-      `
-      : `
-      `
-  }`;
-const returnColor = (returnColor?: string) => `color: ${returnColor ? returnColor : color['text-default']};`;
-const returnWeight = (weight?: string) => `font-weight: ${weight ? weight : 'normal'};`;
-// 10px
-export const TinyButton = styled('button')<ButtonProps>`
+  nowrap,
+  align,
+  weight,
+  fontStretch,
+  fontStyle,
+  lineHeight,
+  letterSpacing,
+}: ButtonProps) =>
+  `
+    cursor: ${cursor ? cursor : 'unset'};
+
+    white-space: ${nowrap ? 'nowrap' : 'unset'};
+    font-weight: ${weight ? weight : 'normal'};
+    text-align: ${align ? align : 'unset'};
+    font-style: ${fontStyle ? fontStyle : 'normal'};
+    font-stretch: ${fontStretch ? fontStretch : 'normal'};
+    line-height: ${lineHeight ? lineHeight : 'normal'};
+    letter-spacing: ${letterSpacing ? letterSpacing : 'normal'};
+
+    color: ${color ? color : white};
+    border-color: ${borderColor ? borderColor : white};
+    background-color: ${backgroundColor ? backgroundColor : white};
+    ${
+      hover
+        ? `&:hover {
+        color: ${hoverColor ? hoverColor : white};
+        border-color: ${hoverBorderColor ? hoverBorderColor : white};
+        background-color: ${hoverBackgroundColor ? hoverBackgroundColor : white};
+      }`
+        : ''
+    }
+
+    ${typeof transition === 'boolean' && transition === true ? 'transition: 0.25s;' : 'transition: unset;'}
+  `;
+
+// 4px
+export const ButtonD4rem = styled('button')<ButtonProps>`
   ${CommonButtonStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnOnError(p.error)}
+  ${p => returnStyle(p)};
+  padding: 0.25rem;
 
   font-size: 0.625rem;
 
@@ -63,12 +83,11 @@ export const TinyButton = styled('button')<ButtonProps>`
   }
 `;
 
-// 12px
-export const SmallButton = styled('button')<ButtonProps>`
+// 8px
+export const ButtonD5rem = styled('button')<ButtonProps>`
   ${CommonButtonStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnOnError(p.error)}
+  ${p => returnStyle(p)};
+  padding: 0.5rem;
 
   font-size: 0.75rem;
 
@@ -77,12 +96,11 @@ export const SmallButton = styled('button')<ButtonProps>`
   }
 `;
 
-// 14px
-export const SmallMiddleButton = styled('button')<ButtonProps>`
+// 12px
+export const ButtonD75rem = styled('button')<ButtonProps>`
   ${CommonButtonStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnOnError(p.error)}
+  ${p => returnStyle(p)};
+  padding: 0.75rem;
 
   font-size: 0.875rem;
 
@@ -92,11 +110,10 @@ export const SmallMiddleButton = styled('button')<ButtonProps>`
 `;
 
 // 16px
-export const MiddleButton = styled('button')<ButtonProps>`
+export const Button1rem = styled('button')<ButtonProps>`
   ${CommonButtonStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnOnError(p.error)}
+  ${p => returnStyle(p)};
+  padding: 1rem;
 
   font-size: 1rem;
 
@@ -105,12 +122,11 @@ export const MiddleButton = styled('button')<ButtonProps>`
   }
 `;
 
-// 24px
-export const MiddleBigButton = styled('button')<ButtonProps>`
+// 20px
+export const Button1D25rem = styled('button')<ButtonProps>`
   ${CommonButtonStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnOnError(p.error)}
+  ${p => returnStyle(p)};
+  padding: 1.25rem;
 
   font-size: 1.5rem;
 
@@ -119,12 +135,11 @@ export const MiddleBigButton = styled('button')<ButtonProps>`
   }
 `;
 
-// 32px
-export const BigButton = styled('button')<ButtonProps>`
+// 24px
+export const Button1D5rem = styled('button')<ButtonProps>`
   ${CommonButtonStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnOnError(p.error)}
+  ${p => returnStyle(p)};
+  padding: 1.5rem;
 
   font-size: 2rem;
 
@@ -133,16 +148,28 @@ export const BigButton = styled('button')<ButtonProps>`
   }
 `;
 
-// 32px
-export const GiantButton = styled('button')<ButtonProps>`
+// 28px
+export const Button1D75rem = styled('button')<ButtonProps>`
   ${CommonButtonStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnOnError(p.error)}
+  ${p => returnStyle(p)};
+  padding: 1.75rem;
 
   font-size: 3rem;
 
   @media screen and ${device.mobileToTablet} {
     font-size: 1.5rem;
+  }
+`;
+
+// 32px
+export const Button2rem = styled('button')<ButtonProps>`
+  ${CommonButtonStyle};
+  ${p => returnStyle(p)};
+  padding: 2rem;
+
+  font-size: 4rem;
+
+  @media screen and ${device.mobileToTablet} {
+    font-size: 2rem;
   }
 `;

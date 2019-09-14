@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { LandingHeaderRootDiv } from './landing-header.styled';
-import { MiddleSpan, MiddleBigSpan } from '@styles';
+import { Span1rem, Span1D5rem } from '@styles';
 import { NavLink } from 'react-router-dom';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { AppState } from '@bootstrap';
@@ -42,20 +42,20 @@ const LandingHeaderComponent = () => {
     <LandingHeaderRootDiv>
       <NavLink className="logo" to="/">
         <img src="/images/icons/cohope-icon.svg" alt="Main logo icon" width="24px" height="24px" />
-        <MiddleBigSpan weight={'900'}>CoHope</MiddleBigSpan>
+        <Span1D5rem weight={'900'}>CoHope</Span1D5rem>
       </NavLink>
 
       <div className="lang">
-        <MiddleSpan transition={false} onClick={() => changeLang('ko')} {...getLangStyleProps('ko')}>
+        <Span1rem transition={false} onClick={() => changeLang('ko')} {...getLangStyleProps('ko')}>
           KOR
-        </MiddleSpan>
-        <MiddleSpan transition={false} weight={'normal'}>
+        </Span1rem>
+        <Span1rem transition={false} weight={'normal'}>
           {' '}
           /{' '}
-        </MiddleSpan>
-        <MiddleSpan transition={false} onClick={() => changeLang('en')} {...getLangStyleProps('en')}>
+        </Span1rem>
+        <Span1rem transition={false} onClick={() => changeLang('en')} {...getLangStyleProps('en')}>
           ENG
-        </MiddleSpan>
+        </Span1rem>
       </div>
     </LandingHeaderRootDiv>
   );

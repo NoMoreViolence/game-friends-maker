@@ -4,13 +4,15 @@ import { device } from './media';
 
 const { black } = color;
 
-interface SpanProps {
+export interface SpanProps {
   weight?: string;
   color?: string;
   cursor?: string;
   hover?: boolean;
   hoverColor?: string;
   align?: string;
+
+  nowrap?: boolean;
   transition?: boolean;
   fontStyle?: string | number;
   fontStretch?: string | number;
@@ -26,6 +28,7 @@ const returnStyle = ({
   hover,
   hoverColor,
   align,
+  nowrap,
   transition,
   fontStretch,
   fontStyle,
@@ -43,16 +46,17 @@ const returnStyle = ({
       }`
         : ''
     }
+    white-space: ${nowrap ? 'nowrap' : 'unset'};
     text-align: ${align ? align : 'unset'};
     font-style: ${fontStyle ? fontStyle : 'normal'};
     font-stretch: ${fontStretch ? fontStretch : 'normal'};
     line-height: ${lineHeight ? lineHeight : 'normal'};
     letter-spacing: ${letterSpacing ? letterSpacing : 'normal'};
-    ${typeof transition === 'boolean' && transition === false ? 'transition: unset;' : 'transition: 0.25s;'}
+    ${typeof transition === 'boolean' && transition === true ? 'transition: 0.25s;' : 'transition: unset;'}
   `;
 
 // 10px
-export const TinySpan = styled('span')<SpanProps>`
+export const SpanD625rem = styled('span')<SpanProps>`
   ${commonSpanStyle};
   ${p => returnStyle(p)}
 
@@ -64,7 +68,7 @@ export const TinySpan = styled('span')<SpanProps>`
 `;
 
 // 12px
-export const SmallSpan = styled('span')<SpanProps>`
+export const SpanD75rem = styled('span')<SpanProps>`
   ${commonSpanStyle};
   ${p => returnStyle(p)}
 
@@ -76,7 +80,7 @@ export const SmallSpan = styled('span')<SpanProps>`
 `;
 
 // 14px
-export const SmallMiddleSpan = styled('span')<SpanProps>`
+export const SpanD875rem = styled('span')<SpanProps>`
   ${commonSpanStyle};
   ${p => returnStyle(p)}
 
@@ -88,7 +92,7 @@ export const SmallMiddleSpan = styled('span')<SpanProps>`
 `;
 
 // 16px
-export const MiddleSpan = styled('span')<SpanProps>`
+export const Span1rem = styled('span')<SpanProps>`
   ${commonSpanStyle};
   ${p => returnStyle(p)}
 
@@ -100,7 +104,7 @@ export const MiddleSpan = styled('span')<SpanProps>`
 `;
 
 // 24px
-export const MiddleBigSpan = styled('span')<SpanProps>`
+export const Span1D5rem = styled('span')<SpanProps>`
   ${commonSpanStyle};
   ${p => returnStyle(p)}
 
@@ -112,7 +116,7 @@ export const MiddleBigSpan = styled('span')<SpanProps>`
 `;
 
 // 32px
-export const BigSpan = styled('span')<SpanProps>`
+export const Span2rem = styled('span')<SpanProps>`
   ${commonSpanStyle};
   ${p => returnStyle(p)}
 
@@ -123,8 +127,8 @@ export const BigSpan = styled('span')<SpanProps>`
   }
 `;
 
-// 32px
-export const GiantSpan = styled('span')<SpanProps>`
+// 48px
+export const Span3rem = styled('span')<SpanProps>`
   ${commonSpanStyle};
   ${p => returnStyle(p)}
 
@@ -132,5 +136,17 @@ export const GiantSpan = styled('span')<SpanProps>`
 
   @media screen and ${device.mobileToTablet} {
     font-size: 1.5rem;
+  }
+`;
+
+// 48px
+export const Span4rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
+
+  font-size: 4rem;
+
+  @media screen and ${device.mobileToTablet} {
+    font-size: 2rem;
   }
 `;

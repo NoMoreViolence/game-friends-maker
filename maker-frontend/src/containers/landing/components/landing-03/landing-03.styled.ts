@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { device } from '@styles';
 
-export const Landing01RootDiv = styled('div')`
+export const Landing03RootDiv = styled('div')`
   flex: 1;
   box-sizing: border-box;
   width: 100%;
@@ -17,7 +17,7 @@ export const Landing01RootDiv = styled('div')`
   }
 `;
 
-export const Landing01TextDiv = styled('div')`
+export const Landing03TextDiv = styled('div')`
   flex-basis: calc(100% - 2.5rem);
   display: flex;
   flex-direction: column;
@@ -43,11 +43,10 @@ export const Landing01TextDiv = styled('div')`
     flex-direction: column;
 
     margin-top: 0.75rem;
-    margin-bottom: 4rem;
   }
 `;
 
-export const Landing01ImageDiv = styled('div')`
+export const Landing03ImageDiv = styled('div')`
   box-sizing: border-box;
   flex-basis: calc(100% - 2.5rem);
   display: flex;
