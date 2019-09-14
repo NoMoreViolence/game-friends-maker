@@ -14,6 +14,11 @@ export const landingLocale = {
     'landing.feature.2.sub.1': '있어요, 여기 있습니다.',
     'landing.feature.2.sub.2': '랭크 티어 올릴 팀원 구하기, 정말 쉽습니다.',
 
+    'landing.want.this.service?': '마음에 드신가요 ?',
+    'landing.wait.1': '다 만들어지면 알려드리겠습니다!',
+    'landing.wait.2': ' 아래 빈칸에 이메일을 적어주세요.',
+    'landing.wait.3': '개발현황과 더 많은 소식을 알려드리겠습니다!',
+
     'landing.subscribe': '구독하기',
   },
   en: {
@@ -30,6 +35,11 @@ export const landingLocale = {
     'landing.feature.2.title': 'Is there any OP for play with me ?',
     'landing.feature.2.sub.1': 'Yes ! There is exist in CoHope.',
     'landing.feature.2.sub.2': 'So Easy to find OP',
+
+    'landing.want.this.service?': 'This site is Cool, Am I right ?',
+    'landing.wait.1': "We'll let you know when it's done! ",
+    'landing.wait.2': 'Please write your email in the space below.',
+    'landing.wait.3': 'We will inform the development status and more news!',
 
     'landing.subscribe': 'Subscribe',
   },

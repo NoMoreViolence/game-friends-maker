@@ -11,6 +11,7 @@ export interface SpanProps {
   hover?: boolean;
   hoverColor?: string;
   align?: string;
+  padding?: string;
 
   nowrap?: boolean;
   transition?: boolean;
@@ -22,6 +23,7 @@ export interface SpanProps {
 
 const commonSpanStyle = css``;
 const returnStyle = ({
+  padding,
   color,
   cursor,
   weight,
@@ -36,6 +38,7 @@ const returnStyle = ({
   letterSpacing,
 }: SpanProps) =>
   `
+    ${padding ? `padding: ${padding};` : ''}
     color: ${color ? color : black};
     cursor: ${cursor ? 'pointer' : 'unset'};
     font-weight: ${weight ? weight : 'normal'};
@@ -61,7 +64,6 @@ export const SpanD625rem = styled('span')<SpanProps>`
   ${p => returnStyle(p)}
 
   font-size: 0.625rem;
-
   @media screen and ${device.mobileToTablet} {
     font-size: 0.5rem;
   }
@@ -112,6 +114,18 @@ export const Span1D5rem = styled('span')<SpanProps>`
 
   @media screen and ${device.mobileToTablet} {
     font-size: 1rem;
+  }
+`;
+
+// 28px
+export const Span1D75rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
+
+  font-size: 1.75rem;
+
+  @media screen and ${device.mobileToTablet} {
+    font-size: 1.25rem;
   }
 `;
 

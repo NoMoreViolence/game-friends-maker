@@ -34,6 +34,7 @@ const returnStyle = ({
   hoverBorderColor,
   cursor,
   transition,
+  padding,
 
   nowrap,
   align,
@@ -45,6 +46,7 @@ const returnStyle = ({
 }: ButtonProps) =>
   `
     cursor: ${cursor ? cursor : 'unset'};
+    ${padding ? `padding: ${padding};` : ''}
 
     white-space: ${nowrap ? 'nowrap' : 'unset'};
     font-weight: ${weight ? weight : 'normal'};
@@ -72,104 +74,96 @@ const returnStyle = ({
 
 // 4px
 export const ButtonD4rem = styled('button')<ButtonProps>`
-  ${CommonButtonStyle};
-  ${p => returnStyle(p)};
   padding: 0.25rem;
-
   font-size: 0.625rem;
-
   @media screen and ${device.mobileToTablet} {
     font-size: 0.5rem;
   }
+
+  ${CommonButtonStyle};
+  ${p => returnStyle(p)};
 `;
 
 // 8px
 export const ButtonD5rem = styled('button')<ButtonProps>`
-  ${CommonButtonStyle};
-  ${p => returnStyle(p)};
   padding: 0.5rem;
-
   font-size: 0.75rem;
-
   @media screen and ${device.mobileToTablet} {
     font-size: 0.625rem;
   }
+
+  ${CommonButtonStyle};
+  ${p => returnStyle(p)};
 `;
 
 // 12px
 export const ButtonD75rem = styled('button')<ButtonProps>`
-  ${CommonButtonStyle};
-  ${p => returnStyle(p)};
   padding: 0.75rem;
-
   font-size: 0.875rem;
-
   @media screen and ${device.mobileToTablet} {
     font-size: 0.75rem;
   }
+
+  ${CommonButtonStyle};
+  ${p => returnStyle(p)};
 `;
 
 // 16px
 export const Button1rem = styled('button')<ButtonProps>`
-  ${CommonButtonStyle};
-  ${p => returnStyle(p)};
   padding: 1rem;
-
   font-size: 1rem;
-
   @media screen and ${device.mobileToTablet} {
     font-size: 0.875rem;
   }
+
+  ${CommonButtonStyle};
+  ${p => returnStyle(p)};
 `;
 
 // 20px
 export const Button1D25rem = styled('button')<ButtonProps>`
-  ${CommonButtonStyle};
-  ${p => returnStyle(p)};
   padding: 1.25rem;
-
   font-size: 1.5rem;
-
   @media screen and ${device.mobileToTablet} {
     font-size: 1rem;
   }
+
+  ${CommonButtonStyle};
+  ${p => returnStyle(p)};
 `;
 
 // 24px
 export const Button1D5rem = styled('button')<ButtonProps>`
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  @media screen and ${device.mobileToTablet} {
+    font-size: 1rem;
+  }
+
   ${CommonButtonStyle};
   ${p => returnStyle(p)};
-  padding: 1.5rem;
-
-  font-size: 2rem;
-
-  @media screen and ${device.mobileToTablet} {
-    font-size: 1.5rem;
-  }
 `;
 
 // 28px
 export const Button1D75rem = styled('button')<ButtonProps>`
+  padding: 1.75rem;
+  font-size: 1.75rem;
+  @media screen and ${device.mobileToTablet} {
+    font-size: 1.25rem;
+  }
+
   ${CommonButtonStyle};
   ${p => returnStyle(p)};
-  padding: 1.75rem;
-
-  font-size: 3rem;
-
-  @media screen and ${device.mobileToTablet} {
-    font-size: 1.5rem;
-  }
 `;
 
 // 32px
 export const Button2rem = styled('button')<ButtonProps>`
+  padding: 2rem;
+  font-size: 2rem;
+  @media screen and ${device.mobileToTablet} {
+    font-size: 1.5rem;
+  }
+
   ${CommonButtonStyle};
   ${p => returnStyle(p)};
-  padding: 2rem;
-
-  font-size: 4rem;
-
-  @media screen and ${device.mobileToTablet} {
-    font-size: 2rem;
-  }
 `;

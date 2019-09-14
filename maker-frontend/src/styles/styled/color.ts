@@ -23,6 +23,7 @@ export const color = {
   transparent: 'transparent',
 
   yellow: '#FFDC00',
+  skyBlue: '#7fdbff',
 
   ...background,
 };

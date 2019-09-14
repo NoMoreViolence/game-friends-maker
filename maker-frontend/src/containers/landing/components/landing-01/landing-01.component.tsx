@@ -6,6 +6,10 @@ import { Span1D5rem, Button1D25rem, color, Span4rem } from '@styles';
 import { Landing01RootDiv, Landing01TextDiv, Landing01ImageDiv } from './landing-01.styled';
 
 const Landing01Component = () => {
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  };
+
   return (
     <Landing01RootDiv>
       <Landing01TextDiv>
@@ -39,6 +43,7 @@ const Landing01Component = () => {
             borderColor={color.black}
             hoverBorderColor={color.black}
             transition={true}
+            onClick={scrollToBottom}
           >
             <FormattedMessage id={'landing.subscribe'} />
           </Button1D25rem>
