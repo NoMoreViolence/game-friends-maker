@@ -2,60 +2,79 @@ import styled, { css } from 'styled-components';
 import { color } from './color';
 import { device } from './media';
 
-interface SpanProps {
+const { black } = color;
+
+export interface SpanProps {
   weight?: string;
   color?: string;
   cursor?: string;
   hover?: boolean;
   hoverColor?: string;
   align?: string;
+  padding?: string;
+
+  nowrap?: boolean;
+  transition?: boolean;
+  fontStyle?: string | number;
+  fontStretch?: string | number;
+  lineHeight?: string | number;
+  letterSpacing?: string | number;
 }
 
-const CommonSpanStyle = css`
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-`;
-const returnColor = (returnColor?: string) => `color: ${returnColor ? returnColor : color.black};`;
-const returnCursor = (cusror?: string) => `cursor: ${cusror ? 'pointer' : 'unset'};`;
-const returnWeight = (weight?: string) => `font-weight: ${weight ? weight : 'normal'};`;
-const returnHover = (hover?: boolean, hoverColor?: string) =>
-  hover
-    ? `&:hover {
-        color: ${hoverColor ? hoverColor : color.black};
+const commonSpanStyle = css``;
+const returnStyle = ({
+  padding,
+  color,
+  cursor,
+  weight,
+  hover,
+  hoverColor,
+  align,
+  nowrap,
+  transition,
+  fontStretch,
+  fontStyle,
+  lineHeight,
+  letterSpacing,
+}: SpanProps) =>
+  `
+    ${padding ? `padding: ${padding};` : ''}
+    color: ${color ? color : black};
+    cursor: ${cursor ? 'pointer' : 'unset'};
+    font-weight: ${weight ? weight : 'normal'};
+    ${
+      hover
+        ? `&:hover {
+        color: ${hoverColor ? hoverColor : black};
       }`
-    : '';
-const returnAlign = (align?: string) => `text-align: ${align ? align : 'unset'};`;
+        : ''
+    }
+    white-space: ${nowrap ? 'nowrap' : 'unset'};
+    text-align: ${align ? align : 'unset'};
+    font-style: ${fontStyle ? fontStyle : 'normal'};
+    font-stretch: ${fontStretch ? fontStretch : 'normal'};
+    line-height: ${lineHeight ? lineHeight : 'normal'};
+    letter-spacing: ${letterSpacing ? letterSpacing : 'normal'};
+    ${typeof transition === 'boolean' && transition === true ? 'transition: 0.25s;' : 'transition: unset;'}
+  `;
 
 // 10px
-export const TinySpan = styled('span')<SpanProps>`
-  ${CommonSpanStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnCursor(p.cursor)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnHover(p.hover, p.hoverColor)}
-  ${p => returnAlign(p.align)}
+export const SpanD625rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
 
   font-size: 0.625rem;
-  transition: 0.25s;
-
   @media screen and ${device.mobileToTablet} {
     font-size: 0.5rem;
   }
 `;
 
 // 12px
-export const SmallSpan = styled('span')<SpanProps>`
-  ${CommonSpanStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnCursor(p.cursor)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnHover(p.hover, p.hoverColor)}
-  ${p => returnAlign(p.align)}
+export const SpanD75rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
 
   font-size: 0.75rem;
-  transition: 0.25s;
 
   @media screen and ${device.mobileToTablet} {
     font-size: 0.625rem;
@@ -63,16 +82,11 @@ export const SmallSpan = styled('span')<SpanProps>`
 `;
 
 // 14px
-export const SmallMiddleSpan = styled('span')<SpanProps>`
-  ${CommonSpanStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnCursor(p.cursor)}
-  ${p => returnHover(p.hover, p.hoverColor)}
-  ${p => returnAlign(p.align)}
+export const SpanD875rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
 
   font-size: 0.875rem;
-  transition: 0.25s;
 
   @media screen and ${device.mobileToTablet} {
     font-size: 0.75rem;
@@ -80,16 +94,11 @@ export const SmallMiddleSpan = styled('span')<SpanProps>`
 `;
 
 // 16px
-export const MiddleSpan = styled('span')<SpanProps>`
-  ${CommonSpanStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnCursor(p.cursor)}
-  ${p => returnHover(p.hover, p.hoverColor)}
-  ${p => returnAlign(p.align)}
+export const Span1rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
 
   font-size: 1rem;
-  transition: 0.25s;
 
   @media screen and ${device.mobileToTablet} {
     font-size: 0.875rem;
@@ -97,52 +106,61 @@ export const MiddleSpan = styled('span')<SpanProps>`
 `;
 
 // 24px
-export const MiddleBigSpan = styled('span')<SpanProps>`
-  ${CommonSpanStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnCursor(p.cursor)}
-  ${p => returnHover(p.hover, p.hoverColor)}
-  ${p => returnAlign(p.align)}
+export const Span1D5rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
 
   font-size: 1.5rem;
-  transition: 0.25s;
 
   @media screen and ${device.mobileToTablet} {
     font-size: 1rem;
   }
 `;
 
+// 28px
+export const Span1D75rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
+
+  font-size: 1.75rem;
+
+  @media screen and ${device.mobileToTablet} {
+    font-size: 1.25rem;
+  }
+`;
+
 // 32px
-export const BigSpan = styled('span')<SpanProps>`
-  ${CommonSpanStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnCursor(p.cursor)}
-  ${p => returnHover(p.hover, p.hoverColor)}
-  ${p => returnAlign(p.align)}
+export const Span2rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
 
   font-size: 2rem;
-  transition: 0.25s;
 
   @media screen and ${device.mobileToTablet} {
     font-size: 1.5rem;
   }
 `;
 
-// 32px
-export const GiantSpan = styled('span')<SpanProps>`
-  ${CommonSpanStyle};
-  ${p => returnColor(p.color)}
-  ${p => returnWeight(p.weight)}
-  ${p => returnCursor(p.cursor)}
-  ${p => returnHover(p.hover, p.hoverColor)}
-  ${p => returnAlign(p.align)}
+// 48px
+export const Span3rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
 
   font-size: 3rem;
-  transition: 0.25s;
 
   @media screen and ${device.mobileToTablet} {
     font-size: 1.5rem;
+  }
+`;
+
+// 48px
+export const Span4rem = styled('span')<SpanProps>`
+  ${commonSpanStyle};
+  ${p => returnStyle(p)}
+
+  font-size: 4rem;
+
+  @media screen and ${device.mobileToTablet} {
+    font-size: 2rem;
   }
 `;

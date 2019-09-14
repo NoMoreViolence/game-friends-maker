@@ -1,246 +1,107 @@
-import styled from 'styled-components';
-import { color, device, shadow } from '@src/styles';
+import styled, { createGlobalStyle } from 'styled-components';
+import { color } from '@styles';
+
+export const GlobalStyle = createGlobalStyle`
+  html {
+    width: 100%;
+    height: 100%;
+    scroll-behavior: smooth;
+
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      scroll-behavior: smooth;
+
+      > div#root {
+        width: 100%;
+        height: 100%; 
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+      }
+    }
+  }
+`;
 
 export const LandingComponentRootDiv = styled('div')`
-  display: flex;
-  flex-direction: column;
-  background-color: ${color.white};
-`;
-
-export const LandingComponentHeaderDiv = styled('div')`
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
+  overflow-x: hidden;
 
-  > div {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 720px;
-
-    > div:nth-child(1) {
-      height: 100%;
-      flex: 0.6;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      background-color: ${color.white};
-
-      @media screen and ${device.mobileToTablet} {
-        flex: calc(60% - 1.5rem);
-        padding-left: 1.5rem;
-      }
-    }
-
-    > div:nth-child(2) {
-      height: 100%;
-      flex: 0.4;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      background-color: ${color.white};
-
-      @media screen and ${device.mobileToTablet} {
-        flex: calc(40% - 1.5rem);
-        padding-right: 1.5rem;
-      }
-    }
-  }
-`;
-
-export const LandingComponentLoginContentDiv = styled('div')<{ backgroundUrl: string }>`
-  display: flex;
-  justify-content: space-between;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-    
-  background-image: linear-gradient(
-          rgba(0, 0, 0, 0.7), 
-          rgba(0, 0, 0, 0.7)
-        ), url('${p => p.backgroundUrl}');
-      
-
-
-  > div:nth-child(1) {
-    flex: 0.6;
+  > div.landing-01 {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 
-    > div {
-      display: flex;
-      flex-direction: column;
-
-      > span.main-message {
-        margin-bottom: 1rem;
-      }
-
-      > span.sub-message {
-      }
-    }
-  }
-  > div:nth-child(2) {
-    flex: 0.4;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    > div.google-button {
-      margin-bottom: 1rem;
-      > button {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-radius: 0.1875rem;
-        border: 1px solid ${color.transparent};
-        padding: 1rem;
-        box-shadow: ${shadow.default};
-        font-family: inherit;
-        transition: 0.25s;
-
-        cursor: pointer;
-        background-color: ${color.white};
-
-        &:hover {
-          box-shadow: ${shadow.hover};
-        }
-
-        > svg {
-          margin-right: 1rem;
-        }
-      }
-    }
-
-    > div.terms {
-    }
-  }
-
-  @media screen and ${device.mobile} {
-    flex-direction: column;
-
-    > div:nth-child(1) {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-    }
-    > div:nth-child(2) {
-      padding-top: 2.5rem;
-      padding-bottom: 1.25rem;
-    }
-  }
-
-  @media screen and ${device.tablet} {
-    flex-direction: column;
-
-    > div:nth-child(1) {
-      padding-top: 10rem;
-      padding-bottom: 10rem;
-    }
-    > div:nth-child(2) {
-      padding-top: 5rem;
-      padding-bottom: 2.5rem;
-    }
-  }
-
-  @media screen and ${device.desktop} {
-    flex-direction: column;
-
-    > div:nth-child(1) {
-      padding-top: 10rem;
-      padding-bottom: 10rem;
-    }
-
-    > div:nth-child(2) {
-      padding-top: 5rem;
-      padding-bottom: 7.5rem;
-    }
-  }
-`;
-
-export const LandingComponentContentDiv = styled('div')<{ backgroundColor?: string; reverse?: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    > img {
-      border: 0px solid transparent;
-    }
-
-    > span:nth-child(1) {
+    > div.landing-header-wrapper {
       width: 100%;
-      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: ${color.white};
+    }
+
+    > div.landing-01-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: ${color.yellow};
     }
   }
 
-  @media screen and ${device.mobile} {
-    flex-direction: column;
-
-    > div:nth-child(1) {
-      margin-top: 4.125rem;
-      margin-bottom: 5rem;
-    }
-
-    > div {
-      > img {
-        width: 100%;
-      }
-    }
-  }
-
-  @media screen and ${device.tablet} {
-    flex-direction: column;
-
-    > div:nth-child(1) {
-      margin-top: 7.5rem;
-      margin-bottom: 5rem;
-    }
-
-    > div {
-      flex: 1;
-      > img {
-        width: 100%;
-      }
-    }
-  }
-
-  @media screen and ${device.desktop} {
-    flex-direction: ${p => (p.reverse ? 'row-reverse' : 'row')};
-
-    > div {
-      flex: 1;
-      > img {
-        width: 100%;
-      }
-    }
-  }
-
-  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : color.black)};
-`;
-
-export const LandingComponentBottom = styled('div')`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  background-color: ${color.black};
-
-  > div {
+  > div.landing-02 {
     display: flex;
+    flex-direction: column;
     align-items: center;
 
-    > img {
-      width: 150px;
+    > div.landing-02-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: ${color.white};
+    }
+  }
+
+  > div.landing-03 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > div.landing-03-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: ${color.white};
+    }
+  }
+
+  > div.landing-04 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > div.landing-04-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: ${color.skyBlue};
+    }
+  }
+
+  > div.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > div.footer-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: ${color.white};
     }
   }
 `;

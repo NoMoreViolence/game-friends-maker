@@ -1,29 +1,46 @@
 export const landingLocale = {
   ko: {
-    'landing.main.message': '원하는 사람과 함께 게임하세요.',
-    'landing.sub.message': 'CoHope는 원하는 사람을 찾아 함께 게임을 즐길 수 있게 해 줍니다.',
-    'landing.startWithGoogleAgree': "버튼을 클릭하면 'CoHope 약관'에 동의하게 됩니다.",
-    'landing.startWithGoogle': '구글 계정으로 로그인 or 가입',
+    'landing.main.title.1': '더 나은 협동심,',
+    'landing.main.title.2': '더 나은 팀워크.',
 
-    'landing.firstform.title': '오늘도 혼자서 게임하시나요?',
-    'landing.firstform.content.first': 'CoHope와 함께 즐겁게 게임하세요.',
-    'landing.firstform.content.second': `하고 싶은 게임을 찾아 포스트 하세요.`,
+    'landing.main.sub.1': '게임 전 팀을 만들고 전략을 짜세요.',
+    'landing.main.sub.2': '팀운은 더이상 운이 아닙니다.',
 
-    'landing.secondform.title': '새로운 친구와 함께 추억을 쌓으세요.',
-    'landing.secondform.content.first': '당신을 기다리고 있는 사람들이 있습니다.',
-    // 'landing.secondform.second': 'Coöpe',
+    'landing.feature.1.title': '당신에게 최적화된 팀원을 찾으세요.',
+    'landing.feature.1.sub.1': '티어, 레벨과 같은 조건을 고려해 팀원을 구할 수 있어요.',
+    'landing.feature.1.sub.2': '랭크 티어 올릴 팀원 구하기, 정말 쉽습니다.',
+
+    'landing.feature.2.title': '스쿼드 같이 할 사람 없나 ?',
+    'landing.feature.2.sub.1': '있어요, 여기 있습니다.',
+    'landing.feature.2.sub.2': '랭크 티어 올릴 팀원 구하기, 정말 쉽습니다.',
+
+    'landing.want.this.service?': '마음에 드신가요 ?',
+    'landing.wait.1': '다 만들어지면 알려드리겠습니다!',
+    'landing.wait.2': ' 아래 빈칸에 이메일을 적어주세요.',
+    'landing.wait.3': '개발현황과 더 많은 소식을 알려드리겠습니다!',
+
+    'landing.subscribe': '구독하기',
   },
   en: {
-    'landing.main.message': 'Play online game with someone you want.',
-    'landing.sub.message': "'CoHope' helps you find the people you want and enjoy the game together.",
-    'landing.startWithGoogleAgree': "By clicking the button, you consent to the terms of 'CoHope'",
-    'landing.startWithGoogle': 'Start with google',
+    'landing.main.title.1': 'More cooperative,',
+    'landing.main.title.2': 'More teamwork.',
 
-    'landing.firstform.title': 'Are you alone today?',
-    'landing.firstform.content.first': "Play game with 'CoHope'.",
-    'landing.firstform.content.second': `You just post what you want to play game`,
+    'landing.main.sub.1': 'Team up and strategize before the game.',
+    'landing.main.sub.2': 'Team luck is no longer luck.',
 
-    'landing.secondform.title': 'Make memories with new friends.',
-    'landing.secondform.content.first': 'There are many people want play game with you.',
+    'landing.feature.1.title': 'You can find team members that are optimized for you.',
+    'landing.feature.1.sub.1': 'You can pick team members by using',
+    'landing.feature.1.sub.2': 'various conditions such as tier and level.',
+
+    'landing.feature.2.title': 'Is there any OP for play with me ?',
+    'landing.feature.2.sub.1': 'Yes ! There is exist in CoHope.',
+    'landing.feature.2.sub.2': 'So Easy to find OP',
+
+    'landing.want.this.service?': 'This site is Cool, Am I right ?',
+    'landing.wait.1': "We'll let you know when it's done! ",
+    'landing.wait.2': 'Please write your email in the space below.',
+    'landing.wait.3': 'We will inform the development status and more news!',
+
+    'landing.subscribe': 'Subscribe',
   },
 };
