@@ -3,6 +3,7 @@ import { landingLocale } from './landing.locale';
 import { alertLocale } from './alert.locale';
 import { termsLocale } from './terms.locale';
 import { subscribeLocale } from './subscribe.locale';
+import { toastLocale } from './toast.locale';
 
 const locale = {
   ko: {
@@ -11,6 +12,7 @@ const locale = {
     ...landingLocale.ko,
     ...termsLocale.ko,
     ...subscribeLocale.ko,
+    ...toastLocale.ko,
   },
   en: {
     ...mainLocale.en,
@@ -18,6 +20,7 @@ const locale = {
     ...landingLocale.en,
     ...termsLocale.en,
     ...subscribeLocale.en,
+    ...toastLocale.en,
   },
 };
 

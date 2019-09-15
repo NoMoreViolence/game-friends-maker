@@ -9,10 +9,14 @@ import {
   LoginSuccessPayload,
   GetMyInfoSuccessPayload,
   GetMyInfo,
+  EmailSubscribe,
+  EmailSubscribeSuccessPayload,
+  landingActions,
+  LandingActionTypes,
 } from '@actions';
 import { getErrorResponse } from '@utils';
 import { HttpStatus } from '@models';
-import { registerRequest, loginRequest, getMyInfoRequest } from './landing.request';
+import { registerRequest, loginRequest, getMyInfoRequest, emailSubscribeRequest } from './landing.request';
 
 function* register(action: Register) {
   if (action.type) {
@@ -85,8 +89,61 @@ function* getMyInfo(action: GetMyInfo) {
   }
 }
 
+function* emailSubscribe(action: EmailSubscribe) {
+  if (action.type) {
+    try {
+      const emailSubscribeResponse: EmailSubscribeSuccessPayload = yield call(emailSubscribeRequest, action.payload);
+
+      if (emailSubscribeResponse.result === 'success') {
+        yield all([
+          put(landingActions.emailSubscribeSuccess(emailSubscribeResponse)),
+          put(
+            globalActions.alert({
+              type: 'success',
+              title: 'toast.success.email.title',
+              text: 'toast.success.email.text',
+              showConfirmButton: false,
+              reject: () => {},
+              resolve: () => {},
+            }),
+          ),
+        ]);
+      } else {
+        yield all([
+          put(landingActions.emailSubscribeFailure({})),
+          put(
+            globalActions.alert({
+              type: 'error',
+              title: 'toast.error.email.already.title',
+              text: 'toast.error.email.already.text',
+              showConfirmButton: false,
+              reject: () => {},
+              resolve: () => {},
+            }),
+          ),
+        ]);
+      }
+    } catch (e) {
+      yield all([
+        put(landingActions.emailSubscribeFailure({})),
+        put(
+          globalActions.alert({
+            type: 'error',
+            title: 'toast.error.email.already.title',
+            text: 'toast.error.email.already.text',
+            showConfirmButton: false,
+            reject: () => {},
+            resolve: () => {},
+          }),
+        ),
+      ]);
+    }
+  }
+}
+
 export default function* landing() {
   yield takeEvery(UserActionTypes.REGISTER, register);
   yield takeEvery(UserActionTypes.LOGIN, login);
   yield takeEvery(UserActionTypes.GET_MY_INFO, getMyInfo);
+  yield takeEvery(LandingActionTypes.EMAIL_SUBSCRIBE, emailSubscribe);
 }

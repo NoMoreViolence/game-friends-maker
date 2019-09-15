@@ -1,23 +1,29 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useKey } from 'react-use';
 import { FormattedMessage } from 'react-intl';
+import MailchimpSubscribe, { FormHooks, EmailFormFields } from 'react-mailchimp-subscribe';
 
+import { emailRegex } from '@utils';
+import { globalActions } from '@actions';
 import { Span3rem, Span1D75rem, color, Input1D5rem, Button1D5rem } from '@styles';
 import { Landing04RootDiv, Landing04FormDiv } from './landing-04.styled';
 
-const Landing04Component = () => {
+const mailChimpUrl = 'https://cohope.us19.list-manage.com/subscribe/post?u=3423cc52e1fa0d2f6db6c114e&amp;id=1588d0ae91';
+
+const Landing04Component = ({ subscribe, status }: FormHooks<EmailFormFields>) => {
   const dispatch = useDispatch();
   const input = useRef<HTMLInputElement | null>(null);
   const [inputString, setInputString] = useState('');
 
-  const requestSubscribe = useCallback(async () => {
-    try {
-      //
-    } catch (e) {
-      //
+  const requestSubscribe = useCallback(() => {
+    if (emailRegex.test(inputString)) {
+      subscribe({ EMAIL: inputString });
+    } else {
+      dispatch(
+        globalActions.toast({ type: 'error', title: 'toast.error.email.title', text: 'toast.error.email.text' }),
+      );
     }
-    console.log('fefe', inputString);
   }, [inputString]);
 
   const isEnterPredicate = useCallback(() => {
@@ -26,6 +32,33 @@ const Landing04Component = () => {
     }
   }, [inputString]);
   useKey('Enter', isEnterPredicate, {}, [inputString]);
+
+  useEffect(() => {
+    if (status === 'success') {
+      dispatch(
+        globalActions.alert({
+          type: 'success',
+          title: 'toast.success.email.title',
+          text: 'toast.success.email.text',
+          showConfirmButton: false,
+          reject: () => {},
+          resolve: () => {},
+        }),
+      );
+    }
+    if (status === 'error') {
+      dispatch(
+        globalActions.alert({
+          type: 'error',
+          title: 'toast.error.email.already.title',
+          text: 'toast.error.email.already.text',
+          showConfirmButton: false,
+          reject: () => {},
+          resolve: () => {},
+        }),
+      );
+    }
+  }, [status]);
 
   return (
     <Landing04RootDiv>
@@ -83,4 +116,8 @@ const Landing04Component = () => {
   );
 };
 
-export default Landing04Component;
+const MailChimpComponent = () => (
+  <MailchimpSubscribe url={mailChimpUrl} render={props => <Landing04Component {...props} />} />
+);
+
+export default MailChimpComponent;
