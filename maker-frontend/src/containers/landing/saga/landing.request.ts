@@ -1,4 +1,6 @@
 import { AxiosResponse } from 'axios';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const jsonpAdapter = require('axios-jsonp');
 import { detectEnvironment, mailChimpUrl } from '@constants';
 import { HttpCommonResponse } from '@models';
 import {
@@ -51,10 +53,11 @@ interface EmailSubscribeResponse extends HttpCommonResponse {
   msg: string;
 }
 export const emailSubscribeRequest = (payload: EmailSubscribePayload): Promise<EmailSubscribeResponse> =>
-  axios
-    .get(`${mailChimpUrl}&EMAIL=${payload.email}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((res: AxiosResponse<EmailSubscribeResponse>) => res.data);
+  axios({
+    url: `${mailChimpUrl}&EMAIL=${payload.email}`,
+    adapter: jsonpAdapter,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res: AxiosResponse<EmailSubscribeResponse>) => res.data);
