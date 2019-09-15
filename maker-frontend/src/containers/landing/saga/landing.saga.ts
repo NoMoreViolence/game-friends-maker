@@ -94,19 +94,35 @@ function* emailSubscribe(action: EmailSubscribe) {
     try {
       const emailSubscribeResponse: EmailSubscribeSuccessPayload = yield call(emailSubscribeRequest, action.payload);
 
-      yield all([
-        put(landingActions.emailSubscribeSuccess(emailSubscribeResponse)),
-        put(
-          globalActions.alert({
-            type: 'success',
-            title: 'toast.success.email.title',
-            text: 'toast.success.email.text',
-            showConfirmButton: false,
-            reject: () => {},
-            resolve: () => {},
-          }),
-        ),
-      ]);
+      if (emailSubscribeResponse.result === 'success') {
+        yield all([
+          put(landingActions.emailSubscribeSuccess(emailSubscribeResponse)),
+          put(
+            globalActions.alert({
+              type: 'success',
+              title: 'toast.success.email.title',
+              text: 'toast.success.email.text',
+              showConfirmButton: false,
+              reject: () => {},
+              resolve: () => {},
+            }),
+          ),
+        ]);
+      } else {
+        yield all([
+          put(landingActions.emailSubscribeFailure({})),
+          put(
+            globalActions.alert({
+              type: 'error',
+              title: 'toast.error.email.already.title',
+              text: 'toast.error.email.already.text',
+              showConfirmButton: false,
+              reject: () => {},
+              resolve: () => {},
+            }),
+          ),
+        ]);
+      }
     } catch (e) {
       yield all([
         put(landingActions.emailSubscribeFailure({})),

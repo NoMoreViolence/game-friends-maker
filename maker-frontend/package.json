@@ -81,7 +81,7 @@
     "semver": "6.0.0",
     "style-loader": "0.23.1",
     "styled-components": "^4.3.2",
-    "sweetalert2": "^8.10.7",
+    "sweetalert2": "^8.17.1",
     "sweetalert2-react-content": "^1.1.0",
     "terser-webpack-plugin": "1.2.3",
     "typesafe-actions": "^4.4.2",
@@ -99,7 +99,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "deploy:prod": "aws s3 sync ./build s3://cohope.io --profile=coop-dev-s3",
-    "clear:prod": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E179967HJCF1UW --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
+    "clear:prod": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E273TT4DOWJUI4 --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
     "deploy:dev": "aws s3 sync ./build s3://coopnow.net --profile=coop-dev-s3",
     "clear:dev": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E179967HJCF1UW --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png"
   },

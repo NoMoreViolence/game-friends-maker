@@ -25,6 +25,7 @@ const _AlertComponent = (props: Props) => {
         showCloseButton: true,
         allowOutsideClick: false,
         confirmButtonText: props.formatMessage({ id: props.confirmText }),
+        onClose: () => {},
       });
     } else {
       Swal.fire({
@@ -40,6 +41,7 @@ const _AlertComponent = (props: Props) => {
         timer: 1500,
         showConfirmButton: false,
         showCancelButton: false,
+        onClose: () => {},
       });
     }
   }, []);
