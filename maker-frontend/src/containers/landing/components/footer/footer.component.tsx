@@ -4,7 +4,7 @@ import { Span1D5rem, color } from '@styles';
 
 const FooterComponent = () => (
   <FooterRootDiv>
-    <Span1D5rem color={color.blackLight}>CoHope © 2019 All Rights Reserved.</Span1D5rem>
+    <Span1D5rem color={color.blackLight}>CoHope © 1019 All Rights Reserved.</Span1D5rem>
   </FooterRootDiv>
 );
 

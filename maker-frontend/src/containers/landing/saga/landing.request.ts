@@ -1,7 +1,13 @@
 import { AxiosResponse } from 'axios';
-import { detectEnvironment } from '@constants';
+import { detectEnvironment, mailChimpUrl } from '@constants';
 import { HttpCommonResponse } from '@models';
-import { RegisterPayload, LoginPayload, GetMyInfoPayload, GetMyInfoSuccessPayload } from '@actions';
+import {
+  RegisterPayload,
+  LoginPayload,
+  GetMyInfoPayload,
+  GetMyInfoSuccessPayload,
+  EmailSubscribePayload,
+} from '@actions';
 
 const axios = detectEnvironment();
 
@@ -39,3 +45,16 @@ export const getMyInfoRequest = (payload: GetMyInfoPayload): Promise<GetMyInfoRe
       },
     })
     .then((res: AxiosResponse<GetMyInfoResponse>) => res.data);
+
+interface EmailSubscribeResponse extends HttpCommonResponse {
+  result: 'error' | 'success';
+  msg: string;
+}
+export const emailSubscribeRequest = (payload: EmailSubscribePayload): Promise<EmailSubscribeResponse> =>
+  axios
+    .get(`${mailChimpUrl}&EMAIL=${payload.email}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((res: AxiosResponse<EmailSubscribeResponse>) => res.data);

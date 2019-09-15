@@ -19,7 +19,6 @@ export const userInitialState: User = {
 
 export const userReducer = (state: User = userInitialState, action: UserActions): User =>
   produce(state, (draft: User) => {
-    console.log(action);
     switch (action.type) {
       case 'REGISTER':
         draft.userLoaderStatus.registerStatus = 'pending';

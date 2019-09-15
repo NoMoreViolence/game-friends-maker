@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useKey } from 'react-use';
 import { FormattedMessage } from 'react-intl';
 
+import { emailRegex } from '@utils';
+import { landingActions, globalActions } from '@actions';
 import { Span3rem, Span1D75rem, color, Input1D5rem, Button1D5rem } from '@styles';
 import { Landing04RootDiv, Landing04FormDiv } from './landing-04.styled';
 
@@ -11,13 +13,14 @@ const Landing04Component = () => {
   const input = useRef<HTMLInputElement | null>(null);
   const [inputString, setInputString] = useState('');
 
-  const requestSubscribe = useCallback(async () => {
-    try {
-      //
-    } catch (e) {
-      //
+  const requestSubscribe = useCallback(() => {
+    if (emailRegex.test(inputString)) {
+      dispatch(landingActions.emailSubscribe({ email: inputString }));
+    } else {
+      dispatch(
+        globalActions.toast({ type: 'error', title: 'toast.error.email.title', text: 'toast.error.email.text' }),
+      );
     }
-    console.log('fefe', inputString);
   }, [inputString]);
 
   const isEnterPredicate = useCallback(() => {
