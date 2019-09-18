@@ -1,12 +1,12 @@
 import express, { Application } from 'express';
 import serverless from 'serverless-http';
-import { getConnectionManager } from 'typeorm';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import router from '@routes';
-import { databaseConnect } from '@database';
+import { dbConnect } from '@database';
 
 class Server {
   public app: Application;
@@ -18,15 +18,15 @@ class Server {
 
   public ensureDb = (): Promise<void> =>
     new Promise((resolve, reject) => {
-      const manager = getConnectionManager();
+      const state = mongoose.connection.readyState;
 
-      if (manager.connections.length !== 0 && manager.connections[0].isConnected === true) {
+      if (state === 1) {
         return resolve();
       }
 
       let counter = 0;
       const tryConnect = async () => {
-        const db = await databaseConnect();
+        const db = await dbConnect();
         if (db.success === true) {
           return resolve();
         }

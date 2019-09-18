@@ -1,31 +1,27 @@
-import { Column, CreateDateColumn, Entity, UpdateDateColumn, ObjectIdColumn } from 'typeorm';
-import { generateUUID } from 'helpers/uuid';
+import { Document, Schema, model } from 'mongoose';
+import softDelete from 'mongoosejs-soft-delete';
+import { ObjectId } from 'bson';
 
-@Entity({ name: 'users' })
-class User {
-  @ObjectIdColumn({ name: '_id' })
-  id: string = generateUUID();
-
-  @Column()
+export interface User extends Document {
+  _id: ObjectId;
   userTokenId: string;
-
-  @Column()
   name: string;
-
-  @Column({ unique: true })
   email: string;
-
-  @Column()
   googleId?: string;
-
-  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
-
-  @Column({ type: 'timestamp', default: null })
-  deletedAt: Date;
 }
 
-export { User };
+const userSchema: Schema = new Schema(
+  {
+    userTokenId: { type: String, required: false, default: '' },
+    name: { type: String, required: true, default: '' },
+    email: { type: String, required: true },
+    googleId: { type: String, required: false },
+  },
+  { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
+);
+userSchema.plugin(softDelete);
+
+export type UserDocument = User & Document;
+export const UserModel = model<UserDocument>('users', userSchema);
