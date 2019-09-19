@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 
 export const dbConnect = (): Promise<{ success: boolean; alreadyHasConnection: boolean }> =>
   new Promise(resolve => {
-    console.log(mongoose.connection.readyState);
     if (mongoose.connection.readyState === 1) {
       return resolve({ success: true, alreadyHasConnection: true });
     }
