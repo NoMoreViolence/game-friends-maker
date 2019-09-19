@@ -8,8 +8,8 @@ export interface CommonAlertInfo {
 }
 
 export interface AfterAlert {
-  resolve(): void;
-  reject(): void;
+  resolve?(): void;
+  reject?(): void;
 }
 export type AlertInfo = CommonAlertInfo &
   AfterAlert &

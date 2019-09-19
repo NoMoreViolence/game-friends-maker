@@ -1,23 +1,14 @@
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
-import { User } from '@models';
+import mongoose from 'mongoose';
 
-export const databaseConnect = (): Promise<{ success: boolean; alreadyHasConnection: boolean }> =>
-  createConnection({
-    logging: true,
-    entities: [User],
-    synchronize: true,
-    type: 'mongodb',
-    url: process.env.DATABASE_URL,
-  })
-    .then(() => {
-      console.log('MONGO CONNECTED');
-      return { success: true, alreadyHasConnection: false };
-    })
-    .catch(e => {
-      console.log(e.name);
-      if (e.name === 'AlreadyHasActiveConnectionError') {
-        return { success: true, alreadyHasConnection: true };
-      }
-      return { success: false, alreadyHasConnection: false };
-    });
+export const dbConnect = (): Promise<{ success: boolean; alreadyHasConnection: boolean }> =>
+  new Promise(resolve => {
+    if (mongoose.connection.readyState === 1) {
+      return resolve({ success: true, alreadyHasConnection: true });
+    }
+
+    mongoose
+      .connect(process.env.DATABASE_URL as string)
+      .then(() => resolve({ success: true, alreadyHasConnection: false }))
+      .catch(() => resolve({ success: true, alreadyHasConnection: false }));
+  });
