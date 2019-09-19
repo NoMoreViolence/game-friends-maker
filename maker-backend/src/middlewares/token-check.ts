@@ -19,8 +19,7 @@ export const tokenCheckMiddleware = (req: Request, res: Response, next: NextFunc
     res.locals = decoded;
     return next();
   } catch (e) {
-    const { message, status } = getErrorResponse(e);
-
-    return res.status(status).json({ status, message });
+    const { message } = getErrorResponse(e);
+    return res.status(HttpStatusCode.UNAUTHORIZED).json({ status: HttpStatusCode.UNAUTHORIZED, message });
   }
 };
