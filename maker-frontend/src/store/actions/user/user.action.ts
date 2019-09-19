@@ -58,6 +58,10 @@ export interface GetMyInfoFailure extends Action {
   readonly type: UserActionTypes.GET_MY_INFO_FAILURE;
 }
 
+export interface Logout extends Action {
+  readonly type: UserActionTypes.LOGOUT;
+}
+
 export const userActions = {
   register: createStandardAction(UserActionTypes.REGISTER)<RegisterPayload>(),
   registerSuccess: createStandardAction(UserActionTypes.REGISTER_SUCCESS)<RegisterSuccessPayload>(),
@@ -70,6 +74,8 @@ export const userActions = {
   getMyInfo: createStandardAction(UserActionTypes.GET_MY_INFO)<GetMyInfoPayload>(),
   getMyInfoSuccess: createStandardAction(UserActionTypes.GET_MY_INFO_SUCCESS)<GetMyInfoSuccessPayload>(),
   getMyInfoFailure: createStandardAction(UserActionTypes.GET_MY_INFO_FAILURE)(),
+
+  logout: createStandardAction(UserActionTypes.LOGOUT)(),
 };
 
 export type UserActions =
@@ -81,4 +87,5 @@ export type UserActions =
   | LoginFailure
   | GetMyInfo
   | GetMyInfoSuccess
-  | GetMyInfoFailure;
+  | GetMyInfoFailure
+  | Logout;

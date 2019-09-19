@@ -13,10 +13,13 @@ import {
   EmailSubscribeSuccessPayload,
   landingActions,
   LandingActionTypes,
+  Logout,
 } from '@actions';
 import { getErrorResponse } from '@utils';
 import { HttpStatus } from '@models';
 import { registerRequest, loginRequest, getMyInfoRequest, emailSubscribeRequest } from './landing.request';
+import { push } from 'connected-react-router';
+import { error401Toast, error500Toast, error400Toast } from '@src/lib/common.error.toast';
 
 function* register(action: Register) {
   if (action.type) {
@@ -35,12 +38,12 @@ function* register(action: Register) {
         ),
       ]);
     } catch (e) {
-      const { error } = getErrorResponse(e);
+      const { status } = getErrorResponse(e);
 
-      if (error.status === HttpStatus.CONFLICT) {
+      if (status === HttpStatus.CONFLICT) {
         yield all([put(userActions.registerFailure()), put(userActions.login(action.payload))]);
       } else {
-        yield all([put(userActions.registerFailure())]);
+        yield all([put(userActions.registerFailure()), put(error400Toast())]);
       }
     }
   }
@@ -63,9 +66,13 @@ function* login(action: Login) {
         ),
       ]);
     } catch (e) {
-      // const { error } = getErrorResponse(e);
+      const { status } = getErrorResponse(e);
 
-      yield all([put(userActions.loginFailure())]);
+      if (status === HttpStatus.BAD_REQUEST || status === HttpStatus.UNAUTHORIZED) {
+        return yield all([put(userActions.loginFailure()), put(error400Toast())]);
+      }
+
+      yield all([put(userActions.loginFailure()), put(error500Toast())]);
     }
   }
 }
@@ -77,15 +84,20 @@ function* getMyInfo(action: GetMyInfo) {
 
       yield all([put(userActions.getMyInfoSuccess(getMyInfoResponse))]);
     } catch (e) {
-      // const { error } = getErrorResponse(e);
+      const { status } = getErrorResponse(e);
 
-      yield all([put(userActions.getMyInfoFailure())]);
-      // if (error.status === HttpStatus.UNAUTHORIZED) {
-      //   yield all([put(userActions.getMyInfoFailure())]);
-      // } else {
-      //   yield all([put(userActions.getMyInfoFailure())]);
-      // }
+      if (status === HttpStatus.UNAUTHORIZED) {
+        return yield all([put(userActions.getMyInfoFailure()), put(userActions.logout()), put(error401Toast())]);
+      }
+
+      yield all([put(userActions.getMyInfoFailure()), put(error500Toast())]);
     }
+  }
+}
+
+function* logout(action: Logout) {
+  if (action.type) {
+    yield all([put(push('/'))]);
   }
 }
 
@@ -145,5 +157,6 @@ export default function* landing() {
   yield takeEvery(UserActionTypes.REGISTER, register);
   yield takeEvery(UserActionTypes.LOGIN, login);
   yield takeEvery(UserActionTypes.GET_MY_INFO, getMyInfo);
+  yield takeEvery(UserActionTypes.LOGOUT, logout);
   yield takeEvery(LandingActionTypes.EMAIL_SUBSCRIBE, emailSubscribe);
 }

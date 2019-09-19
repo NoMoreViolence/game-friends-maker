@@ -6,9 +6,9 @@ interface Error {
   status: number;
 }
 
-export const getErrorResponse = (e: AxiosError<{ error: Error }>) => {
+export const getErrorResponse = (e: AxiosError<{ message: string; status: number }>) => {
   if (e.response) {
     return e.response.data;
   }
-  return { error: { message: '', status: HttpStatus.URI_TOO_LONG } };
+  return { message: '', status: HttpStatus.URI_TOO_LONG };
 };
