@@ -1,7 +1,8 @@
 import React from 'react';
+import { PostsRootDiv } from './posts.styled';
 
 const PostsComponent = () => {
-  return <div>Hello I am Post</div>;
+  return <PostsRootDiv>Hello I am Post</PostsRootDiv>;
 };
 
 export default PostsComponent;

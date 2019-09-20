@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from '@styles';
+import { device, color, shadow } from '@styles';
 
 export const Landing01RootDiv = styled('div')`
   flex: 1;
@@ -71,6 +71,28 @@ export const Landing01ImageDiv = styled('div')`
       @media screen and ${device.mobileToLaptop} {
         max-width: 350px;
       }
+    }
+  }
+`;
+
+export const GoogleLoginButton = styled.button`
+  > button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.1875rem;
+    border: 1px solid ${color.transparent};
+    padding: 1rem;
+    box-shadow: ${shadow.default};
+    font-family: inherit;
+    transition: 0.25s;
+    cursor: pointer;
+    background-color: ${color.white};
+    &:hover {
+      box-shadow: ${shadow.hover};
+    }
+    > svg {
+      margin-right: 1rem;
     }
   }
 `;
