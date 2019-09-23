@@ -48,9 +48,10 @@ export const userReducer = (state: User = userInitialState, action: UserActions)
         draft.userInfo.token = action.payload.token;
         break;
       case 'GET_MY_INFO_SUCCESS':
+        draft.userLoaderStatus.loginStatus = 'success';
         draft.userLoaderStatus.getMyInfoStatus = 'success';
-        draft.userInfo.name = action.payload.user.name;
-        draft.userInfo.email = action.payload.user.email;
+        draft.userInfo.name = action.payload.value.name;
+        draft.userInfo.email = action.payload.value.email;
         break;
       case 'GET_MY_INFO_FAILURE':
         draft.userLoaderStatus.getMyInfoStatus = 'failure';

@@ -20,6 +20,7 @@ export const landingLocale = {
     'landing.wait.3': '개발현황과 더 많은 소식을 알려드리겠습니다!',
 
     'landing.subscribe': '구독하기',
+    'landing.google.signin.and.signup': '구글로 시작하기',
   },
   en: {
     'landing.main.title.1': 'More cooperative,',
@@ -42,5 +43,6 @@ export const landingLocale = {
     'landing.wait.3': 'We will inform the development status and more news!',
 
     'landing.subscribe': 'Subscribe',
+    'landing.google.signin.and.signup': 'Sign with Google',
   },
 };

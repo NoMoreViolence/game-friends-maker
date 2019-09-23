@@ -1,9 +1,14 @@
 # node_modules
 /maker-backend/node_modules
 /maker-frontend/node_modules
+/node_modules
 # package-lock
 /maker-backend/package-lock.json
+/maker-backend/yarn.lock
 /maker-frontend/package-lock.json
+/maker-frontend/yarn.lock
+/package-lock.json
+/yarn.lock
 # System Files
 .DS_Store
 Thumbs.db

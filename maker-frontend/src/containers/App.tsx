@@ -7,7 +7,7 @@ import { AppState } from '@bootstrap';
 import { getLanguageSelector } from '@src/store/reducers';
 import GlobalComponent from '@containers/global';
 import LandingComponent from '@containers/landing';
-import PostsComponent from '@containers/posts';
+import ScreenComponent from '@containers/screen';
 
 const App = () => {
   const language = useSelector((state: AppState) => getLanguageSelector(state.global), shallowEqual);
@@ -16,8 +16,8 @@ const App = () => {
     <IntlProvider locale={language} messages={locale[language]}>
       <GlobalComponent />
       <Switch>
-        <Route path="/posts" component={PostsComponent} />
-        <Route path="/" component={LandingComponent} />
+        <Route path="/app" component={ScreenComponent} />
+        <Route path="/" exact={true} component={LandingComponent} />
       </Switch>
     </IntlProvider>
   );

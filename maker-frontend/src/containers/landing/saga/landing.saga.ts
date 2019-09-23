@@ -1,4 +1,4 @@
-import { put, call, all, takeEvery } from 'redux-saga/effects';
+import { put, call, all, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   userActions,
   Register,
@@ -14,6 +14,8 @@ import {
   landingActions,
   LandingActionTypes,
   Logout,
+  LoginSuccess,
+  RegisterSuccess,
 } from '@actions';
 import { getErrorResponse } from '@utils';
 import { HttpStatus } from '@models';
@@ -77,12 +79,18 @@ function* login(action: Login) {
   }
 }
 
+function* afterLoginAndRegister(action: LoginSuccess | RegisterSuccess) {
+  if (action.type) {
+    yield all([put(userActions.getMyInfo(action.payload))]);
+  }
+}
+
 function* getMyInfo(action: GetMyInfo) {
   if (action.type) {
     try {
-      const getMyInfoResponse: GetMyInfoSuccessPayload = yield call(getMyInfoRequest, action.payload);
+      const { value }: GetMyInfoSuccessPayload = yield call(getMyInfoRequest, action.payload);
 
-      yield all([put(userActions.getMyInfoSuccess(getMyInfoResponse))]);
+      yield all([put(userActions.getMyInfoSuccess({ value }))]);
     } catch (e) {
       const { status } = getErrorResponse(e);
 
@@ -158,5 +166,6 @@ export default function* landing() {
   yield takeEvery(UserActionTypes.LOGIN, login);
   yield takeEvery(UserActionTypes.GET_MY_INFO, getMyInfo);
   yield takeEvery(UserActionTypes.LOGOUT, logout);
+  yield takeLatest([UserActionTypes.LOGIN_SUCCESS, UserActionTypes.REGISTER_SUCCESS], afterLoginAndRegister);
   yield takeEvery(LandingActionTypes.EMAIL_SUBSCRIBE, emailSubscribe);
 }

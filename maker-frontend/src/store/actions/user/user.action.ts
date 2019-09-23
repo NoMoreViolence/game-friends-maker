@@ -44,8 +44,7 @@ export interface GetMyInfo extends Action {
   payload: GetMyInfoPayload;
 }
 export interface GetMyInfoSuccessPayload {
-  user: {
-    id: number;
+  value: {
     name: string;
     email: string;
   };
