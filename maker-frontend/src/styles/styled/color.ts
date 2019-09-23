@@ -8,6 +8,8 @@ export const color = {
   'text-default': '#333333',
   'text-soft': '#666666',
 
+  'border-gray': '#aaaaaa',
+
   primaryLight: '#4e4e54',
   primary: '#26262b',
   primaryDark: '#000000',

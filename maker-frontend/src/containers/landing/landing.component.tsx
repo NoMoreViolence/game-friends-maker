@@ -18,7 +18,7 @@ const LandingComponent = () => {
 
   useEffect(() => {
     if (loginStatus === 'success') {
-      dispatch(push('/posts'));
+      dispatch(push('/app'));
     }
   }, [loginStatus]);
 

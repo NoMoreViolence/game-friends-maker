@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { color } from './color';
 import { device } from './media';
+import { shadow } from './shadow';
 
 const { black, white } = color;
 
@@ -18,6 +19,8 @@ export interface InputProps {
   hoverBorderColor?: string;
   backgroundColor?: string;
   hoverBackgroundColor?: string;
+
+  hoverShadow?: boolean;
 
   nowrap?: boolean;
   transition?: boolean;
@@ -44,6 +47,8 @@ const returnStyle = ({
   backgroundColor,
   hoverBackgroundColor,
 
+  hoverShadow,
+
   padding,
   align,
   nowrap,
@@ -61,6 +66,15 @@ const returnStyle = ({
     color: ${color ? color : black};
     border-color: ${borderColor ? borderColor : white};
     background-color: ${backgroundColor ? backgroundColor : white};
+    ${
+      hoverShadow
+        ? `
+          &:focus {
+            box-shadow: ${shadow.default};
+          }
+        `
+        : ``
+    } 
     ${
       hover
         ? `&:hover {

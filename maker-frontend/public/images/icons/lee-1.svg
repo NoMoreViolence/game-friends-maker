@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 300 300">
+    <defs>
+        <linearGradient id="b" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#806A6A"/>
+            <stop offset="100%" stop-color="#665654"/>
+        </linearGradient>
+        <circle id="a" cx="150" cy="150" r="150"/>
+        <filter id="d" width="151.8%" height="136.3%" x="-25.9%" y="-18.2%" filterUnits="objectBoundingBox">
+            <feOffset dy="7" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="6"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.145098039 0 0 0 0.04 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <linearGradient id="f" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#F7B186"/>
+            <stop offset="100%" stop-color="#FFC299"/>
+        </linearGradient>
+        <path id="e" d="M110 160.784c-18.333 13.333-36.667 24-55 24s-36.667-10.667-55-24c15.112-4.6 22.777-11.465 22.995-20.597-.004-1.628-.012-3.94-.023-8.28l-.005-2.119c-.03-11.64-.08-26.996-.148-42.6-14.332-18.577-9.067-40.356-4.575-39.813 5.51.666 53.213-44.601 62.363-46.917C89.757-1.86 113 5.625 117 26.5s5.672 73.493-9.5 94.5c-4.317 5.978-11.117 8.316-20.397 7.015-.013 4.368-.04 6.82-.103 11.769.119 9.549 7.785 16.405 23 21z"/>
+        <linearGradient id="h" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#1D0024"/>
+            <stop offset="100%" stop-color="#100014"/>
+        </linearGradient>
+        <linearGradient id="i" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#1D0024"/>
+            <stop offset="100%" stop-color="#100014"/>
+        </linearGradient>
+        <linearGradient id="k" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#806A6A"/>
+            <stop offset="100%" stop-color="#665654"/>
+        </linearGradient>
+        <path id="j" d="M19 5l5 92H0L5 5c3.111-3.333 5.444-5 7-5s3.889 1.667 7 5z"/>
+        <path id="l" d="M20.14 23.692L4.414 14.606 5 5c3.111-3.333 5.444-5 7-5s3.889 1.667 7 5l1.14 18.692z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <mask id="c" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+        <use fill="url(#b)" fill-rule="nonzero" xlink:href="#a"/>
+        <g mask="url(#c)">
+            <g filter="url(#d)" transform="matrix(-1 0 0 1 210 33)">
+                <g transform="translate(5 16)">
+                    <mask id="g" fill="#fff">
+                        <use xlink:href="#e"/>
+                    </mask>
+                    <use fill="url(#f)" xlink:href="#e"/>
+                    <path fill="#FC9F6A" fill-rule="nonzero" d="M87 128c-14.667-1.667-26.667-5.667-36-12 10.667 13.333 22.667 21.333 36 24v-12z" mask="url(#g)"/>
+                </g>
+                <path fill="url(#h)" fill-rule="nonzero" d="M20.5 103.5C13.61 86.93-14 53.183 9.799 32.183 17.799-6.817 62-2.5 91.5 6.5c19.827 6.049 34.799 18 38 9 20 16.683 9.984 33-3.201 37.683-11.967 4.25-32.202 8.5-66.606 4.5-6.146-.714-4.859 18.108-8.143 20.144-4.927 3.053-8.751-16.144-22.259-10.38-13.507 5.764-5.492 32.49 9.008 32.49 5 0 7.5 13.746-6 20.246C22.5 125 24.977 114.267 20.5 103.5z"/>
+            </g>
+        </g>
+        <g mask="url(#c)">
+            <path fill="url(#i)" fill-rule="nonzero" d="M225 49.308c6.347 12.904 11.347 34.238 15 64H0c3.655-29.766 8.655-51.099 15-64 6.345-12.901 28.045-25.335 65.1-37.301 30.713 11.998 49.508 11.995 79.77-.007 37.073 11.967 58.783 24.403 65.13 37.308z" transform="translate(30 191)"/>
+            <g fill-rule="nonzero" transform="translate(138 205)">
+                <use fill="url(#k)" xlink:href="#j"/>
+                <use fill="#645050" xlink:href="#l"/>
+            </g>
+            <path fill="#FFF" d="M182 191l9 13-31 19-10-18.009L140 223l-31-19 9-13 32 11.821L182 191z"/>
+        </g>
+    </g>
+</svg>

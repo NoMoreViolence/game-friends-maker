@@ -1,27 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { color } from '@styles';
-
-export const GlobalStyle = createGlobalStyle`
-  html {
-    width: 100%;
-    height: 100%;
-    scroll-behavior: smooth;
-
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      scroll-behavior: smooth;
-
-      > div#root {
-        width: 100%;
-        height: 100%; 
-        overflow-y: scroll;
-        scroll-behavior: smooth;
-      }
-    }
-  }
-`;
 
 export const LandingComponentRootDiv = styled('div')`
   width: 100%;
