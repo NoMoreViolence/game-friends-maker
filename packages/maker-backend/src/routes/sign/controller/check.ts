@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { HttpStatusCode } from '@constants';
-import { UserModel } from '@models';
+import { UserModel } from '@gfm/common-server/db';
 import { getErrorResponse, NewError, Decoded } from '@helpers';
 
 export const check = async (req: Request, res: Response) => {

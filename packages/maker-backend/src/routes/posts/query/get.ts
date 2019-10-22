@@ -1,4 +1,4 @@
-import { PostModel } from '@models';
+import { PostModel } from '@gfm/common-server/db';
 
 interface FindPostsPayload {
   offset?: number;
