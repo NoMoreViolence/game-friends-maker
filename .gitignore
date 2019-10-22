@@ -59,6 +59,7 @@ Thumbs.db
 /packages/maker-backend/yarn-error.log
 /packages/maker-backend/.build
 /packages/maker-backend/.webpack
+/packages/maker-backend/src/common-server
 
 # backend-query
 /packages/backend-query/node_modules
@@ -67,6 +68,8 @@ Thumbs.db
 /packages/backend-query/dist
 /packages/backend-query/dist/*
 /packages/backend-query/.vscode
+/packages/backend-query/src/common-server
+/packages/backend-query/yarn-error.log
 
 # common-server
 /packages/common-server/node_modules
@@ -75,3 +78,4 @@ Thumbs.db
 /packages/common-server/dist
 /packages/common-server/dist/*
 /packages/common-server/.vscode
+/packages/common-server/yarn-error.log
