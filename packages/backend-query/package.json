@@ -19,7 +19,6 @@
     "dev_genre_delete": "NODE_ENV=dev node dist/index.js genre delete"
   },
   "dependencies": {
-    "@gfm/common-server": "^0.0.0",
     "dotenv": "^8.2.0",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.5",
