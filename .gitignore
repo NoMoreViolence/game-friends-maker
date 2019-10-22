@@ -67,3 +67,11 @@ Thumbs.db
 /packages/backend-query/dist
 /packages/backend-query/dist/*
 /packages/backend-query/.vscode
+
+# common-server
+/packages/common-server/node_modules
+/packages/common-server/yarn.lock
+/packages/common-server/.env
+/packages/common-server/dist
+/packages/common-server/dist/*
+/packages/common-server/.vscode
