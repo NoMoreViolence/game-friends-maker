@@ -1,4 +1,4 @@
-import { PostModel } from '@models';
+import { PostModel } from '@common-server';
 
 interface FindPostsPayload {
   offset?: number;

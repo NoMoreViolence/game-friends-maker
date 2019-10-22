@@ -5,6 +5,8 @@
     "outDir": "lib",
     "preserveConstEnums": true,
     "paths": {
+      "@common-server/*": ["common-server/*"],
+      "@common-server": ["common-server"],
       "@lib/*": ["lib/*"],
       "@lib": ["lib"],
       "@helpers": ["helpers"],
