@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
+    "@gfm/common-server": "^0.0.0",
     "@iconscout/unicons": "^1.0.1",
     "@svgr/webpack": "4.1.0",
     "@types/jest": "^24.0.15",
