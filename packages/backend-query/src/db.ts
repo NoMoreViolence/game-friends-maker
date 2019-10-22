@@ -18,8 +18,5 @@ export const dbConnect = (): Promise<{ success: boolean }> =>
         }
       )
       .then(() => resolve({ success: true }))
-      .catch(err => {
-        console.log(err);
-        resolve({ success: false });
-      });
+      .catch(err => resolve({ success: false }));
   });
