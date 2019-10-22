@@ -1,12 +1,12 @@
 # node_modules
-/maker-backend/node_modules
-/maker-frontend/node_modules
+/packages/maker-backend/node_modules
+/packages/maker-frontend/node_modules
 /node_modules
 # package-lock
-/maker-backend/package-lock.json
-/maker-backend/yarn.lock
-/maker-frontend/package-lock.json
-/maker-frontend/yarn.lock
+/packages/maker-backend/package-lock.json
+/packages/maker-backend/yarn.lock
+/packages/maker-frontend/package-lock.json
+/packages/maker-frontend/yarn.lock
 /package-lock.json
 /yarn.lock
 # System Files
@@ -22,43 +22,48 @@ Thumbs.db
 *.sublime-workspace
 # IDE - VSCode
 .vscode/*
-/maker-frontend/.vscode/settings.json
-/maker-frontend/.vscode/tasks.json
-/maker-frontend/.vscode/launch.json
-/maker-frontend/.vscode/extensions.json
-/maker-backend/.vscode/settings.json
-/maker-backend/.vscode/tasks.json
-/maker-backend/.vscode/launch.json
-/maker-backend/.vscode/extensions.json
+/packages/maker-frontend/.vscode/settings.json
+/packages/maker-frontend/.vscode/tasks.json
+/packages/maker-frontend/.vscode/launch.json
+/packages/maker-frontend/.vscode/extensions.json
+/packages/maker-backend/.vscode/settings.json
+/packages/maker-backend/.vscode/tasks.json
+/packages/maker-backend/.vscode/launch.json
+/packages/maker-backend/.vscode/extensions.json
 # prettierrc
 .prettierrc
-/maker-backend/prettierrc
-/maker-frontend/prettierrc
+/packages/maker-backend/prettierrc
+/packages/maker-frontend/prettierrc
 
 # frontend
 # frontend-misc
-/maker-frontend/.sass-cache
-/maker-frontend/connect.lock
-/maker-frontend/coverage
-/maker-frontend/libpeerconnection.log
-/maker-frontendnpm-debug.log
-/maker-frontendyarn-error.log
-/maker-frontendtestem.log
-/maker-frontend/typings
-/maker-frontend/yarn.lock
+/packages/maker-frontend/.sass-cache
+/packages/maker-frontend/connect.lock
+/packages/maker-frontend/coverage
+/packages/maker-frontend/libpeerconnection.log
+/packages/maker-frontend/typings
+/packages/maker-frontend/yarn.lock
 # frontend-output
-/maker-frontend/dist
-/maker-frontend/tmp
-/maker-frontend/out-tsc
+/packages/maker-frontend/dist
+/packages/maker-frontend/tmp
+/packages/maker-frontend/out-tsc
 
 # backend
 # backend database
-/maker-backend/.env
-/maker-backend/config
-/maker-backend/yarn.lock
-/maker-backend/dist
-/maker-backend/.serverless
-/maker-backend/env.yml
-/maker-backend/yarn-error.log
-/maker-backend/.build
-/maker-backend/.webpack
+/packages/maker-backend/.env
+/packages/maker-backend/config
+/packages/maker-backend/yarn.lock
+/packages/maker-backend/dist
+/packages/maker-backend/.serverless
+/packages/maker-backend/env.yml
+/packages/maker-backend/yarn-error.log
+/packages/maker-backend/.build
+/packages/maker-backend/.webpack
+
+# backend-query
+/packages/backend-query/node_modules
+/packages/backend-query/yarn.lock
+/packages/backend-query/.env
+/packages/backend-query/dist
+/packages/backend-query/dist/*
+/packages/backend-query/.vscode

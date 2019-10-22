@@ -1,0 +1,69 @@
+service:
+  name: CoHope-app-server
+
+custom:
+  env: ${file(./env.yml):${opt:stage, self:provider.stage}}
+  webpack:
+    webpackConfig: webpack.config.js
+    includeModules: true # Node modules configuration for packaging
+  websocketApiRouteSelectionExpression: $request.body.action
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-websockets-plugin
+
+provider:
+  name: aws
+  stage: dev # default is dev
+  region: ap-northeast-2
+  runtime: nodejs10.x
+  environment:
+    NODE_ENV: ${self:custom.env.NODE_ENV}
+    KEY_OF_FUCKING_SECRET: ${self:custom.env.KEY_OF_FUCKING_SECRET}
+    DATABASE: ${self:custom.env.DATABASE}
+    DATABASE_USERNAME: ${self:custom.env.DATABASE_USERNAME}
+    DATABASE_PASSWORD: ${self:custom.env.DATABASE_PASSWORD}
+    DATABASE_PORT: ${self:custom.env.DATABASE_PORT}
+    DATABASE_URL: ${self:custom.env.DATABASE_URL}
+    GOOGLE_SECRET: ${self:custom.env.GOOGLE_SECRET}
+    GOOGLE_CLIENT: ${self:custom.env.GOOGLE_CLIENT}
+  timeout: 30
+
+functions:
+  app:
+    handler: src/index.run
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+  # websocketHandler:
+  #   handler: dist/src/socket/index.connect
+  #   events:
+  #     - websocket:
+  #         routeKey: $connect
+  #     - websocket:
+  #         routeKey: $disconnect
