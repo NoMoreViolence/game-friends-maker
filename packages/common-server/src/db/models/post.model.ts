@@ -57,4 +57,4 @@ const softDeleteSchema: Schema<Post> = postSchema.plugin(softDelete);
 const autoPopulatedSchema: Schema<Post> = softDeleteSchema.plugin(autoPopulate);
 
 export type PostDocument = Post & Document;
-export const PostModel = model<PostDocument>('posts', autoPopulatedSchema);
+export const PostModel = model<PostDocument>('Post', autoPopulatedSchema);

@@ -45,4 +45,4 @@ const softDeleteSchema: Schema<Chat> = chatSchema.plugin(softDelete);
 const autoPopulatedSchema: Schema<Chat> = softDeleteSchema.plugin(autoPopulate);
 
 export type ChatDocument = Chat & Document;
-export const ChatModel = model<ChatDocument>('chat', autoPopulatedSchema);
+export const ChatModel = model<ChatDocument>('Chat', autoPopulatedSchema);

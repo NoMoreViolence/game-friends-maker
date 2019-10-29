@@ -29,4 +29,4 @@ const softDeleteSchema: Schema<User> = userSchema.plugin(softDelete);
 const autoPopulatedSchema: Schema<User> = softDeleteSchema.plugin(autoPopulate);
 
 export type UserDocument = User & Document;
-export const UserModel = model<UserDocument>('users', autoPopulatedSchema);
+export const UserModel = model<UserDocument>('User', autoPopulatedSchema);

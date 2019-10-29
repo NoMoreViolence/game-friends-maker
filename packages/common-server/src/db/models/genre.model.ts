@@ -22,4 +22,4 @@ const softDeleteSchema: Schema<Genre> = genreSchema.plugin(softDelete);
 const autoPopulatedSchema: Schema<Genre> = softDeleteSchema.plugin(autoPopulate);
 
 export type GenreDocument = Genre & Document;
-export const GenreModel = model<GenreDocument>('genres', autoPopulatedSchema);
+export const GenreModel = model<GenreDocument>('Genre', autoPopulatedSchema);

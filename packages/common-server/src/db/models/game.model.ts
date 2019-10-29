@@ -35,4 +35,4 @@ const softDeleteSchema: Schema<Game> = gameSchema.plugin(softDelete);
 const autoPopulatedSchema: Schema<Game> = softDeleteSchema.plugin(autoPopulate);
 
 export type GameDocument = Game & Document;
-export const GameModel = model<GameDocument>('games', autoPopulatedSchema);
+export const GameModel = model<GameDocument>('Game', autoPopulatedSchema);
