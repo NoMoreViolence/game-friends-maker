@@ -1,6 +1,6 @@
 export const genreConstants = {
   create: {
-    genre: '',
+    genre: 'AOS',
   },
   update: {
     prevGenre: '',

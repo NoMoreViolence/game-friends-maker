@@ -2,13 +2,13 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
-import { GenreModel } from './genre.model';
+import { Genre } from './genre.model';
 
 export interface Game extends Document {
   _id: ObjectId;
   name: string;
 
-  genres: ObjectId[];
+  genres: Genre['_id'];
 
   createdAt: Date;
   updatedAt: Date;
@@ -21,7 +21,7 @@ const gameSchema: Schema<Game> = new Schema(
     genres: [
       {
         type: Schema.Types.ObjectId,
-        ref: GenreModel,
+        ref: 'Genre',
         autopopulate: {
           maxDepth: 1,
           select: '_id name',
@@ -35,4 +35,4 @@ const softDeleteSchema: Schema<Game> = gameSchema.plugin(softDelete);
 const autoPopulatedSchema: Schema<Game> = softDeleteSchema.plugin(autoPopulate);
 
 export type GameDocument = Game & Document;
-export const GameModel = model<GameDocument>('games', autoPopulatedSchema);
+export const GameModel = model<GameDocument>('Game', autoPopulatedSchema);

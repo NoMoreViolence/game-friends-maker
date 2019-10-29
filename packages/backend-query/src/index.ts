@@ -1,3 +1,3 @@
 export * from './game';
 export * from './genre';
-export { dbConnect } from './db';
+export * from './db';
