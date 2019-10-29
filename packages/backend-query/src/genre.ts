@@ -1,6 +1,22 @@
+import { genreConstants } from './constants';
+import { GenreModel } from './common-server/db/models';
+
 export class Genre {
-  public create() {
-    //
+  public async create() {
+    try {
+      const isDuplicate = await GenreModel.find({ name: genreConstants.create.genre }).exec();
+      if (isDuplicate.length !== 0) {
+        throw new Error('Genre !');
+      }
+
+      const generatedGenre = new GenreModel({ name: genreConstants.create.genre });
+      const dbGenre = await generatedGenre.save();
+
+      console.log('Success');
+      console.log(dbGenre.name);
+    } catch (e) {
+      console.log('There is an error ^ㅗ^');
+    }
   }
 
   public update() {

@@ -13,6 +13,7 @@ export const dbConnect = (): Promise<{ success: boolean }> =>
           ? (process.env.PROD_DATABASE_URL as string)
           : (process.env.DEV_DATABASE_URL as string),
         {
+          useCreateIndex: true,
           useUnifiedTopology: true,
           useNewUrlParser: true,
         },
