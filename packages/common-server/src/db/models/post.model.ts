@@ -32,6 +32,7 @@ const postSchema: Schema<Post> = new Schema(
         maxDepth: 1,
         select: '_id name',
       },
+      required: true,
     },
     authorId: {
       type: Schema.Types.ObjectId,
@@ -40,6 +41,7 @@ const postSchema: Schema<Post> = new Schema(
         maxDepth: 1,
         select: '_id name email',
       },
+      required: true,
     },
     relatedPeopleIds: [
       {

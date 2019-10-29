@@ -25,14 +25,16 @@ const userSchema: Schema<User> = new Schema(
     name: { type: String, required: true, default: '' },
     email: { type: String, required: true },
     googleId: { type: String, required: false },
-    posts: {
-      type: Schema.Types.ObjectId,
-      ref: 'Post',
-      autopopulate: {
-        maxDepth: 1,
-        select: '_id name email gameId relatedPeopleIds limit',
+    posts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Post',
+        autopopulate: {
+          maxDepth: 1,
+          select: '_id name email gameId relatedPeopleIds limit',
+        },
       },
-    },
+    ],
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
