@@ -15,8 +15,8 @@ export const dbConnect = (): Promise<{ success: boolean }> =>
         {
           useUnifiedTopology: true,
           useNewUrlParser: true,
-        }
+        },
       )
       .then(() => resolve({ success: true }))
-      .catch(err => resolve({ success: false }));
+      .catch(() => resolve({ success: false }));
   });

@@ -1,7 +1,7 @@
 export const gameConstants = {
   create: {
-    gameName: '',
-    genre: [''],
+    gameName: 'League Of Legends',
+    genre: ['AOS', 'ONLINE', 'MULTI', 'BATTLE', 'ACTION'],
   },
   update: {
     prevGameName: '',
