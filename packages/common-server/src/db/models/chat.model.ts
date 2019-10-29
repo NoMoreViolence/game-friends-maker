@@ -2,15 +2,16 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
-import { PostModel } from './post.model';
-import { UserModel } from './user.model';
+
+import { Post } from './post.model';
+import { User } from './user.model';
 
 export interface Chat extends Document {
   _id: ObjectId;
 
   text: string;
-  postId: ObjectId;
-  userId: ObjectId;
+  postId: Post['_id'];
+  userId: User['_id'];
 
   createdAt: Date;
   updatedAt: Date;
@@ -22,7 +23,7 @@ const chatSchema: Schema<Chat> = new Schema(
     text: { type: String, required: true },
     postId: {
       type: Schema.Types.ObjectId,
-      ref: PostModel,
+      ref: 'Post',
       autopopulate: {
         maxDepth: 1,
         select: '_id',
@@ -31,7 +32,7 @@ const chatSchema: Schema<Chat> = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: UserModel,
+      ref: 'User',
       autopopulate: {
         maxDepth: 1,
         select: '_id',

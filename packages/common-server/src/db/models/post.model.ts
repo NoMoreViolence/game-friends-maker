@@ -2,16 +2,17 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
-import { UserModel } from './user.model';
-import { GameModel } from './game.model';
+
+import { Game } from './game.model';
+import { User } from './user.model';
 
 export interface Post extends Document {
   _id: ObjectId;
   name: string;
 
-  gameId: ObjectId;
-  authorId: ObjectId;
-  relatedPeopleIds: ObjectId[];
+  gameId: Game['_id'];
+  authorId: User['_id'];
+  relatedPeopleIds: Array<User['_id']>;
 
   limit: number;
 
@@ -26,7 +27,7 @@ const postSchema: Schema<Post> = new Schema(
     limit: { type: Number, required: true, default: 2 },
     gameId: {
       type: Schema.Types.ObjectId,
-      ref: GameModel,
+      ref: 'Game',
       autopopulate: {
         maxDepth: 1,
         select: '_id name',
@@ -34,7 +35,7 @@ const postSchema: Schema<Post> = new Schema(
     },
     authorId: {
       type: Schema.Types.ObjectId,
-      ref: UserModel,
+      ref: 'User',
       autopopulate: {
         maxDepth: 1,
         select: '_id name email',
@@ -43,7 +44,7 @@ const postSchema: Schema<Post> = new Schema(
     relatedPeopleIds: [
       {
         type: Schema.Types.ObjectId,
-        ref: UserModel,
+        ref: 'User',
         autopopulate: {
           maxDepth: 1,
           select: '_id name email',
