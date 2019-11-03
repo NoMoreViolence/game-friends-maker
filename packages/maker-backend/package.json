@@ -32,6 +32,7 @@
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "randomstring": "^1.1.5",
+    "react": "^16.11.0",
     "reflect-metadata": "^0.1.13",
     "serverless": "^1.47.0",
     "serverless-http": "^2.0.2",
