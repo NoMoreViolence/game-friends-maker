@@ -1,5 +1,5 @@
-import { gameConstants } from './constants';
-import { GameModel, GenreModel } from './common-server/db/models';
+import { game as gameConstants } from './constants';
+import { GameModel, GenreModel } from './common-server';
 
 export class Game {
   public async create() {
@@ -9,8 +9,8 @@ export class Game {
         throw new Error('Game !');
       }
 
-      const isDuplicateGenres = (w: string[]): boolean => !(new Set(w).size !== w.length);
-      if (isDuplicateGenres(gameConstants.create.genre)) {
+      const isNotDuplicateGenres = (w: string[]): boolean => new Set(w).size !== w.length;
+      if (isNotDuplicateGenres(gameConstants.create.genre)) {
         throw new Error('Genre !');
       }
 
@@ -21,8 +21,8 @@ export class Game {
         throw new Error('Genre !');
       }
 
-      const genreIds = genreExist.map(genre => genre[0]._id);
-      const generatedGame = new GameModel({ name: gameConstants.create.gameName, genres: [genreIds] });
+      const genreIds = genreExist.map(genre => genre[0]._id.toString());
+      const generatedGame = new GameModel({ name: gameConstants.create.gameName, genres: genreIds });
       const dbGame = await generatedGame.save();
 
       console.log('Success');
