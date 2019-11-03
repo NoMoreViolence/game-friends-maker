@@ -79,3 +79,8 @@ Thumbs.db
 /packages/common-server/dist/*
 /packages/common-server/.vscode
 /packages/common-server/yarn-error.log
+
+
+.prettierignore
+node_modules
+.vscode

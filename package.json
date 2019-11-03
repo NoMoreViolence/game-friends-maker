@@ -14,6 +14,16 @@
   },
   "homepage": "https://github.com/NoMoreViolence/game-friends-maker#readme",
   "devDependencies": {
-    "lerna": "^3.18.2"
-  }
+    "lerna": "^3.18.2",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-config-react-app": "^5.0.2",
+    "eslint-plugin-flowtype": "^4.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react-hooks": "^2.2.0"
+  },
+  "dependencies": {}
 }
