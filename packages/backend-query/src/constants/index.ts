@@ -1,2 +1,1 @@
-export * from './game';
-export * from './genre';
+export { game, genre } from './target.json';
