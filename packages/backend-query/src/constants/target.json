@@ -1,0 +1,29 @@
+{
+  "game": {
+    "create": {
+      "gameName": "League Of Legends",
+      "genre": ["AOS", "ONLINE", "MULTI", "BATTLE", "ACTION"]
+    },
+    "update": {
+      "prevGameName": "",
+      "nextGameName": "",
+      "prevGenre": [""],
+      "nextGenre": [""]
+    },
+    "delete": {
+      "gameName": ""
+    }
+  },
+  "genre": {
+    "create": {
+      "genre": "ACTION"
+    },
+    "update": {
+      "prevGenre": "",
+      "nextGenre": ""
+    },
+    "delete": {
+      "genre": ""
+    }
+  }
+}
