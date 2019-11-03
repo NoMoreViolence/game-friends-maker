@@ -44,7 +44,7 @@ const _AlertComponent = (props: Props) => {
         onClose: () => {},
       });
     }
-  }, []);
+  }, [props]);
   return <></>;
 };
 const AlertComponent = memo(_AlertComponent, () => false);

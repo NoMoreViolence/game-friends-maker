@@ -17,27 +17,29 @@ const ModalComponent = ({ display, exit, children }: Props) => {
         exit && exit();
       }
     },
-    [divRef],
+    [exit],
   );
-  const checkKeyCode = useCallback((event: KeyboardEvent) => {
-    if (event.keyCode === 27) {
-      exit && exit();
-    }
-  }, []);
+  const checkKeyCode = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.keyCode === 27) {
+        exit && exit();
+      }
+    },
+    [exit],
+  );
 
   useEffect(() => {
     document.addEventListener('keydown', checkKeyCode, false);
     if (divRef.current !== null) {
-      divRef.current.addEventListener('click', handleClick);
-    }
+      const refHtml = divRef.current;
+      refHtml.addEventListener('click', handleClick);
 
-    return () => {
-      document.removeEventListener('keydown', checkKeyCode, false);
-      if (divRef.current !== null) {
-        (divRef.current as HTMLDivElement).removeEventListener('click', handleClick);
-      }
-    };
-  }, []);
+      return () => {
+        document.removeEventListener('keydown', checkKeyCode, false);
+        refHtml.removeEventListener('click', handleClick);
+      };
+    }
+  }, [checkKeyCode, handleClick]);
 
   return (
     <CSSTransition in={display} timeout={250} unmountOnExit={true} classNames="animation">

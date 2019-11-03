@@ -36,7 +36,7 @@ const _ToastComponent = ({ type, title, text, formatMessage }: Props) => {
       showCloseButton: false,
       showLoaderOnConfirm: false,
     });
-  }, []);
+  }, [formatMessage, text, title, type]);
   return <></>;
 };
 const ToastComponent = memo(_ToastComponent, () => false);

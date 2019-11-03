@@ -20,7 +20,7 @@ const LandingComponent = () => {
     if (loginStatus === 'success') {
       dispatch(push('/app'));
     }
-  }, [loginStatus]);
+  }, [dispatch, loginStatus]);
 
   return (
     <LandingComponentRootDiv>
