@@ -70,6 +70,7 @@ Thumbs.db
 /packages/backend-query/.vscode
 /packages/backend-query/src/common-server
 /packages/backend-query/yarn-error.log
+/packages/backend-query/src/constants/*
 
 # common-server
 /packages/common-server/node_modules

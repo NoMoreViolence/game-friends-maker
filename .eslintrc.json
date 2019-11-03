@@ -2,7 +2,9 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "jsx": true,
-    "useJSXTextNode": true
+    "useJSXTextNode": true,
+    "ecmaVersion": 2018, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module" // Allows for the use of imports
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "extends": [
@@ -13,8 +15,10 @@
   ],
   "env": {
     "browser": true,
-    "es6": true,
-    "node": true
+    "jasmine": true,
+    "jest": true,
+    "node": true,
+    "es6": true
   },
   "globals": {
     "Atomics": "readonly",
