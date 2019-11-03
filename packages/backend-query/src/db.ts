@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import mongoose from 'mongoose';
+import './common-server';
 
 export const dbConnect = (): Promise<{ success: boolean }> =>
   new Promise(resolve => {
@@ -19,5 +20,8 @@ export const dbConnect = (): Promise<{ success: boolean }> =>
         },
       )
       .then(() => resolve({ success: true }))
-      .catch(() => resolve({ success: false }));
+      .catch(err => {
+        console.log(err);
+        resolve({ success: false });
+      });
   });

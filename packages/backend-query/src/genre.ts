@@ -1,5 +1,5 @@
-import { genreConstants } from './constants';
-import { GenreModel } from './common-server/db/models';
+import { genre as genreConstants } from './constants';
+import { GenreModel } from './common-server';
 
 export class Genre {
   public async create() {
