@@ -1,8 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
+import { ObjectID } from 'mongodb';
 import { HttpStatusCode } from '@constants';
-import { NewError, decodeToken, getErrorResponse } from '@helpers';
+import { UserModel } from '@common-server';
+import { NewError, decodeToken, getErrorResponse, Decoded } from '@helpers';
 
-export const tokenCheckMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export interface UserToken {
+  decoded: Decoded;
+  user: {
+    _id: ObjectID;
+    name: string;
+    email: string;
+    posts: ObjectID[];
+  };
+}
+
+export const tokenCheckMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.headers.authorization;
     if (!token) {
@@ -15,11 +27,27 @@ export const tokenCheckMiddleware = (req: Request, res: Response, next: NextFunc
     }
 
     const decoded = decodeToken(token.slice(7, token.length));
+    const user = await UserModel.findOne({ userTokenId: decoded.data._id }).exec();
+    if (!user || user.deleted) {
+      throw new NewError(HttpStatusCode.UNAUTHORIZED);
+    }
 
-    res.locals = decoded;
-    return next();
+    res.locals = {
+      decoded,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        posts: user.posts,
+      },
+    };
+    next();
   } catch (e) {
-    const { message } = getErrorResponse(e);
-    return res.status(HttpStatusCode.UNAUTHORIZED).json({ status: HttpStatusCode.UNAUTHORIZED, message });
+    const { status, message } = getErrorResponse(e);
+
+    res.status(status).json({
+      status,
+      message,
+    });
   }
 };
