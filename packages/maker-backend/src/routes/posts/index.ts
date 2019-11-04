@@ -1,11 +1,10 @@
 import { Router } from 'express';
-import { tokenCheckMiddleware } from '@middlewares';
 
-import { readPosts } from './controller';
+import { readPosts, createPosts } from './controller';
 
 const postRouter = Router();
 
-postRouter.use('/', tokenCheckMiddleware);
 postRouter.get('/', readPosts);
+postRouter.post('/', createPosts);
 
 export { postRouter };

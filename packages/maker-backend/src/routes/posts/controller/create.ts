@@ -1,28 +1,57 @@
 import { Request, Response } from 'express';
-// import { HttpStatusCode } from '@constants';
-import { getErrorResponse, requestValidator, Decoded } from '@helpers';
+import { ObjectId } from 'mongodb';
+import { GameModel, PostModel } from '@common-server';
+import { HttpStatusCode } from '@constants';
+import { UserToken } from '@middlewares';
+import { getErrorResponse, requestValidator, NewError } from '@helpers';
 import * as Joi from '@hapi/joi';
-// import { findPosts } from '@routes/posts/query';
-import { UserModel } from '@common-server';
 
 interface CreatePostPayoad {
   postName: string;
-  gameName: string;
-  genres: string[];
-  partyNumber: number;
+  gameId: string;
+  limit: number;
+  introduction?: string;
 }
 export const createPostBody = Joi.object({
-  offset: Joi.number().optional(),
-  gameName: Joi.string().optional(),
+  postName: Joi.string().required(),
+  gameId: Joi.string().required(),
+  limit: Joi.number()
+    .min(1)
+    .max(500)
+    .invalid(1)
+    .required(),
+  introduction: Joi.string().optional(),
 });
 
-export const readPosts = async (req: Request, res: Response) => {
+export const createPosts = async (req: Request, res: Response) => {
   try {
-    const payload = requestValidator<CreatePostPayoad>(createPostBody, req.query);
-    const token: Decoded = res.locals;
-    const user = await UserModel.findOne({ userTokenId: token.data._id }).exec();
+    const payload = requestValidator<CreatePostPayoad>(createPostBody, req.body);
+    if (!ObjectId.isValid(payload.gameId)) {
+      throw new NewError(HttpStatusCode.BAD_REQUEST);
+    }
 
-    console.log(payload, user);
+    const tokenInfo: UserToken = res.locals;
+
+    const game = await GameModel.findOne({ _id: payload.gameId }).exec();
+    if (!game) {
+      throw new NewError(HttpStatusCode.BAD_REQUEST);
+    }
+
+    const postModel = await new PostModel({
+      authorId: tokenInfo.user._id,
+      introduction: payload.introduction,
+      name: payload.postName,
+      gameId: new ObjectId(payload.gameId),
+      limit: payload.limit,
+    }).save();
+
+    res.status(HttpStatusCode.CREATED).json({
+      status: HttpStatusCode.CREATED,
+      message: 'Post create success',
+      value: {
+        gameId: postModel._id,
+      },
+    });
   } catch (e) {
     const { status, message } = getErrorResponse(e);
 
