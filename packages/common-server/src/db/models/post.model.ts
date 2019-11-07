@@ -14,7 +14,6 @@ export interface Post extends Document {
   authorId: User['_id'];
   relatedPeopleIds: Array<User['_id']>;
 
-  limit: number;
   introduction: string;
 
   createdAt: Date;
@@ -26,7 +25,6 @@ const postSchema: Schema<Post> = new Schema(
   {
     name: { type: String, required: true, default: "Jihoon's Game number one" },
     introduction: { type: String, required: false, default: '' },
-    limit: { type: Number, required: true, default: 2 },
     gameId: {
       type: Schema.Types.ObjectId,
       ref: 'Game',
