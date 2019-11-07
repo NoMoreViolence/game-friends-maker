@@ -1,11 +1,46 @@
 {
-  "extends": ["../../.eslintrc.json"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "jsx": true,
+    "useJSXTextNode": true,
+    "ecmaVersion": 2018, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module" // Allows for the use of imports
+  },
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier", "prettier/@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "env": {
+    "browser": true,
+    "jasmine": true,
+    "jest": true,
+    "node": true,
+    "es6": true
+  },
   "rules": {
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-unused-variable": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/no-empty-interface": 0,
+    "no-console": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react-hooks/exhaustive-deps": "error",
+    "prettier/prettier": ["warn"],
+    "react/prop-types": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/member-access": 0,
     "@typescript-eslint/variable-name": 0,
     "@typescript-eslint/no-console": 0,
     "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/max-classes-per-file": 0,
     "@typescript-eslint/no-unused-vars": 0
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }
