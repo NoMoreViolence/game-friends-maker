@@ -9,9 +9,8 @@ module.exports = {
   devtool: 'source-map',
   externals: [nodeExternals()],
   resolve: {
-    modules: [path.resolve('./src'), 'node_modules'],
     plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
-    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx', '.mjs'],
   },
   output: {
     libraryTarget: 'commonjs',
@@ -22,7 +21,8 @@ module.exports = {
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-      { test: /\.tsx?$/, use: ['ts-loader', 'eslint-loader'] },
+      { test: /\.tsx?$/, loader: 'ts-loader' },
+      { test: /\.mjs$/, type: 'javascript/auto' },
     ],
   },
 };
