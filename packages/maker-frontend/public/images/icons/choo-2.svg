@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 300 300">
+    <defs>
+        <linearGradient id="b" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#1D0024"/>
+            <stop offset="100%" stop-color="#100014"/>
+        </linearGradient>
+        <circle id="a" cx="150" cy="150" r="150"/>
+        <linearGradient id="c" x1="50%" x2="50%" y1="100%" y2="0%">
+            <stop offset="0%" stop-color="#E6864E"/>
+            <stop offset="100%" stop-color="#E67240"/>
+        </linearGradient>
+        <linearGradient id="e" x1="50%" x2="50%" y1="100%" y2="0%">
+            <stop offset="0%" stop-color="#FFC9B3"/>
+            <stop offset="100%" stop-color="#FFD2C2"/>
+        </linearGradient>
+        <linearGradient id="f" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFD4B3"/>
+            <stop offset="100%" stop-color="#FFDCC2"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <mask id="d" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+        <use fill="url(#b)" fill-rule="nonzero" xlink:href="#a"/>
+        <path fill="url(#c)" d="M51.264 159.5c-8.112-26.94-13.112-73 21-104.5 26.07-24.074 96.5-26.5 121 26 4.09 8.764-1.5 22.5-12.5 22-4.323-.197-7 13.5-9.5 22 3.5 34.5 34.682 35.137 50.5 61.5 19.5 32.5-4.5 80.5-62 80.5s-90.462-47.596-108.5-107.5z" mask="url(#d)" transform="matrix(-1 0 0 1 273.764 0)"/>
+        <path fill="url(#e)" d="M242 238c4.889 9.333 8.556 31 11 65H47c2.444-34 6.111-55.667 11-65 7.333-14 38-30 92-48 54 18 84.667 34 92 48z" mask="url(#d)"/>
+        <path fill="url(#f)" d="M174 202c-8.51 4.667-16.68 7-24.51 7-7.83 0-15.66-2.333-23.49-7v-22c-2.992.534-5.287.454-7.642.454C94.37 180.452 85.325 145.511 90 103c3 0 10 0 20-14-2.5 19.5 26.5 16.5 37.5 1-5.5 18.5 9 31 21.5 23.5 24.511-14.707 30.02 30.126 5 30.5v58z" mask="url(#d)"/>
+        <path fill="#FFB597" fill-rule="nonzero" d="M126 180c13.333-2.333 25-6.833 35-13.5-8.333 14.333-20 21.5-35 21.5v-8z" mask="url(#d)"/>
+        <path fill="#FFF" d="M150.033 207.975c7.227-.327 23.967-3.867 23.967-11.515V190c1.834 0 7.085 4.332 9.786 8 10.676 14.5-1.166 27.5-10.824 27.5-12.186 0-20.26-10.182-22.962-15.08-2.702 4.898-10.776 15.08-22.962 15.08-9.658 0-21.5-13-10.824-27.5 2.7-3.668 7.952-8 9.786-8v6.46c0 7.648 17.192 11.188 24.033 11.515z" mask="url(#d)"/>
+    </g>
+</svg>
