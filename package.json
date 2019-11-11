@@ -16,7 +16,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
-    "babel-eslint": "10.0.1",
+    "babel-eslint": "10.0.3",
     "concurrently": "^4.1.1",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
