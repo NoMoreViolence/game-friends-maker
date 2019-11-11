@@ -49,20 +49,6 @@ Thumbs.db
 /packages/maker-frontend/tmp
 /packages/maker-frontend/out-tsc
 
-# frontend
-# frontend-misc
-/packages/maker-frontend-2/.sass-cache
-/packages/maker-frontend-2/connect.lock
-/packages/maker-frontend-2/coverage
-/packages/maker-frontend-2/libpeerconnection.log
-/packages/maker-frontend-2/typings
-/packages/maker-frontend-2/yarn.lock
-# frontend-output
-/packages/maker-frontend-2/dist
-/packages/maker-frontend-2/tmp
-/packages/maker-frontend-2/out-tsc
-/packages/maker-frontend-2/
-
 # backend
 # backend database
 /packages/maker-backend/.env
