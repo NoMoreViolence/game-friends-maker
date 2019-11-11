@@ -1,0 +1,80 @@
+{
+  "name": "maker-frontend-2",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/jest": "24.0.22",
+    "@types/node": "12.12.6",
+    "@types/react": "16.9.11",
+    "@types/react-dom": "16.9.4",
+    "animate.css": "^3.7.2",
+    "axios": "^0.19.0",
+    "connected-react-router": "^6.5.2",
+    "immer-reducer": "^0.7.8",
+    "node-sass": "^4.13.0",
+    "qs": "^6.9.0",
+    "randomstring": "^1.1.5",
+    "react": "^16.11.0",
+    "react-animate-on-scroll": "^2.1.5",
+    "react-dom": "^16.11.0",
+    "react-epic-spinners": "^0.4.1",
+    "react-google-login": "^5.0.7",
+    "react-helmet": "^5.2.1",
+    "react-intl": "^3.4.0",
+    "react-localization": "^1.0.15",
+    "react-mailchimp-subscribe": "^2.1.0",
+    "react-redux": "^7.1.3",
+    "react-router-dom": "^5.1.2",
+    "react-router-redux": "^4.0.8",
+    "react-scripts": "3.2.0",
+    "react-tiny-fab": "^3.0.3",
+    "react-transition-group": "^4.3.0",
+    "react-use": "^13.3.0",
+    "redux": "^4.0.4",
+    "redux-observable": "^1.2.0",
+    "reselect": "^4.0.0",
+    "rxjs": "^6.5.3",
+    "styled-components": "^4.4.1",
+    "sweetalert2": "^9.1.5",
+    "sweetalert2-react-content": "^2.0.1",
+    "typesafe-actions": "^5.1.0",
+    "typescript": "3.7.2",
+    "use-force-update": "^1.0.7",
+    "use-react-router": "^1.0.7"
+  },
+  "scripts": {
+    "dev": "cross-env REACT_APP_STAGE=dev REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
+    "build": "react-scripts build",
+    "deploy:prod": "aws s3 sync ./build s3://cohope.io --profile=coop-dev-s3",
+    "clear:prod": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E273TT4DOWJUI4 --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
+    "deploy:dev": "aws s3 sync ./build s3://coopnow.net --profile=coop-dev-s3",
+    "clear:dev": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E179967HJCF1UW --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/randomstring": "^1.1.6",
+    "@types/react-animate-on-scroll": "^2.1.2",
+    "@types/react-helmet": "^5.0.14",
+    "@types/react-mailchimp-subscribe": "^2.0.2",
+    "@types/react-redux": "^7.1.5",
+    "@types/react-router-dom": "^5.1.2",
+    "@types/react-transition-group": "^4.2.3",
+    "@types/styled-components": "^4.1.22",
+    "cross-env": "^6.0.3"
+  }
+}
