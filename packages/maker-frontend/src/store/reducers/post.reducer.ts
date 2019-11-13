@@ -1,18 +1,34 @@
 import { ImmerReducer, createActionCreators, createReducerFunction, Actions } from 'immer-reducer';
 import { createSelector } from 'reselect';
 import { Post, Status } from 'store/models';
-import {} from 'store/payloads';
+import { GetPostsPayload, GetPostsSuccessPayload } from 'store/payloads';
 
 export const postInitialState: Post = {
-  postInfo: {},
-  postLoaderStatus: {},
-  postStatus: {},
+  postInfo: {
+    myPosts: [],
+    posts: [],
+  },
+  postLoaderStatus: {
+    updatePost: 'initial',
+    deletePost: 'initial',
+  },
+  postStatus: {
+    getPosts: 'initial',
+  },
 };
 
 export class PostReducer extends ImmerReducer<Post> {
-  // getPosts(payload: any) {}
-  // getPostsSuccess(payload: any) {}
-  // getPostsFailure() {}
+  getPosts(payload: GetPostsPayload) {
+    this.draftState.postStatus.getPosts = 'pending';
+  }
+  getPostsSuccess(payload: GetPostsSuccessPayload) {
+    this.draftState.postInfo.posts = payload.posts;
+    this.draftState.postStatus.getPosts = 'success';
+  }
+  getPostsFailure() {
+    this.draftState.postStatus.getPosts = 'failure';
+  }
+
   // createPost(payload: any) {}
   // createPostSuccess(payload: any) {}
   // createPostFailure(payload: any) {}

@@ -1,1 +1,1 @@
-export { default } from './screen.component';
+export { default } from './screen.container';

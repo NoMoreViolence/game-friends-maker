@@ -12,6 +12,7 @@ import {
 
 export const userInitialState: User = {
   userInfo: {
+    _id: '',
     email: '',
     name: 'NodeMasterLee',
     token: '',
