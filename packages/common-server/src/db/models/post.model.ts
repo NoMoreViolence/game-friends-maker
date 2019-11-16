@@ -3,16 +3,16 @@ import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
 
-import { Game } from './game.model';
-import { User } from './user.model';
+import { IGame } from './game.model';
+import { IUser } from './user.model';
 
-export interface Post extends Document {
+export interface IPost {
   _id: ObjectId;
   name: string;
 
-  gameId: Game['_id'];
-  authorId: User['_id'];
-  relatedPeopleIds: Array<User['_id']>;
+  gameId: IGame['_id'];
+  authorId: IUser['_id'];
+  relatedPeopleIds: Array<IUser['_id']>;
 
   introduction: string;
 
@@ -21,7 +21,7 @@ export interface Post extends Document {
   deleted: boolean;
 }
 
-const postSchema: Schema<Post> = new Schema(
+const postSchema: Schema<IPost> = new Schema(
   {
     name: { type: String, required: true, default: "Jihoon's Game number one" },
     introduction: { type: String, required: false, default: '' },
@@ -56,8 +56,8 @@ const postSchema: Schema<Post> = new Schema(
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<Post> = postSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<Post> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<IPost> = postSchema.plugin(softDelete);
+const autoPopulatedSchema: Schema<IPost> = softDeleteSchema.plugin(autoPopulate);
 
-export type PostDocument = Post & Document;
+export type PostDocument = IPost & Document;
 export const PostModel = model<PostDocument>('Post', autoPopulatedSchema);
