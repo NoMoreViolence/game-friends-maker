@@ -1,7 +1,9 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-import { Server } from './server';
+import { Context, APIGatewayProxyEvent, APIGatewayProxyResult, Callback } from 'aws-lambda';
+import { bootstrap } from '@gql';
 
-const server: Server = new Server();
-
-export const run = server.serverless();
+export const handler = (event: APIGatewayProxyEvent, context: Context, callback: Callback<APIGatewayProxyResult>) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+  bootstrap(event, context, callback);
+};

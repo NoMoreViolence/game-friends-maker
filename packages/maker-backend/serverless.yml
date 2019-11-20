@@ -1,17 +1,20 @@
 service:
   name: CoHope-app-server
 
-custom:
-  env: ${file(./env.yml):${opt:stage, self:provider.stage}}
-  webpack:
-    webpackConfig: webpack.config.js
-    includeModules: true # Node modules configuration for packaging
-  websocketApiRouteSelectionExpression: $request.body.action
-
 plugins:
   - serverless-webpack
   - serverless-offline
   - serverless-websockets-plugin
+
+custom:
+  env: ${file(./env.yml):${opt:stage, self:provider.stage}}
+  serverless-offline:
+    port: 7000
+    websocketPort: 7001
+  webpack:
+    webpackConfig: webpack.config.js
+    includeModules: true # Node modules configuration for packaging
+  websocketApiRouteSelectionExpression: $request.body.action
 
 provider:
   name: aws
@@ -19,7 +22,8 @@ provider:
   region: ap-northeast-2
   runtime: nodejs10.x
   environment:
-    NODE_ENV: ${self:custom.env.NODE_ENV}
+    APOLLO_KEY: ${self:custom.env.APOLLO_KEY}
+    ENV: ${self:custom.env.NODE_ENV}
     KEY_OF_FUCKING_SECRET: ${self:custom.env.KEY_OF_FUCKING_SECRET}
     DATABASE: ${self:custom.env.DATABASE}
     DATABASE_USERNAME: ${self:custom.env.DATABASE_USERNAME}
@@ -31,35 +35,24 @@ provider:
   timeout: 30
 
 functions:
-  app:
-    handler: src/index.run
+  gql:
+    handler: src/index.handler
     events:
       - http:
-          path: /
-          method: ANY
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-            allowCredentials: true
+          method: post
+          cors: true
+          path: graphql
       - http:
-          path: /{proxy+}
-          method: ANY
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-            allowCredentials: true
+          method: get
+          cors: true
+          path: graphql
+  loginOrRegister:
+    handler: src/http/index.loginOrRegister
+    events:
+      - http:
+          method: post
+          cors: true
+          path: login-or-register
   # websocketHandler:
   #   handler: dist/src/socket/index.connect
   #   events:

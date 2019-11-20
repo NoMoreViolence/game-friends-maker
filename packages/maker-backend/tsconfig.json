@@ -18,8 +18,8 @@
       "@middlewares": ["middlewares"],
       "utils/*": ["utils/*"],
       "utils": ["utils"],
-      "@routes/*": ["routes/*"],
-      "@routes": ["routes"],
+      "@gql/*": ["gql/*"],
+      "@gql": ["gql"],
       "@constants": ["constants"]
     },
     "emitDecoratorMetadata": true,
@@ -43,7 +43,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": false,
-    "typeRoots": ["./node_modules/@types", "@types/*"]
+    "typeRoots": ["node_modules/@types", "src/@types"]
   },
-  "exclude": ["node_modules", "@types", "dist"]
+  "exclude": ["node_modules", "dist", "lib"]
 }

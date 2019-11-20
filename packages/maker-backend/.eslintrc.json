@@ -6,6 +6,7 @@
     "@typescript-eslint/no-console": 0,
     "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/max-classes-per-file": 0,
-    "@typescript-eslint/no-unused-vars": 0
+    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-empty-function": 0
   }
 }

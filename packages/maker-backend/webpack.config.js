@@ -1,7 +1,7 @@
-var path = require('path');
-var slsw = require('serverless-webpack');
-var nodeExternals = require('webpack-node-externals');
-var TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const path = require('path');
+const slsw = require('serverless-webpack');
+const nodeExternals = require('webpack-node-externals');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
