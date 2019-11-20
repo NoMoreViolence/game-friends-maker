@@ -1,5 +1,5 @@
 import { ObjectId } from 'bson';
-import { IUser, IPost } from '@common-server';
+import { IUser } from '@common-server';
 import { Field, ObjectType, ID } from 'type-graphql';
 
 @ObjectType()

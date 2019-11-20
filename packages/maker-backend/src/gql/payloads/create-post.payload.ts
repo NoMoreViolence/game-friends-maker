@@ -1,5 +1,5 @@
 import { ObjectId } from 'bson';
-import { Field, ID, InputType } from 'type-graphql';
+import { Field, InputType } from 'type-graphql';
 
 @InputType()
 export class CreatePostPayload {

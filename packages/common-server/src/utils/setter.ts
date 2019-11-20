@@ -4,7 +4,7 @@ export const setter = <T, K>(document: T, update: K): void => {
   }
 
   const entries = Object.entries(update);
-  entries.map(([key, value]) => {
+  entries.forEach(([key, value]) => {
     document[key] = value;
   });
 };
