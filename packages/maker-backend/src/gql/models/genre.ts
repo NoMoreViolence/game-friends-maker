@@ -1,21 +1,14 @@
 import { ObjectId } from 'bson';
-import { GQLUser } from '@common-server';
+import { GQLGenre } from '@common-server';
 import { Field, ObjectType } from 'type-graphql';
-import { Post } from './post';
 
 @ObjectType()
-export class User implements GQLUser {
+export class Genre implements GQLGenre {
   @Field(type => String)
   _id: ObjectId;
 
   @Field(type => String)
   name: string;
-
-  @Field(type => String)
-  email: string;
-
-  @Field(type => [Post])
-  posts: Post[];
 
   @Field(type => Date)
   createdAt: Date;

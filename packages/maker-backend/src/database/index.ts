@@ -6,6 +6,7 @@ export const dbConnect = async (): Promise<{ success: boolean; alreadyHasConnect
     return { success: true, alreadyHasConnection: true };
   }
 
+  mongoose.models = {};
   const result = mongoose
     .connect(process.env.DATABASE_URL as string, {
       useUnifiedTopology: true,

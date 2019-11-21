@@ -1,4 +1,4 @@
-import { Authorized, Ctx, Resolver, Mutation, Arg, Query } from 'type-graphql';
+import { Authorized, Ctx, Resolver, Mutation, Arg, Query, FieldResolver, Root } from 'type-graphql';
 import { Service } from 'typedi';
 import { UserService, PostService, CommonService } from '@gql/services';
 import { Context } from '@gql/bootstrap/session';
@@ -15,7 +15,7 @@ import { ObjectId } from 'mongodb';
 import { PostController } from '@gql/controllers';
 
 @Service()
-@Resolver()
+@Resolver(type => Post)
 export class PostResolver {
   constructor(
     private userService: UserService,
@@ -41,10 +41,10 @@ export class PostResolver {
     const { offsetId, sort = Sort.DESC } = option || {};
     const objectOffsetId = offsetId ? new ObjectId(offsetId) : new ObjectId();
 
-    return this.postService.getPosts(getPost, {
+    return (await this.postService.getPosts(getPost, {
       offsetId: objectOffsetId,
       sort,
-    });
+    })).map(post => post.toObject());
   }
 
   @Authorized()
@@ -52,7 +52,7 @@ export class PostResolver {
   public async createPost(@Ctx() context: Context, @Arg('newPost') newPost: CreatePostPayload) {
     const user = await this.userService.getUserByContext(context);
     const post = await this.postService.createPost(user._id, newPost);
-    return post;
+    return { ...post.toObject(), authorId: user.toObject() };
   }
 
   @Authorized()
@@ -63,13 +63,20 @@ export class PostResolver {
     @Arg('nextPost') nextPost: UpdatePostPayload,
   ) {
     const user = await this.userService.getUserByContext(context);
-    return this.postController.updatePost(user, new ObjectId(postId), nextPost);
+    return (await this.postController.updatePost(user, new ObjectId(postId), nextPost)).toObject();
+  }
+
+  @Authorized()
+  @Mutation(returns => Post)
+  public async joinPost(@Ctx() context: Context, @Arg('postId') postId: string) {
+    const requestee = await this.userService.getUserByContext(context);
+    return (await this.postController.joinPost(requestee, new ObjectId(postId))).toObject();
   }
 
   @Authorized()
   @Mutation(returns => Post)
   public async deletePost(@Ctx() context: Context, @Arg('postId') postId: string) {
     const user = await this.userService.getUserByContext(context);
-    return this.postController.deletePost(user, new ObjectId(postId));
+    return (await this.postController.deletePost(user, new ObjectId(postId))).toObject();
   }
 }

@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { UserModel, IUser } from '@common-server';
+import { UserModel, DBUser } from '@common-server';
 import { Context } from '@gql/bootstrap/session';
 import { AuthenticationError } from 'apollo-server-lambda';
 
@@ -9,11 +9,11 @@ export class UserService {
     return UserModel.findById(id).exec();
   }
 
-  public async getUser(args: Partial<IUser>) {
+  public async getUser(args: Partial<DBUser>) {
     return UserModel.findOne(args).exec();
   }
 
-  public async getUsers(args: Partial<IUser>) {
+  public async getUsers(args: Partial<DBUser>) {
     return UserModel.find(args).exec();
   }
 

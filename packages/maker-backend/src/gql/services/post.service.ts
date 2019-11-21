@@ -1,9 +1,8 @@
 import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
-import { PostModel, IPost, PostDocument } from '@common-server';
+import { PostModel, PostDocument, DBPost, UserModel } from '@common-server';
 import { CreatePostPayload, UpdatePostPayload, Sort } from '@gql/payloads';
 import { setter } from '@common-server/utils';
-import { CommonService } from './common.service';
 
 interface GetOption {
   offsetId?: ObjectId;
@@ -12,17 +11,15 @@ interface GetOption {
 
 @Service()
 export class PostService {
-  constructor(private commonService: CommonService) {}
-
   public async getPostById(id: ObjectId) {
     return PostModel.findById(id).exec();
   }
 
-  public async getPost(args: Partial<IPost>) {
+  public async getPost(args: Partial<DBPost>) {
     return PostModel.findOne(args).exec();
   }
 
-  public async getPosts(args: Partial<IPost>, option: GetOption) {
+  public async getPosts(args: Partial<DBPost>, option: GetOption) {
     const { sort = Sort.DESC, offsetId } = option;
 
     const isDesc = sort === Sort.DESC;
@@ -40,17 +37,27 @@ export class PostService {
   public async createPost(userId: ObjectId, payload: CreatePostPayload) {
     const { postName, gameId, introduction } = payload;
 
-    return new PostModel({
+    const postModel = await new PostModel({
       authorId: userId,
       name: postName,
       gameId: new ObjectId(gameId),
       introduction,
     }).save();
+    await UserModel.findOneAndUpdate({ _id: userId }, { $addToSet: { posts: postModel._id } }, { new: true }).exec();
+    return postModel;
   }
 
   public async updatePost(post: PostDocument, payload: UpdatePostPayload) {
     setter(post, payload);
     return post.save();
+  }
+
+  public async joinPost(postId: ObjectId, userId: ObjectId) {
+    return PostModel.findOneAndUpdate(
+      { _id: postId },
+      { $addToSet: { relatedPeopleIds: userId } },
+      { new: true },
+    ).exec();
   }
 
   public async deletePost(post: PostDocument) {

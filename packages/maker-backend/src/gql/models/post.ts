@@ -1,23 +1,25 @@
 import { ObjectId } from 'bson';
-import { IPost } from '@common-server';
-import { Field, ObjectType, ID } from 'type-graphql';
+import { GQLPost } from '@common-server';
+import { Field, ObjectType } from 'type-graphql';
+import { User } from './user';
+import { Game } from './game';
 
 @ObjectType()
-export class Post implements IPost {
+export class Post implements GQLPost {
   @Field(type => String)
   _id: ObjectId;
 
   @Field(type => String)
   name: string;
 
-  @Field(type => String)
-  gameId: ObjectId;
+  @Field(type => Game)
+  gameId: Game;
 
-  @Field(type => String)
-  authorId: ObjectId;
+  @Field(type => User)
+  authorId: User;
 
-  @Field(type => [ID])
-  relatedPeopleIds: ObjectId[];
+  @Field(type => [User])
+  relatedPeopleIds: User[];
 
   @Field(type => String)
   introduction: string;
