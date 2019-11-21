@@ -3,16 +3,16 @@ import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
 
-import { IGame } from './game.model';
-import { IUser } from './user.model';
+import { GQLGame, DBGame } from './game.model';
+import { DBUser, GQLUser } from './user.model';
 
-export interface IPost {
+export interface GQLPost {
   _id: ObjectId;
   name: string;
 
-  gameId: IGame['_id'];
-  authorId: IUser['_id'];
-  relatedPeopleIds: Array<IUser['_id']>;
+  gameId: GQLGame;
+  authorId: GQLUser;
+  relatedPeopleIds: GQLUser[];
 
   introduction: string;
 
@@ -21,7 +21,22 @@ export interface IPost {
   deleted: boolean;
 }
 
-const postSchema: Schema<IPost> = new Schema(
+export interface DBPost {
+  _id: ObjectId;
+  name: string;
+
+  gameId: DBGame['_id'];
+  authorId: DBUser['_id'];
+  relatedPeopleIds: Array<DBUser['_id']>;
+
+  introduction: string;
+
+  createdAt: Date;
+  updatedAt: Date;
+  deleted: boolean;
+}
+
+const postSchema: Schema<DBPost> = new Schema(
   {
     name: { type: String, required: true, default: "Jihoon's Game number one" },
     introduction: { type: String, required: false, default: '' },
@@ -43,21 +58,24 @@ const postSchema: Schema<IPost> = new Schema(
       },
       required: true,
     },
-    relatedPeopleIds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        autopopulate: {
-          maxDepth: 1,
-          select: '_id name email',
+    relatedPeopleIds: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+          autopopulate: {
+            maxDepth: 1,
+            select: '_id name email',
+          },
         },
-      },
-    ],
+      ],
+      default: [],
+    },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<IPost> = postSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<IPost> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<DBPost> = postSchema.plugin(softDelete);
+const autoPopulatedSchema: Schema<DBPost> = softDeleteSchema.plugin(autoPopulate);
 
-export type PostDocument = IPost & Document;
+export type PostDocument = DBPost & Document;
 export const PostModel = model<PostDocument>('Post', autoPopulatedSchema);

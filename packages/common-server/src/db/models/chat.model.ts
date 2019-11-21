@@ -3,22 +3,34 @@ import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
 
-import { IPost } from './post.model';
-import { IUser } from './user.model';
+import { GQLPost, DBPost } from './post.model';
+import { GQLUser, DBUser } from './user.model';
 
-export interface IChat {
+export interface GQLChat {
   _id: ObjectId;
 
   text: string;
-  postId: IPost['_id'];
-  userId: IUser['_id'];
+  postId: GQLPost;
+  userId: GQLUser;
 
   createdAt: Date;
   updatedAt: Date;
   deleted: boolean;
 }
 
-const chatSchema: Schema<IChat> = new Schema(
+export interface DBChat {
+  _id: ObjectId;
+
+  text: string;
+  postId: DBPost['_id'];
+  userId: DBUser['_id'];
+
+  createdAt: Date;
+  updatedAt: Date;
+  deleted: boolean;
+}
+
+const chatSchema: Schema<DBChat> = new Schema(
   {
     text: { type: String, required: true },
     postId: {
@@ -42,8 +54,8 @@ const chatSchema: Schema<IChat> = new Schema(
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<IChat> = chatSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<IChat> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<DBChat> = chatSchema.plugin(softDelete);
+const autoPopulatedSchema: Schema<DBChat> = softDeleteSchema.plugin(autoPopulate);
 
-export type ChatDocument = IChat & Document;
+export type ChatDocument = DBChat & Document;
 export const ChatModel = model<ChatDocument>('Chat', autoPopulatedSchema);

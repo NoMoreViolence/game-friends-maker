@@ -3,7 +3,7 @@ import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
 
-export interface IGenre {
+export interface GQLGenre {
   _id: ObjectId;
   name: string;
 
@@ -12,14 +12,23 @@ export interface IGenre {
   deleted: boolean;
 }
 
-const genreSchema: Schema<IGenre> = new Schema(
+export interface DBGenre {
+  _id: ObjectId;
+  name: string;
+
+  createdAt: Date;
+  updatedAt: Date;
+  deleted: boolean;
+}
+
+const genreSchema: Schema<DBGenre> = new Schema(
   {
     name: { type: String, required: true },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<IGenre> = genreSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<IGenre> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<DBGenre> = genreSchema.plugin(softDelete);
+const autoPopulatedSchema: Schema<DBGenre> = softDeleteSchema.plugin(autoPopulate);
 
-export type GenreDocument = IGenre & Document;
+export type GenreDocument = DBGenre & Document;
 export const GenreModel = model<GenreDocument>('Genre', autoPopulatedSchema);

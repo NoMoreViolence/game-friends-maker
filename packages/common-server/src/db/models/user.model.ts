@@ -2,23 +2,37 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
-import { IPost } from './post.model';
+import { DBPost, GQLPost } from './post.model';
 
-export interface IUser {
+export interface GQLUser {
   _id: ObjectId;
 
   name: string;
   email: string;
   googleId?: string;
 
-  posts: IPost['_id'];
+  posts: GQLPost[];
 
   createdAt: Date;
   updatedAt: Date;
   deleted: boolean;
 }
 
-const userSchema: Schema<IUser> = new Schema(
+export interface DBUser {
+  _id: ObjectId;
+
+  name: string;
+  email: string;
+  googleId?: string;
+
+  posts: Array<DBPost['_id']>;
+
+  createdAt: Date;
+  updatedAt: Date;
+  deleted: boolean;
+}
+
+const userSchema: Schema<DBUser> = new Schema(
   {
     name: { type: String, required: true, default: '' },
     email: { type: String, required: true },
@@ -36,8 +50,8 @@ const userSchema: Schema<IUser> = new Schema(
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<IUser> = userSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<IUser> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<DBUser> = userSchema.plugin(softDelete);
+const autoPopulatedSchema: Schema<DBUser> = softDeleteSchema.plugin(autoPopulate);
 
-export type UserDocument = IUser & Document;
+export type UserDocument = DBUser & Document;
 export const UserModel = model<UserDocument>('User', autoPopulatedSchema);
