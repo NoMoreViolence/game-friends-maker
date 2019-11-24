@@ -1,17 +1,18 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import React, { useCallback, useState } from 'react';
 import ScrollAnimation from 'react-animate-on-scroll';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { toast } from 'lib';
+import { useRouter } from 'helpers';
 
-import { googleClientKey } from '../../../../constants';
-import { userActions } from 'store/reducers';
 import { Span1D5rem, color, Span4rem, Button1D5rem } from 'styles';
 import { Landing01RootDiv, Landing01TextDiv, Landing01ImageDiv } from './landing-01.styled';
+import LoadingComponent from 'components/loading';
 import GoogleLogoSvg from 'svgs/google-logo';
+import { googleClientKey, getRestAxios } from '../../../../constants';
 
 const Landing01Component = () => {
-  const dispatch = useDispatch();
+  const { push } = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const responseToGoogle = useCallback(
     (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
@@ -19,39 +20,60 @@ const Landing01Component = () => {
       const authResponse = googleResponse.getAuthResponse();
       const basicProfile = googleResponse.getBasicProfile();
 
-      dispatch(
-        userActions.register({
-          email: basicProfile.getEmail(),
-          name: basicProfile.getName(),
-          googleId: basicProfile.getId(),
-          googleIdToken: authResponse.id_token,
-        }),
-      );
+      setIsLoading(true);
+      getRestAxios()
+        .post(
+          '/login-or-register',
+          {
+            email: basicProfile.getEmail(),
+            name: basicProfile.getName(),
+            googleId: basicProfile.getId(),
+            googleIdToken: authResponse.id_token,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then(res => {
+          toast('success', 'Sign succeed', '');
+          localStorage.setItem('token', res.data.data.token);
+          push('/app');
+        })
+        .catch(err => {
+          toast('error', 'Sign failed !', 'Check your internet, plz');
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     },
-    [dispatch],
+    [push],
   );
   const errorToGoogle = useCallback((response: { error: () => void }) => {
+    toast('error', 'Sign failed !', 'Check your internet, plz');
     console.log(response);
   }, []);
 
   return (
     <Landing01RootDiv>
+      <LoadingComponent isLoading={isLoading} />
       <Landing01TextDiv>
         <div>
           <Span4rem weight={'bold'} lineHeight={1.25} color={color.blackLight}>
-            <FormattedMessage id={'landing.main.title.1'} />
+            More cooperative,
           </Span4rem>
           <Span4rem weight={'bold'} lineHeight={1.25} color={color.blackLight}>
-            <FormattedMessage id={'landing.main.title.2'} />
+            More teamwork.
           </Span4rem>
         </div>
 
         <div>
           <Span1D5rem color={color.blackLight} weight={'600'}>
-            <FormattedMessage id={'landing.main.sub.1'} />
+            Team up and strategize before the game.
           </Span1D5rem>
           <Span1D5rem color={color.blackLight} weight={'600'}>
-            <FormattedMessage id={'landing.main.sub.2'} />
+            Team luck is no longer luck.
           </Span1D5rem>
         </div>
 
@@ -85,7 +107,7 @@ const Landing01Component = () => {
                     onClick={p.onClick}
                   >
                     <GoogleLogoSvg style={{ marginRight: '1rem' }} />
-                    <FormattedMessage id={'landing.google.signin.and.signup'} />
+                    Sign with Google
                   </Button1D5rem>
                 </ScrollAnimation>
               ) : (

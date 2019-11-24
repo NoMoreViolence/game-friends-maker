@@ -1,26 +1,21 @@
-import React, { useEffect } from 'react';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { push } from 'connected-react-router';
-import { AppState } from 'bootstrap';
-import { getUserStatusSelector } from 'store/reducers';
+import React from 'react';
+import { useRouter, useComponentDidMount } from 'helpers';
 
 import { LandingComponentRootDiv } from './landing.styled';
 import LandingHeaderComponent from './components/landing-header';
 import Landing01Component from './components/landing-01';
 import Landing02Component from './components/landing-02';
 import Landing03Component from './components/landing-03';
-import Landing04Component from './components/landing-04';
 import FooterComponent from './components/footer';
 
 const LandingComponent = () => {
-  const dispatch = useDispatch();
-  const { loginStatus } = useSelector(({ user }: AppState) => getUserStatusSelector(user), shallowEqual);
+  const { push } = useRouter();
 
-  useEffect(() => {
-    if (loginStatus === 'success') {
-      dispatch(push('/app'));
+  useComponentDidMount(() => {
+    if (localStorage.getItem('token') !== null) {
+      push('/app');
     }
-  }, [dispatch, loginStatus]);
+  });
 
   return (
     <LandingComponentRootDiv>
@@ -42,12 +37,6 @@ const LandingComponent = () => {
       <div className="landing-03">
         <div className="landing-03-wrapper">
           <Landing03Component />
-        </div>
-      </div>
-
-      <div className="landing-04">
-        <div className="landing-04-wrapper">
-          <Landing04Component />
         </div>
       </div>
 

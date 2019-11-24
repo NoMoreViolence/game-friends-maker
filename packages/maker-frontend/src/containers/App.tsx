@@ -1,26 +1,17 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { useSelector, shallowEqual } from 'react-redux';
-import { IntlProvider } from 'react-intl';
-import locale from 'locale';
-import { AppState } from 'bootstrap';
-import { getLanguageSelector } from 'store/reducers';
-import GlobalComponent from 'containers/global';
+import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import LandingComponent from 'containers/landing';
-import ScreenComponent from 'containers/screen';
+import ScreenComponent from './screen';
 
 const App = () => {
-  const language = useSelector((state: AppState) => getLanguageSelector(state.global), shallowEqual);
-
   return (
-    <IntlProvider locale={language} messages={locale[language]}>
-      <GlobalComponent />
+    <BrowserRouter>
       <Switch>
         <Route path="/app" component={ScreenComponent} />
         <Route path="/" exact={true} component={LandingComponent} />
         <Redirect to="/" />
       </Switch>
-    </IntlProvider>
+    </BrowserRouter>
   );
 };
 

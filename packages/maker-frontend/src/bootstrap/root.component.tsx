@@ -1,17 +1,12 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { configureStore, history } from 'bootstrap';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloMainClient } from 'bootstrap';
 import AppComponent from 'containers/App';
 
-const store = configureStore();
-
 const Root = () => (
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <AppComponent />
-    </ConnectedRouter>
-  </Provider>
+  <ApolloProvider client={ApolloMainClient}>
+    <AppComponent />
+  </ApolloProvider>
 );
 
 export default Root;
