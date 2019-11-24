@@ -1,4 +1,2 @@
-export * from './root.state';
-export * from './root.reducer';
-export * from './root.store';
+export * from './root.apollo';
 export { default } from './root.component';

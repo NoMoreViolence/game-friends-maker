@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import ScrollAnimation from 'react-animate-on-scroll';
 
 import { color, Span1D5rem, Span2rem } from 'styles';
@@ -10,16 +9,16 @@ const Landing03Component = () => (
     <Landing03TextDiv>
       <div>
         <Span2rem weight={'bold'} lineHeight={1.25} color={color.blackLight}>
-          <FormattedMessage id={'landing.feature.2.title'} />
+          Is there any OP for play with me ?
         </Span2rem>
       </div>
 
       <div>
         <Span1D5rem color={color.blackLight} weight={'normal'}>
-          <FormattedMessage id={'landing.feature.2.sub.1'} />
+          Yes ! There is exist in CoHope.
         </Span1D5rem>
         <Span1D5rem color={color.blackLight} weight={'normal'}>
-          <FormattedMessage id={'landing.feature.2.sub.2'} />
+          So Easy to find OP
         </Span1D5rem>
       </div>
     </Landing03TextDiv>

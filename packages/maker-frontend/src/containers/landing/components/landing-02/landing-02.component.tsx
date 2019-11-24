@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import ScrollAnimation from 'react-animate-on-scroll';
 
 import { color, Span1D5rem, Span2rem } from 'styles';
@@ -16,16 +15,16 @@ const Landing02Component = () => (
     <Landing02TextDiv>
       <div>
         <Span2rem weight={'bold'} lineHeight={1.25} color={color.blackLight}>
-          <FormattedMessage id={'landing.feature.1.title'} />
+          You can find team members that are optimized for you.
         </Span2rem>
       </div>
 
       <div>
         <Span1D5rem color={color.blackLight} weight={'normal'}>
-          <FormattedMessage id={'landing.feature.1.sub.1'} />
+          You can pick team members by using
         </Span1D5rem>
         <Span1D5rem color={color.blackLight} weight={'normal'}>
-          <FormattedMessage id={'landing.feature.1.sub.2'} />
+          various conditions such as tier and level.
         </Span1D5rem>
       </div>
     </Landing02TextDiv>
