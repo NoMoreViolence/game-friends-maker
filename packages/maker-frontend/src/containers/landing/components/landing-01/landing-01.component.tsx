@@ -37,15 +37,14 @@ const Landing01Component = () => {
           },
         )
         .then(res => {
+          setIsLoading(false);
           toast('success', 'Sign succeed', '');
           localStorage.setItem('token', res.data.data.token);
           push('/app');
         })
         .catch(err => {
-          toast('error', 'Sign failed !', 'Check your internet, plz');
-        })
-        .finally(() => {
           setIsLoading(false);
+          toast('error', 'Sign failed !', 'Check your internet, plz');
         });
     },
     [push],

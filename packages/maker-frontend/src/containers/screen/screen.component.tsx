@@ -2,33 +2,42 @@ import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 
-import { ScreenRootDiv, GlobalStyle } from './screen.styled';
+import { ScreenRootDiv, GlobalStyle, StyledContainer } from './screen.styled';
 import { USER } from 'graphqls/queries/USER';
 import { User, UserQueryVariables } from 'graphqls/generated/graphql';
 import { useRouter } from 'helpers';
 import LoadingComponent from 'components/loading';
+import PostContainer from './containers/post';
+import ScreenHeaderComponent from './components/header';
+import { Container } from 'ui';
 
 const ScreenComponent = () => {
   const { push } = useRouter();
-  const { loading, error } = useQuery<User, UserQueryVariables>(USER);
+  const { loading } = useQuery<User, UserQueryVariables>(USER, {
+    onError: () => {
+      localStorage.removeItem('token');
+      push('/');
+    },
+  });
 
-  if (error) {
-    localStorage.removeItem('token');
-    push('/');
-    return null;
-  }
   if (loading) {
-    return <LoadingComponent isLoading={true} />;
+    return <LoadingComponent />;
   }
 
   return (
     <ScreenRootDiv>
       <GlobalStyle />
-      <Switch>
-        <Route path="app/news" />
-        <Route path="app/message" />
-        <Redirect to="/app/post" />
-      </Switch>
+      <StyledContainer>
+        <Container>
+          <ScreenHeaderComponent />
+          <Switch>
+            <Route path="/app/post" component={PostContainer} />
+            <Route path="/app/news" />
+            <Route path="/app/message" />
+            <Redirect to="/app/post" />
+          </Switch>
+        </Container>
+      </StyledContainer>
     </ScreenRootDiv>
   );
 };
