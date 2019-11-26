@@ -4,20 +4,18 @@ import { color, zIndex } from 'styles';
 import LoadingLogoSvg from 'svgs/loading-logo';
 
 interface Props {
-  isLoading?: boolean; // false
+  /**
+   * @default true
+   */
+  isLoading?: boolean; // true
 }
 
-const LoadingComponent: FC<Props> = ({ isLoading }) => {
-  if (isLoading) {
-    return (
-      <GlobalLoadingRootDiv>
-        <LoadingLogoSvg />
-      </GlobalLoadingRootDiv>
-    );
-  }
-
-  return null;
-};
+const LoadingComponent: FC<Props> = ({ isLoading = true }) =>
+  isLoading ? (
+    <GlobalLoadingRootDiv>
+      <LoadingLogoSvg />
+    </GlobalLoadingRootDiv>
+  ) : null;
 
 export const GlobalLoadingRootDiv = styled('div')`
   z-index: ${zIndex.heaven};
