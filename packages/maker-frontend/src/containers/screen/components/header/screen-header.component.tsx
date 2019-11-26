@@ -3,6 +3,7 @@ import { useRouter, Icon } from 'helpers';
 
 import { Img } from 'ui';
 import { HeaderContainer, Menu } from './screen-header.styled';
+import { color, zIndex } from 'styles';
 
 interface Props {}
 
@@ -16,7 +17,14 @@ const ScreenHeaderComponent: FC<Props> = () => {
   const goMyPage = useCallback(() => push('/app/my'), [push]);
 
   return (
-    <HeaderContainer pr={16} pl={16} height={70} justifyContent="space-between">
+    <HeaderContainer
+      zIndex={zIndex.level1}
+      pr={16}
+      pl={16}
+      height={70}
+      backgroundColor={color.white}
+      justifyContent="space-between"
+    >
       <Img src="/images/logo/logo.png" pointer onClick={goHome} alt="cohope" width="36" height="36" />
       <Menu alignItems="center">
         <Icon onClick={goSearch} mr={8} ml={8} pointer iconClass={'uil uil-search'} iconStyle={{ fontSize: '30px' }} />
