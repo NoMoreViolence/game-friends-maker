@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
 import { color } from './color';
 import { device } from './media';
+import { PaddingCss, MarginCss, marginCss, paddingCss } from 'ui';
 
 const { black } = color;
 
-export interface SpanProps {
+export interface SpanProps extends MarginCss, PaddingCss {
   weight?: string;
   color?: string;
   cursor?: string;
@@ -60,7 +61,9 @@ const returnStyle = ({
 
 // 10px
 export const SpanD625rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 0.625rem;
@@ -71,7 +74,9 @@ export const SpanD625rem = styled('span')<SpanProps>`
 
 // 12px
 export const SpanD75rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 0.75rem;
@@ -83,7 +88,9 @@ export const SpanD75rem = styled('span')<SpanProps>`
 
 // 14px
 export const SpanD875rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 0.875rem;
@@ -95,7 +102,9 @@ export const SpanD875rem = styled('span')<SpanProps>`
 
 // 16px
 export const Span1rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 1rem;
@@ -107,7 +116,9 @@ export const Span1rem = styled('span')<SpanProps>`
 
 // 24px
 export const Span1D5rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 1.5rem;
@@ -119,7 +130,9 @@ export const Span1D5rem = styled('span')<SpanProps>`
 
 // 28px
 export const Span1D75rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 1.75rem;
@@ -131,7 +144,9 @@ export const Span1D75rem = styled('span')<SpanProps>`
 
 // 32px
 export const Span2rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 2rem;
@@ -143,7 +158,9 @@ export const Span2rem = styled('span')<SpanProps>`
 
 // 48px
 export const Span3rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 3rem;
@@ -155,7 +172,9 @@ export const Span3rem = styled('span')<SpanProps>`
 
 // 48px
 export const Span4rem = styled('span')<SpanProps>`
-  ${commonSpanStyle};
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
   ${p => returnStyle(p)}
 
   font-size: 4rem;

@@ -1,7 +1,16 @@
 import { css } from 'styled-components';
-import { MarginCss, marginCss, PaddingCss, paddingCss, WidthHeightCss, widthHeightCss } from '../common';
+import {
+  MarginCss,
+  marginCss,
+  PaddingCss,
+  paddingCss,
+  WidthHeightCss,
+  widthHeightCss,
+  ZIndexCss,
+  zIndexCss,
+} from '../common';
 
-export interface RowColProps extends MarginCss, PaddingCss, WidthHeightCss {
+export interface RowColProps extends MarginCss, PaddingCss, WidthHeightCss, ZIndexCss {
   flex?: number; // 0
   flexGrow?: number; // 0
   flexShrink?: number; // 0
@@ -18,6 +27,7 @@ export const rowColBaseStyle = css<RowColProps>`
   ${marginCss}
   ${paddingCss}
   ${widthHeightCss}
+  ${zIndexCss}
   ${props => (typeof props.flex === 'number' ? `flex: ${props.flex};` : '')}
   ${props => (typeof props.flexGrow === 'number' ? `flex-grow: ${props.flexGrow};` : '')}
   ${props => (typeof props.flexShrink === 'number' ? `flex-shrink: ${props.flexShrink};` : '')}

@@ -21,21 +21,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const ScreenRootDiv = styled('div')`
-  box-sizing: border-box;
+export const ScrollContainer = styled(Container)`
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-`;
-
-export const StyledContainer = styled(Container)`
-  flex: 1 1 auto; /* 1 */
   position: relative;
-  min-width: 1px;
+  overflow: scroll;
+  overflow-y: auto;
+  margin: auto;
   max-width: 1752px;
-  margin: 0 auto;
-  width: 100%;
 `;
