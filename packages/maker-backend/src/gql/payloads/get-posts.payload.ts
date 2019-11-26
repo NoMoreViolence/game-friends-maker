@@ -19,6 +19,9 @@ export class GetPostPayload {
 @InputType()
 export class GetPostsPayload {
   @Field(type => String, { nullable: true })
+  authorId?: ObjectId;
+
+  @Field(type => String, { nullable: true })
   name?: string;
 }
 
