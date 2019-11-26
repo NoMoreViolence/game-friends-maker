@@ -1,4 +1,5 @@
-import { Authorized, Ctx, Resolver, Mutation, Arg, Query, FieldResolver, Root } from 'type-graphql';
+import { Authorized, Ctx, Resolver, Mutation, Arg, Query } from 'type-graphql';
+import { DBPost } from '@common-server';
 import { Service } from 'typedi';
 import { UserService, PostService, CommonService } from '@gql/services';
 import { Context } from '@gql/bootstrap/session';
@@ -40,8 +41,13 @@ export class PostResolver {
   ) {
     const { offsetId, sort = Sort.DESC } = option || {};
     const objectOffsetId = offsetId ? new ObjectId(offsetId) : new ObjectId();
+    const payload: Partial<DBPost> = {};
+    payload.name = getPost.name;
+    if (getPost.authorId !== undefined) {
+      payload.authorId = new ObjectId(getPost.authorId);
+    }
 
-    return (await this.postService.getPosts(getPost, {
+    return (await this.postService.getPosts(payload, {
       offsetId: objectOffsetId,
       sort,
     })).map(post => post.toObject());
