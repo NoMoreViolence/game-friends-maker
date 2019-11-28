@@ -36,7 +36,7 @@ const gameSchema: Schema<DBGame> = new Schema(
           ref: 'Genre',
           autopopulate: {
             maxDepth: 1,
-            select: '_id name',
+            select: '_id name genres',
           },
         },
       ],
