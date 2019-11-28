@@ -44,8 +44,8 @@ const postSchema: Schema<DBPost> = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Game',
       autopopulate: {
-        maxDepth: 1,
-        select: '_id name',
+        maxDepth: 2,
+        select: '_id name genres',
       },
       required: true,
     },
