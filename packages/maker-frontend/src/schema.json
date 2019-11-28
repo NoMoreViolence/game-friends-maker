@@ -11,11 +11,11 @@
       {
         "kind": "OBJECT",
         "name": "Query",
-        "description": "",
+        "description": null,
         "fields": [
           {
             "name": "user",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -31,11 +31,11 @@
           },
           {
             "name": "post",
-            "description": "",
+            "description": null,
             "args": [
               {
                 "name": "getPost",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -62,11 +62,11 @@
           },
           {
             "name": "posts",
-            "description": "",
+            "description": null,
             "args": [
               {
                 "name": "option",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "GetPostsOptionPayload",
@@ -76,7 +76,7 @@
               },
               {
                 "name": "getPost",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -118,11 +118,11 @@
       {
         "kind": "OBJECT",
         "name": "User",
-        "description": "",
+        "description": null,
         "fields": [
           {
             "name": "_id",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -138,7 +138,7 @@
           },
           {
             "name": "name",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -154,7 +154,7 @@
           },
           {
             "name": "email",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -170,7 +170,7 @@
           },
           {
             "name": "posts",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -194,7 +194,7 @@
           },
           {
             "name": "createdAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -210,7 +210,7 @@
           },
           {
             "name": "updatedAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -226,7 +226,7 @@
           },
           {
             "name": "deleted",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -259,11 +259,11 @@
       {
         "kind": "OBJECT",
         "name": "Post",
-        "description": "",
+        "description": null,
         "fields": [
           {
             "name": "_id",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -279,7 +279,7 @@
           },
           {
             "name": "name",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -295,7 +295,7 @@
           },
           {
             "name": "gameId",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -311,7 +311,7 @@
           },
           {
             "name": "authorId",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -327,7 +327,7 @@
           },
           {
             "name": "relatedPeopleIds",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -351,7 +351,7 @@
           },
           {
             "name": "introduction",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -367,7 +367,7 @@
           },
           {
             "name": "createdAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -383,7 +383,7 @@
           },
           {
             "name": "updatedAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -399,7 +399,7 @@
           },
           {
             "name": "deleted",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -422,11 +422,11 @@
       {
         "kind": "OBJECT",
         "name": "Game",
-        "description": "",
+        "description": null,
         "fields": [
           {
             "name": "_id",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -442,7 +442,7 @@
           },
           {
             "name": "name",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -458,7 +458,7 @@
           },
           {
             "name": "genres",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -482,7 +482,7 @@
           },
           {
             "name": "createdAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -498,7 +498,7 @@
           },
           {
             "name": "updatedAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -514,7 +514,7 @@
           },
           {
             "name": "deleted",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -537,11 +537,11 @@
       {
         "kind": "OBJECT",
         "name": "Genre",
-        "description": "",
+        "description": null,
         "fields": [
           {
             "name": "_id",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -557,7 +557,7 @@
           },
           {
             "name": "name",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -573,7 +573,7 @@
           },
           {
             "name": "createdAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -589,7 +589,7 @@
           },
           {
             "name": "updatedAt",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -605,7 +605,7 @@
           },
           {
             "name": "deleted",
-            "description": "",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -648,12 +648,12 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "GetPostPayload",
-        "description": "",
+        "description": null,
         "fields": null,
         "inputFields": [
           {
             "name": "_id",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -663,7 +663,7 @@
           },
           {
             "name": "name",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -673,7 +673,7 @@
           },
           {
             "name": "gameId",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -683,7 +683,7 @@
           },
           {
             "name": "authorId",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -699,12 +699,12 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "GetPostsOptionPayload",
-        "description": "",
+        "description": null,
         "fields": null,
         "inputFields": [
           {
             "name": "offsetId",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -714,7 +714,7 @@
           },
           {
             "name": "sort",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "ENUM",
               "name": "Sort",
@@ -730,20 +730,20 @@
       {
         "kind": "ENUM",
         "name": "Sort",
-        "description": "",
+        "description": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "DESC",
-            "description": "",
+            "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "ASC",
-            "description": "",
+            "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -753,12 +753,12 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "GetPostsPayload",
-        "description": "",
+        "description": null,
         "fields": null,
         "inputFields": [
           {
             "name": "authorId",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -768,7 +768,7 @@
           },
           {
             "name": "name",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -784,15 +784,15 @@
       {
         "kind": "OBJECT",
         "name": "Mutation",
-        "description": "",
+        "description": null,
         "fields": [
           {
             "name": "createPost",
-            "description": "",
+            "description": null,
             "args": [
               {
                 "name": "newPost",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -819,11 +819,11 @@
           },
           {
             "name": "updatePost",
-            "description": "",
+            "description": null,
             "args": [
               {
                 "name": "nextPost",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -837,7 +837,7 @@
               },
               {
                 "name": "postId",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -864,11 +864,11 @@
           },
           {
             "name": "joinPost",
-            "description": "",
+            "description": null,
             "args": [
               {
                 "name": "postId",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -895,11 +895,11 @@
           },
           {
             "name": "deletePost",
-            "description": "",
+            "description": null,
             "args": [
               {
                 "name": "postId",
-                "description": "",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -933,12 +933,12 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "CreatePostPayload",
-        "description": "",
+        "description": null,
         "fields": null,
         "inputFields": [
           {
             "name": "postName",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -952,7 +952,7 @@
           },
           {
             "name": "gameId",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -966,7 +966,7 @@
           },
           {
             "name": "introduction",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -982,12 +982,12 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "UpdatePostPayload",
-        "description": "",
+        "description": null,
         "fields": null,
         "inputFields": [
           {
             "name": "name",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -997,7 +997,7 @@
           },
           {
             "name": "gameId",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1007,7 +1007,7 @@
           },
           {
             "name": "introduction",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1017,7 +1017,7 @@
           },
           {
             "name": "relatedPeopleIds",
-            "description": "",
+            "description": null,
             "type": {
               "kind": "LIST",
               "name": null,
@@ -1913,6 +1913,91 @@
               "ofType": null
             },
             "defaultValue": "\"No longer supported\""
+          }
+        ]
+      },
+      {
+        "name": "client",
+        "description": "Direct the client to resolve this field locally, either from the cache or local resolvers.",
+        "locations": [
+          "FIELD",
+          "FRAGMENT_DEFINITION",
+          "INLINE_FRAGMENT"
+        ],
+        "args": [
+          {
+            "name": "always",
+            "description": "When true, the client will never use the cache for this value. See\nhttps://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "name": "export",
+        "description": "Export this locally resolved field as a variable to be used in the remainder of this query. See\nhttps://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables",
+        "locations": [
+          "FIELD"
+        ],
+        "args": [
+          {
+            "name": "as",
+            "description": "The variable name to export this field as.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "name": "connection",
+        "description": "Specify a custom store key for this result. See\nhttps://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive",
+        "locations": [
+          "FIELD"
+        ],
+        "args": [
+          {
+            "name": "key",
+            "description": "Specify the store key.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "filter",
+            "description": "An array of query argument names to include in the generated custom store key.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
           }
         ]
       }
