@@ -42,8 +42,10 @@ export class PostResolver {
     const { offsetId, sort = Sort.DESC } = option || {};
     const objectOffsetId = offsetId ? new ObjectId(offsetId) : new ObjectId();
     const payload: Partial<DBPost> = {};
-    payload.name = getPost.name;
-    if (getPost.authorId !== undefined) {
+    if (payload.name) {
+      payload.name = getPost.name;
+    }
+    if (getPost.authorId) {
       payload.authorId = new ObjectId(getPost.authorId);
     }
 
