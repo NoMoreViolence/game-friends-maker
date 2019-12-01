@@ -12,6 +12,7 @@ export interface GQLPost {
 
   gameId: GQLGame;
   authorId: GQLUser;
+  pendingPeopleIds: GQLUser[];
   relatedPeopleIds: GQLUser[];
 
   introduction: string;
@@ -27,6 +28,7 @@ export interface DBPost {
 
   gameId: DBGame['_id'];
   authorId: DBUser['_id'];
+  pendingPeopleIds: Array<DBUser['_id']>;
   relatedPeopleIds: Array<DBUser['_id']>;
 
   introduction: string;
@@ -44,8 +46,8 @@ const postSchema: Schema<DBPost> = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Game',
       autopopulate: {
-        maxDepth: 2,
-        select: '_id name genres',
+        maxDepth: 3,
+        select: '_id name genres createdAt updatedAt',
       },
       required: true,
     },
@@ -54,9 +56,22 @@ const postSchema: Schema<DBPost> = new Schema(
       ref: 'User',
       autopopulate: {
         maxDepth: 1,
-        select: '_id name email',
+        select: '_id name email createdAt updatedAt',
       },
       required: true,
+    },
+    pendingPeopleIds: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+          autopopulate: {
+            maxDepth: 1,
+            select: '_id name email createdAt updatedAt',
+          },
+        },
+      ],
+      default: [],
     },
     relatedPeopleIds: {
       type: [
@@ -65,7 +80,7 @@ const postSchema: Schema<DBPost> = new Schema(
           ref: 'User',
           autopopulate: {
             maxDepth: 1,
-            select: '_id name email',
+            select: '_id name email createdAt updatedAt',
           },
         },
       ],
