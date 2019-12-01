@@ -12,6 +12,8 @@ export interface GQLUser {
   googleId?: string;
 
   posts: GQLPost[];
+  pendingTeams: GQLPost[];
+  relatedTeams: GQLPost[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -26,6 +28,8 @@ export interface DBUser {
   googleId?: string;
 
   posts: Array<DBPost['_id']>;
+  pendingTeams: Array<DBPost['_id']>;
+  relatedTeams: Array<DBPost['_id']>;
 
   createdAt: Date;
   updatedAt: Date;
@@ -37,16 +41,42 @@ const userSchema: Schema<DBUser> = new Schema(
     name: { type: String, required: true, default: '' },
     email: { type: String, required: true },
     googleId: { type: String, required: false },
-    posts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Post',
-        autopopulate: {
-          maxDepth: 2,
-          select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
+    posts: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Post',
+          autopopulate: {
+            maxDepth: 2,
+            select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
+          },
         },
-      },
-    ],
+      ],
+    },
+    pendingTeams: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Post',
+          autopopulate: {
+            maxDepth: 2,
+            select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
+          },
+        },
+      ],
+    },
+    relatedTeams: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Post',
+          autopopulate: {
+            maxDepth: 2,
+            select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
+          },
+        },
+      ],
+    },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
