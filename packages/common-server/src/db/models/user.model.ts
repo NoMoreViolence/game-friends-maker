@@ -42,8 +42,8 @@ const userSchema: Schema<DBUser> = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Post',
         autopopulate: {
-          maxDepth: 1,
-          select: '_id name email gameId relatedPeopleIds limit',
+          maxDepth: 2,
+          select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
         },
       },
     ],
