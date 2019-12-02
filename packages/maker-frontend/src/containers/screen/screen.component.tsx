@@ -9,13 +9,12 @@ import { GlobalStyle, ScrollContainer } from './screen.styled';
 import LoadingComponent from 'components/loading';
 import TeamContainer from './containers/team';
 import ScreenHeaderComponent from './components/header';
-import { useUserStateDispatch, useUserState } from 'context';
+import { useUserStateDispatch } from 'context';
 import { User } from 'graphqls/queries/__generated__/User';
 
 const ScreenComponent = () => {
   const { push } = useRouter();
   const dispatch = useUserStateDispatch();
-  const { user } = useUserState();
   const { loading } = useQuery<User>(USER, {
     onError: () => {
       localStorage.removeItem('token');
@@ -30,8 +29,6 @@ const ScreenComponent = () => {
 
   if (loading) {
     return <LoadingComponent />;
-  }
-  if (!user) {
   }
 
   return (
