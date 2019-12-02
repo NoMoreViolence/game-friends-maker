@@ -1,5 +1,5 @@
-import { game as gameConstants } from './constants';
-import { GameModel, GenreModel } from './common-server';
+import { game as gameConstants } from './constants/target.json';
+import { GenreModel, GameModel } from './common-server';
 
 export class Game {
   public async create() {

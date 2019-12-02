@@ -1,4 +1,4 @@
-import { genre as genreConstants } from './constants';
+import { genre as genreConstants } from './constants/target.json';
 import { GenreModel } from './common-server';
 
 export class Genre {
