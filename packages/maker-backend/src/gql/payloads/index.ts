@@ -1,3 +1,3 @@
-export * from './create-post.payload';
-export * from './update-post.payload';
-export * from './get-posts.payload';
+export * from './create-team.payload';
+export * from './update-team.payload';
+export * from './get-teams.payload';

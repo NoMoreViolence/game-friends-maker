@@ -1,2 +1,2 @@
-export * from './post.controller';
+export * from './team.controller';
 export * from './sign.controller';

@@ -1,11 +1,11 @@
 import { ObjectId } from 'bson';
-import { GQLPost } from '@common-server';
+import { GQLTeam } from '@common-server';
 import { Field, ObjectType } from 'type-graphql';
 import { User } from './user';
 import { Game } from './game';
 
 @ObjectType()
-export class Post implements GQLPost {
+export class Team implements GQLTeam {
   @Field(type => String)
   _id: ObjectId;
 

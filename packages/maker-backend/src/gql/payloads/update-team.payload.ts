@@ -2,7 +2,7 @@ import { ObjectId } from 'bson';
 import { Field, ID, InputType } from 'type-graphql';
 
 @InputType()
-export class UpdatePostPayload {
+export class UpdateTeamPayload {
   @Field(type => String, { nullable: true })
   name?: string;
 

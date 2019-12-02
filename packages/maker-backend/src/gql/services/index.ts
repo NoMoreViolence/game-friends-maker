@@ -1,3 +1,3 @@
 export * from './user.service';
-export * from './post.service';
+export * from './team.service';
 export * from './common.service';

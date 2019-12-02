@@ -1,7 +1,7 @@
 import { ObjectId } from 'bson';
 import { GQLUser } from '@common-server';
 import { Field, ObjectType } from 'type-graphql';
-import { Post } from './post';
+import { Team } from './team';
 
 @ObjectType()
 export class User implements GQLUser {
@@ -14,14 +14,14 @@ export class User implements GQLUser {
   @Field(type => String)
   email: string;
 
-  @Field(type => [Post])
-  posts: Post[];
+  @Field(type => [Team])
+  teams: Team[];
 
-  @Field(type => [Post])
-  pendingTeams: Post[];
+  @Field(type => [Team])
+  pendingTeams: Team[];
 
-  @Field(type => [Post])
-  relatedTeams: Post[];
+  @Field(type => [Team])
+  relatedTeams: Team[];
 
   @Field(type => Date)
   createdAt: Date;

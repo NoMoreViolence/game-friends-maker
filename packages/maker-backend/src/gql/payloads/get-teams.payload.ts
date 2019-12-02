@@ -2,7 +2,7 @@ import { Field, InputType, registerEnumType } from 'type-graphql';
 import { ObjectId } from 'mongodb';
 
 @InputType()
-export class GetPostPayload {
+export class GetTeamPayload {
   @Field(type => String, { nullable: true })
   _id?: ObjectId;
 
@@ -17,7 +17,7 @@ export class GetPostPayload {
 }
 
 @InputType()
-export class GetPostsPayload {
+export class GetTeamsPayload {
   @Field(type => String, { nullable: true })
   authorId?: ObjectId;
 
@@ -34,7 +34,7 @@ registerEnumType(Sort, {
 });
 
 @InputType()
-export class GetPostsOptionPayload {
+export class GetTeamsOptionPayload {
   @Field(type => String, { nullable: true })
   offsetId?: string;
 

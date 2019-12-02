@@ -10,7 +10,7 @@ export interface UserToken {
     _id: ObjectID;
     name: string;
     email: string;
-    posts: ObjectID[];
+    teams: ObjectID[];
   };
 }
 
@@ -38,7 +38,7 @@ export const tokenCheckMiddleware = async (req: Request, res: Response, next: Ne
         _id: user._id,
         name: user.name,
         email: user.email,
-        posts: user.posts,
+        teams: user.teams,
       },
     };
     next();
