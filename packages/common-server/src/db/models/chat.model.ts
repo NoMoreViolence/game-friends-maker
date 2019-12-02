@@ -3,14 +3,14 @@ import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
 
-import { GQLPost, DBPost } from './post.model';
+import { GQLTeam, DBTeam } from './team.model';
 import { GQLUser, DBUser } from './user.model';
 
 export interface GQLChat {
   _id: ObjectId;
 
   text: string;
-  postId: GQLPost;
+  teamId: GQLTeam;
   userId: GQLUser;
 
   createdAt: Date;
@@ -22,7 +22,7 @@ export interface DBChat {
   _id: ObjectId;
 
   text: string;
-  postId: DBPost['_id'];
+  teamId: DBTeam['_id'];
   userId: DBUser['_id'];
 
   createdAt: Date;
@@ -33,9 +33,9 @@ export interface DBChat {
 const chatSchema: Schema<DBChat> = new Schema(
   {
     text: { type: String, required: true },
-    postId: {
+    teamId: {
       type: Schema.Types.ObjectId,
-      ref: 'Post',
+      ref: 'Team',
       autopopulate: {
         maxDepth: 1,
         select: '_id',

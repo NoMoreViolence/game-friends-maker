@@ -6,7 +6,7 @@ import autoPopulate from 'mongoose-autopopulate';
 import { GQLGame, DBGame } from './game.model';
 import { DBUser, GQLUser } from './user.model';
 
-export interface GQLPost {
+export interface GQLTeam {
   _id: ObjectId;
   name: string;
 
@@ -22,7 +22,7 @@ export interface GQLPost {
   deleted: boolean;
 }
 
-export interface DBPost {
+export interface DBTeam {
   _id: ObjectId;
   name: string;
 
@@ -38,7 +38,7 @@ export interface DBPost {
   deleted: boolean;
 }
 
-const postSchema: Schema<DBPost> = new Schema(
+const teamSchema: Schema<DBTeam> = new Schema(
   {
     name: { type: String, required: true, default: "Jihoon's Game number one" },
     introduction: { type: String, required: false, default: '' },
@@ -89,8 +89,8 @@ const postSchema: Schema<DBPost> = new Schema(
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<DBPost> = postSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<DBPost> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<DBTeam> = teamSchema.plugin(softDelete);
+const autoPopulatedSchema: Schema<DBTeam> = softDeleteSchema.plugin(autoPopulate);
 
-export type PostDocument = DBPost & Document;
-export const PostModel = model<PostDocument>('Post', autoPopulatedSchema);
+export type TeamDocument = DBTeam & Document;
+export const TeamModel = model<TeamDocument>('Team', autoPopulatedSchema);
