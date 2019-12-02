@@ -2,9 +2,9 @@ import { ObjectId } from 'bson';
 import { Field, InputType } from 'type-graphql';
 
 @InputType()
-export class CreatePostPayload {
+export class CreateTeamPayload {
   @Field(type => String)
-  postName: string;
+  teamName: string;
 
   @Field(type => String)
   gameId: ObjectId;

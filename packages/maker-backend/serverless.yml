@@ -39,7 +39,7 @@ functions:
     handler: src/index.handler
     events:
       - http:
-          method: post
+          method: team
           cors: true
           path: graphql
       - http:
@@ -50,7 +50,7 @@ functions:
     handler: src/http/index.loginOrRegister
     events:
       - http:
-          method: post
+          method: team
           cors: true
           path: login-or-register
   # websocketHandler:
