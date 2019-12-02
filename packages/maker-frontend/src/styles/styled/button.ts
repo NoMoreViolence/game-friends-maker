@@ -35,8 +35,6 @@ const returnStyle = ({
   cursor,
   transition,
   padding,
-
-  nowrap,
   align,
   weight,
   fontStretch,
@@ -47,8 +45,6 @@ const returnStyle = ({
   `
     cursor: ${cursor ? cursor : 'unset'};
     ${padding ? `padding: ${padding};` : ''}
-
-    white-space: ${nowrap ? 'nowrap' : 'unset'};
     font-weight: ${weight ? weight : 'normal'};
     text-align: ${align ? align : 'unset'};
     font-style: ${fontStyle ? fontStyle : 'normal'};

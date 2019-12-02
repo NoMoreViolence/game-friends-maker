@@ -17,8 +17,8 @@ export interface RowColProps extends MarginCss, PaddingCss, WidthHeightCss, ZInd
   flexBasis?: number; // 'auto'
   flexWrap?: 'nowrap' | 'wrap' | 'wrap-reverse' | 'initial';
   isReversed?: boolean;
-  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'; // 'start'
-  alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch'; // 'center'
+  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'unset'; // 'start'
+  alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'unset'; // 'center'
   backgroundColor?: string;
   style?: React.CSSProperties;
 }
@@ -33,6 +33,7 @@ export const rowColBaseStyle = css<RowColProps>`
   ${props => (typeof props.flexShrink === 'number' ? `flex-shrink: ${props.flexShrink};` : '')}
   ${props => (typeof props.flexBasis === 'number' ? `flex-basis: ${props.flexBasis};` : '')}
   ${props => (props.flexWrap ? `flex-wrap ${props.flexWrap};` : '')}
+  box-sizing: border-box;
   display: flex;
   background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : 'transparent')};
   justify-content: ${props => props.justifyContent || 'flex-start'};

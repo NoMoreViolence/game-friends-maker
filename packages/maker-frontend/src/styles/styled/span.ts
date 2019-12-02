@@ -6,7 +6,7 @@ import { PaddingCss, MarginCss, marginCss, paddingCss } from 'ui';
 const { black } = color;
 
 export interface SpanProps extends MarginCss, PaddingCss {
-  weight?: string;
+  weight?: number | string;
   color?: string;
   cursor?: string;
   hover?: boolean;
@@ -14,7 +14,8 @@ export interface SpanProps extends MarginCss, PaddingCss {
   align?: string;
   padding?: string;
 
-  nowrap?: boolean;
+  isEllipsisEnabled?: boolean;
+
   transition?: boolean;
   fontStyle?: string | number;
   fontStretch?: string | number;
@@ -31,12 +32,12 @@ const returnStyle = ({
   hover,
   hoverColor,
   align,
-  nowrap,
   transition,
   fontStretch,
   fontStyle,
   lineHeight,
   letterSpacing,
+  isEllipsisEnabled,
 }: SpanProps) =>
   `
     ${padding ? `padding: ${padding};` : ''}
@@ -50,7 +51,15 @@ const returnStyle = ({
       }`
         : ''
     }
-    white-space: ${nowrap ? 'nowrap' : 'unset'};
+    ${
+      isEllipsisEnabled
+        ? `
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      `
+        : ''
+    }
     text-align: ${align ? align : 'unset'};
     font-style: ${fontStyle ? fontStyle : 'normal'};
     font-stretch: ${fontStretch ? fontStretch : 'normal'};
