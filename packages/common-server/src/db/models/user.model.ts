@@ -2,7 +2,7 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
-import { DBPost, GQLPost } from './post.model';
+import { DBTeam, GQLTeam } from './team.model';
 
 export interface GQLUser {
   _id: ObjectId;
@@ -11,9 +11,9 @@ export interface GQLUser {
   email: string;
   googleId?: string;
 
-  posts: GQLPost[];
-  pendingTeams: GQLPost[];
-  relatedTeams: GQLPost[];
+  teams: GQLTeam[];
+  pendingTeams: GQLTeam[];
+  relatedTeams: GQLTeam[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -27,9 +27,9 @@ export interface DBUser {
   email: string;
   googleId?: string;
 
-  posts: Array<DBPost['_id']>;
-  pendingTeams: Array<DBPost['_id']>;
-  relatedTeams: Array<DBPost['_id']>;
+  teams: Array<DBTeam['_id']>;
+  pendingTeams: Array<DBTeam['_id']>;
+  relatedTeams: Array<DBTeam['_id']>;
 
   createdAt: Date;
   updatedAt: Date;
@@ -41,11 +41,11 @@ const userSchema: Schema<DBUser> = new Schema(
     name: { type: String, required: true, default: '' },
     email: { type: String, required: true },
     googleId: { type: String, required: false },
-    posts: {
+    teams: {
       type: [
         {
           type: Schema.Types.ObjectId,
-          ref: 'Post',
+          ref: 'Team',
           autopopulate: {
             maxDepth: 2,
             select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
@@ -57,7 +57,7 @@ const userSchema: Schema<DBUser> = new Schema(
       type: [
         {
           type: Schema.Types.ObjectId,
-          ref: 'Post',
+          ref: 'Team',
           autopopulate: {
             maxDepth: 2,
             select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
@@ -69,7 +69,7 @@ const userSchema: Schema<DBUser> = new Schema(
       type: [
         {
           type: Schema.Types.ObjectId,
-          ref: 'Post',
+          ref: 'Team',
           autopopulate: {
             maxDepth: 2,
             select: '_id name gameId pendingPeopleIds relatedPeopleIds introduction limit createdAt updatedAt',
