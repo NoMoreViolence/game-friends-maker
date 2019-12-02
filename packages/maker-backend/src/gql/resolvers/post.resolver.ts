@@ -58,8 +58,8 @@ export class PostResolver {
   @Authorized()
   @Mutation(returns => Post)
   public async createPost(@Ctx() context: Context, @Arg('newPost') newPost: CreatePostPayload) {
-    const user = await this.userService.getUserByContext(context);
-    const post = await this.postService.createPost(user._id, newPost);
+    const user = await this.userService.getUserByContext(context, false);
+    const post = await this.postController.createPost(user, newPost);
     return { ...post.toObject(), authorId: user.toObject() };
   }
 
@@ -70,7 +70,7 @@ export class PostResolver {
     @Arg('postId') postId: string,
     @Arg('nextPost') nextPost: UpdatePostPayload,
   ) {
-    const user = await this.userService.getUserByContext(context);
+    const user = await this.userService.getUserByContext(context, false);
     return (await this.postController.updatePost(user, new ObjectId(postId), nextPost)).toObject();
   }
 
@@ -78,7 +78,9 @@ export class PostResolver {
   @Mutation(returns => Post)
   public async joinPost(@Ctx() context: Context, @Arg('postId') postId: string) {
     const requestee = await this.userService.getUserByContext(context);
-    return (await this.postController.joinPost(requestee, new ObjectId(postId))).toObject();
+    const post = await this.postController.joinPost(requestee, new ObjectId(postId));
+    const notNullPost = this.commonService.nullable(post);
+    return notNullPost.toObject();
   }
 
   @Authorized()

@@ -19,6 +19,9 @@ export class Post implements GQLPost {
   authorId: User;
 
   @Field(type => [User])
+  pendingPeopleIds: User[];
+
+  @Field(type => [User])
   relatedPeopleIds: User[];
 
   @Field(type => String)

@@ -17,6 +17,12 @@ export class User implements GQLUser {
   @Field(type => [Post])
   posts: Post[];
 
+  @Field(type => [Post])
+  pendingTeams: Post[];
+
+  @Field(type => [Post])
+  relatedTeams: Post[];
+
   @Field(type => Date)
   createdAt: Date;
 
