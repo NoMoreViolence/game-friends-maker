@@ -4,34 +4,41 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { useRouter } from 'helpers';
 import { USER } from 'graphqls/queries/USER';
-import { User, UserQueryVariables } from 'graphqls/generated/graphql';
 import { Container } from 'ui';
 import { GlobalStyle, ScrollContainer } from './screen.styled';
 import LoadingComponent from 'components/loading';
 import PostContainer from './containers/post';
 import ScreenHeaderComponent from './components/header';
-import { useUserStateDispatch } from 'context';
+import { useUserStateDispatch, useUserState } from 'context';
+import { User } from 'graphqls/queries/__generated__/User';
 
 const ScreenComponent = () => {
   const { push } = useRouter();
   const dispatch = useUserStateDispatch();
-  const { loading } = useQuery<User, UserQueryVariables>(USER, {
+  const { user } = useUserState();
+  const { loading } = useQuery<User>(USER, {
     onError: () => {
       localStorage.removeItem('token');
       push('/');
     },
-    onCompleted: userState => dispatch({ type: 'SAVE', userState }),
+    onCompleted: userState =>
+      dispatch({
+        type: 'SAVE',
+        userState: userState.user,
+      }),
   });
 
   if (loading) {
     return <LoadingComponent />;
+  }
+  if (!user) {
   }
 
   return (
     <Container>
       <GlobalStyle />
       <ScreenHeaderComponent />
-      <ScrollContainer pr={16} pl={16}>
+      <ScrollContainer>
         <Switch>
           <Route path="/app/post" component={PostContainer} />
           <Route path="/app/news" />

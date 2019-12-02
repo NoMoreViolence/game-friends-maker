@@ -1,29 +1,42 @@
 import React, { createContext, Dispatch, useReducer, useContext } from 'react';
-import { User } from 'graphqls/generated/graphql';
+import { User_user } from 'graphqls/queries/__generated__/User';
 
-type UserState = User | undefined;
+const initUser: User_user | undefined = {
+  __typename: 'User',
+  _id: '',
+  name: '',
+  email: '',
+  posts: [],
+  relatedTeams: [],
+  pendingTeams: [],
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  deleted: false,
+};
+
+type UserState = { user: User_user | undefined };
 const UserStateContext = createContext<UserState | undefined>(undefined);
 
-type Action = { type: 'SAVE'; userState: User | undefined } | { type: 'DELETE' };
+type Action = { type: 'SAVE'; userState: User_user } | { type: 'DELETE' };
 type UserStateDispatch = Dispatch<Action>;
 const UserStateDispatchContext = createContext<UserStateDispatch | undefined>(undefined);
 
-function userStateReducer(state: UserState, action: Action): UserState | undefined {
+function userStateReducer(state: UserState, action: Action): UserState {
   switch (action.type) {
     case 'SAVE':
       if (action.userState) {
-        return action.userState;
+        return { user: action.userState };
       }
       return state;
     case 'DELETE':
-      return undefined;
+      return { user: initUser };
     default:
       throw new Error('Unhandled action');
   }
 }
 
 export function UserStateContextProvider({ children }: { children: React.ReactNode }) {
-  const [userState, dispatch] = useReducer(userStateReducer, undefined);
+  const [userState, dispatch] = useReducer(userStateReducer, { user: initUser });
 
   return (
     <UserStateDispatchContext.Provider value={dispatch}>
@@ -34,6 +47,7 @@ export function UserStateContextProvider({ children }: { children: React.ReactNo
 
 export function useUserState(): UserState {
   const state = useContext(UserStateContext);
+  if (!state) throw new Error('UserStateContextProvider not found');
   return state;
 }
 
