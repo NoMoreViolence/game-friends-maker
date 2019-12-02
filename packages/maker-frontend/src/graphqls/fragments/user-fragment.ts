@@ -1,20 +1,20 @@
 import gql from 'graphql-tag';
-import { PostFullFragment } from './post-fragment';
+import { TeamFullFragment } from './team-fragment';
 
 export const UserFullFragment = gql`
-  ${PostFullFragment}
+  ${TeamFullFragment}
   fragment UserFull on User {
     _id
     name
     email
-    posts {
-      ...PostFull
+    teams {
+      ...TeamFull
     }
     pendingTeams {
-      ...PostFull
+      ...TeamFull
     }
     relatedTeams {
-      ...PostFull
+      ...TeamFull
     }
     createdAt
     updatedAt

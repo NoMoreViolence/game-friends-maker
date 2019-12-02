@@ -10,7 +10,7 @@ interface Props {}
 const ScreenHeaderComponent: FC<Props> = () => {
   const { push } = useRouter();
 
-  const goHome = useCallback(() => push('/app/post'), [push]);
+  const goHome = useCallback(() => push('/app/team'), [push]);
   const goSearch = useCallback(() => push('/app/search'), [push]);
   const goNoti = useCallback(() => push('/app/notification'), [push]);
   const goChat = useCallback(() => push('/app/chat'), [push]);

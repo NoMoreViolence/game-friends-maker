@@ -7,7 +7,7 @@ import { USER } from 'graphqls/queries/USER';
 import { Container } from 'ui';
 import { GlobalStyle, ScrollContainer } from './screen.styled';
 import LoadingComponent from 'components/loading';
-import PostContainer from './containers/post';
+import TeamContainer from './containers/team';
 import ScreenHeaderComponent from './components/header';
 import { useUserStateDispatch, useUserState } from 'context';
 import { User } from 'graphqls/queries/__generated__/User';
@@ -40,10 +40,10 @@ const ScreenComponent = () => {
       <ScreenHeaderComponent />
       <ScrollContainer>
         <Switch>
-          <Route path="/app/post" component={PostContainer} />
+          <Route path="/app/team" component={TeamContainer} />
           <Route path="/app/news" />
           <Route path="/app/message" />
-          <Redirect to="/app/post" />
+          <Redirect to="/app/team" />
         </Switch>
       </ScrollContainer>
     </Container>

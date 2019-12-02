@@ -30,18 +30,18 @@
             "deprecationReason": null
           },
           {
-            "name": "post",
+            "name": "team",
             "description": null,
             "args": [
               {
-                "name": "getPost",
+                "name": "getTeam",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "GetPostPayload",
+                    "name": "GetTeamPayload",
                     "ofType": null
                   }
                 },
@@ -53,7 +53,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Team",
                 "ofType": null
               }
             },
@@ -61,7 +61,7 @@
             "deprecationReason": null
           },
           {
-            "name": "posts",
+            "name": "teams",
             "description": null,
             "args": [
               {
@@ -69,20 +69,20 @@
                 "description": null,
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "GetPostsOptionPayload",
+                  "name": "GetTeamsOptionPayload",
                   "ofType": null
                 },
                 "defaultValue": null
               },
               {
-                "name": "getPost",
+                "name": "getTeam",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "GetPostsPayload",
+                    "name": "GetTeamsPayload",
                     "ofType": null
                   }
                 },
@@ -100,7 +100,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Post",
+                    "name": "Team",
                     "ofType": null
                   }
                 }
@@ -169,7 +169,7 @@
             "deprecationReason": null
           },
           {
-            "name": "posts",
+            "name": "teams",
             "description": null,
             "args": [],
             "type": {
@@ -183,7 +183,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Post",
+                    "name": "Team",
                     "ofType": null
                   }
                 }
@@ -207,7 +207,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Post",
+                    "name": "Team",
                     "ofType": null
                   }
                 }
@@ -231,7 +231,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Post",
+                    "name": "Team",
                     "ofType": null
                   }
                 }
@@ -306,7 +306,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Post",
+        "name": "Team",
         "description": null,
         "fields": [
           {
@@ -719,7 +719,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "GetPostPayload",
+        "name": "GetTeamPayload",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -770,7 +770,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "GetPostsOptionPayload",
+        "name": "GetTeamsOptionPayload",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -824,7 +824,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "GetPostsPayload",
+        "name": "GetTeamsPayload",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -859,18 +859,18 @@
         "description": null,
         "fields": [
           {
-            "name": "createPost",
+            "name": "createTeam",
             "description": null,
             "args": [
               {
-                "name": "newPost",
+                "name": "newTeam",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "CreatePostPayload",
+                    "name": "CreateTeamPayload",
                     "ofType": null
                   }
                 },
@@ -882,7 +882,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Team",
                 "ofType": null
               }
             },
@@ -890,25 +890,25 @@
             "deprecationReason": null
           },
           {
-            "name": "updatePost",
+            "name": "updateTeam",
             "description": null,
             "args": [
               {
-                "name": "nextPost",
+                "name": "nextTeam",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "UpdatePostPayload",
+                    "name": "UpdateTeamPayload",
                     "ofType": null
                   }
                 },
                 "defaultValue": null
               },
               {
-                "name": "postId",
+                "name": "teamId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -927,7 +927,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Team",
                 "ofType": null
               }
             },
@@ -935,11 +935,11 @@
             "deprecationReason": null
           },
           {
-            "name": "joinPost",
+            "name": "joinTeam",
             "description": null,
             "args": [
               {
-                "name": "postId",
+                "name": "teamId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -958,7 +958,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Team",
                 "ofType": null
               }
             },
@@ -966,11 +966,11 @@
             "deprecationReason": null
           },
           {
-            "name": "deletePost",
+            "name": "deleteTeam",
             "description": null,
             "args": [
               {
-                "name": "postId",
+                "name": "teamId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -989,7 +989,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Post",
+                "name": "Team",
                 "ofType": null
               }
             },
@@ -1004,12 +1004,12 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "CreatePostPayload",
+        "name": "CreateTeamPayload",
         "description": null,
         "fields": null,
         "inputFields": [
           {
-            "name": "postName",
+            "name": "teamName",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1053,7 +1053,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UpdatePostPayload",
+        "name": "UpdateTeamPayload",
         "description": null,
         "fields": null,
         "inputFields": [

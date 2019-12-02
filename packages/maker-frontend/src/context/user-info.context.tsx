@@ -6,7 +6,7 @@ const initUser: User_user | undefined = {
   _id: '',
   name: '',
   email: '',
-  posts: [],
+  teams: [],
   relatedTeams: [],
   pendingTeams: [],
   createdAt: new Date(),
