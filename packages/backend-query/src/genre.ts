@@ -4,16 +4,18 @@ import { GenreModel } from './common-server';
 export class Genre {
   public async create() {
     try {
-      const isDuplicate = await GenreModel.find({ name: genreConstants.create.genre }).exec();
-      if (isDuplicate.length !== 0) {
-        throw new Error('Genre !');
-      }
+      genreConstants.create.genre.map(async genre => {
+        const isDuplicate = await GenreModel.find({ name: genre }).exec();
+        if (isDuplicate.length !== 0) {
+          throw new Error('Genre !');
+        }
 
-      const generatedGenre = new GenreModel({ name: genreConstants.create.genre });
-      const dbGenre = await generatedGenre.save();
+        const generatedGenre = new GenreModel({ name: genre });
+        const dbGenre = await generatedGenre.save();
 
-      console.log('Success');
-      console.log(dbGenre.name);
+        console.log('Success');
+        console.log(dbGenre.name);
+      });
     } catch (e) {
       console.log('There is an error ^ㅗ^');
     }
