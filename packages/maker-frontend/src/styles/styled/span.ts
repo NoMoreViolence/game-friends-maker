@@ -12,7 +12,6 @@ export interface SpanProps extends MarginCss, PaddingCss {
   hover?: boolean;
   hoverColor?: string;
   align?: string;
-  padding?: string;
 
   isEllipsisEnabled?: boolean;
 
@@ -21,6 +20,7 @@ export interface SpanProps extends MarginCss, PaddingCss {
   fontStretch?: string | number;
   lineHeight?: string | number;
   letterSpacing?: string | number;
+  flex?: number;
 }
 
 const commonSpanStyle = css``;
@@ -38,8 +38,10 @@ const returnStyle = ({
   lineHeight,
   letterSpacing,
   isEllipsisEnabled,
+  flex,
 }: SpanProps) =>
   `
+    ${flex ? `flex: ${flex};` : ''}
     ${padding ? `padding: ${padding};` : ''}
     color: ${color ? color : black};
     cursor: ${cursor ? 'pointer' : 'unset'};
@@ -120,6 +122,19 @@ export const Span1rem = styled('span')<SpanProps>`
 
   @media screen and ${device.mobileToTablet} {
     font-size: 0.875rem;
+  }
+`;
+
+export const Span1D25rem = styled('span')<SpanProps>`
+  ${commonSpanStyle}
+  ${marginCss}
+  ${paddingCss}
+  ${p => returnStyle(p)}
+
+  font-size: 1.25rem;
+
+  @media screen and ${device.mobileToTablet} {
+    font-size: 1rem;
   }
 `;
 

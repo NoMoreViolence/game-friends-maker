@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { zIndex, color } from 'styles';
+import { zIndex, color, device } from 'styles';
 
 export const ModalRootDiv = styled.div`
   position: fixed;
@@ -20,6 +20,20 @@ export const ModalRootDiv = styled.div`
   background-color: ${color['modal-dim']};
 
   > div {
+    @media screen and ${device.mobileToTablet} {
+      box-sizing: border-box;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100vw;
+      max-height: 100vh;
+      border-radius: 0;
+    }
+
+    max-width: 650px;
+    max-height: 650px;
+    width: 650px;
+    height: 500px;
+    background-color: white;
     border-radius: 0.75rem;
     border: 0px solid transparent;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);

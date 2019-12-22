@@ -3,9 +3,8 @@ import styled from 'styled-components';
 
 import { rowColBaseStyle, RowColProps } from './row-col-props';
 
-export const Row: FC<RowColProps> = props => <RowDiv {...props} />;
+export const Row: FC<RowColProps> = ({ isFlex = true, ...props }) => <RowDiv isFlex={isFlex} {...props} />;
 const RowDiv = styled.div<RowColProps>`
-  display: flex;
-  flex-direction: ${p => (p.isReversed ? 'row-reverse' : 'row')};
   ${rowColBaseStyle};
+  flex-direction: ${p => (p.isReversed ? 'row-reverse' : 'row')};
 `;

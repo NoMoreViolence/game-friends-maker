@@ -5,6 +5,8 @@ export interface WidthHeightCss {
   height?: number | string;
   maxWidth?: number | string;
   maxHeight?: number | string;
+  minWidth?: number | string;
+  minHeight?: number | string;
 }
 export const widthHeightCss = css<WidthHeightCss>`
   ${props =>
@@ -22,5 +24,17 @@ export const widthHeightCss = css<WidthHeightCss>`
       ? typeof props.maxHeight === 'number'
         ? `max-height: ${props.maxHeight}px;`
         : `max-height: ${props.maxHeight};`
+      : ''}
+  ${props =>
+    props.minWidth
+      ? typeof props.minWidth === 'number'
+        ? `min-width: ${props.minWidth}px;`
+        : `min-width: ${props.minWidth};`
+      : ''}
+  ${props =>
+    props.minHeight
+      ? typeof props.minHeight === 'number'
+        ? `min-height: ${props.minHeight}px;`
+        : `min-height: ${props.minHeight};`
       : ''}
 `;

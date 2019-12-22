@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { useUserState } from 'context';
 import MyTeams from './containers/my-teams';
-import { Span3rem } from 'styles';
 import { UserFull } from 'graphqls/fragments/__generated__/UserFull';
+import { Span36 } from 'ui/typo';
+import { fontWeights } from 'ui';
 
 interface Props {}
 
@@ -11,9 +12,9 @@ const TeamContainer: FC<Props> = () => {
 
   return (
     <>
-      <Span3rem mr={16} ml={16} mt={48} mb={48} weight="bold">
+      <Span36 mr={16} ml={16} mt={48} mb={48} fontWeight={fontWeights.bold}>
         나의 팀 모집
-      </Span3rem>
+      </Span36>
       {user && user._id !== '' && <RenderWithUserFull user={user} />}
     </>
   );
