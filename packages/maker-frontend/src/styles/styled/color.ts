@@ -5,6 +5,10 @@ export const background = {
 export const color = {
   error: '#ff4057',
 
+  mainColorLight: '#b78dff',
+  mainColor: '#825eeb',
+  mainColorDark: '#4c32b8',
+
   'text-default': '#333333',
   'text-soft': '#666666',
 

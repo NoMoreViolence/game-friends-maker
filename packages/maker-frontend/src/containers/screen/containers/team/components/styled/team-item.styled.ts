@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PaddingCss, paddingCss } from 'ui';
+import { PaddingCss, paddingCss, PointerCss, pointerCss } from 'ui';
 import media from 'css-in-js-media';
 
 export const TeamItemContainer = styled.div<PaddingCss>`
@@ -16,22 +16,22 @@ export const TeamItemContainer = styled.div<PaddingCss>`
   margin: auto;
 `;
 
-export const TeamItemBox = styled.div`
+export const TeamItemBox = styled.div<PointerCss>`
   box-sizing: border-box;
   padding: 8px;
   border-radius: 8px;
   transition: 0.25s;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  ${pointerCss}
   &:hover {
-    /* cursor: pointer; */
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.16), 0 3px 14px rgba(0, 0, 0, 0.23);
   }
 
-  width: 400px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   ${media('<=tablet')} {
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
   }
 
   display: flex;

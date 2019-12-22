@@ -5,8 +5,10 @@ export interface PaddingCss {
   pb?: number;
   pr?: number;
   pl?: number;
+  padding?: number; // global;
 }
 export const paddingCss = css<PaddingCss>`
+  ${({ padding }) => (padding ? `padding: ${padding}px;` : '')}
   ${({ pt }) => (pt ? `padding-top: ${pt}px;` : '')}
   ${({ pb }) => (pb ? `padding-bottom: ${pb}px;` : '')}
   ${({ pr }) => (pr ? `padding-right: ${pr}px;` : '')}

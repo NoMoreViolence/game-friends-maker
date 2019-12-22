@@ -1,14 +1,14 @@
-import React, { useRef, useEffect, useCallback, memo } from 'react';
+import React, { FC, useRef, useEffect, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { ModalRootDiv } from './modal.styled';
+import { Container } from 'ui';
 
 interface Props {
-  display: boolean;
+  display?: boolean; // false
   exit?(): void;
-  children?: JSX.Element;
 }
 
-const ModalComponent = ({ display, exit, children }: Props) => {
+const ModalComponent: FC<Props> = ({ display, exit, children }) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   const handleClick = useCallback(
@@ -39,13 +39,15 @@ const ModalComponent = ({ display, exit, children }: Props) => {
         refHtml.removeEventListener('click', handleClick);
       };
     }
-  }, [checkKeyCode, handleClick]);
+  }, [checkKeyCode, handleClick, display]);
 
   return (
     <CSSTransition in={display} timeout={250} unmountOnExit={true} classNames="animation">
-      <ModalRootDiv ref={divRef}>{children && children}</ModalRootDiv>
+      <ModalRootDiv ref={divRef}>
+        <Container>{children}</Container>
+      </ModalRootDiv>
     </CSSTransition>
   );
 };
 
-export default memo(ModalComponent);
+export default ModalComponent;
