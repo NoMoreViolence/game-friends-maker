@@ -29,12 +29,4 @@ export class UserService {
 
     return user;
   }
-
-  public checkUserCanJoinTeam(user: UserDocument) {
-    const userMaxTeamLength = user.teams.length + user.relatedTeams.length + user.pendingTeams.length;
-    if (userMaxTeamLength >= 5) {
-      throw new ApolloError("You can't create because you belong to more than 5 teams");
-    }
-    return user;
-  }
 }

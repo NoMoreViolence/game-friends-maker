@@ -1,55 +1,52 @@
 import { Service } from 'typedi';
-import { ObjectId } from 'mongodb';
-import { TeamDocument, UserDocument, UserModel } from '@common-server';
-import { TeamService, CommonService, UserService } from '@gql/services';
+import { ObjectId } from 'bson';
+import { TeamDocument, UserDocument, UserModel, TeamUserJoinStateEnum } from '@common-server';
+import { TeamService, CommonService, UserService, GameService } from '@gql/services';
 import { AuthenticationError, ApolloError } from 'apollo-server';
-import { UpdateTeamPayload, CreateTeamPayload } from '@gql/payloads';
+import { UpdateTeamPayload, CreateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload, Sort } from '@gql/payloads';
 
 @Service()
 export class TeamController {
   constructor(
     private teamService: TeamService,
-    private userService: UserService,
+    private gameService: GameService,
     private commonService: CommonService,
   ) {}
 
+  public async getTeams(payload: GetTeamsPayload, option?: GetTeamsOptionPayload) {
+    const { offsetId, sort = Sort.DESC } = option || {};
+    const objectOffsetId = offsetId ? new ObjectId(offsetId) : new ObjectId();
+    const teams = await this.teamService.getTeams(payload, {
+      offsetId: objectOffsetId,
+      sort,
+    });
+    return teams;
+  }
+
   public async createTeam(user: UserDocument, payload: CreateTeamPayload) {
-    this.userService.checkUserCanJoinTeam(user);
-    const team = await this.teamService.createTeam(user._id, payload);
-    await UserModel.findOneAndUpdate({ _id: user._id }, { $addToSet: { teams: team._id } }, { new: true }).exec();
-    return team;
+    const nullableGame = await this.gameService.getGame({ name: payload.gameName });
+    const game = this.commonService.nullable(nullableGame);
+    const team = await this.teamService.createTeam({ ...payload, gameId: game._id });
+    const teamUserJoin = await this.teamService.createTeamUserJoin({
+      userId: user._id,
+      teamId: team._id,
+      userState: TeamUserJoinStateEnum.OWNER,
+    });
+    return { team, teamUserJoin };
   }
 
   public async updateTeam(user: UserDocument, teamId: ObjectId, nextTeam: UpdateTeamPayload) {
-    const nullableTeam = await this.teamService.getTeamById(new ObjectId(teamId), false);
-    const team = this.isOwner(user, nullableTeam);
+    const nullableTeamUserJoin = await this.teamService.getTeamUserJoin(
+      {
+        userId: user._id,
+        teamId: new ObjectId(teamId),
+        userState: TeamUserJoinStateEnum.OWNER,
+      },
+      false,
+    );
+    const teamUserJoin = this.commonService.nullable(nullableTeamUserJoin);
+    const nullableTeam = await this.teamService.getTeamById(teamUserJoin.teamId);
+    const team = this.commonService.nullable(nullableTeam);
     return this.teamService.updateTeam(team, nextTeam);
-  }
-
-  public async joinTeam(requestee: UserDocument, teamId: ObjectId) {
-    this.userService.checkUserCanJoinTeam(requestee);
-    const team = await this.teamService.getTeamById(teamId, false);
-    if (!team) {
-      throw new ApolloError('There is no data');
-    }
-    if (team.authorId.equals(requestee._id)) {
-      throw new AuthenticationError('You cannot join this party');
-    }
-
-    return this.teamService.joinTeam(teamId, requestee._id);
-  }
-
-  public async deleteTeam(user: UserDocument, teamId: ObjectId) {
-    const nullableTeam = await this.teamService.getTeamById(new ObjectId(teamId), false);
-    const team = this.isOwner(user, nullableTeam);
-    return this.teamService.deleteTeam(team);
-  }
-
-  private isOwner(user: UserDocument, nullableTeam: TeamDocument | null) {
-    const team = this.commonService.nullable<TeamDocument>(nullableTeam);
-    if (!team.authorId.equals(user._id)) {
-      throw new AuthenticationError('You are not owner of this team');
-    }
-    return team;
   }
 }

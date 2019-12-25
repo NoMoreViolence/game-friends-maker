@@ -1,7 +1,15 @@
 import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
-import { TeamModel, TeamDocument, DBTeam, UserModel, setter } from '@common-server';
-import { CreateTeamPayload, UpdateTeamPayload, Sort } from '@gql/payloads';
+import {
+  TeamModel,
+  TeamDocument,
+  DBTeam,
+  TeamUserJoinModel,
+  TeamUserJoinDocument,
+  DBTeamUserJoin,
+  setter,
+} from '@common-server';
+import { UpdateTeamPayload, Sort } from '@gql/payloads';
 
 interface GetOption {
   offsetId?: ObjectId;
@@ -10,17 +18,7 @@ interface GetOption {
 
 @Service()
 export class TeamService {
-  public async getTeamById(id: ObjectId, autopopulate = true) {
-    return TeamModel.findById(id, {}, { autopopulate }).exec();
-  }
-
-  public async getTeam(args: Partial<DBTeam>, autopopulate = true) {
-    return TeamModel.findOne(args, {}, { autopopulate }).exec();
-  }
-
-  public async getTeams(args: Partial<DBTeam>, option: GetOption) {
-    const { sort = Sort.DESC, offsetId } = option;
-
+  public async getTeams(args: Partial<DBTeam>, { sort = Sort.DESC, offsetId }: GetOption) {
     const isDesc = sort === Sort.DESC;
     return TeamModel.find({
       ...args,
@@ -33,37 +31,51 @@ export class TeamService {
       .exec();
   }
 
-  public async createTeam(userId: ObjectId, payload: CreateTeamPayload) {
-    const { teamName, gameId, introduction } = payload;
-    const teamModel = await new TeamModel({
-      authorId: userId,
-      name: teamName,
-      gameId: new ObjectId(gameId),
-      introduction,
-    }).save();
+  public async getTeamById(id: ObjectId, autopopulate = true) {
+    return TeamModel.findById(id, {}, { autopopulate }).exec();
+  }
+
+  public async getTeam(args: Partial<DBTeam>, autopopulate = true) {
+    return TeamModel.findOne(args, {}, { autopopulate }).exec();
+  }
+
+  public async createTeam(payload: Partial<DBTeam>) {
+    const teamModel = await new TeamModel(payload).save();
     return teamModel;
   }
 
   public async updateTeam(team: TeamDocument, payload: UpdateTeamPayload) {
-    setter(team, payload);
+    setter<DBTeam>(team, payload);
     return team.save();
   }
 
-  public async joinTeam(teamId: ObjectId, userId: ObjectId) {
-    await UserModel.findOneAndUpdate({ _id: userId }, { $addToSet: { pendingTeams: teamId } }, { new: true }).exec();
-    const updatedTeam = await TeamModel.findOneAndUpdate(
-      { _id: teamId },
-      { $addToSet: { pendingPeopleIds: userId } },
-      { new: true },
-    ).exec();
-    return updatedTeam;
+  public async deleteTeam(team: TeamDocument) {
+    return team.remove();
   }
 
-  public async deleteTeam(team: TeamDocument) {
-    /**
-     *  포스트에 연결되어 있는 유저들의 ref를 삭제해주어야 할까? 그것들을 Apollo가 해 줄까 ?
-     * 내가 삭제 해야만 한다
-     */
-    return team.remove();
+  public async getTeamUserJoins(args: Partial<DBTeamUserJoin>, autopopulate = true) {
+    return TeamUserJoinModel.find(args, {}, { autopopulate }).exec();
+  }
+
+  public async getTeamUserJoinById(id: ObjectId, autopopulate = true) {
+    return TeamUserJoinModel.findById(id, {}, { autopopulate }).exec();
+  }
+
+  public async getTeamUserJoin(args: Partial<DBTeamUserJoin>, autopopulate = true) {
+    return TeamUserJoinModel.findOne(args, {}, { autopopulate }).exec();
+  }
+
+  public async createTeamUserJoin(payload: Partial<DBTeamUserJoin>) {
+    const teamUserJoinModel = await new TeamUserJoinModel(payload).save();
+    return teamUserJoinModel;
+  }
+
+  public async updateTeamUserJoin(teamUserJoin: TeamUserJoinDocument, payload: Partial<DBTeamUserJoin>) {
+    setter<DBTeamUserJoin>(teamUserJoin, payload);
+    return teamUserJoin.save();
+  }
+
+  public async deleteTeamUserJoin(teamUserJoin: TeamUserJoinDocument) {
+    return teamUserJoin.remove();
   }
 }
