@@ -1,13 +1,12 @@
-import { ObjectId } from 'bson';
 import { Field, InputType } from 'type-graphql';
 
 @InputType()
 export class CreateTeamPayload {
   @Field(type => String)
-  teamName: string;
+  name: string;
 
   @Field(type => String)
-  gameId: ObjectId;
+  gameName: string;
 
   @Field(type => String, { defaultValue: '', nullable: true })
   introduction?: string;

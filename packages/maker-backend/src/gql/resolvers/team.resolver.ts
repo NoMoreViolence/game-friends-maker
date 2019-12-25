@@ -1,66 +1,62 @@
 import { Authorized, Ctx, Resolver, Mutation, Arg, Query } from 'type-graphql';
-import { DBTeam } from '@common-server';
-import { Service } from 'typedi';
-import { UserService, TeamService, CommonService } from '@gql/services';
-import { Context } from '@gql/bootstrap/session';
-import { Team } from '@gql/models';
-import {
-  CreateTeamPayload,
-  UpdateTeamPayload,
-  GetTeamsPayload,
-  GetTeamsOptionPayload,
-  GetTeamPayload,
-  Sort,
-} from '@gql/payloads';
 import { ObjectId } from 'mongodb';
+import { Service } from 'typedi';
+import { UserService } from '@gql/services';
+import { Context } from '@gql/bootstrap/session';
+import { Team, TeamUserJoin, User } from '@gql/models';
+import { CreateTeamPayload, UpdateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload } from '@gql/payloads';
 import { TeamController } from '@gql/controllers';
 
 @Service()
 @Resolver(type => Team)
 export class TeamResolver {
-  constructor(
-    private userService: UserService,
-    private teamController: TeamController,
-    private teamService: TeamService,
-    private commonService: CommonService,
-  ) {}
+  constructor(private teamController: TeamController, private userService: UserService) {}
 
+  // TODO:
   @Authorized()
-  @Query(returns => Team)
-  public async team(@Ctx() context: Context, @Arg('getTeam') getTeam: GetTeamPayload) {
-    const nullableTeam = await this.teamService.getTeam(getTeam);
-    return this.commonService.nullable(nullableTeam);
+  @Query(returns => [Team])
+  public async team(
+    @Ctx() context: Context,
+    @Arg('getTeamsPayload') getTeamsPayload: GetTeamsPayload,
+    @Arg('option', { nullable: true }) option?: GetTeamsOptionPayload,
+  ) {
+    const teams = await this.teamController.getTeams(getTeamsPayload, option);
+    return teams.map(team => team.toObject());
   }
 
   @Authorized()
   @Query(returns => [Team])
   public async teams(
     @Ctx() context: Context,
-    @Arg('getTeam') getTeam: GetTeamsPayload,
+    @Arg('getTeamsPayload') getTeamsPayload: GetTeamsPayload,
     @Arg('option', { nullable: true }) option?: GetTeamsOptionPayload,
   ) {
-    const { offsetId, sort = Sort.DESC } = option || {};
-    const objectOffsetId = offsetId ? new ObjectId(offsetId) : new ObjectId();
-    const payload: Partial<DBTeam> = {};
-    if (payload.name) {
-      payload.name = getTeam.name;
-    }
-    if (getTeam.authorId) {
-      payload.authorId = new ObjectId(getTeam.authorId);
-    }
+    const teams = await this.teamController.getTeams(getTeamsPayload, option);
+    return teams.map(team => team.toObject());
+  }
 
-    return (await this.teamService.getTeams(payload, {
-      offsetId: objectOffsetId,
-      sort,
-    })).map(team => team.toObject());
+  // TODO:
+  @Authorized()
+  @Query(returns => [TeamUserJoin])
+  public async myTeams(
+    @Ctx() context: Context,
+    @Arg('getTeamsPayload') getTeamsPayload: GetTeamsPayload,
+    @Arg('option', { nullable: true }) option?: GetTeamsOptionPayload,
+  ) {
+    const teams = await this.teamController.getTeams(getTeamsPayload, option);
+    return teams.map(team => team.toObject());
   }
 
   @Authorized()
-  @Mutation(returns => Team)
-  public async createTeam(@Ctx() context: Context, @Arg('newTeam') newTeam: CreateTeamPayload) {
+  @Mutation(returns => ({ team: Team, teamUserJoin: TeamUserJoin, owner: User }))
+  public async createTeam(@Ctx() context: Context, @Arg('createTeamPayload') createTeamPayload: CreateTeamPayload) {
     const user = await this.userService.getUserByContext(context, false);
-    const team = await this.teamController.createTeam(user, newTeam);
-    return { ...team.toObject(), authorId: user.toObject() };
+    const { team, teamUserJoin } = await this.teamController.createTeam(user, createTeamPayload);
+    return {
+      team: team.toObject(),
+      teamUserJoin: teamUserJoin.toObject(),
+      owner: user.toObject(),
+    };
   }
 
   @Authorized()
@@ -71,22 +67,7 @@ export class TeamResolver {
     @Arg('nextTeam') nextTeam: UpdateTeamPayload,
   ) {
     const user = await this.userService.getUserByContext(context, false);
-    return (await this.teamController.updateTeam(user, new ObjectId(teamId), nextTeam)).toObject();
-  }
-
-  @Authorized()
-  @Mutation(returns => Team)
-  public async joinTeam(@Ctx() context: Context, @Arg('teamId') teamId: string) {
-    const requestee = await this.userService.getUserByContext(context);
-    const team = await this.teamController.joinTeam(requestee, new ObjectId(teamId));
-    const notNullTeam = this.commonService.nullable(team);
-    return notNullTeam.toObject();
-  }
-
-  @Authorized()
-  @Mutation(returns => Team)
-  public async deleteTeam(@Ctx() context: Context, @Arg('teamId') teamId: string) {
-    const user = await this.userService.getUserByContext(context);
-    return (await this.teamController.deleteTeam(user, new ObjectId(teamId))).toObject();
+    const team = await this.teamController.updateTeam(user, new ObjectId(teamId), nextTeam);
+    return team.toObject();
   }
 }

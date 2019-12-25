@@ -7,11 +7,5 @@ export class UpdateTeamPayload {
   name?: string;
 
   @Field(type => String, { nullable: true })
-  gameId?: ObjectId;
-
-  @Field(type => String, { nullable: true })
   introduction?: string;
-
-  @Field(type => [ID], { nullable: true })
-  relatedPeopleIds?: ObjectId[];
 }
