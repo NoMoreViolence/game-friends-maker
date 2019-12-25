@@ -6,14 +6,21 @@ import autoPopulate from 'mongoose-autopopulate';
 import { GQLTeam, DBTeam } from './team.model';
 import { DBUser, GQLUser } from './user.model';
 
+export enum TeamUserJoinStateEnum {
+  OWNER = 'owner',
+  ADMIN = 'admin',
+  USER = 'user',
+  PENDING_INVITE = 'pending-invite',
+  PENDING_REQUEST = 'pending-request',
+  DELETED = 'deleted',
+}
+export type TeamUserJoinState = 'owner' | 'admin' | 'user' | 'pending-invite' | 'pending-request' | 'deleted';
+
 export interface GQLTeamUserJoin {
   _id: ObjectId;
   userId: GQLUser;
   teamId: GQLTeam;
-
-  isOwner: boolean;
-  isAccepted: boolean;
-  isPending: boolean;
+  userState: TeamUserJoinState;
 
   createdAt: Date;
   updatedAt: Date;
@@ -24,10 +31,7 @@ export interface DBTeamUserJoin {
   _id: ObjectId;
   userId: DBUser['_id'];
   teamId: DBTeam['_id'];
-
-  isOwner: boolean;
-  isAccepted: boolean;
-  isPending: boolean;
+  userState: TeamUserJoinState;
 
   createdAt: Date;
   updatedAt: Date;
@@ -54,20 +58,9 @@ const teamUserJoinSchema: Schema<DBTeamUserJoin> = new Schema(
       },
       required: true,
     },
-    isOwner: {
-      type: Schema.Types.Boolean,
-      required: false,
-      default: false,
-    },
-    isAccepted: {
-      type: Schema.Types.Boolean,
-      required: false,
-      default: false,
-    },
-    isPending: {
-      type: Schema.Types.Boolean,
-      required: false,
-      default: false,
+    userState: {
+      type: Schema.Types.String,
+      required: true,
     },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
