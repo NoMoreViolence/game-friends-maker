@@ -1,4 +1,4 @@
-export const setter = <T, K>(document: T, update: K): void => {
+export const setter = <T>(document: T, update: Partial<T>): void => {
   if (!document) {
     return;
   }
