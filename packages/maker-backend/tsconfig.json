@@ -14,8 +14,6 @@
       "store/models/*": ["database/models/*"],
       "@database/*": ["database/*"],
       "@database": ["database"],
-      "@middlewares/*": ["middlewares/*"],
-      "@middlewares": ["middlewares"],
       "utils/*": ["utils/*"],
       "utils": ["utils"],
       "@gql/*": ["gql/*"],
