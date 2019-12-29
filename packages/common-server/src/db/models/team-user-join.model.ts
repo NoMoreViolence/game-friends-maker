@@ -53,8 +53,8 @@ const teamUserJoinSchema: Schema<DBTeamUserJoin> = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Team',
       autopopulate: {
-        maxDepth: 1,
-        select: '_id name createdAt updatedAt deleted',
+        maxDepth: 3,
+        select: '_id name gameId introduction createdAt updatedAt deleted',
       },
       required: true,
     },
