@@ -3,9 +3,10 @@ import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
 import { UserService } from '@gql/services';
 import { Context } from '@gql/bootstrap/session';
-import { Team, TeamUserJoin, User } from '@gql/models';
+import { Team, TeamUserJoin } from '@gql/models';
 import { CreateTeamPayload, UpdateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload } from '@gql/payloads';
 import { TeamController } from '@gql/controllers';
+import { CreateTeam } from '@gql/object-types';
 
 @Service()
 @Resolver(type => Team)
@@ -48,7 +49,7 @@ export class TeamResolver {
   }
 
   @Authorized()
-  @Mutation(returns => ({ team: Team, teamUserJoin: TeamUserJoin, owner: User }))
+  @Mutation(returns => CreateTeam)
   public async createTeam(@Ctx() context: Context, @Arg('createTeamPayload') createTeamPayload: CreateTeamPayload) {
     const user = await this.userService.getUserByContext(context, false);
     const { team, teamUserJoin } = await this.teamController.createTeam(user, createTeamPayload);
