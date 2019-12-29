@@ -52,7 +52,7 @@ export class TeamResolver {
     return {
       team: team.toObject(),
       teamUserJoin: teamUserJoin.toObject(),
-      owner: user.toObject(),
+      user: user.toObject(),
     };
   }
 
