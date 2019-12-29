@@ -1,20 +1,20 @@
 import gql from 'graphql-tag';
-import { TeamFullFragment, UserFullFragment, TeamUserJoinFullFragment } from 'graphqls/fragments';
+import { TeamSubFragment, UserFullFragment, TeamUserJoinSubFragment } from 'graphqls/fragments';
 
-export const UPDATE_POST = gql`
-  ${TeamFullFragment}
+export const CREATE_TEAM = gql`
+  ${TeamSubFragment}
   ${UserFullFragment}
-  ${TeamUserJoinFullFragment}
+  ${TeamUserJoinSubFragment}
   mutation CreateTeam($createTeamPayload: CreateTeamPayload!) {
     createTeam(createTeamPayload: $createTeamPayload) {
       team {
-        ...TeamFull
+        ...TeamSub
       }
       user {
         ...UserFull
       }
       teamUserJoin {
-        ...TeamUserJoinFull
+        ...TeamUserJoinSub
       }
     }
   }

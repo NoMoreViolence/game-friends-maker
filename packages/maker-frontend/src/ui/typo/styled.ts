@@ -1,4 +1,5 @@
-import { css } from 'styled-components';
+import { LabelHTMLAttributes } from 'react';
+import { css, CSSProperties } from 'styled-components';
 import {
   BorderCss,
   BackgroundCss,
@@ -34,13 +35,16 @@ export interface TypoCss
     ColorCss,
     PointerCss,
     TransitionCss,
-    HoverStyleCss {
+    HoverStyleCss,
+    LabelHTMLAttributes<HTMLLabelElement> {
   flex?: number;
   display?: 'block' | 'flex' | 'none';
   fontWeight?: number;
   textAlign?: 'left' | 'right' | 'center';
   letterSpacing?: number;
   fontStyle?: 'normal' | 'italic';
+  isEllipsisEnabled?: boolean; // true
+  style?: CSSProperties;
 }
 const typoCss = css<TypoCss>`
   ${marginCss}
@@ -58,6 +62,14 @@ const typoCss = css<TypoCss>`
   ${({ fontWeight }) => (fontWeight ? `font-weight: ${fontWeight};` : '')}
   ${({ letterSpacing }) => (letterSpacing ? `letter-spacing: ${letterSpacing}` : '')}
   ${({ fontStyle }) => (fontStyle ? `font-style: ${fontStyle};` : 'font-style: normal;')}
+  ${({ isEllipsisEnabled = true }) =>
+    isEllipsisEnabled
+      ? `
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `
+      : ''}
 `;
 
 const px36 = css<TypoCss>`

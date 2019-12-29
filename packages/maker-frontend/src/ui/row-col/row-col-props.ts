@@ -16,8 +16,11 @@ import {
   backgroundCss,
   FlexboxCss,
   flexboxCss,
+  PositionCss,
+  positionCss,
+  PointerCss,
+  pointerCss,
 } from '../common';
-import { PointerCss, pointerCss } from 'ui/common/pointer';
 
 export interface RowColProps
   extends MarginCss,
@@ -28,7 +31,8 @@ export interface RowColProps
     BorderCss,
     BackgroundCss,
     FlexboxCss,
-    PointerCss {
+    PointerCss,
+    PositionCss {
   isReversed?: boolean;
   style?: React.CSSProperties;
 }
@@ -43,5 +47,6 @@ export const rowColBaseStyle = css<RowColProps>`
   ${backgroundCss}
   ${flexboxCss}
   ${pointerCss}
+  ${positionCss}
   box-sizing: border-box;
 `;

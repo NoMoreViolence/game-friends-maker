@@ -7,3 +7,4 @@ export * from './typo';
 export * from './select';
 export * from './textarea';
 export * from './input';
+export * from './scroll';

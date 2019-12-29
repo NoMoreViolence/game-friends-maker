@@ -1,34 +1,42 @@
 import React, { FC } from 'react';
-import dayjs from 'dayjs';
 import { getGameLogoUrl, GetGameLogoUrl } from 'lib';
-import { UserFull_teams } from 'graphqls/fragments/__generated__/UserFull';
+import {} from 'graphqls/fragments/__generated__/UserFull';
 
-import { Col, fontWeights } from 'ui';
-import { Span2rem, Span1rem, SpanD875rem } from 'styles';
+import { Col, fontWeights, Img, Span18, Span16 } from 'ui';
 import { TeamItemContainer, TeamItemBox } from '../styled';
+import { MyTeams_myTeams } from 'graphqls/queries/__generated__/MyTeams';
 
 interface Props {
-  team: UserFull_teams;
+  teamUserJoin: MyTeams_myTeams;
 }
 
 const TeamItem: FC<Props> = props => {
   const {
-    team: { name, gameId, introduction, createdAt },
+    teamUserJoin: { teamId },
   } = props;
 
   return (
-    <TeamItemContainer pr={8} pl={8} pt={8} pb={24}>
-      <TeamItemBox>
-        <img width="150" height="150" src={getGameLogoUrl(gameId.name as keyof GetGameLogoUrl)} alt={name} />
-
-        <Col flex={1} alignItems="unset">
-          <Span2rem weight={fontWeights.bold} mb={12}>
-            {name}
-          </Span2rem>
-          <Span1rem isEllipsisEnabled={true}>{introduction}</Span1rem>
+    <TeamItemContainer pr={8} pl={8} pt={8} pb={150}>
+      <TeamItemBox
+        isFlex
+        flexDirection="column"
+        boxSizing="border-box"
+        borderRadius={8}
+        pt={8}
+        pb={8}
+        pr={8}
+        pl={8}
+        transition={0.25}
+        boxShadow="0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)"
+        pointer
+      >
+        <Img src={getGameLogoUrl(teamId.gameId.name as keyof GetGameLogoUrl)} alt={teamId.gameId.name} />
+        <Col width="100%" flex={1} pt={12} alignItems="unset">
+          <Span18 textAlign="left" fontWeight={fontWeights.bold} pb={12}>
+            {teamId.name}
+          </Span18>
+          <Span16>{teamId.introduction}</Span16>
         </Col>
-
-        <SpanD875rem>{dayjs(createdAt).format('YYYY / MM / DD')}</SpanD875rem>
       </TeamItemBox>
     </TeamItemContainer>
   );
