@@ -2,7 +2,6 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
-
 import { GQLGame, DBGame } from './game.model';
 
 export interface GQLTeam {
@@ -40,7 +39,7 @@ const teamSchema: Schema<DBTeam> = new Schema(
       ref: 'Game',
       autopopulate: {
         maxDepth: 3,
-        select: '_id name genres createdAt updatedAt',
+        select: '_id name genres createdAt updatedAt deleted',
       },
       required: true,
     },

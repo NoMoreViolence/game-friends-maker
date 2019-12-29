@@ -2,7 +2,6 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 import autoPopulate from 'mongoose-autopopulate';
-import { DBTeam, GQLTeam } from './team.model';
 
 export interface GQLUser {
   _id: ObjectId;
