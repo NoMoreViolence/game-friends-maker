@@ -23,6 +23,11 @@ export class TeamController {
     return teams;
   }
 
+  public async getMyTeamUserJoins(user: UserDocument) {
+    const teamUserJoins = await this.teamService.getTeamUserJoins({ userId: user._id });
+    return teamUserJoins;
+  }
+
   public async createTeam(user: UserDocument, payload: CreateTeamPayload) {
     const nullableGame = await this.gameService.getGame({ name: payload.gameName });
     const game = this.commonService.nullable(nullableGame);

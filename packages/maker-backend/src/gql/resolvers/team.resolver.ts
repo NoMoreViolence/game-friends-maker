@@ -36,16 +36,12 @@ export class TeamResolver {
     return teams.map(team => team.toObject());
   }
 
-  // TODO:
   @Authorized()
   @Query(returns => [TeamUserJoin])
-  public async myTeams(
-    @Ctx() context: Context,
-    @Arg('getTeamsPayload') getTeamsPayload: GetTeamsPayload,
-    @Arg('option', { nullable: true }) option?: GetTeamsOptionPayload,
-  ) {
-    const teams = await this.teamController.getTeams(getTeamsPayload, option);
-    return teams.map(team => team.toObject());
+  public async myTeams(@Ctx() context: Context) {
+    const user = await this.userService.getUserByContext(context);
+    const teamUserJoins = await this.teamController.getMyTeamUserJoins(user._id);
+    return teamUserJoins.map(teamUserJoin => teamUserJoin.toObject());
   }
 
   @Authorized()
