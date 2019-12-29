@@ -19,3 +19,13 @@ export const TeamUserJoinFullFragment = gql`
     deleted
   }
 `;
+
+export const TeamUserJoinSubFragment = gql`
+  fragment TeamUserJoinSub on TeamUserJoin {
+    _id
+    userState
+    createdAt
+    updatedAt
+    deleted
+  }
+`;

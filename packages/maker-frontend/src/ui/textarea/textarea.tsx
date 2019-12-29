@@ -15,7 +15,7 @@ import {
 import { color } from 'styles';
 import { Props, TextareaLayoutProps } from './textarea-props';
 
-const Textarea: FC<Props> = ({ isFlex = true, backgroundTheme = 'light', text, onChangeText, ...props }) => {
+export const Textarea: FC<Props> = ({ isFlex = true, backgroundTheme = 'light', text, onChangeText, ...props }) => {
   const textarea = useRef<HTMLTextAreaElement>(null);
   const handleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => onChangeText(e.target.value), [
     onChangeText,
@@ -85,5 +85,3 @@ const StyledTextarea = styled.textarea<TextareaLayoutProps>`
   }}
   ${props => (props.resize ? '' : 'resize: none;')}
 `;
-
-export default Textarea;

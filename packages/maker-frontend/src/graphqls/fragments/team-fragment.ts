@@ -15,3 +15,14 @@ export const TeamFullFragment = gql`
     deleted
   }
 `;
+
+export const TeamSubFragment = gql`
+  fragment TeamSub on Team {
+    _id
+    name
+    introduction
+    createdAt
+    updatedAt
+    deleted
+  }
+`;

@@ -13,7 +13,7 @@ import {
 import { color } from 'styles';
 import { Props, InputLayoutProps } from './input-props';
 
-const TextInput: FC<Props> = ({ isFlex = true, backgroundTheme = 'light', text, onChangeText, ...props }) => {
+export const TextInput: FC<Props> = ({ isFlex = true, backgroundTheme = 'light', text, onChangeText, ...props }) => {
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => onChangeText(e.target.value), [onChangeText]);
   return (
     <StyledInput value={text} onChange={handleChange} isFlex={isFlex} backgroundTheme={backgroundTheme} {...props} />
@@ -48,5 +48,3 @@ const StyledInput = styled.input<InputLayoutProps>`
     `;
   }}
 `;
-
-export default TextInput;

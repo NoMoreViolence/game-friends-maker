@@ -1,19 +1,21 @@
-import React, { FC, useState, CSSProperties, useEffect, useCallback } from 'react';
+import React, { FC, useState, CSSProperties, useEffect, useCallback, useMemo } from 'react';
+import { ApolloQueryResult } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
+import styled from 'styled-components';
+import { gameOptions, SelectOption } from 'constants-frontend';
 import ModalComponent from 'components/modal';
-import { Row, fontWeights, Col } from 'ui';
+import { Row, fontWeights, Col, Textarea, TextInput, Select, YScroll, Span16, Span18, Label14 } from 'ui';
 import { Icon, iconMap, useFocusAndFocusOut } from 'helpers';
 import { color } from 'styles';
-import { YScroll } from 'ui/scroll';
-import { Span16, Span18, Label14 } from 'ui/typo';
-import TextInput from 'ui/input';
-import Textarea from 'ui/textarea';
-import styled from 'styled-components';
-import { Select } from 'ui/select';
-import { gameOptions, SelectOption } from '../../../../../../constants';
+import { MyTeams } from 'graphqls/queries/__generated__/MyTeams';
+import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
+import { CREATE_TEAM } from 'graphqls/mutations/CREATE_TEAM';
+import LoadingComponent from 'components/loading';
 
 interface Props {
   isOpen?: boolean; // false
   close?: () => any;
+  refetchMyTeams: (variables?: Record<string, any> | undefined) => Promise<ApolloQueryResult<MyTeams>>;
 }
 
 const CreateTeamModal: FC<Props> = ({ isOpen, close }) => {
@@ -21,12 +23,30 @@ const CreateTeamModal: FC<Props> = ({ isOpen, close }) => {
   const [teamDescription, setTeamDescription] = useState('');
   const [gameOnFocus, gameOnBlur, gameLabelColor] = useFocusAndFocusOut(color['border-gray'], color.mainColorDark);
   const [gameName, setGameName] = useState<SelectOption | null | undefined>(null);
+  const isReadyToSubmit = useMemo(
+    () =>
+      gameName !== null && gameName !== undefined && teamName
+        ? { name: teamName, gameName: gameName.value, introduction: teamDescription }
+        : null,
+    [gameName, teamDescription, teamName],
+  );
+
+  const [createTeam, { loading }] = useMutation<CreateTeam, CreateTeamVariables>(CREATE_TEAM, {
+    onCompleted({ createTeam: { team, teamUserJoin, user } }) {},
+    onError() {},
+  });
 
   const onSubmit = useCallback(() => {
-    console.log(gameName);
-    console.log(teamName);
-    console.log(teamDescription);
-  }, [gameName, teamName, teamDescription]);
+    if (isReadyToSubmit) {
+      createTeam({
+        variables: {
+          createTeamPayload: isReadyToSubmit,
+        },
+      });
+    } else {
+      // toast('제목과 게임을 선택해 주세요.', { type: ToastType.WARNING });
+    }
+  }, [isReadyToSubmit, createTeam]);
 
   useEffect(() => {
     setTeamName('');
@@ -35,6 +55,7 @@ const CreateTeamModal: FC<Props> = ({ isOpen, close }) => {
 
   return (
     <ModalComponent display={isOpen} exit={close}>
+      <LoadingComponent isLoading={loading} />
       <Row
         boxShadow="rgba(41, 41, 41, 0.05) 0px 4px 7px;"
         pr={16}
@@ -51,10 +72,11 @@ const CreateTeamModal: FC<Props> = ({ isOpen, close }) => {
 
         <Row alignItems="center">
           <Span18
+            hoverDisabled={!isReadyToSubmit}
             transition={0.25}
             color={color.mainColorLight}
             hoverColor={color.mainColor}
-            pointer
+            pointer={!!isReadyToSubmit}
             padding={4}
             fontWeight={fontWeights.bold}
             onClick={onSubmit}

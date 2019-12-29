@@ -6,7 +6,6 @@ import { Span36 } from 'ui/typo';
 import { fontWeights } from 'ui';
 
 interface Props {}
-
 const TeamContainer: FC<Props> = () => {
   const { user } = useUserState();
 
@@ -23,14 +22,6 @@ const TeamContainer: FC<Props> = () => {
 interface RenderWithUserFullProps {
   user: UserFull;
 }
-const RenderWithUserFull: FC<RenderWithUserFullProps> = props => {
-  const { user } = props;
-
-  return (
-    <>
-      <MyTeams user={user} myTeams={user.teams} />
-    </>
-  );
-};
+const RenderWithUserFull: FC<RenderWithUserFullProps> = ({ user }) => <MyTeams user={user} />;
 
 export default TeamContainer;

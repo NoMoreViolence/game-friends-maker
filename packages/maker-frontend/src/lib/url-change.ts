@@ -1,4 +1,4 @@
-import { getRestAxios } from '../constants';
+import { getRestAxios } from 'constants-frontend';
 
 export const urlChange = (url: string): string => {
   if (!(url.includes('https://') || url.includes('http://'))) {
