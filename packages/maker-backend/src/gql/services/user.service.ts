@@ -1,7 +1,7 @@
 import { Service } from 'typedi';
-import { UserModel, DBUser, UserDocument } from '@common-server';
+import { UserModel, DBUser } from '@common-server';
 import { Context } from '@gql/bootstrap/session';
-import { AuthenticationError, ApolloError } from 'apollo-server-lambda';
+import { AuthenticationError } from 'apollo-server-lambda';
 
 @Service()
 export class UserService {
