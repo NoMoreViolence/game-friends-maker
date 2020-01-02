@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -w",
-    "start:dev": "./node_modules/nodemon/bin/nodemon.js -e ts -w ./src -x yarn start:devStart",
+    "dev": "./node_modules/nodemon/bin/nodemon.js -e ts -w ./src -x yarn start:devStart",
     "start:devStart": "sls offline --s local --port 7000 --websocketPort 7001 --skipCacheInvalidation",
     "deploy:dev": "SLS_DEBUG=* sls deploy --s dev",
     "deploy:prod": "sls deploy --s prod"
