@@ -1,8 +1,7 @@
 import { Service } from 'typedi';
 import { ObjectId } from 'bson';
-import { TeamDocument, UserDocument, UserModel, TeamUserJoinStateEnum } from '@common-server';
-import { TeamService, CommonService, UserService, GameService } from '@gql/services';
-import { AuthenticationError, ApolloError } from 'apollo-server';
+import { UserDocument, TeamUserJoinStateEnum } from '@common-server';
+import { TeamService, CommonService, GameService } from '@gql/services';
 import { UpdateTeamPayload, CreateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload, Sort } from '@gql/payloads';
 
 @Service()
