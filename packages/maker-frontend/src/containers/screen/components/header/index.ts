@@ -1,1 +1,1 @@
-export { default } from './screen-header.component';
+export * from './screen-header.component';

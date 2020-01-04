@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { LoadingPortal } from 'portals';
 import { color, zIndex } from 'styles';
 import LoadingLogoSvg from 'svgs/loading-logo';
 
@@ -10,11 +11,13 @@ interface Props {
   isLoading?: boolean; // true
 }
 
-const LoadingComponent: FC<Props> = ({ isLoading = true }) =>
+export const LoadingComponent: FC<Props> = ({ isLoading = true }) =>
   isLoading ? (
-    <GlobalLoadingRootDiv>
-      <LoadingLogoSvg />
-    </GlobalLoadingRootDiv>
+    <LoadingPortal>
+      <GlobalLoadingRootDiv>
+        <LoadingLogoSvg />
+      </GlobalLoadingRootDiv>
+    </LoadingPortal>
   ) : null;
 
 export const GlobalLoadingRootDiv = styled('div')`
@@ -71,5 +74,3 @@ export const GlobalLoadingRootDiv = styled('div')`
     filter: url(#luminosity-noclip);
   }
 `;
-
-export default LoadingComponent;

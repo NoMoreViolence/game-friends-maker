@@ -2,6 +2,7 @@ import { css } from 'styled-components';
 import { ColorCss } from './color';
 import { BackgroundCss } from './background';
 import { BorderCss } from './border';
+import { BoxShadowCss } from './box-shadow';
 
 export interface HoverStyleCss {
   hoverDisabled?: boolean;
@@ -11,6 +12,7 @@ export interface HoverStyleCss {
   hoverBorderRadius?: BorderCss['borderRadius'];
   hoverBorderStyle?: BorderCss['borderStyle'];
   hoverBorderWidth?: BorderCss['borderWidth'];
+  hoverBoxShadow?: BoxShadowCss['boxShadow'];
 }
 
 export const hoverStyleCss = css<HoverStyleCss>`
@@ -22,6 +24,7 @@ export const hoverStyleCss = css<HoverStyleCss>`
     hoverBorderRadius,
     hoverBorderStyle,
     hoverBorderWidth,
+    hoverBoxShadow,
   }) =>
     !hoverDisabled
       ? `
@@ -32,6 +35,7 @@ export const hoverStyleCss = css<HoverStyleCss>`
           ${typeof hoverBorderRadius === 'number' ? `border-radius: ${hoverBorderRadius}px;` : ''}
           ${hoverBorderStyle ? `border-style: ${hoverBorderStyle};` : ''}
           ${typeof hoverBorderWidth === 'number' ? `border-width: ${hoverBorderWidth};` : ''}
+          ${hoverBoxShadow ? `box-shadow: ${hoverBoxShadow};` : ''}
         }
       `
       : ''}

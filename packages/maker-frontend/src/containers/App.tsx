@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import { UserStateContextProvider } from 'context';
 import LandingComponent from 'containers/landing';
-import ScreenComponent from './screen';
+import { ScreenComponent } from './screen';
 
 const App: FC = () => (
   <BrowserRouter>
