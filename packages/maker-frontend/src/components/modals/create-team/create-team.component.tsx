@@ -19,7 +19,7 @@ interface Props {
   refetchMyTeams: (variables?: Record<string, any> | undefined) => Promise<ApolloQueryResult<MyTeams>>;
 }
 
-const CreateTeamModal: FC<Props> = ({ isOpen, close, refetchMyTeams }) => {
+export const CreateTeamModal: FC<Props> = ({ isOpen, close, refetchMyTeams }) => {
   const [teamName, setTeamName] = useState('');
   const [teamDescription, setTeamDescription] = useState('');
   const [gameOnFocus, gameOnBlur, gameLabelColor] = useFocusAndFocusOut(color['border-gray'], color.mainColorDark);
@@ -201,5 +201,3 @@ const setSelectTheme = (theme: any) => ({
     primary: color.mainColor,
   },
 });
-
-export default CreateTeamModal;

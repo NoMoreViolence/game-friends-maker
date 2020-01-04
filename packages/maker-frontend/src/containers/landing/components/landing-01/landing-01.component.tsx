@@ -6,7 +6,7 @@ import { useRouter } from 'helpers';
 
 import { Span1D5rem, color, Span4rem, Button1D5rem } from 'styles';
 import { Landing01RootDiv, Landing01TextDiv, Landing01ImageDiv } from './landing-01.styled';
-import LoadingComponent from 'components/loading';
+import { LoadingComponent } from 'components/loading';
 import GoogleLogoSvg from 'svgs/google-logo';
 import { googleClientKey, getRestAxios } from 'constants-frontend';
 

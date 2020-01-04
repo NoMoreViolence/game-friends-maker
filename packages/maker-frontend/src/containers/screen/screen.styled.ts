@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
 
     body {
+      overscroll-behavior-y: none;
       width: 100%;
       height: 100%;
       scroll-behavior: smooth;
@@ -28,5 +29,4 @@ export const ScrollContainer = styled(Container)`
   overflow: scroll;
   overflow-y: auto;
   margin: auto;
-  max-width: 1752px;
 `;

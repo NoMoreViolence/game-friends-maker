@@ -5,7 +5,7 @@ export interface PositionCss {
   bottom?: number;
   left?: number;
   right?: number;
-  position?: 'absolute' | 'relative' | 'fixed' | 'unset';
+  position?: 'absolute' | 'relative' | 'fixed' | 'sticky' | 'unset';
 }
 
 export const positionCss = css<PositionCss>`

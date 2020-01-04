@@ -1,7 +1,8 @@
 import React, { FC, useRef, useEffect, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { ModalRootDiv } from './modal.styled';
+import { ModalPortal } from 'portals';
 import { Container } from 'ui';
+import { ModalRootDiv } from './modal.styled';
 
 interface Props {
   display?: boolean; // false
@@ -29,9 +30,9 @@ const ModalComponent: FC<Props> = ({ display, exit, children }) => {
   );
 
   useEffect(() => {
-    document.addEventListener('keydown', checkKeyCode, false);
     if (divRef.current !== null) {
       const refHtml = divRef.current;
+      document.addEventListener('keydown', checkKeyCode, false);
       refHtml.addEventListener('click', handleClick);
 
       return () => {
@@ -42,11 +43,13 @@ const ModalComponent: FC<Props> = ({ display, exit, children }) => {
   }, [checkKeyCode, handleClick, display]);
 
   return (
-    <CSSTransition in={display} timeout={250} unmountOnExit={true} classNames="animation">
-      <ModalRootDiv ref={divRef}>
-        <Container>{children}</Container>
-      </ModalRootDiv>
-    </CSSTransition>
+    <ModalPortal>
+      <CSSTransition in={display} timeout={250} unmountOnExit={true} classNames="animation">
+        <ModalRootDiv ref={divRef}>
+          <Container>{children}</Container>
+        </ModalRootDiv>
+      </CSSTransition>
+    </ModalPortal>
   );
 };
 
