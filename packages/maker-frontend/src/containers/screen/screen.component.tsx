@@ -7,7 +7,8 @@ import { USER } from 'graphqls/queries/USER';
 import { Container } from 'ui';
 import { GlobalStyle, ScrollContainer } from './screen.styled';
 import { LoadingComponent } from 'components/loading';
-import TeamContainer from './containers/team';
+import { Home } from './home';
+import { Team } from './team';
 import { ScreenHeaderComponent } from './components/header';
 import { SidebarWrapper } from './components/sidebar';
 import { useUserStateDispatch } from 'context';
@@ -41,8 +42,8 @@ export const ScreenComponent: FC = () => {
           <ScreenHeaderComponent />
           <ScrollContainer>
             <Switch>
-              <Route path="/app/team" component={TeamContainer} />
-              <Route path="/app/home" />
+              <Route path="/app/team" component={Team} />
+              <Route path="/app/home" component={Home} />
             </Switch>
           </ScrollContainer>
         </Container>

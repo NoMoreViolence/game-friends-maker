@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 
 interface Props {}
-const TeamContainer: FC<Props> = () => {
+export const Team: FC<Props> = () => {
   return <></>;
 };
-
-export default TeamContainer;
