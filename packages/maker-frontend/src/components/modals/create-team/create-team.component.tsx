@@ -3,15 +3,16 @@ import { ApolloQueryResult } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import styled from 'styled-components';
 import { gameOptions, SelectOption } from 'constants-frontend';
+import { useUpdateCurrentLocation } from 'data-fetch/use-current-location';
+import { toast } from 'lib';
 import ModalComponent from 'components/modal';
+import { LoadingComponent } from 'components/loading';
 import { Row, fontWeights, Col, Textarea, TextInput, Select, YScroll, Span16, Span18, Label14 } from 'ui';
 import { Icon, iconMap, useFocusAndFocusOut } from 'helpers';
 import { color } from 'styles';
 import { MyTeams } from 'graphqls/queries/__generated__/MyTeams';
 import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
 import { CREATE_TEAM } from 'graphqls/mutations/CREATE_TEAM';
-import { LoadingComponent } from 'components/loading';
-import { toast } from 'lib';
 
 interface Props {
   isOpen?: boolean; // false
@@ -20,10 +21,12 @@ interface Props {
 }
 
 export const CreateTeamModal: FC<Props> = ({ isOpen, close, refetchMyTeams }) => {
+  const updateCurrentLocation = useUpdateCurrentLocation();
   const [teamName, setTeamName] = useState('');
   const [teamDescription, setTeamDescription] = useState('');
   const [gameOnFocus, gameOnBlur, gameLabelColor] = useFocusAndFocusOut(color['border-gray'], color.mainColorDark);
   const [gameName, setGameName] = useState<SelectOption | null | undefined>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const isReadyToSubmit = useMemo(
     () =>
       gameName !== null && gameName !== undefined && teamName
@@ -32,25 +35,31 @@ export const CreateTeamModal: FC<Props> = ({ isOpen, close, refetchMyTeams }) =>
     [gameName, teamDescription, teamName],
   );
 
-  const [createTeam, { loading }] = useMutation<CreateTeam, CreateTeamVariables>(CREATE_TEAM, {
-    onCompleted({ createTeam: { team, teamUserJoin, user } }) {},
-    onError() {},
-  });
+  const [createTeam] = useMutation<CreateTeam, CreateTeamVariables>(CREATE_TEAM);
 
   const onSubmit = useCallback(() => {
     if (isReadyToSubmit) {
+      setIsLoading(true);
       createTeam({
         variables: {
           createTeamPayload: isReadyToSubmit,
         },
-      }).finally(() => {
-        refetchMyTeams();
-        close && close();
-      });
+      })
+        .then(() => refetchMyTeams())
+        .then(({ data }) => {
+          if (data) {
+            const createdTeam = data.myTeams.find(team => team.teamId.name === isReadyToSubmit.name);
+            updateCurrentLocation({
+              variables: { nextCurrentLocation: { currentTeamUserJoinId: createdTeam?._id ?? null } },
+            });
+          }
+          setIsLoading(false);
+          close && close();
+        });
     } else {
       toast('warning', '폼 양식 오류', '제목과 게임을 선택해 주세요');
     }
-  }, [isReadyToSubmit, createTeam, refetchMyTeams, close]);
+  }, [isReadyToSubmit, createTeam, refetchMyTeams, updateCurrentLocation, close]);
 
   useEffect(() => {
     setTeamName('');
@@ -59,7 +68,7 @@ export const CreateTeamModal: FC<Props> = ({ isOpen, close, refetchMyTeams }) =>
 
   return (
     <ModalComponent display={isOpen} exit={close}>
-      <LoadingComponent isLoading={loading} />
+      <LoadingComponent isLoading={isLoading} />
       <Row
         boxShadow="rgba(41, 41, 41, 0.05) 0px 4px 7px;"
         pr={16}

@@ -1,4 +1,4 @@
 import React, { FC } from 'react';
 
 interface Props {}
-export const HomeContainer: FC = () => <></>;
+export const Home: FC = () => <></>;

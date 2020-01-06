@@ -4,12 +4,13 @@ import { useUpdateCurrentLocation, useCurrentLocation } from 'data-fetch/use-cur
 import { TeamBox } from './components';
 import { MyTeams_myTeams } from 'graphqls/queries/__generated__/MyTeams';
 import { CreateTeamModal } from 'components/modals';
+import { LoadingComponent } from 'components/loading';
 
 const lastTeamUserJoinId = localStorage.getItem('lastTeamUserJoinId');
 export const SidebarComponent: FC = () => {
   const currentLocation = useCurrentLocation();
   const updateTeamUserJoinId = useUpdateCurrentLocation();
-  const { data, refetch } = useMyTeams({
+  const { data, loading, refetch } = useMyTeams({
     onCompleted: () => {
       if (
         lastTeamUserJoinId &&
@@ -35,6 +36,7 @@ export const SidebarComponent: FC = () => {
 
   return (
     <>
+      <LoadingComponent isLoading={loading} />
       <TeamBox onClick={goHome}>H</TeamBox>
       {data && <RenderMyTeams currentTeamUserJoinId={currentLocation?.currentTeamUserJoinId} teams={data?.myTeams} />}
       <TeamBox onClick={toggleVisibleCreateModal}>+</TeamBox>
