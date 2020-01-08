@@ -1,9 +1,9 @@
 import { ObjectId } from 'bson';
-import { GQLGenre } from '@common-server';
+import { IGenre } from '@common-server';
 import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
-export class Genre implements GQLGenre {
+export class Genre implements IGenre {
   @Field(type => String)
   _id: ObjectId;
 

@@ -1,10 +1,9 @@
 import { ObjectId } from 'bson';
-import { GQLUser } from '@common-server';
+import { IUser } from '@common-server';
 import { Field, ObjectType } from 'type-graphql';
-import { Team } from './team';
 
 @ObjectType()
-export class User implements GQLUser {
+export class User implements IUser {
   @Field(type => String)
   _id: ObjectId;
 
@@ -13,15 +12,6 @@ export class User implements GQLUser {
 
   @Field(type => String)
   email: string;
-
-  @Field(type => [Team])
-  teams: Team[];
-
-  @Field(type => [Team])
-  pendingTeams: Team[];
-
-  @Field(type => [Team])
-  relatedTeams: Team[];
 
   @Field(type => Date)
   createdAt: Date;
