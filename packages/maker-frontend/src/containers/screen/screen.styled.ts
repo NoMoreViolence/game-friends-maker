@@ -28,5 +28,4 @@ export const ScrollContainer = styled(Container)`
   position: relative;
   overflow: scroll;
   overflow-y: auto;
-  margin: auto;
 `;

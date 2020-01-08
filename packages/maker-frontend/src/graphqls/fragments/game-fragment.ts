@@ -6,6 +6,7 @@ export const GameFullFragment = gql`
   fragment GameFull on Game {
     _id
     name
+    genreIds
     genres {
       ...GenreFull
     }

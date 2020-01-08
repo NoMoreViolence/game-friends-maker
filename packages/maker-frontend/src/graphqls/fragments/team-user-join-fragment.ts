@@ -7,10 +7,12 @@ export const TeamUserJoinFullFragment = gql`
   ${TeamFullFragment}
   fragment TeamUserJoinFull on TeamUserJoin {
     _id
-    userId {
+    userId
+    user {
       ...UserFull
     }
-    teamId {
+    teamId
+    team {
       ...TeamFull
     }
     userState

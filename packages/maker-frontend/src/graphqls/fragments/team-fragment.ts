@@ -6,7 +6,8 @@ export const TeamFullFragment = gql`
   fragment TeamFull on Team {
     _id
     name
-    gameId {
+    gameId
+    game {
       ...GameFull
     }
     introduction
