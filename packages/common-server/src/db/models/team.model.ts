@@ -1,14 +1,13 @@
 import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
-import autoPopulate from 'mongoose-autopopulate';
-import { GQLGame, DBGame } from './game.model';
+import { IGame } from './game.model';
 
-export interface GQLTeam {
+export interface ITeam {
   _id: ObjectId;
   name: string;
 
-  gameId: GQLGame;
+  gameId: IGame['_id'];
 
   introduction: string;
 
@@ -17,37 +16,15 @@ export interface GQLTeam {
   deleted: boolean;
 }
 
-export interface DBTeam {
-  _id: ObjectId;
-  name: string;
-
-  gameId: DBGame['_id'];
-
-  introduction: string;
-
-  createdAt: Date;
-  updatedAt: Date;
-  deleted: boolean;
-}
-
-const teamSchema: Schema<DBTeam> = new Schema(
+const teamSchema: Schema<ITeam> = new Schema(
   {
     name: { type: String, required: true, default: "Jihoon's Game number one" },
     introduction: { type: String, required: false, default: '' },
-    gameId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Game',
-      autopopulate: {
-        maxDepth: 3,
-        select: '_id name genres createdAt updatedAt deleted',
-      },
-      required: true,
-    },
+    gameId: { type: Schema.Types.ObjectId, required: true, ref: 'Game' },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<DBTeam> = teamSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<DBTeam> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<ITeam> = teamSchema.plugin(softDelete);
 
-export type TeamDocument = DBTeam & Document;
-export const TeamModel = model<TeamDocument>('Team', autoPopulatedSchema);
+export type TeamDocument = ITeam & Document;
+export const TeamModel = model<TeamDocument>('Team', softDeleteSchema);
