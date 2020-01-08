@@ -1,9 +1,8 @@
 import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
-import autoPopulate from 'mongoose-autopopulate';
 
-export interface GQLUser {
+export interface IUser {
   _id: ObjectId;
 
   name: string;
@@ -15,19 +14,7 @@ export interface GQLUser {
   deleted: boolean;
 }
 
-export interface DBUser {
-  _id: ObjectId;
-
-  name: string;
-  email: string;
-  googleId?: string;
-
-  createdAt: Date;
-  updatedAt: Date;
-  deleted: boolean;
-}
-
-const userSchema: Schema<DBUser> = new Schema(
+const userSchema: Schema<IUser> = new Schema(
   {
     name: { type: String, required: true, default: '' },
     email: { type: String, required: true },
@@ -35,8 +22,7 @@ const userSchema: Schema<DBUser> = new Schema(
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<DBUser> = userSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<DBUser> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<IUser> = userSchema.plugin(softDelete);
 
-export type UserDocument = DBUser & Document;
-export const UserModel = model<UserDocument>('User', autoPopulatedSchema);
+export type UserDocument = IUser & Document;
+export const UserModel = model<UserDocument>('User', softDeleteSchema);

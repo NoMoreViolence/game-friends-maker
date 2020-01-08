@@ -1,52 +1,30 @@
 import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
-import autoPopulate from 'mongoose-autopopulate';
-import { DBGenre, GQLGenre } from './genre.model';
+import { IGenre } from './genre.model';
 
-export interface GQLGame {
+export interface IGame {
   _id: ObjectId;
   name: string;
 
-  genres: GQLGenre[];
+  genreIds: IGenre['_id'][];
 
   createdAt: Date;
   updatedAt: Date;
   deleted: boolean;
 }
 
-export interface DBGame {
-  _id: ObjectId;
-  name: string;
-
-  genres: Array<DBGenre['_id']>;
-
-  createdAt: Date;
-  updatedAt: Date;
-  deleted: boolean;
-}
-
-const gameSchema: Schema<DBGame> = new Schema(
+const gameSchema: Schema<IGame> = new Schema(
   {
     name: { type: String, required: true },
-    genres: {
-      type: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'Genre',
-          autopopulate: {
-            maxDepth: 1,
-            select: '_id name genres createdAt updatedAt',
-          },
-        },
-      ],
+    genreIds: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Genre' }],
       default: [],
     },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<DBGame> = gameSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<DBGame> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<IGame> = gameSchema.plugin(softDelete);
 
-export type GameDocument = DBGame & Document;
-export const GameModel = model<GameDocument>('Game', autoPopulatedSchema);
+export type GameDocument = IGame & Document;
+export const GameModel = model<GameDocument>('Game', softDeleteSchema);

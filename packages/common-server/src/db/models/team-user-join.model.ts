@@ -1,12 +1,11 @@
 import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
-import autoPopulate from 'mongoose-autopopulate';
 
-import { GQLTeam, DBTeam } from './team.model';
-import { DBUser, GQLUser } from './user.model';
+import { ITeam } from './team.model';
+import { IUser } from './user.model';
 
-export enum TeamUserJoinStateEnum {
+export enum ITeamUserJoinStateEnum {
   OWNER = 'owner',
   ADMIN = 'admin',
   USER = 'user',
@@ -16,10 +15,10 @@ export enum TeamUserJoinStateEnum {
 }
 export type TeamUserJoinState = 'owner' | 'admin' | 'user' | 'pending-invite' | 'pending-request' | 'deleted';
 
-export interface GQLTeamUserJoin {
+export interface ITeamUserJoin {
   _id: ObjectId;
-  userId: GQLUser;
-  teamId: GQLTeam;
+  userId: IUser['_id'];
+  teamId: ITeam['_id'];
   userState: TeamUserJoinState;
 
   createdAt: Date;
@@ -27,46 +26,15 @@ export interface GQLTeamUserJoin {
   deleted: boolean;
 }
 
-export interface DBTeamUserJoin {
-  _id: ObjectId;
-  userId: DBUser['_id'];
-  teamId: DBTeam['_id'];
-  userState: TeamUserJoinState;
-
-  createdAt: Date;
-  updatedAt: Date;
-  deleted: boolean;
-}
-
-const teamUserJoinSchema: Schema<DBTeamUserJoin> = new Schema(
+const teamUserJoinSchema: Schema<ITeamUserJoin> = new Schema(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      autopopulate: {
-        maxDepth: 1,
-        select: '_id name email createdAt updatedAt deleted',
-      },
-      required: true,
-    },
-    teamId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Team',
-      autopopulate: {
-        maxDepth: 3,
-        select: '_id name gameId introduction createdAt updatedAt deleted',
-      },
-      required: true,
-    },
-    userState: {
-      type: Schema.Types.String,
-      required: true,
-    },
+    userId: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
+    teamId: { type: Schema.Types.ObjectId, required: true, ref: 'Team' },
+    userState: { type: Schema.Types.String, required: true, default: 'user' },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
-const softDeleteSchema: Schema<DBTeamUserJoin> = teamUserJoinSchema.plugin(softDelete);
-const autoPopulatedSchema: Schema<DBTeamUserJoin> = softDeleteSchema.plugin(autoPopulate);
+const softDeleteSchema: Schema<ITeamUserJoin> = teamUserJoinSchema.plugin(softDelete);
 
-export type TeamUserJoinDocument = DBTeamUserJoin & Document;
-export const TeamUserJoinModel = model<TeamUserJoinDocument>('TeamUserJoins', autoPopulatedSchema);
+export type TeamUserJoinDocument = ITeamUserJoin & Document;
+export const TeamUserJoinModel = model<TeamUserJoinDocument>('TeamUserJoins', softDeleteSchema);
