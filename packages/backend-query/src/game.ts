@@ -27,7 +27,7 @@ export class Game {
         const dbGame = await generatedGame.save();
 
         console.log('Success');
-        console.log(dbGame.name, dbGame.genres);
+        console.log(dbGame.name, dbGame.genreIds);
       });
     } catch (e) {
       console.log('There is an error ^ㅗ^');
