@@ -12,6 +12,7 @@ export class UserResolver {
   @Authorized()
   @Query(returns => User)
   public async user(@Ctx() context: Context) {
-    return (await this.userService.getUserByContext(context)).toObject();
+    const user = await this.userService.getUserByContext(context);
+    return user.toObject();
   }
 }

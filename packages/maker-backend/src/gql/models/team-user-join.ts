@@ -1,19 +1,17 @@
 import { ObjectId } from 'bson';
 import { Field, ObjectType } from 'type-graphql';
-import { GQLTeamUserJoin, TeamUserJoinState } from '@common-server';
-import { User } from './user';
-import { Team } from './team';
+import { ITeamUserJoin, TeamUserJoinState } from '@common-server';
 
 @ObjectType()
-export class TeamUserJoin implements GQLTeamUserJoin {
+export class TeamUserJoin implements ITeamUserJoin {
   @Field(type => String)
   _id: ObjectId;
 
-  @Field(type => Team)
-  teamId: Team;
+  @Field(type => String)
+  teamId: ObjectId;
 
-  @Field(type => User)
-  userId: User;
+  @Field(type => String)
+  userId: ObjectId;
 
   @Field(type => String)
   userState: TeamUserJoinState;

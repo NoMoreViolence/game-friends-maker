@@ -1,13 +1,14 @@
 import { Service } from 'typedi';
 import { ObjectId } from 'bson';
-import { UserDocument, TeamUserJoinStateEnum } from '@common-server';
-import { TeamService, CommonService, GameService } from '@gql/services';
+import { UserDocument, ITeamUserJoinStateEnum, TeamUserJoinDocument, TeamDocument } from '@common-server';
+import { TeamService, CommonService, GameService, TeamUserJoinService } from '@gql/services';
 import { UpdateTeamPayload, CreateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload, Sort } from '@gql/payloads';
 
 @Service()
 export class TeamController {
   constructor(
     private teamService: TeamService,
+    private teamUserJoinService: TeamUserJoinService,
     private gameService: GameService,
     private commonService: CommonService,
   ) {}
@@ -23,31 +24,32 @@ export class TeamController {
   }
 
   public async getMyTeamUserJoins(user: UserDocument) {
-    const teamUserJoins = await this.teamService.getTeamUserJoins({ userId: user._id });
+    const teamUserJoins = await this.teamUserJoinService.getTeamUserJoins({ userId: user._id });
     return teamUserJoins;
   }
 
-  public async createTeam(user: UserDocument, payload: CreateTeamPayload) {
+  public async createTeam(user: UserDocument, payload: CreateTeamPayload): Promise<TeamUserJoinDocument> {
     const nullableGame = await this.gameService.getGame({ name: payload.gameName });
     const game = this.commonService.nullable(nullableGame);
-    const team = await this.teamService.createTeam({ ...payload, gameId: game._id });
-    const teamUserJoin = await this.teamService.createTeamUserJoin({
+    const team = await this.teamService.createTeam({
+      name: payload.name,
+      introduction: payload.introduction,
+      gameId: game._id,
+    });
+    const teamUserJoin = await this.teamUserJoinService.createTeamUserJoin({
       userId: user._id,
       teamId: team._id,
-      userState: TeamUserJoinStateEnum.OWNER,
+      userState: ITeamUserJoinStateEnum.OWNER,
     });
-    return { team, teamUserJoin };
+    return teamUserJoin;
   }
 
-  public async updateTeam(user: UserDocument, teamId: ObjectId, nextTeam: UpdateTeamPayload) {
-    const nullableTeamUserJoin = await this.teamService.getTeamUserJoin(
-      {
-        userId: user._id,
-        teamId: new ObjectId(teamId),
-        userState: TeamUserJoinStateEnum.OWNER,
-      },
-      false,
-    );
+  public async updateTeam(user: UserDocument, teamId: ObjectId, nextTeam: UpdateTeamPayload): Promise<TeamDocument> {
+    const nullableTeamUserJoin = await this.teamUserJoinService.getTeamUserJoin({
+      userId: user._id,
+      teamId: new ObjectId(teamId),
+      userState: ITeamUserJoinStateEnum.OWNER,
+    });
     const teamUserJoin = this.commonService.nullable(nullableTeamUserJoin);
     const nullableTeam = await this.teamService.getTeamById(teamUserJoin.teamId);
     const team = this.commonService.nullable(nullableTeam);

@@ -1,18 +1,17 @@
 import { ObjectId } from 'bson';
-import { GQLGame } from '@common-server';
+import { IGame } from '@common-server';
 import { Field, ObjectType } from 'type-graphql';
-import { Genre } from './genre';
 
 @ObjectType()
-export class Game implements GQLGame {
+export class Game implements IGame {
   @Field(type => String)
   _id: ObjectId;
 
   @Field(type => String)
   name: string;
 
-  @Field(type => [Genre])
-  genres: Genre[];
+  @Field(type => [String])
+  genreIds: ObjectId[];
 
   @Field(type => Date)
   createdAt: Date;
