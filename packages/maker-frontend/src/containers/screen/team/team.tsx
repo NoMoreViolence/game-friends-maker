@@ -2,5 +2,5 @@ import React, { FC } from 'react';
 
 interface Props {}
 export const Team: FC<Props> = () => {
-  return <></>;
+  return <div>TeamPage</div>;
 };
