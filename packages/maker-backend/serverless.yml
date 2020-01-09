@@ -6,6 +6,11 @@ plugins:
   - serverless-offline
   - serverless-websockets-plugin
 
+package:
+  include:
+    - lib
+    - node_modules
+
 custom:
   env: ${file(./env.yml):${opt:stage, self:provider.stage}}
   serverless-offline:
@@ -20,7 +25,7 @@ provider:
   name: aws
   stage: dev # default is dev
   region: ap-northeast-2
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   environment:
     APOLLO_KEY: ${self:custom.env.APOLLO_KEY}
     ENV: ${self:custom.env.NODE_ENV}
@@ -42,10 +47,12 @@ functions:
           method: post
           cors: true
           path: graphql
+          integration: lambda-proxy
       - http:
           method: get
           cors: true
           path: graphql
+          integration: lambda-proxy
   loginOrRegister:
     handler: src/http/index.loginOrRegister
     events:

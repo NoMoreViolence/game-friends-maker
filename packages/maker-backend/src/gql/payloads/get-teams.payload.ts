@@ -19,6 +19,6 @@ export class GetTeamsOptionPayload {
   @Field(type => String, { nullable: true })
   offsetId?: string;
 
-  @Field(type => Sort, { nullable: true })
+  @Field(type => String, { nullable: true })
   sort?: Sort;
 }
