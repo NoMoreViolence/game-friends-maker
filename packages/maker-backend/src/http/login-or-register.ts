@@ -48,6 +48,10 @@ export async function loginOrRegister(event: APIGatewayProxyEvent, context: Cont
 
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
       body: JSON.stringify({
         message: 'success',
         data: { token },
@@ -58,6 +62,10 @@ export async function loginOrRegister(event: APIGatewayProxyEvent, context: Cont
 
     return {
       statusCode: status,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
       body: JSON.stringify({
         message,
         data: { error: true },

@@ -1,17 +1,19 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, Callback } from 'aws-lambda';
-import { ApolloServer, AuthenticationError } from 'apollo-server-lambda';
+import { ApolloServer } from 'apollo-server-lambda';
 import * as TypeGraphQL from 'type-graphql';
 import { Container } from 'typedi';
 import { dbConnect } from '@database';
 import * as Resolvers from '@gql/resolvers';
-import { authCheck } from '@gql/bootstrap/auth';
+import { authChecker } from '@gql/bootstrap/auth';
 import { injectId } from '@gql/bootstrap/session';
 
-if (!global.schema) {
-  console.log(process.env.ENV);
+if (global.schema) {
+  console.log('global.schema already exists!');
+} else {
+  console.log('building global schema...', process.env.ENV);
   global.schema = TypeGraphQL.buildSchemaSync({
     resolvers: Object.values(Resolvers),
-    authChecker: authCheck,
+    authChecker,
     dateScalarMode: 'isoDate',
     validate: false,
     container: Container,
@@ -23,24 +25,19 @@ const apolloServer = new ApolloServer({
   schema,
   engine: {
     apiKey: process.env.APOLLO_KEY,
-    rewriteError(err) {
-      // Return `null` to avoid reporting `AuthenticationError`s
-      if (err instanceof AuthenticationError) {
-        return null;
-      }
-      // All other errors will be reported.
-      return err;
-    },
   },
   extensions: [],
   playground: true,
-  context: injectId,
-  introspection: true,
   debug: process.env.ENV === 'dev',
+  introspection: true,
+  context: injectId,
 });
 
 const apolloServerHandler = apolloServer.createHandler({
-  cors: { origin: '*', credentials: true },
+  cors: {
+    origin: '*',
+    methods: ['POST', 'GET'],
+  },
 });
 
 export const bootstrap = async (

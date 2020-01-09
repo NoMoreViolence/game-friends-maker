@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
+  mode: 'development',
   entry: slsw.lib.entries,
   devtool: 'source-map',
   externals: [nodeExternals()],
