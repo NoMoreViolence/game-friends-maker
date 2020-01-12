@@ -2,7 +2,6 @@ import { ContextFunction } from 'apollo-server-core';
 import { decodeToken } from '@helpers';
 
 export interface Context {
-  headers: any;
   session: Session;
 }
 export interface Session {
@@ -22,11 +21,6 @@ export const injectId: ContextFunction<unknown, Context> = async ({ event }): Pr
   }
 
   return {
-    headers: {
-      ...event.headers,
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
     session,
   };
 };
