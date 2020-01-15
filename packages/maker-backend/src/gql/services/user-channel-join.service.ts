@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
 import { UserChannelJoinModel } from '@common-server';
 import { UserChannelJoin } from '@gql/models';
+import { CreateUserChannelJoinPayload } from '@gql/payloads';
 
 @Service()
 export class UserChannelJoinService {
@@ -11,5 +12,10 @@ export class UserChannelJoinService {
 
   public async getUserChannelJoin(args: Partial<UserChannelJoin>) {
     return UserChannelJoinModel.findOne(args).exec();
+  }
+
+  public async createUserChannelJoin(payload: CreateUserChannelJoinPayload) {
+    const userChannelJoin = await new UserChannelJoinModel(payload).save();
+    return userChannelJoin;
   }
 }

@@ -1,7 +1,14 @@
 import { Service } from 'typedi';
 import { ObjectId } from 'bson';
 import { UserDocument, ITeamUserJoinStateEnum, TeamUserJoinDocument, TeamDocument } from '@common-server';
-import { TeamService, CommonService, GameService, TeamUserJoinService } from '@gql/services';
+import {
+  TeamService,
+  CommonService,
+  GameService,
+  TeamUserJoinService,
+  ChannelService,
+  UserChannelJoinService,
+} from '@gql/services';
 import { UpdateTeamPayload, CreateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload, Sort } from '@gql/payloads';
 
 @Service()
@@ -10,6 +17,8 @@ export class TeamController {
     private teamService: TeamService,
     private teamUserJoinService: TeamUserJoinService,
     private gameService: GameService,
+    private channelService: ChannelService,
+    private userChannelJoinService: UserChannelJoinService,
     private commonService: CommonService,
   ) {}
 
@@ -40,6 +49,12 @@ export class TeamController {
       userId: user._id,
       teamId: team._id,
       userState: ITeamUserJoinStateEnum.OWNER,
+    });
+    const channel = await this.channelService.createChannel({ teamId: team._id, name: 'communication' });
+    await this.userChannelJoinService.createUserChannelJoin({
+      teamId: team._id,
+      userId: user._id,
+      channelId: channel._id,
     });
     return teamUserJoin;
   }
