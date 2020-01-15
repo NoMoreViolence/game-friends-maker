@@ -11,7 +11,7 @@ import { useCallback } from 'react';
 
 export function useCurrentLocation() {
   const { data } = useQuery<CurrentLocation>(CURRENT_LOCATION);
-  return data ? data.currentLocation : null;
+  return data ? data.currentLocation : { currentTeamUserJoinId: null };
 }
 
 export function useUpdateCurrentLocation() {

@@ -25,7 +25,7 @@ import { color } from 'styles';
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   selected?: boolean;
 }
-export const TeamBox: FC<Props> = ({ children, ...props }) => (
+export const TeamBox: FC<Props> = props => (
   <TeamBoxDiv
     pointer
     width={50}
@@ -37,7 +37,7 @@ export const TeamBox: FC<Props> = ({ children, ...props }) => (
     isFlex
     justifyContent="center"
     alignItems="center"
-    borderColor={color['border-gray']}
+    borderColor={color.transparent}
     borderRadius={4}
     borderWidth={1}
     borderStyle="solid"
@@ -45,9 +45,7 @@ export const TeamBox: FC<Props> = ({ children, ...props }) => (
     boxShadow="0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.16)"
     hoverBoxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
     {...props}
-  >
-    {children}
-  </TeamBoxDiv>
+  />
 );
 
 interface TeamBoxProps
