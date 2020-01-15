@@ -1,9 +1,9 @@
 import { ObjectId } from 'bson';
+import { IUserChannelJoin } from '@common-server';
 import { Field, ObjectType } from 'type-graphql';
-import { ITeamUserJoin, TeamUserJoinState } from '@common-server';
 
 @ObjectType()
-export class TeamUserJoin implements ITeamUserJoin {
+export class UserChannelJoin implements IUserChannelJoin {
   @Field(type => String)
   _id: ObjectId;
 
@@ -14,7 +14,7 @@ export class TeamUserJoin implements ITeamUserJoin {
   userId: ObjectId;
 
   @Field(type => String)
-  userState: TeamUserJoinState;
+  channelId: ObjectId;
 
   @Field(type => Boolean)
   muted: boolean;
