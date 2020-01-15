@@ -19,6 +19,7 @@ export interface ITeamUserJoin {
   _id: ObjectId;
   userId: IUser['_id'];
   teamId: ITeam['_id'];
+  muted: boolean; // false 나중에 작업, 프로퍼티만 생성해놓음
   userState: TeamUserJoinState;
 
   createdAt: Date;
@@ -31,6 +32,7 @@ const teamUserJoinSchema: Schema<ITeamUserJoin> = new Schema(
     userId: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
     teamId: { type: Schema.Types.ObjectId, required: true, ref: 'Team' },
     userState: { type: Schema.Types.String, required: true, default: 'user' },
+    muted: { type: Schema.Types.Boolean, required: true, default: false },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
