@@ -4,8 +4,6 @@ import { zIndex, color } from 'styles';
 
 export const ModalRootDiv = styled.div`
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   max-height: stretch;
   min-height: stretch;
   max-width: stretch;
@@ -23,17 +21,17 @@ export const ModalRootDiv = styled.div`
   > div {
     ${media('<tablet')} {
       box-sizing: border-box;
-      width: 100vw;
-      height: 100vh;
-      max-width: 100vw;
-      max-height: 100vh;
       border-radius: 0;
+      height: 100%;
+      width: 100%;
     }
 
-    max-width: 650px;
-    max-height: 650px;
-    width: 650px;
-    height: 500px;
+    ${media('>=tablet')} {
+      max-width: 650px;
+      max-height: 650px;
+      width: 650px;
+      height: 500px;
+    }
     background-color: white;
     border-radius: 0.75rem;
     border: 0px solid transparent;

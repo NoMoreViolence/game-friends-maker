@@ -9,7 +9,7 @@ const lastTeamUserJoinId = localStorage.getItem('lastTeamUserJoinId');
 interface Props {
   toggleIsSidebarOpen(): void;
 }
-export const SidebarComponent: FC<Props> = ({ toggleIsSidebarOpen }) => {
+export const SelectWorkspace: FC<Props> = ({ toggleIsSidebarOpen }) => {
   const currentLocation = useCurrentLocation();
   const updateTeamUserJoinId = useUpdateCurrentLocation();
   const { data, loading } = useMyTeams({
@@ -63,7 +63,9 @@ export const SidebarComponent: FC<Props> = ({ toggleIsSidebarOpen }) => {
   return (
     <>
       <LoadingComponent isLoading={loading} />
-      <TeamBox onClick={goHome}>H</TeamBox>
+      <TeamBox selected={data?.currentLocation.currentTeamUserJoinId === null} onClick={goHome}>
+        H
+      </TeamBox>
       {data &&
         data.myTeams.map(teamUserJoin => (
           <TeamBox
