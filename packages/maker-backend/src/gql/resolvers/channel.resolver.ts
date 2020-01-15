@@ -1,6 +1,6 @@
 import { Authorized, Resolver, FieldResolver, Root } from 'type-graphql';
 import { Service } from 'typedi';
-import { Channel } from '@gql/models';
+import { Channel, Team } from '@gql/models';
 import { TeamService, CommonService } from '@gql/services';
 
 @Service()
@@ -9,7 +9,7 @@ export class ChannelResolver {
   constructor(private teamService: TeamService, private commonService: CommonService) {}
 
   @Authorized()
-  @FieldResolver(type => [])
+  @FieldResolver(type => Team)
   async team(@Root() channel: Channel) {
     const nullableTeam = await this.teamService.getTeamById(channel.teamId);
     const team = this.commonService.nullable(nullableTeam);
