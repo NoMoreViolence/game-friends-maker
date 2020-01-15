@@ -15,6 +15,7 @@ export const TeamUserJoinFullFragment = gql`
     team {
       ...TeamFull
     }
+    muted
     userState
     createdAt
     updatedAt

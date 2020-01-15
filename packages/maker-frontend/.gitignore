@@ -10,12 +10,6 @@
 
 # production
 /build
-src/graphqls/generated/*
-src/graphqls/queries/__generated__/*
-src/graphqls/mutations/__generated__/*
-src/graphqls/fragments/__generated__/*
-src/graphqls/__generated__/*
-
 
 # misc
 .DS_Store
