@@ -14,6 +14,10 @@ export class UserChannelJoinService {
     return UserChannelJoinModel.findOne(args).exec();
   }
 
+  public async getUserChannelJoins(args: Partial<UserChannelJoin>) {
+    return UserChannelJoinModel.find(args).exec();
+  }
+
   public async createUserChannelJoin(payload: CreateUserChannelJoinPayload) {
     const userChannelJoin = await new UserChannelJoinModel(payload).save();
     return userChannelJoin;

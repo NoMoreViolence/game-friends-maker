@@ -1,7 +1,9 @@
-import { Authorized, Resolver, FieldResolver, Root } from 'type-graphql';
+import { Authorized, Resolver, FieldResolver, Root, Query, Ctx, Arg } from 'type-graphql';
 import { Service } from 'typedi';
 import { UserChannelJoin, Team, User, Channel } from '@gql/models';
-import { TeamService, CommonService, UserService, ChannelService } from '@gql/services';
+import { TeamService, CommonService, UserService, ChannelService, UserChannelJoinService } from '@gql/services';
+import { Context } from '@gql/bootstrap/session';
+import { ObjectId } from 'mongodb';
 
 @Service()
 @Resolver(of => UserChannelJoin)
@@ -10,8 +12,20 @@ export class UserChannelJoinResolver {
     private teamService: TeamService,
     private userService: UserService,
     private channelService: ChannelService,
+    private userChannelJoinService: UserChannelJoinService,
     private commonService: CommonService,
   ) {}
+
+  @Authorized()
+  @Query(returns => [UserChannelJoin])
+  public async myChannels(@Ctx() context: Context, @Arg('teamId') teamId: string) {
+    const user = await this.userService.getUserByContext(context);
+    const userChannelJoins = await this.userChannelJoinService.getUserChannelJoins({
+      userId: user._id,
+      teamId: new ObjectId(teamId),
+    });
+    return userChannelJoins.map(userChannelJoin => userChannelJoin.toObject());
+  }
 
   @Authorized()
   @FieldResolver(type => Team)
