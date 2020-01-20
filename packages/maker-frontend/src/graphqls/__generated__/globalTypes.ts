@@ -12,8 +12,12 @@ export interface CreateTeamPayload {
   introduction?: string | null;
 }
 
-export interface NextCurrentLocation {
+export interface NextCurrentTeamUserJoinId {
   currentTeamUserJoinId?: string | null;
+}
+
+export interface NextCurrentUserChannelJoinId {
+  currentUserChannelJoinId?: string | null;
 }
 
 export interface UpdateTeamPayload {

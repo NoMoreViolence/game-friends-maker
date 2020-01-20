@@ -1,15 +1,17 @@
+import { QueryHookOptions, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { TeamUserJoinFullFragment, CurrentLocationFragment } from 'graphqls/fragments';
+import { TeamUserJoinFullFragment } from 'graphqls/fragments';
+import { MyTeams } from './__generated__/MyTeams';
 
 export const MY_TEAMS = gql`
   ${TeamUserJoinFullFragment}
-  ${CurrentLocationFragment}
   query MyTeams {
     myTeams {
       ...TeamUserJoinFull
     }
-    currentLocation @client {
-      ...CurrentLocationFull
-    }
   }
 `;
+
+export function useMyTeams(option?: QueryHookOptions<MyTeams, Record<string, any>>) {
+  return useQuery<MyTeams>(MY_TEAMS, { fetchPolicy: 'cache-and-network', ...option });
+}

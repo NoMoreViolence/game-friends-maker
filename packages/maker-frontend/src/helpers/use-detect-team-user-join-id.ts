@@ -1,24 +1,18 @@
+import { useCurrentTeamUserJoinId } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
 import { useEffect } from 'react';
-import { useCurrentLocation } from 'data-fetch/use-current-location';
-import { useRouter } from './use-router';
 import { useGetPreviousValue } from './use-get-prev-value';
+import { useRouter } from './use-router';
 
 export function useDetectTeamUserJoinId() {
   const { push } = useRouter();
-  const currentLocation = useCurrentLocation();
-  const prevCurrentLocation = useGetPreviousValue(currentLocation);
+  const currentTeamUserJoinId = useCurrentTeamUserJoinId();
+  const prevCurrentLocation = useGetPreviousValue(currentTeamUserJoinId);
   useEffect(() => {
-    if (
-      currentLocation?.currentTeamUserJoinId !== null &&
-      currentLocation?.currentTeamUserJoinId !== prevCurrentLocation?.currentTeamUserJoinId
-    ) {
+    if (currentTeamUserJoinId !== null && currentTeamUserJoinId !== prevCurrentLocation) {
       push('/app/team');
     }
-    if (
-      currentLocation?.currentTeamUserJoinId === null &&
-      currentLocation?.currentTeamUserJoinId !== prevCurrentLocation?.currentTeamUserJoinId
-    ) {
+    if (currentTeamUserJoinId === null && currentTeamUserJoinId !== prevCurrentLocation) {
       push('/app/home');
     }
-  }, [currentLocation, prevCurrentLocation, push]);
+  }, [currentTeamUserJoinId, prevCurrentLocation, push]);
 }
