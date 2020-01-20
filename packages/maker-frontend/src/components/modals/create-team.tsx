@@ -1,18 +1,18 @@
-import React, { FC, useState, CSSProperties, useEffect, useCallback, useMemo } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import styled from 'styled-components';
-import { gameOptions, SelectOption } from 'constants-frontend';
-import { useUpdateCurrentLocation } from 'data-fetch/use-current-location';
-import { toast } from 'lib';
-import ModalComponent from 'components/modal';
 import { LoadingComponent } from 'components/loading';
-import { Row, fontWeights, Col, Textarea, TextInput, Select, YScroll, Span16, Span18, Label14 } from 'ui';
-import { Icon, iconMap, useFocusAndFocusOut } from 'helpers';
-import { color } from 'styles';
-import { MyTeams } from 'graphqls/queries/__generated__/MyTeams';
-import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
+import ModalComponent from 'components/modal';
+import { gameOptions, SelectOption } from 'constants-frontend';
 import { CREATE_TEAM } from 'graphqls/mutations/CREATE_TEAM';
+import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
 import { MY_TEAMS } from 'graphqls/queries/MY_TEAMS';
+import { MyTeams } from 'graphqls/queries/__generated__/MyTeams';
+import { Icon, iconMap, useFocusAndFocusOut } from 'helpers';
+import { toast } from 'lib';
+import React, { CSSProperties, FC, useCallback, useEffect, useMemo, useState } from 'react';
+import styled from 'styled-components';
+import { color } from 'styles';
+import { Col, fontWeights, Label14, Row, Select, Span16, Span18, Textarea, TextInput, YScroll } from 'ui';
+import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOIN_ID';
 
 interface Props {
   isOpen?: boolean;
@@ -29,7 +29,7 @@ export const CreateTeamModal: FC<Props> = ({ isOpen = false, close = () => null 
     },
     [close],
   );
-  const updateCurrentLocation = useUpdateCurrentLocation();
+  const updateTeamUserJoinId = useUpdateTeamUserJoinId();
   const [teamName, setTeamName] = useState('');
   const [teamDescription, setTeamDescription] = useState('');
   const [gameOnFocus, gameOnBlur, gameLabelColor] = useFocusAndFocusOut(color['border-gray'], color.mainColorDark);
@@ -63,19 +63,9 @@ export const CreateTeamModal: FC<Props> = ({ isOpen = false, close = () => null 
               query: MY_TEAMS,
               data: {
                 myTeams: [...myTeams, newMyTeam],
-                currentLocation: {
-                  __typename: 'CurrentLocation',
-                  currentTeamUserJoinId: newMyTeam._id,
-                },
               },
             });
-            updateCurrentLocation({
-              variables: {
-                nextCurrentLocation: {
-                  currentTeamUserJoinId: newMyTeam._id,
-                },
-              },
-            });
+            updateTeamUserJoinId(newMyTeam._id);
           }
         },
       });
@@ -84,7 +74,7 @@ export const CreateTeamModal: FC<Props> = ({ isOpen = false, close = () => null 
     } else {
       toast('warning', '폼 양식 오류', '제목과 게임을 선택해 주세요');
     }
-  }, [isReadyToSubmit, createTeam, handleClose, updateCurrentLocation]);
+  }, [isReadyToSubmit, createTeam, handleClose, updateTeamUserJoinId]);
 
   useEffect(() => {
     setTeamName('');

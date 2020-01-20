@@ -1,42 +1,89 @@
 import gql from 'graphql-tag';
+import { UpdateCurrentTeamUserJoinIdVariables } from 'graphqls/mutations/__generated__/UpdateCurrentTeamUserJoinId';
+import { UpdateCurrentUserChannelJoinIdVariables } from 'graphqls/mutations/__generated__/UpdateCurrentUserChannelJoinId';
+import { CURRENT_TEAM_USER_JOIN_ID } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
+import { CURRENT_USER_CHANNEL_JOIN_ID } from 'graphqls/queries/CURRENT_USER_CHANNEL_JOIN_ID';
+import { CurrentTeamUserJoinId } from 'graphqls/queries/__generated__/CurrentTeamUserJoinId';
+import { CurrentUserChannelJoinId } from 'graphqls/queries/__generated__/CurrentUserChannelJoinId';
 import { merge } from 'lodash';
 import { DeepPartial } from 'utility-types';
-
-import { CURRENT_LOCATION } from 'graphqls/queries/CURRENT_LOCATION';
-import { UpdateCurrentLocationVariables } from 'graphqls/mutations/__generated__/UpdateCurrentLocation';
-import { CurrentLocation } from 'graphqls/queries/__generated__/CurrentLocation';
 import { LocalStateModule } from './state-module';
 
-export const localStateModule: LocalStateModule<CurrentLocation> = {
+export const currentTeamUserModule: LocalStateModule<CurrentTeamUserJoinId> = {
   initialState: {
-    currentLocation: {
-      __typename: 'CurrentLocation',
+    currentTeamUserJoinId: {
+      __typename: 'CurrentTeamUserJoinId',
       currentTeamUserJoinId: null,
     },
   },
   typeDefs: gql`
     extend type Query {
-      currentLocation: CurrentLocation!
+      currentTeamUserJoinId: CurrentTeamUserJoinId!
     }
     extend type Mutation {
-      updateCurrentLocation(nextCurrentLocation: NextCurrentLocation): CurrentLocation
+      updateCurrentTeamUserJoinId(nextCurrentTeamUserJoinId: NextCurrentTeamUserJoinId): CurrentTeamUserJoinId
     }
-    type CurrentLocation {
+    type CurrentTeamUserJoinId {
       currentTeamUserJoinId: ID
     }
-    input NextCurrentLocation {
+    input NextCurrentTeamUserJoinId {
       currentTeamUserJoinId: ID
     }
   `,
   resolvers: {
     Mutation: {
-      updateCurrentLocation: (_, { nextCurrentLocation }: UpdateCurrentLocationVariables, { cache }) => {
-        const prev: CurrentLocation = cache.readQuery({ query: CURRENT_LOCATION });
-        const nextPartial: DeepPartial<CurrentLocation> = {
-          currentLocation: nextCurrentLocation,
+      updateCurrentTeamUserJoinId: (
+        _,
+        { nextCurrentTeamUserJoinId }: UpdateCurrentTeamUserJoinIdVariables,
+        { cache },
+      ) => {
+        const prev: CurrentTeamUserJoinId = cache.readQuery({ query: CURRENT_TEAM_USER_JOIN_ID });
+        const nextPartial: DeepPartial<CurrentTeamUserJoinId> = {
+          currentTeamUserJoinId: nextCurrentTeamUserJoinId,
         };
         const next = merge({}, prev, nextPartial);
-        cache.writeQuery({ query: CURRENT_LOCATION, data: next });
+        cache.writeQuery({ query: CURRENT_TEAM_USER_JOIN_ID, data: next });
+      },
+    },
+  },
+};
+
+export const currentUserChannelModule: LocalStateModule<CurrentUserChannelJoinId> = {
+  initialState: {
+    currentUserChannelJoinId: {
+      __typename: 'CurrentUserChannelJoinId',
+      currentUserChannelJoinId: null,
+    },
+  },
+  typeDefs: gql`
+    extend type Query {
+      currentUserChannelJoinId: CurrentUserChannelJoinId!
+    }
+    extend type Mutation {
+      updateCurrentUserChannelJoinId(
+        nextCurrentUserChannelJoinId: NextCurrentUserChannelJoinId
+      ): CurrentUserChannelJoinId
+    }
+    type CurrentUserChannelJoinId {
+      currentUserChannelJoinId: ID
+    }
+    input NextCurrentUserChannelJoinId {
+      currentUserChannelJoinId: ID
+    }
+  `,
+  resolvers: {
+    Mutation: {
+      updateCurrentUserChannelJoinId: (
+        _,
+        { nextCurrentUserChannelJoinId }: UpdateCurrentUserChannelJoinIdVariables,
+        { cache },
+      ) => {
+        const prev: CurrentUserChannelJoinId = cache.readQuery({ query: CURRENT_USER_CHANNEL_JOIN_ID });
+        const nextPartial: DeepPartial<CurrentUserChannelJoinId> = {
+          currentUserChannelJoinId: nextCurrentUserChannelJoinId,
+        };
+        const next = merge({}, prev, nextPartial);
+        cache.writeQuery({ query: CURRENT_USER_CHANNEL_JOIN_ID, data: next });
       },
     },
   },

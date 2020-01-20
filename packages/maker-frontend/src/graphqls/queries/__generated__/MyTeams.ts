@@ -60,12 +60,6 @@ export interface MyTeams_myTeams {
   deleted: boolean;
 }
 
-export interface MyTeams_currentLocation {
-  __typename: "CurrentLocation";
-  currentTeamUserJoinId: string | null;
-}
-
 export interface MyTeams {
   myTeams: MyTeams_myTeams[];
-  currentLocation: MyTeams_currentLocation;
 }

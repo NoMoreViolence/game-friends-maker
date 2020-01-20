@@ -1,52 +1,43 @@
-import React, { FC, useState, useCallback } from 'react';
-import { useMyTeams } from 'data-fetch';
-import { useUpdateCurrentLocation, useCurrentLocation } from 'data-fetch/use-current-location';
-import { TeamBox } from './team-box';
-import { CreateTeamModal } from 'components/modals';
 import { LoadingComponent } from 'components/loading';
+import { CreateTeamModal } from 'components/modals';
+import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOIN_ID';
+import { useCurrentTeamUserJoinId } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
+import { useMyTeams } from 'graphqls/queries/MY_TEAMS';
+import { MyTeams_myTeams } from 'graphqls/queries/__generated__/MyTeams';
+import React, { FC, useCallback, useState } from 'react';
+import { TeamBox } from './team-box';
 
 const lastTeamUserJoinId = localStorage.getItem('lastTeamUserJoinId');
 interface Props {
   toggleIsSidebarOpen(): void;
+  selectTeamUserJoin(teamUserJoin: MyTeams_myTeams | null): void;
 }
-export const SelectWorkspace: FC<Props> = ({ toggleIsSidebarOpen }) => {
-  const currentLocation = useCurrentLocation();
-  const updateTeamUserJoinId = useUpdateCurrentLocation();
+export const SelectWorkspace: FC<Props> = ({ toggleIsSidebarOpen, selectTeamUserJoin }) => {
+  const currentTeamUserJoinId = useCurrentTeamUserJoinId();
+  const updateTeamUserJoinId = useUpdateTeamUserJoinId();
   const { data, loading } = useMyTeams({
     fetchPolicy: 'cache-and-network',
     onCompleted: () => {
-      if (
-        lastTeamUserJoinId &&
-        data?.myTeams.filter(s => s._id === lastTeamUserJoinId).length === 1 &&
-        currentLocation?.currentTeamUserJoinId !== lastTeamUserJoinId
-      ) {
-        updateTeamUserJoinId({
-          variables: {
-            nextCurrentLocation: {
-              currentTeamUserJoinId: lastTeamUserJoinId,
-            },
-          },
-        });
+      const selectedTeamUserJoin = data?.myTeams.find(s => s._id === lastTeamUserJoinId);
+      if (lastTeamUserJoinId && selectedTeamUserJoin !== undefined && currentTeamUserJoinId !== lastTeamUserJoinId) {
+        updateTeamUserJoinId(lastTeamUserJoinId);
+        selectTeamUserJoin(selectedTeamUserJoin);
       }
     },
   });
 
   const goHome = useCallback(() => {
-    updateTeamUserJoinId({ variables: { nextCurrentLocation: { currentTeamUserJoinId: null } } });
+    updateTeamUserJoinId(null);
     toggleIsSidebarOpen();
   }, [toggleIsSidebarOpen, updateTeamUserJoinId]);
   const updateTeamUserJoinIdTrigger = useCallback(
     (teamUserJoinId: string) => {
-      updateTeamUserJoinId({
-        variables: {
-          nextCurrentLocation: {
-            currentTeamUserJoinId: teamUserJoinId,
-          },
-        },
-      });
+      const selectedTeamUserJoin = data?.myTeams.find(teamUserJoin => teamUserJoin._id === teamUserJoinId) ?? null;
+      updateTeamUserJoinId(teamUserJoinId);
+      selectTeamUserJoin(selectedTeamUserJoin);
       toggleIsSidebarOpen();
     },
-    [toggleIsSidebarOpen, updateTeamUserJoinId],
+    [data, updateTeamUserJoinId, selectTeamUserJoin, toggleIsSidebarOpen],
   );
 
   const [visibleCreateModal, setVisibleCreateModal] = useState(false);
@@ -63,14 +54,14 @@ export const SelectWorkspace: FC<Props> = ({ toggleIsSidebarOpen }) => {
   return (
     <>
       <LoadingComponent isLoading={loading} />
-      <TeamBox selected={data?.currentLocation.currentTeamUserJoinId === null} onClick={goHome}>
+      <TeamBox selected={currentTeamUserJoinId === null} onClick={goHome}>
         H
       </TeamBox>
       {data &&
         data.myTeams.map(teamUserJoin => (
           <TeamBox
             key={teamUserJoin._id}
-            selected={data.currentLocation.currentTeamUserJoinId === teamUserJoin._id}
+            selected={currentTeamUserJoinId === teamUserJoin._id}
             onClick={() => updateTeamUserJoinIdTrigger(teamUserJoin._id)}
           >
             {teamUserJoin.team.name.substring(0, 1).toUpperCase()}

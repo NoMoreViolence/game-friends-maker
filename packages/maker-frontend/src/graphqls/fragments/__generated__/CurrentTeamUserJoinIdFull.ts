@@ -3,10 +3,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: CurrentLocationFull
+// GraphQL fragment: CurrentTeamUserJoinIdFull
 // ====================================================
 
-export interface CurrentLocationFull {
-  __typename: "CurrentLocation";
+export interface CurrentTeamUserJoinIdFull {
+  __typename: "CurrentTeamUserJoinId";
   currentTeamUserJoinId: string | null;
 }

@@ -3,14 +3,14 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: CurrentLocation
+// GraphQL query operation: CurrentTeamUserJoinId
 // ====================================================
 
-export interface CurrentLocation_currentLocation {
-  __typename: "CurrentLocation";
+export interface CurrentTeamUserJoinId_currentTeamUserJoinId {
+  __typename: "CurrentTeamUserJoinId";
   currentTeamUserJoinId: string | null;
 }
 
-export interface CurrentLocation {
-  currentLocation: CurrentLocation_currentLocation;
+export interface CurrentTeamUserJoinId {
+  currentTeamUserJoinId: CurrentTeamUserJoinId_currentTeamUserJoinId;
 }

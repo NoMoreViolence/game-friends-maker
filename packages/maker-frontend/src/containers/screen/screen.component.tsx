@@ -1,20 +1,19 @@
-import React, { FC, useState, useCallback, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-
-import { useRouter, useDetectTeamUserJoinId } from 'helpers';
+import { LoadingComponent } from 'components/loading';
+import { useUserStateDispatch } from 'context';
 import { USER } from 'graphqls/queries/USER';
-import { Container } from 'ui';
+import { User } from 'graphqls/queries/__generated__/User';
+import { useDetectTeamUserJoinId, useRouter } from 'helpers';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { GlobalStyle, ScrollContainer } from './screen.styled';
-import { LoadingComponent } from 'components/loading';
-import { Home } from './home';
-import { Team } from './team';
+import { Container } from 'ui';
 import { ScreenHeaderComponent } from './header';
+import { Home } from './home';
+import { GlobalStyle, ScrollContainer } from './screen.styled';
 import { SidebarWrapper } from './sidebar';
-import { useUserStateDispatch } from 'context';
-import { User } from 'graphqls/queries/__generated__/User';
+import { Team } from './team';
 
 export const ScreenComponent: FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
