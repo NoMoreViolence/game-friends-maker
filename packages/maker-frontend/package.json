@@ -60,8 +60,8 @@
   },
   "scripts": {
     "dev": "cross-env REACT_APP_STAGE=dev REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
-    "start:test": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
-    "build:test": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web react-scripts build",
+    "start:dev": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
+    "build:dev": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web react-scripts build",
     "build:prod": "cross-env REACT_APP_STAGE=prod REACT_APP_RUNNING_ENV=web react-scripts build",
     "deploy:prod": "aws s3 sync ./build s3://cohope.io --profile=coop-dev-s3",
     "clear:prod": "aws cloudfront create-invalidation --profile=coop-dev-s3 --distribution-id E273TT4DOWJUI4 --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
