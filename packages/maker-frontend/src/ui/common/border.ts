@@ -4,7 +4,7 @@ export interface BorderCss {
   borderColor?: string;
   borderWidth?: number;
   borderRadius?: number;
-  borderStyle?: 'solid' | 'dotted' | 'dashed';
+  borderStyle?: 'solid' | 'dotted' | 'dashed' | 'none';
   boxSizing?: 'border-box' | 'content-box';
   borderRightWidth?: number;
   borderLeftWidth?: number;

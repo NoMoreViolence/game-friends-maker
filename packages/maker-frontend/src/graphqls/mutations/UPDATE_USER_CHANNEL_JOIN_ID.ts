@@ -26,8 +26,6 @@ export function useUpdateUserChannelJoinId() {
 
   const update = useCallback(
     (nextCurrentUserChannelJoinId: string | null) => {
-      console.log(currentUserChannelJoinId, 'current user channel join id');
-      console.log(nextCurrentUserChannelJoinId, 'next user channel join id');
       localStorage.removeItem(`lastUserChannelJoinId:${currentUserChannelJoinId}`);
       localStorage.setItem(`lastUserChannelJoinId:${nextCurrentUserChannelJoinId}`, nextCurrentUserChannelJoinId ?? '');
       updateCurrentUserChannelJoinId({

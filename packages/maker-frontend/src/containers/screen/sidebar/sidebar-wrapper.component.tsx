@@ -1,11 +1,12 @@
-import { MyTeams_myTeams } from 'graphqls/queries/__generated__/MyTeams';
-import React, { FC, useCallback, useState } from 'react';
+import { useCurrentTeamUserJoinId } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
+import { useCurrentTeamUserJoin } from 'graphqls/queries/MY_TEAMS';
+import React, { FC } from 'react';
 import Sidebar, { SidebarStyles } from 'react-sidebar';
 import styled from 'styled-components';
 import { color } from 'styles';
 import { PaddingCss, paddingCss, Row, WidthHeightCss, widthHeightCss } from 'ui';
 import { SelectChannel } from './select-channel';
-import { SelectWorkspace } from './select-workspace';
+import { SelectTeam } from './select-team';
 
 interface Props {
   isSidebarOpen: boolean;
@@ -13,20 +14,17 @@ interface Props {
   toggleIsSidebarOpen(): void;
 }
 export const SidebarWrapper: FC<Props> = ({ isSidebarOpen, isSidebarHold, toggleIsSidebarOpen, children }) => {
-  const [currentTeamUserJoin, setCurrentTeamUserJoin] = useState<MyTeams_myTeams | null>(null);
-  const selectTeamUserJoin = useCallback(
-    (selectedTeamUserJoin: MyTeams_myTeams | null) => setCurrentTeamUserJoin(selectedTeamUserJoin),
-    [],
-  );
+  const currentTeamUserJoinId = useCurrentTeamUserJoinId();
+  const currentTeamUserJoin = useCurrentTeamUserJoin(currentTeamUserJoinId);
 
   return (
     <Sidebar
       sidebar={
         <Row height="100%" alignItems="stretch">
           <ScrollDiv pt={15} pb={15} width={90}>
-            <SelectWorkspace selectTeamUserJoin={selectTeamUserJoin} toggleIsSidebarOpen={toggleIsSidebarOpen} />
+            <SelectTeam currentTeamUserJoinId={currentTeamUserJoinId} toggleIsSidebarOpen={toggleIsSidebarOpen} />
           </ScrollDiv>
-          {currentTeamUserJoin !== null && (
+          {currentTeamUserJoin && (
             <ScrollDiv pt={15} pb={15} pr={15} pl={15} width={200}>
               <SelectChannel currentTeamUserJoin={currentTeamUserJoin} toggleIsSidebarOpen={toggleIsSidebarOpen} />
             </ScrollDiv>
