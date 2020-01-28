@@ -50,7 +50,7 @@
     "react-transition-group": "^4.3.0",
     "react-use": "^13.3.0",
     "rxjs": "^6.5.3",
-    "styled-components": "^4.4.1",
+    "styled-components": "^5.0.0",
     "sweetalert2": "^9.1.5",
     "sweetalert2-react-content": "^2.0.1",
     "typescript": "3.7.2",
@@ -106,7 +106,7 @@
     "@types/react-sidebar": "^3.0.0",
     "@types/react-toastify": "^4.1.0",
     "@types/react-transition-group": "^4.2.3",
-    "@types/styled-components": "^4.1.22",
+    "@types/styled-components": "^4.4.2",
     "cross-env": "^6.0.3"
   }
 }
