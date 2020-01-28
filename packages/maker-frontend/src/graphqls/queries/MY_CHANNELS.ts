@@ -16,7 +16,15 @@ export const MY_CHANNELS = gql`
 export function useMyChannels(team: MyTeams_myTeams, option?: QueryHookOptions<MyChannels, MyChannelsVariables>) {
   return useQuery<MyChannels, MyChannelsVariables>(MY_CHANNELS, {
     variables: { teamId: team.teamId },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
     ...option,
   });
+}
+
+export function useCurrentUserChannelJoin(teamUserJoins: MyTeams_myTeams, currentUserChannelJoinId: string | null) {
+  const { data: userChannelJoins } = useMyChannels(teamUserJoins);
+  const currentUserChannelJoin = userChannelJoins?.myChannels.find(
+    userCHannelJoin => userCHannelJoin._id === currentUserChannelJoinId,
+  );
+  return currentUserChannelJoin;
 }

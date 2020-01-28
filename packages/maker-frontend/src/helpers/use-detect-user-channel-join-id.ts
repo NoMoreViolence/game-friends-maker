@@ -6,35 +6,35 @@ import { useEffect } from 'react';
 import { useGetPreviousValue } from './use-get-prev-value';
 
 export function useDetectUserChannelJoinId(teamUserJoin: MyTeams_myTeams) {
+  const updateCurrentUserChannelJoinId = useUpdateUserChannelJoinId();
   const currentUserChannelJoinId = useCurrentUserChannelJoinId();
   const prevCurrentLocation = useGetPreviousValue(currentUserChannelJoinId);
-  const updateCurrentUserChannelJoinId = useUpdateUserChannelJoinId();
-  const { data: myChannelsData, loading, refetch } = useMyChannels(teamUserJoin, { fetchPolicy: 'cache-first' });
+  const { data, loading, refetch } = useMyChannels(teamUserJoin, { fetchPolicy: 'cache-first' });
+  const myChannels = data?.myChannels;
 
+  // 팀 선택이 변하면 refetch해서 채널 목록을 다시 가져온다
   useEffect(() => {
     refetch();
   }, [teamUserJoin, refetch]);
 
+  // 채널 목록을 불러온 후 마지막으로 접속한 채널로 리다이렉트 한다. 없으면 받은 데이터의 첫번째 채널로
   useEffect(() => {
     if (!loading) {
-      const isDetected =
-        (
-          myChannelsData?.myChannels.filter(userChannelJoin => {
-            console.log('awefawef');
-            const isExist = localStorage.getItem(`lastUserChannelJoinId:${userChannelJoin._id}`);
-            if (isExist !== null && userChannelJoin._id === isExist) {
-              console.log('여기있지롱');
-              updateCurrentUserChannelJoinId(userChannelJoin._id);
-              return true;
-            }
-            return false;
-          }) ?? []
-        ).length === 1;
+      const lastChannel = myChannels?.find(userChannelJoin => {
+        const lastUserChannelJoinId = localStorage.getItem(`lastUserChannelJoinId:${userChannelJoin._id}`);
+        if (lastUserChannelJoinId && userChannelJoin._id === lastUserChannelJoinId) {
+          return true;
+        }
+        return false;
+      });
 
-      if (!isDetected && myChannelsData !== undefined && myChannelsData.myChannels[0] !== undefined) {
-        console.log('어디서 널이 나오는거야 시벌탱');
-        updateCurrentUserChannelJoinId(myChannelsData?.myChannels[0]._id);
+      if (lastChannel) {
+        updateCurrentUserChannelJoinId(lastChannel._id);
+      }
+
+      if (!lastChannel && myChannels !== undefined && myChannels[0] !== undefined) {
+        updateCurrentUserChannelJoinId(myChannels[0]._id);
       }
     }
-  }, [currentUserChannelJoinId, prevCurrentLocation, myChannelsData, updateCurrentUserChannelJoinId, loading]);
+  }, [currentUserChannelJoinId, prevCurrentLocation, updateCurrentUserChannelJoinId, loading, myChannels]);
 }

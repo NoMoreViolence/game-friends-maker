@@ -13,5 +13,11 @@ export const MY_TEAMS = gql`
 `;
 
 export function useMyTeams(option?: QueryHookOptions<MyTeams, Record<string, any>>) {
-  return useQuery<MyTeams>(MY_TEAMS, { fetchPolicy: 'cache-and-network', ...option });
+  return useQuery<MyTeams>(MY_TEAMS, { fetchPolicy: 'cache-first', ...option });
+}
+
+export function useCurrentTeamUserJoin(currentTeamUserJoinId: string | null) {
+  const { data: teamUserJoins } = useMyTeams();
+  const currentTeamUserJoin = teamUserJoins?.myTeams.find(teamUserJoin => teamUserJoin._id === currentTeamUserJoinId);
+  return currentTeamUserJoin;
 }

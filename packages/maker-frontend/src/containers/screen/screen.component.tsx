@@ -1,8 +1,6 @@
-import { useQuery } from '@apollo/react-hooks';
 import { LoadingComponent } from 'components/loading';
 import { useUserStateDispatch } from 'context';
-import { USER } from 'graphqls/queries/USER';
-import { User } from 'graphqls/queries/__generated__/User';
+import { useUser } from 'graphqls/queries/USER';
 import { useDetectTeamUserJoinId, useRouter } from 'helpers';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -16,8 +14,24 @@ import { SidebarWrapper } from './sidebar';
 import { Team } from './team';
 
 export const ScreenComponent: FC = () => {
+  const { push } = useRouter();
+  const dispatch = useUserStateDispatch();
+  const { loading } = useUser({
+    onError: () => {
+      localStorage.removeItem('token');
+      push('/');
+    },
+    onCompleted: userState =>
+      dispatch({
+        type: 'SAVE',
+        userState: userState.user,
+      }),
+  });
+  useDetectTeamUserJoinId();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarHold, setIsSidebarHold] = useState(window.innerWidth > 768);
+  const toggleIsSidebarOpen = useCallback(() => setIsSidebarOpen(val => !val), []);
   useEffect(() => {
     const resize = fromEvent(window, 'resize')
       .pipe(debounceTime(300))
@@ -32,21 +46,6 @@ export const ScreenComponent: FC = () => {
       resize.unsubscribe();
     };
   }, []);
-  const toggleIsSidebarOpen = useCallback(() => setIsSidebarOpen(val => !val), []);
-  const { push } = useRouter();
-  const dispatch = useUserStateDispatch();
-  const { loading } = useQuery<User>(USER, {
-    onError: () => {
-      localStorage.removeItem('token');
-      push('/');
-    },
-    onCompleted: userState =>
-      dispatch({
-        type: 'SAVE',
-        userState: userState.user,
-      }),
-  });
-  useDetectTeamUserJoinId();
 
   if (loading) {
     return <LoadingComponent />;
