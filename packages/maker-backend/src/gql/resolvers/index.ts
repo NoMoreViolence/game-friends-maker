@@ -4,3 +4,4 @@ export * from './game.resolver';
 export * from './team.resolver';
 export * from './channel.resolver';
 export * from './user-channel-join.resolver';
+export * from './chat.resolver';

@@ -2,15 +2,15 @@ import { Document, Schema, model } from 'mongoose';
 import { ObjectId } from 'bson';
 import softDelete from 'mongoosejs-soft-delete';
 
-import { ITeam } from './team.model';
+import { IChannel } from './channel.model';
 import { IUser } from './user.model';
 
 export interface IChat {
   _id: ObjectId;
 
   text: string;
-  teamId: ITeam['_id'];
   userId: IUser['_id'];
+  channelId: IChannel['_id'];
 
   createdAt: Date;
   updatedAt: Date;
@@ -20,8 +20,8 @@ export interface IChat {
 const chatSchema: Schema<IChat> = new Schema(
   {
     text: { type: String, required: true },
-    teamId: { type: Schema.Types.ObjectId, required: true, ref: 'Team' },
     userId: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
+    channelId: { type: Schema.Types.ObjectId, required: true, ref: 'Channel' },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
