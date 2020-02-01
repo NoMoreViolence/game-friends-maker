@@ -1,1 +1,1 @@
-export * from './screen-header.component';
+export * from './header';

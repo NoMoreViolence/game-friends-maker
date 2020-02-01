@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useGetPreviousValue } from './use-get-prev-value';
 import { useRouter } from './use-router';
 
-// 팀을 찾아서 라우팅
 export function useDetectTeamUserJoinId() {
   const { push } = useRouter();
   const currentTeamUserJoinId = useCurrentTeamUserJoinId();

@@ -11,7 +11,7 @@ interface Props {
   isLoading?: boolean; // true
 }
 
-export const LoadingComponent: FC<Props> = ({ isLoading = true }) =>
+export const Loading: FC<Props> = ({ isLoading = true }) =>
   isLoading ? (
     <LoadingPortal>
       <GlobalLoadingRootDiv>
@@ -21,7 +21,7 @@ export const LoadingComponent: FC<Props> = ({ isLoading = true }) =>
   ) : null;
 
 export const GlobalLoadingRootDiv = styled('div')`
-  z-index: ${zIndex.heaven};
+  z-index: ${zIndex.loading};
   background-color: ${color['modal-dim']};
 
   position: fixed;

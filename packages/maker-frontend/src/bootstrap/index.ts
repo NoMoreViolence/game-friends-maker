@@ -1,2 +1,2 @@
 export * from './root.apollo';
-export { default } from './root.component';
+export * from './root';

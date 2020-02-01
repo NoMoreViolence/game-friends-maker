@@ -1,0 +1,125 @@
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Loading } from 'components/loading';
+import { useUserStateDispatch } from 'context';
+import { useUser } from 'graphqls/queries/USER';
+import { useDetectTeamUserJoinId, useRouter } from 'helpers';
+import React, { useCallback, useState, FC } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { Col, Colors, GlobalStyle, Row } from 'ui';
+import { Header } from './header';
+import { Home } from './home';
+import { LeftDrawer } from './left-drawer';
+import { RightDrawer } from './right-drawer';
+import { Team } from './team';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    leftDrawerContainer: {
+      [theme.breakpoints.up('md')]: {
+        width: 350,
+        flexShrink: 0,
+      },
+    },
+    leftDrawerHold: {
+      width: 350,
+      borderStyle: 'solid',
+      borderColor: Colors.gray,
+      borderRightWidth: 1,
+      borderLeftWidth: 0,
+      borderTopWidth: 0,
+      borderBottomWidth: 0,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      overflow: 'hidden',
+    },
+    leftDrawer: {
+      width: 350,
+      border: 'none',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      overflow: 'hidden',
+    },
+    rightDrawer: {
+      width: 320,
+      border: 'none',
+    },
+  }),
+);
+
+export const Screen: FC = () => {
+  const { push } = useRouter();
+  const dispatch = useUserStateDispatch();
+  const { loading } = useUser({
+    onError: () => {
+      localStorage.removeItem('token');
+      push('/');
+    },
+    onCompleted: userState =>
+      dispatch({
+        type: 'SAVE',
+        userState: userState.user,
+      }),
+  });
+  useDetectTeamUserJoinId();
+
+  const drawerStyle = useStyles();
+
+  const [leftDrawer, setLeftDrawer] = useState(false);
+  const openLeftDrawer = useCallback(() => setLeftDrawer(true), []);
+  const closeLeftDrawer = useCallback(() => setLeftDrawer(false), []);
+
+  const [rightDrawer, setRightDrawer] = useState(false);
+  const openRightDrawer = useCallback(() => setRightDrawer(true), []);
+  const closeRightDrawer = useCallback(() => setRightDrawer(false), []);
+
+  return (
+    <Row height="100%" flex={1} justifyContent="unset" alignItems="unset">
+      <Loading isLoading={loading} />
+      <GlobalStyle />
+      <nav className={drawerStyle.leftDrawerContainer}>
+        <Hidden mdUp implementation="js">
+          <Drawer
+            variant="temporary"
+            anchor="left"
+            open={leftDrawer}
+            onClose={closeLeftDrawer}
+            classes={{ paper: drawerStyle.leftDrawer }}
+          >
+            <LeftDrawer closeDrawer={closeLeftDrawer} />
+          </Drawer>
+        </Hidden>
+        <Hidden smDown implementation="js">
+          <Drawer
+            variant="permanent"
+            anchor="left"
+            open={leftDrawer}
+            onClose={closeLeftDrawer}
+            classes={{ paper: drawerStyle.leftDrawerHold }}
+          >
+            <LeftDrawer closeDrawer={closeLeftDrawer} />
+          </Drawer>
+        </Hidden>
+      </nav>
+      <Drawer anchor="right" open={rightDrawer} onClose={closeRightDrawer} classes={{ paper: drawerStyle.rightDrawer }}>
+        <RightDrawer closeDrawer={closeLeftDrawer} />
+      </Drawer>
+
+      <Col width="100%" flex={1} justifyContent="unset" alignItems="unset">
+        <Hidden mdUp implementation="js">
+          <Header openRightSidebar={openRightDrawer} openLeftSidebar={openLeftDrawer} />
+        </Hidden>
+        <Hidden smDown implementation="js">
+          <Header openRightSidebar={openRightDrawer} />
+        </Hidden>
+        <Switch>
+          <Route path="/app/team" component={Team} />
+          <Route path="/app/home" component={Home} />
+        </Switch>
+      </Col>
+    </Row>
+  );
+};
