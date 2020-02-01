@@ -13,5 +13,5 @@ export const USER = gql`
 `;
 
 export function useUser(option?: QueryHookOptions<User>) {
-  return useQuery<User>(USER, option);
+  return useQuery<User>(USER, { fetchPolicy: 'cache-first', ...option });
 }

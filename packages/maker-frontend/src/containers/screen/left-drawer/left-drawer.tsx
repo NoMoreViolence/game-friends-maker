@@ -1,9 +1,9 @@
 import { Loading } from 'components/loading';
 import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOIN_ID';
 import { useCurrentTeamUserJoinId } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
-import { useMyTeamUserJoins } from 'graphqls/queries/MY_TEAM_USER_JOINS';
+import { useCurrentTeamUserJoin, useMyTeamUserJoins } from 'graphqls/queries/MY_TEAM_USER_JOINS';
 import React, { FC } from 'react';
-import { ScrollContainer } from 'ui';
+import { Colors, ScrollContainer } from 'ui';
 import { ChannelSelect } from './channel-select';
 import { TeamSelect } from './team-select';
 
@@ -12,13 +12,14 @@ interface Props {
 }
 export const LeftDrawer: FC<Props> = ({ closeDrawer }) => {
   const currentTeamUserJoinId = useCurrentTeamUserJoinId();
+  const currentTeamUserJoin = useCurrentTeamUserJoin(currentTeamUserJoinId);
   const updateTeamUserJoinId = useUpdateTeamUserJoinId();
   const { loading, data } = useMyTeamUserJoins();
 
   return (
     <>
       <Loading isLoading={loading} />
-      <ScrollContainer width={100} height="100%">
+      <ScrollContainer width={100} height="100%" backgroundColor={Colors.primaryScale.dark}>
         {data && (
           <TeamSelect
             currentTeamUserJoinId={currentTeamUserJoinId}
@@ -28,8 +29,8 @@ export const LeftDrawer: FC<Props> = ({ closeDrawer }) => {
           />
         )}
       </ScrollContainer>
-      <ScrollContainer width={250} height="100%">
-        {currentTeamUserJoinId && <ChannelSelect currentTeamUserJoinId={currentTeamUserJoinId} />}
+      <ScrollContainer width={250} height="100%" backgroundColor={Colors.primaryScale.default}>
+        {currentTeamUserJoin && <ChannelSelect currentTeamUserJoin={currentTeamUserJoin} />}
       </ScrollContainer>
     </>
   );

@@ -7,7 +7,7 @@ import { useUser } from 'graphqls/queries/USER';
 import { useDetectTeamUserJoinId, useRouter } from 'helpers';
 import React, { useCallback, useState, FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Col, Colors, GlobalStyle, Row } from 'ui';
+import { Col, GlobalStyle, Row } from 'ui';
 import { Header } from './header';
 import { Home } from './home';
 import { LeftDrawer } from './left-drawer';
@@ -24,12 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     leftDrawerHold: {
       width: 350,
-      borderStyle: 'solid',
-      borderColor: Colors.gray,
-      borderRightWidth: 1,
-      borderLeftWidth: 0,
-      borderTopWidth: 0,
-      borderBottomWidth: 0,
+      border: 'none',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'stretch',
