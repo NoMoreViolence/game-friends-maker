@@ -8,3 +8,6 @@ export * from './select';
 export * from './textarea';
 export * from './input';
 export * from './scroll';
+export * from './scroll-container';
+export * from './global';
+export * from './color';

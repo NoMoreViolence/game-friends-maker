@@ -18,7 +18,7 @@ export class UserChannelJoinResolver {
 
   @Authorized()
   @Query(returns => [UserChannelJoin])
-  public async myChannels(@Ctx() context: Context, @Arg('teamId') teamId: string) {
+  public async myUserChannelJoins(@Ctx() context: Context, @Arg('teamId') teamId: string) {
     const user = await this.userService.getUserByContext(context);
     const userChannelJoins = await this.userChannelJoinService.getUserChannelJoins({
       userId: user._id,

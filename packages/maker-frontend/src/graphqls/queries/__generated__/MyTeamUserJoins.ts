@@ -3,10 +3,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: MyTeams
+// GraphQL query operation: MyTeamUserJoins
 // ====================================================
 
-export interface MyTeams_myTeams_user {
+export interface MyTeamUserJoins_myTeamUserJoins_user {
   __typename: "User";
   _id: string;
   name: string;
@@ -16,7 +16,7 @@ export interface MyTeams_myTeams_user {
   deleted: boolean;
 }
 
-export interface MyTeams_myTeams_team_game_genres {
+export interface MyTeamUserJoins_myTeamUserJoins_team_game_genres {
   __typename: "Genre";
   _id: string;
   name: string;
@@ -24,35 +24,35 @@ export interface MyTeams_myTeams_team_game_genres {
   updatedAt: any;
 }
 
-export interface MyTeams_myTeams_team_game {
+export interface MyTeamUserJoins_myTeamUserJoins_team_game {
   __typename: "Game";
   _id: string;
   name: string;
   genreIds: string[];
-  genres: MyTeams_myTeams_team_game_genres[];
+  genres: MyTeamUserJoins_myTeamUserJoins_team_game_genres[];
   createdAt: any;
   updatedAt: any;
 }
 
-export interface MyTeams_myTeams_team {
+export interface MyTeamUserJoins_myTeamUserJoins_team {
   __typename: "Team";
   _id: string;
   name: string;
   gameId: string;
-  game: MyTeams_myTeams_team_game;
+  game: MyTeamUserJoins_myTeamUserJoins_team_game;
   introduction: string;
   createdAt: any;
   updatedAt: any;
   deleted: boolean;
 }
 
-export interface MyTeams_myTeams {
+export interface MyTeamUserJoins_myTeamUserJoins {
   __typename: "TeamUserJoin";
   _id: string;
   userId: string;
-  user: MyTeams_myTeams_user;
+  user: MyTeamUserJoins_myTeamUserJoins_user;
   teamId: string;
-  team: MyTeams_myTeams_team;
+  team: MyTeamUserJoins_myTeamUserJoins_team;
   muted: boolean;
   userState: string;
   createdAt: any;
@@ -60,6 +60,6 @@ export interface MyTeams_myTeams {
   deleted: boolean;
 }
 
-export interface MyTeams {
-  myTeams: MyTeams_myTeams[];
+export interface MyTeamUserJoins {
+  myTeamUserJoins: MyTeamUserJoins_myTeamUserJoins[];
 }

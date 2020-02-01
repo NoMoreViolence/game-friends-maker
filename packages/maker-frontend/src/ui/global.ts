@@ -1,5 +1,16 @@
-import styled, { createGlobalStyle } from 'styled-components';
-import { Container } from 'ui';
+import { createGlobalStyle } from 'styled-components';
+import { zIndex } from 'styles';
+
+export const ModalOnStyle = createGlobalStyle`
+  #modal {
+    z-index: ${zIndex.heaven};
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    left: 0px;
+  }
+`;
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -20,12 +31,4 @@ export const GlobalStyle = createGlobalStyle`
       }
     }
   }
-`;
-
-export const ScrollContainer = styled(Container)`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: scroll;
-  overflow-y: auto;
 `;

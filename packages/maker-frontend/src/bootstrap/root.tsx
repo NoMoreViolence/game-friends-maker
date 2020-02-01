@@ -1,12 +1,10 @@
 import React from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloMainClient } from 'bootstrap';
-import AppComponent from 'containers/App';
+import { App } from 'containers/App';
 
-const Root = () => (
+export const Root = () => (
   <ApolloProvider client={ApolloMainClient}>
-    <AppComponent />
+    <App />
   </ApolloProvider>
 );
-
-export default Root;

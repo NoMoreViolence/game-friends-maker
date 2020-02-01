@@ -1,18 +1,18 @@
 import { useMutation } from '@apollo/react-hooks';
-import { LoadingComponent } from 'components/loading';
-import ModalComponent from 'components/modal';
+import { Loading } from 'components/loading';
+import { Modal } from 'components/modal';
 import { gameOptions, SelectOption } from 'constants-frontend';
 import { CREATE_TEAM } from 'graphqls/mutations/CREATE_TEAM';
+import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOIN_ID';
 import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
-import { MY_TEAMS } from 'graphqls/queries/MY_TEAMS';
-import { MyTeams } from 'graphqls/queries/__generated__/MyTeams';
+import { MyTeamUserJoins } from 'graphqls/queries/__generated__/MyTeamUserJoins';
 import { Icon, iconMap, useFocusAndFocusOut } from 'helpers';
 import { toast } from 'lib';
 import React, { CSSProperties, FC, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { color } from 'styles';
 import { Col, fontWeights, Label14, Row, Select, Span16, Span18, Textarea, TextInput, YScroll } from 'ui';
-import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOIN_ID';
+import { MY_TEAM_USER_JOINS } from 'graphqls/queries/MY_TEAM_USER_JOINS';
 
 interface Props {
   isOpen?: boolean;
@@ -53,16 +53,16 @@ export const CreateTeamModal: FC<Props> = ({ isOpen = false, close = () => null 
           createTeamPayload: isReadyToSubmit,
         },
         update: (cache, { data: mutationData }) => {
-          const prevListData = cache.readQuery<MyTeams>({
-            query: MY_TEAMS,
+          const prevListData = cache.readQuery<MyTeamUserJoins>({
+            query: MY_TEAM_USER_JOINS,
           });
           if (prevListData && mutationData) {
-            const { myTeams } = prevListData;
+            const { myTeamUserJoins } = prevListData;
             const { createTeam: newMyTeam } = mutationData;
-            cache.writeQuery<MyTeams>({
-              query: MY_TEAMS,
+            cache.writeQuery<MyTeamUserJoins>({
+              query: MY_TEAM_USER_JOINS,
               data: {
-                myTeams: [...myTeams, newMyTeam],
+                myTeamUserJoins: [...myTeamUserJoins, newMyTeam],
               },
             });
             updateTeamUserJoinId(newMyTeam._id);
@@ -82,8 +82,8 @@ export const CreateTeamModal: FC<Props> = ({ isOpen = false, close = () => null 
   }, [isOpen]);
 
   return (
-    <ModalComponent display={isOpen} exit={handleClose}>
-      <LoadingComponent isLoading={isLoading} />
+    <Modal display={isOpen} exit={handleClose}>
+      <Loading isLoading={isLoading} />
       <Row
         boxShadow="rgba(41, 41, 41, 0.05) 0px 4px 7px;"
         pr={16}
@@ -182,7 +182,7 @@ export const CreateTeamModal: FC<Props> = ({ isOpen = false, close = () => null 
           </StyledLabel>
         </Col>
       </YScroll>
-    </ModalComponent>
+    </Modal>
   );
 };
 
