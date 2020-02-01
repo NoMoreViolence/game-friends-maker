@@ -19,6 +19,9 @@ import {
   transitionCss,
   hoverStyleCss,
   boxShadowCss,
+  BackgroundCss,
+  backgroundCss,
+  Colors,
 } from 'ui';
 import { color } from 'styles';
 
@@ -32,8 +35,8 @@ export const TeamBox: FC<Props> = props => (
     height={50}
     mr="auto"
     ml="auto"
-    mt={15}
-    mb={15}
+    mt={16}
+    mb={16}
     isFlex
     justifyContent="center"
     alignItems="center"
@@ -44,6 +47,7 @@ export const TeamBox: FC<Props> = props => (
     transition={0.25}
     boxShadow="0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.16)"
     hoverBoxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
+    backgroundColor={Colors.primary}
     {...props}
   />
 );
@@ -57,7 +61,8 @@ interface TeamBoxProps
     PaddingCss,
     TransitionCss,
     HoverStyleCss,
-    BoxShadowCss {
+    BoxShadowCss,
+    BackgroundCss {
   selected?: boolean;
 }
 const TeamBoxDiv = styled.div<TeamBoxProps>`
@@ -70,10 +75,11 @@ const TeamBoxDiv = styled.div<TeamBoxProps>`
   ${transitionCss}
   ${hoverStyleCss}
   ${boxShadowCss}
+  ${backgroundCss}
   ${({ selected }) =>
     selected
       ? `
-    background-color: ${color.skyBlue};
+    background-color: ${Colors.secondary};
   `
       : ''}
 `;

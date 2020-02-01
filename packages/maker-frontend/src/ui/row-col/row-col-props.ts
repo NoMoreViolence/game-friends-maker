@@ -1,25 +1,29 @@
 import { css } from 'styled-components';
 import {
+  BackgroundCss,
+  backgroundCss,
+  BorderCss,
+  borderCss,
+  BoxShadowCss,
+  boxShadowCss,
+  FlexboxCss,
+  flexboxCss,
+  HoverStyleCss,
+  hoverStyleCss,
   MarginCss,
   marginCss,
   PaddingCss,
   paddingCss,
+  PointerCss,
+  pointerCss,
+  PositionCss,
+  positionCss,
+  TransitionCss,
+  transitionCss,
   WidthHeightCss,
   widthHeightCss,
   ZIndexCss,
   zIndexCss,
-  BoxShadowCss,
-  BorderCss,
-  boxShadowCss,
-  borderCss,
-  BackgroundCss,
-  backgroundCss,
-  FlexboxCss,
-  flexboxCss,
-  PositionCss,
-  positionCss,
-  PointerCss,
-  pointerCss,
 } from '../common';
 
 export interface RowColProps
@@ -32,7 +36,9 @@ export interface RowColProps
     BackgroundCss,
     FlexboxCss,
     PointerCss,
-    PositionCss {
+    PositionCss,
+    TransitionCss,
+    HoverStyleCss {
   isReversed?: boolean;
   style?: React.CSSProperties;
 }
@@ -48,5 +54,7 @@ export const rowColBaseStyle = css<RowColProps>`
   ${flexboxCss}
   ${pointerCss}
   ${positionCss}
+  ${transitionCss}
+  ${hoverStyleCss}
   box-sizing: border-box;
 `;
