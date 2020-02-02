@@ -11,7 +11,7 @@ import { Header } from './header';
 import { Home } from './home';
 import { LeftDrawer } from './left-drawer';
 import { RightDrawer } from './right-drawer';
-import { Team } from './team';
+import { TeamContainer } from './team';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -96,7 +96,7 @@ export const Screen: FC = () => {
           <Header openRightSidebar={openRightDrawer} />
         </Hidden>
         <Switch>
-          <Route path="/app/team" component={Team} />
+          <Route path="/app/team" component={TeamContainer} />
           <Route path="/app/home" component={Home} />
         </Switch>
       </Col>
