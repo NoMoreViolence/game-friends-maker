@@ -2,10 +2,9 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Loading } from 'components/loading';
-import { useUserStateDispatch } from 'context';
 import { useUser } from 'graphqls/queries/USER';
-import { useDetectTeamUserJoinId, useRouter } from 'helpers';
-import React, { useCallback, useState, FC } from 'react';
+import { LocalStateAutoUpdate } from 'local-state-auto-update';
+import React, { FC, useCallback, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Col, GlobalStyle, Row } from 'ui';
 import { Header } from './header';
@@ -46,27 +45,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Screen: FC = () => {
-  const { push } = useRouter();
-  const dispatch = useUserStateDispatch();
-  const { loading } = useUser({
-    onError: () => {
-      localStorage.removeItem('token');
-      push('/');
-    },
-    onCompleted: userState =>
-      dispatch({
-        type: 'SAVE',
-        userState: userState.user,
-      }),
-  });
-  useDetectTeamUserJoinId();
+  const { loading } = useUser();
 
   const drawerStyle = useStyles();
-
   const [leftDrawer, setLeftDrawer] = useState(false);
   const openLeftDrawer = useCallback(() => setLeftDrawer(true), []);
   const closeLeftDrawer = useCallback(() => setLeftDrawer(false), []);
-
   const [rightDrawer, setRightDrawer] = useState(false);
   const openRightDrawer = useCallback(() => setRightDrawer(true), []);
   const closeRightDrawer = useCallback(() => setRightDrawer(false), []);
@@ -75,6 +59,7 @@ export const Screen: FC = () => {
     <Row height="100%" flex={1} justifyContent="unset" alignItems="unset">
       <Loading isLoading={loading} />
       <GlobalStyle />
+      <LocalStateAutoUpdate />
       <nav className={drawerStyle.leftDrawerContainer}>
         <Hidden mdUp implementation="js">
           <Drawer

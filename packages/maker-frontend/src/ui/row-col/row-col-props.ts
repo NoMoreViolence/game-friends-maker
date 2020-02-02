@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react';
 import { css } from 'styled-components';
 import {
   BackgroundCss,
@@ -38,7 +39,8 @@ export interface RowColProps
     PointerCss,
     PositionCss,
     TransitionCss,
-    HoverStyleCss {
+    HoverStyleCss,
+    HTMLAttributes<HTMLDivElement> {
   isReversed?: boolean;
   style?: React.CSSProperties;
 }
