@@ -29,8 +29,8 @@ export const LeftDrawer: FC<Props> = ({ closeDrawer }) => {
           />
         )}
       </ScrollContainer>
-      <ScrollContainer width={250} height="100%" backgroundColor={Colors.primaryScale.default}>
-        {currentTeamUserJoin && <ChannelSelect currentTeamUserJoin={currentTeamUserJoin} />}
+      <ScrollContainer width={250} height="100%" backgroundColor={Colors.primary}>
+        {currentTeamUserJoin && <ChannelSelect currentTeamUserJoin={currentTeamUserJoin} closeDrawer={closeDrawer} />}
       </ScrollContainer>
     </>
   );

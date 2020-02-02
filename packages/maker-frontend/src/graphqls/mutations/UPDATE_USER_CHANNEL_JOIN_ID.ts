@@ -1,12 +1,12 @@
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { CurrentUserChannelJoinIdFragment } from 'graphqls/fragments/current-user-channel-join-id-fragment';
-import { useCurrentUserChannelJoinId } from 'graphqls/queries/CURRENT_USER_CHANNEL_JOIN_ID';
 import { useCallback } from 'react';
 import {
   UpdateCurrentUserChannelJoinId,
   UpdateCurrentUserChannelJoinIdVariables,
 } from './__generated__/UpdateCurrentUserChannelJoinId';
+import { useCurrentTeamUserJoinId } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
 
 export const UPDATE_USER_CHANNEL_JOIN_ID = gql`
   ${CurrentUserChannelJoinIdFragment}
@@ -18,16 +18,15 @@ export const UPDATE_USER_CHANNEL_JOIN_ID = gql`
 `;
 
 export function useUpdateUserChannelJoinId() {
-  const currentUserChannelJoinId = useCurrentUserChannelJoinId();
+  const currentTeamUserJoinId = useCurrentTeamUserJoinId();
   const [updateCurrentUserChannelJoinId] = useMutation<
     UpdateCurrentUserChannelJoinId,
     UpdateCurrentUserChannelJoinIdVariables
   >(UPDATE_USER_CHANNEL_JOIN_ID);
 
   const update = useCallback(
-    (nextCurrentUserChannelJoinId: string | null) => {
-      localStorage.removeItem(`lastUserChannelJoinId:${currentUserChannelJoinId}`);
-      localStorage.setItem(`lastUserChannelJoinId:${nextCurrentUserChannelJoinId}`, nextCurrentUserChannelJoinId ?? '');
+    (nextCurrentUserChannelJoinId: string) => {
+      localStorage.setItem(`lastUserChannelJoinId:${currentTeamUserJoinId}`, nextCurrentUserChannelJoinId);
       updateCurrentUserChannelJoinId({
         variables: {
           nextCurrentUserChannelJoinId: {
@@ -36,7 +35,7 @@ export function useUpdateUserChannelJoinId() {
         },
       });
     },
-    [currentUserChannelJoinId, updateCurrentUserChannelJoinId],
+    [currentTeamUserJoinId, updateCurrentUserChannelJoinId],
   );
 
   return update;
