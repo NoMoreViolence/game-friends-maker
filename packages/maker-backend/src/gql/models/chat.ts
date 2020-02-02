@@ -1,7 +1,6 @@
-import { ObjectId } from 'bson';
 import { IChat } from '@common-server';
+import { ObjectId } from 'bson';
 import { Field, ObjectType } from 'type-graphql';
-import { User } from './user';
 
 @ObjectType()
 export class Chat implements IChat {

@@ -1,10 +1,9 @@
-import { ObjectId } from 'mongodb';
-import { Service } from 'typedi';
-import { ChannelModel, ChatModel, ChatDocument, setter } from '@common-server';
-import { CreateChannelPayload } from '@gql/payloads';
+import { ChatDocument, ChatModel, setter } from '@common-server';
+import { DEFAULT_GET_CHATTINGS_LIMIT } from '@constants';
 import { Chat } from '@gql/models/chat';
 import { GetChattingsPayload } from '@gql/payloads/get-chattings.payload';
-import { DEFAULT_GET_CHATTINGS_DATE, DEFAULT_GET_CHATTINGS_LIMIT } from '@constants';
+import { ObjectId } from 'mongodb';
+import { Service } from 'typedi';
 
 @Service()
 export class ChatService {
