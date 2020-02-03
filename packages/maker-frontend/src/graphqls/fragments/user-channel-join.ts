@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
-import { TeamFullFragment } from './team-fragment';
-import { UserFullFragment } from './user-fragment';
-import { ChannelFullFragment, ChannelSubFragment } from './channel-frgament';
+import { TeamFullFragment } from './team';
+import { UserFullFragment } from './user';
+import { ChannelFullFragment, ChannelSubFragment } from './channel';
 
 export const UserChannelJoinFullFragment = gql`
   ${TeamFullFragment}

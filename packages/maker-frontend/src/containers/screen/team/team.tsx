@@ -26,10 +26,13 @@ export const Team: FC<Props> = ({ currentTeamUserJoin }) => {
   if (!currentUserChannelJoin) {
     return <Loading isLoading />;
   }
+
+  console.log(currentUserChannelJoin);
+
   return (
     <>
-      <Messages />
-      <MessageInput />
+      <Messages userChannelJoin={currentUserChannelJoin} />
+      <MessageInput userChannelJoin={currentUserChannelJoin} />
     </>
   );
 };

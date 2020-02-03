@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { UserFullFragment } from './user-fragment';
-import { TeamFullFragment } from './team-fragment';
+import { UserFullFragment } from './user';
+import { TeamFullFragment } from './team';
 
 export const TeamUserJoinFullFragment = gql`
   ${UserFullFragment}

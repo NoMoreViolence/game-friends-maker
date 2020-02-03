@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { CurrentUserChannelJoinIdFragment } from 'graphqls/fragments/current-user-channel-join-id-fragment';
+import { CurrentUserChannelJoinIdFragment } from 'graphqls/fragments/current-user-channel-join-id';
 import { CurrentUserChannelJoinId } from './__generated__/CurrentUserChannelJoinId';
 
 export const CURRENT_USER_CHANNEL_JOIN_ID = gql`

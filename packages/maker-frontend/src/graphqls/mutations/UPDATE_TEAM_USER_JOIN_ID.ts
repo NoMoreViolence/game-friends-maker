@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { CurrentTeamUserJoinIdFragment } from 'graphqls/fragments/current-team-user-join-id-fragment';
+import { CurrentTeamUserJoinIdFragment } from 'graphqls/fragments/current-team-user-join-id';
 import { useCallback } from 'react';
 import {
   UpdateCurrentTeamUserJoinId,
