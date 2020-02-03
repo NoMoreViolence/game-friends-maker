@@ -14,6 +14,7 @@ export class ChatService {
           .where('channelId', channelId)
           .where('createdAt', option.date)
           .lt(option.date)
+          .sort('-createdAt')
           .limit(DEFAULT_GET_CHATTINGS_LIMIT)
           .exec();
       }
@@ -21,6 +22,7 @@ export class ChatService {
         .where('channelId', channelId)
         .where('createdAt', option.date)
         .gt(option.date)
+        .sort('createdAt')
         .limit(DEFAULT_GET_CHATTINGS_LIMIT)
         .exec();
     }

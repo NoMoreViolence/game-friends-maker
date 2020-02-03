@@ -4,7 +4,7 @@ import { User, Chat } from '@gql/models';
 import { GetChattingsPayload } from '@gql/payloads';
 import { CommonService, UserService } from '@gql/services';
 import { ObjectId } from 'mongodb';
-import { Arg, Authorized, Ctx, FieldResolver, Query, Resolver, Root } from 'type-graphql';
+import { Arg, Authorized, Ctx, FieldResolver, Query, Resolver, Root, Mutation } from 'type-graphql';
 import { Service } from 'typedi';
 
 @Service()
@@ -33,7 +33,7 @@ export class ChatResolver {
   }
 
   @Authorized()
-  @Query(returns => Chat)
+  @Mutation(returns => Chat)
   public async sendTextChat(@Ctx() context: Context, @Arg('channelId') channelId: string, @Arg('text') text: string) {
     const user = await this.userService.getUserByContext(context);
     const chat = await this.chatController.sendTextChat(new ObjectId(channelId), user._id, text);
