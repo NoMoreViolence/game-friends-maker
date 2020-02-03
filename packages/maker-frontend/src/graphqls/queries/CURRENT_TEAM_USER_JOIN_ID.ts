@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { CurrentTeamUserJoinIdFragment } from 'graphqls/fragments/current-team-user-join-id-fragment';
+import { CurrentTeamUserJoinIdFragment } from 'graphqls/fragments/current-team-user-join-id';
 import { CurrentTeamUserJoinId } from './__generated__/CurrentTeamUserJoinId';
 
 export const CURRENT_TEAM_USER_JOIN_ID = gql`

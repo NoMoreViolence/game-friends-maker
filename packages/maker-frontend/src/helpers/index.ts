@@ -7,3 +7,4 @@ export * from './use-detect-user-channel-join-id';
 export * from './use-focus-and-focus-out';
 export * from './use-get-prev-value';
 export * from './use-router';
+export * from './use-chattings-prettier';

@@ -12,6 +12,12 @@ export interface CreateTeamPayload {
   introduction?: string | null;
 }
 
+export interface GetChattingsPayload {
+  limit: number;
+  direction: number;
+  date: string;
+}
+
 export interface NextCurrentTeamUserJoinId {
   currentTeamUserJoinId?: string | null;
 }

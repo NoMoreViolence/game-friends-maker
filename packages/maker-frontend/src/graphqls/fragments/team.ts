@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { GameFullFragment } from './game-fragment';
+import { GameFullFragment } from './game';
 
 export const TeamFullFragment = gql`
   ${GameFullFragment}

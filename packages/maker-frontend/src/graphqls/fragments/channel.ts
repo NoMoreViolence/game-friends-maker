@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { TeamFullFragment } from './team-fragment';
+import { TeamFullFragment } from './team';
 
 export const ChannelFullFragment = gql`
   ${TeamFullFragment}
