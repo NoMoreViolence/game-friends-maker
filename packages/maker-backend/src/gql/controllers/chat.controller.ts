@@ -37,11 +37,11 @@ export class ChatController {
     return this.chatService.getChttings(channelId, getChattingsPayload);
   }
 
-  public async sendTextChat(channelId: ObjectId, userId: ObjectId, text: string) {
+  public async sendTextChat(channelId: ObjectId, userId: ObjectId, chatId: ObjectId, text: string) {
     const userChannelJoin = await this.userChannelJoinService.getUserChannelJoin({ channelId, userId });
     if (!userChannelJoin) {
       throw new ApolloError('You are not in this channel');
     }
-    return this.chatService.sendChat(channelId, userId, text);
+    return this.chatService.sendChat(channelId, userId, chatId, text);
   }
 }
