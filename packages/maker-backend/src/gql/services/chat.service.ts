@@ -38,9 +38,9 @@ export class ChatService {
     return ChatModel.findOne(args).exec();
   }
 
-  public async sendChat(channelId: ObjectId, userId: ObjectId, text: string) {
+  public async sendChat(channelId: ObjectId, userId: ObjectId, chatId: ObjectId, text: string) {
     const chatModel = new ChatModel();
-    setter(chatModel, { channelId, userId, text });
+    setter(chatModel, { _id: chatId, channelId, userId, text });
     return await chatModel.save();
   }
   public async updateChat(chatDocument: ChatDocument, text: string) {
