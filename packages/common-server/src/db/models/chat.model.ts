@@ -26,6 +26,7 @@ const chatSchema: Schema<IChat> = new Schema(
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );
 const softDeleteSchema: Schema<IChat> = chatSchema.plugin(softDelete);
+softDeleteSchema.index({ channelId: 1, createdAt: -1 });
 
 export type ChatDocument = IChat & Document;
 export const ChatModel = model<ChatDocument>('Chat', softDeleteSchema);

@@ -9,6 +9,6 @@ export class GetChattingsPayload {
   @Field(type => Number)
   direction: 1 | -1; // 1: 미래, -1: 과거
 
-  @Field(type => String)
-  date: string; // 기준 날짜
+  @Field()
+  date: Date; // 기준 날짜
 }

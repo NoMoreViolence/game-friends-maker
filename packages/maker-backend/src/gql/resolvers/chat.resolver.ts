@@ -30,7 +30,7 @@ export class ChatResolver {
       user._id,
       getChattingsPayload,
     );
-    return chattings.map(chat => chat.toObject());
+    return chattings;
   }
 
   @Authorized()
