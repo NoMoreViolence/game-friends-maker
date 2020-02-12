@@ -34,7 +34,7 @@ export class ChatController {
     if (!userChannelJoin) {
       throw new ApolloError('You are not in this channel');
     }
-    return this.chatService.getChttings(channelId, getChattingsPayload);
+    return this.chatService.getChattings(channelId, getChattingsPayload);
   }
 
   public async sendTextChat(channelId: ObjectId, userId: ObjectId, chatId: ObjectId, text: string) {

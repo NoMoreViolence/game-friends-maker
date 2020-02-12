@@ -7,29 +7,79 @@ import { Service } from 'typedi';
 
 @Service()
 export class ChatService {
-  public async getChttings(channelId: ObjectId, option?: GetChattingsPayload) {
+  public async getChattings(channelId: ObjectId, option?: GetChattingsPayload) {
     if (option) {
-      if (option.direction === -1) {
-        return ChatModel.find()
-          .where('channelId', channelId)
-          .where('createdAt', option.date)
-          .lt(option.date)
-          .sort('-createdAt')
-          .limit(DEFAULT_GET_CHATTINGS_LIMIT)
-          .exec();
-      }
-      return ChatModel.find()
-        .where('channelId', channelId)
-        .where('createdAt', option.date)
-        .gt(option.date)
-        .sort('createdAt')
-        .limit(DEFAULT_GET_CHATTINGS_LIMIT)
-        .exec();
+      return ChatModel.aggregate([
+        {
+          $match: {
+            channelId,
+            createdAt: option.direction > 0 ? { $gt: option.date } : { $lt: option.date },
+          },
+        },
+        {
+          $sort: {
+            createdAt: option.direction,
+          },
+        },
+        {
+          $limit: option.limit,
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'userId',
+            foreignField: '_id',
+            as: 'user',
+          },
+        },
+        {
+          $unwind: {
+            path: '$user',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $sort: {
+            createdAt: 1,
+          },
+        },
+      ]);
     }
-    return ChatModel.find()
-      .where('channelId', channelId)
-      .sort('-createdAt')
-      .limit(DEFAULT_GET_CHATTINGS_LIMIT);
+
+    return ChatModel.aggregate([
+      {
+        $match: {
+          channelId,
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
+        $limit: DEFAULT_GET_CHATTINGS_LIMIT,
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'user',
+        },
+      },
+      {
+        $unwind: {
+          path: '$user',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $sort: {
+          createdAt: 1,
+        },
+      },
+    ]);
   }
   public async getChatById(id: ObjectId) {
     return ChatModel.findById(id).exec();
