@@ -1,4 +1,4 @@
-import React, { FC, useCallback, ChangeEvent } from 'react';
+import React, { FC, useCallback, ChangeEvent, KeyboardEvent } from 'react';
 import styled from 'styled-components';
 import {
   widthHeightCss,
@@ -13,10 +13,35 @@ import {
 import { color } from 'styles';
 import { Props, InputLayoutProps } from './input-props';
 
-export const TextInput: FC<Props> = ({ isFlex = true, backgroundTheme = 'light', text, onChangeText, ...props }) => {
+export const TextInput: FC<Props> = ({
+  isFlex = true,
+  backgroundTheme = 'light',
+  text = '',
+  onChangeText = () => {},
+  onEnterSubmit,
+  ...props
+}) => {
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => onChangeText(e.target.value), [onChangeText]);
+  const handleSubmit = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (onEnterSubmit && e.key === 'Enter' && text) {
+        e.preventDefault();
+        onChangeText('');
+        onEnterSubmit(text);
+      }
+    },
+    [onChangeText, onEnterSubmit, text],
+  );
+
   return (
-    <StyledInput value={text} onChange={handleChange} isFlex={isFlex} backgroundTheme={backgroundTheme} {...props} />
+    <StyledInput
+      value={text}
+      onChange={handleChange}
+      onKeyPress={handleSubmit}
+      isFlex={isFlex}
+      backgroundTheme={backgroundTheme}
+      {...props}
+    />
   );
 };
 

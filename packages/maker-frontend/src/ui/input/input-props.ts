@@ -16,8 +16,10 @@ interface InputTheme {
 
 export interface Props extends InputValueProps, InputLayoutProps, InputHTMLAttributes<HTMLInputElement> {}
 export interface InputValueProps {
-  text: string;
-  onChangeText(text: string): void;
+  text?: string;
+  onChangeText?(text: string): void;
+  // Enter submit
+  onEnterSubmit?(text: string): void;
 }
 export interface InputLayoutProps
   extends PaddingCss,
