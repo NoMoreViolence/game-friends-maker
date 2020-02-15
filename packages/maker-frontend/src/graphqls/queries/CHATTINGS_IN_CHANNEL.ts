@@ -41,7 +41,7 @@ export function useFetchMoreChattingsInChannel(userChannelJoin: UserChannelJoinF
         getChattingsPayload: {
           direction: -1,
           date: new Date(firstChat.createdAt),
-          limit: 20,
+          limit: 100,
         },
       },
       updateQuery(prevResult, { fetchMoreResult }) {
@@ -98,7 +98,7 @@ export function useChattingsPrettier(userChannelJoin: UserChannelJoinFull) {
         prevChat = currentChat;
       }
 
-      prettierChattings.push({
+      prettierChattings.unshift({
         ...currentChat,
         isUserDifferentWithPrevious,
         isDateDifferentWithPrevious,

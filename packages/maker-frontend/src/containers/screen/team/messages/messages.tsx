@@ -2,7 +2,7 @@ import { UserChannelJoinFull } from 'graphqls/fragments/__generated__/UserChanne
 import { useChattingsPrettier, useFetchMoreChattingsInChannel } from 'graphqls/queries/CHATTINGS_IN_CHANNEL';
 import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Container, ScrollContainer } from 'ui';
+import { Container, ScrollContainer, Row } from 'ui';
 import { MessageItem } from './message-item';
 
 interface Props {
@@ -17,15 +17,12 @@ export const Messages: FC<Props> = ({ userChannelJoin }) => {
     const containerElement = scrollContainerRef.current;
     if (containerElement) {
       const handler = () => {
-        const scrollTop = containerElement.scrollTop ?? 9999;
-        const scrollHeight = containerElement.scrollHeight ?? 0;
-        const clientHeight = containerElement?.clientHeight ?? 0;
-
-        if (scrollHeight > clientHeight && scrollTop < 100) {
+        const { clientHeight, scrollHeight, scrollTop } = containerElement;
+        const normalizedScrollHeight = scrollTop >= 0 ? scrollTop : scrollTop + scrollHeight - clientHeight;
+        if (normalizedScrollHeight < 700) {
           fetchMoreChattings();
         }
       };
-
       containerElement.addEventListener('scroll', handler);
       return () => {
         containerElement.removeEventListener('scroll', handler);
@@ -35,15 +32,20 @@ export const Messages: FC<Props> = ({ userChannelJoin }) => {
 
   return (
     <StyledContainer contentStartLocation="bottom">
-      <ScrollContainer ref={scrollContainerRef}>
-        {chattings?.map(s => (
+      <StyledScrollContainer ref={scrollContainerRef}>
+        <Row padding={4} />
+        {chattings.map(s => (
           <MessageItem chat={s} key={s._id} />
         ))}
-      </ScrollContainer>
+      </StyledScrollContainer>
     </StyledContainer>
   );
 };
 
 const StyledContainer = styled(Container)`
   overflow: hidden;
+`;
+const StyledScrollContainer = styled(ScrollContainer)`
+  display: flex;
+  flex-direction: column-reverse;
 `;
