@@ -3,12 +3,12 @@ import { useUpdateUserChannelJoinId } from 'graphqls/mutations/UPDATE_USER_CHANN
 import { useCurrentUserChannelJoinId } from 'graphqls/queries/CURRENT_USER_CHANNEL_JOIN_ID';
 import { useMyUserChannelJoins } from 'graphqls/queries/MY_USER_CHANNEL_JOINS';
 import { useEffect } from 'react';
-import { useGetPreviousValue } from './use-get-prev-value';
+import { usePrevious } from './use-previous';
 
 export function useDetectUserChannelJoinId(teamUserJoin: TeamUserJoinFull) {
   const updateCurrentUserChannelJoinId = useUpdateUserChannelJoinId();
   const currentUserChannelJoinId = useCurrentUserChannelJoinId();
-  const prevCurrentLocation = useGetPreviousValue(currentUserChannelJoinId);
+  const prevCurrentLocation = usePrevious(currentUserChannelJoinId);
   const { data, loading, refetch } = useMyUserChannelJoins(teamUserJoin, { fetchPolicy: 'cache-first' });
   const myUserChannelJoins = data?.myUserChannelJoins;
 
