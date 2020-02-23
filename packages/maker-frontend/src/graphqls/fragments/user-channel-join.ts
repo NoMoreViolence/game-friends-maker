@@ -21,6 +21,8 @@ export const UserChannelJoinFullFragment = gql`
     channel {
       ...ChannelFull
     }
+    firstChatReadAt
+    lastChatReadAt
     createdAt
     updatedAt
   }
@@ -44,6 +46,8 @@ export const UserChannelJoinSubFragment = gql`
     channel {
       ...ChannelSub
     }
+    firstChatReadAt
+    lastChatReadAt
     createdAt
     updatedAt
   }

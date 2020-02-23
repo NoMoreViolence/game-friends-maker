@@ -5,6 +5,7 @@ import softDelete from 'mongoosejs-soft-delete';
 import { ITeam } from './team.model';
 import { IUser } from './user.model';
 import { IChannel } from './channel.model';
+import { FIRST_DATE, LAST_DATE } from '../../constants';
 
 export interface IUserChannelJoin {
   _id: ObjectId;
@@ -12,6 +13,8 @@ export interface IUserChannelJoin {
   userId: IUser['_id'];
   channelId: IChannel['_id'];
   muted: boolean; // false 나중에 작업, 프로퍼티만 생성해놓음
+  firstChatReadAt: Date;
+  lastChatReadAt: Date;
 
   createdAt: Date;
   updatedAt: Date;
@@ -24,6 +27,8 @@ const userChannelJoinSchema: Schema<IUserChannelJoin> = new Schema(
     userId: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
     channelId: { type: Schema.Types.ObjectId, required: true, ref: 'Channel' },
     muted: { type: Schema.Types.Boolean, required: true, default: false },
+    firstChatReadAt: { type: Schema.Types.Date, required: false, default: FIRST_DATE },
+    lastChatReadAt: { type: Schema.Types.Date, required: false, default: LAST_DATE },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );

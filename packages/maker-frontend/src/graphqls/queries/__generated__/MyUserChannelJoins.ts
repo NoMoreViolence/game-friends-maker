@@ -95,6 +95,8 @@ export interface MyUserChannelJoins_myUserChannelJoins {
   user: MyUserChannelJoins_myUserChannelJoins_user;
   channelId: string;
   channel: MyUserChannelJoins_myUserChannelJoins_channel;
+  firstChatReadAt: any;
+  lastChatReadAt: any;
   createdAt: any;
   updatedAt: any;
 }
