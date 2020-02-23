@@ -20,6 +20,12 @@ export class UserChannelJoin implements IUserChannelJoin {
   muted: boolean;
 
   @Field(type => Date)
+  firstChatReadAt: Date;
+
+  @Field(type => Date)
+  lastChatReadAt: Date;
+
+  @Field(type => Date)
   createdAt: Date;
 
   @Field(type => Date)

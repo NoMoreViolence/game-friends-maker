@@ -91,7 +91,7 @@ export function useChattingsPrettier(userChannelJoin: UserChannelJoinFull) {
 
         const nowDate = dayjs(new Date(currentChat.createdAt));
         const lastDate = dayjs(new Date(prevChat.createdAt));
-        if (!nowDate.isSame(lastDate, 'date')) {
+        if (!nowDate.isSame(lastDate, 'minute')) {
           isUserDifferentWithPrevious = true;
           isDateDifferentWithPrevious = true;
         }

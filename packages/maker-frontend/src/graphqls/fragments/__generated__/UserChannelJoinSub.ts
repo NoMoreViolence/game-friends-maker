@@ -64,6 +64,8 @@ export interface UserChannelJoinSub {
   user: UserChannelJoinSub_user;
   channelId: string;
   channel: UserChannelJoinSub_channel;
+  firstChatReadAt: any;
+  lastChatReadAt: any;
   createdAt: any;
   updatedAt: any;
 }

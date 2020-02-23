@@ -95,6 +95,8 @@ export interface UserChannelJoinFull {
   user: UserChannelJoinFull_user;
   channelId: string;
   channel: UserChannelJoinFull_channel;
+  firstChatReadAt: any;
+  lastChatReadAt: any;
   createdAt: any;
   updatedAt: any;
 }
