@@ -1,4 +1,4 @@
-import { ChatDocument, ChatModel, setter } from '@common-server';
+import { ChatDocument, ChatModel, setter, IChat } from '@common-server';
 import { DEFAULT_GET_CHATTINGS_LIMIT } from '@constants';
 import { Chat } from '@gql/models/chat';
 import { GetChattingsPayload } from '@gql/payloads/get-chattings.payload';
@@ -88,9 +88,15 @@ export class ChatService {
     return ChatModel.findOne(args).exec();
   }
 
-  public async sendChat(channelId: ObjectId, userId: ObjectId, chatId: ObjectId, text: string) {
+  public async sendChat(
+    channelId: ObjectId,
+    userId: ObjectId,
+    chatId: ObjectId,
+    text: string,
+    type: IChat['type'] = 'TEXT',
+  ) {
     const chatModel = new ChatModel();
-    setter(chatModel, { _id: chatId, channelId, userId, text });
+    setter(chatModel, { _id: chatId, channelId, userId, text, type });
     return await chatModel.save();
   }
   public async updateChat(chatDocument: ChatDocument, text: string) {

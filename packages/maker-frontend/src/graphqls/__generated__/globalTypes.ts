@@ -37,6 +37,11 @@ export interface UpdateTeamPayload {
   introduction?: string | null;
 }
 
+export interface UserChannelJoinUpdatePayload {
+  firstChatReadAt?: string | null;
+  lastChatReadAt?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

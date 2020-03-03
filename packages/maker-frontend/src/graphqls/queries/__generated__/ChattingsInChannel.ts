@@ -22,6 +22,7 @@ export interface ChattingsInChannel_chattingsInChannel {
   __typename: "Chat";
   _id: string;
   text: string;
+  type: string;
   userId: string;
   user: ChattingsInChannel_chattingsInChannel_user;
   channelId: string;

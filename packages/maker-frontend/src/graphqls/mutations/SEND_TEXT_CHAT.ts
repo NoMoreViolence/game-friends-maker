@@ -7,6 +7,7 @@ import { useCallback } from 'react';
 import { ObjectId } from 'bson';
 import { ChattingsInChannel, ChattingsInChannelVariables } from 'graphqls/queries/__generated__/ChattingsInChannel';
 import { CHATTINGS_IN_CHANNEL } from 'graphqls/queries/CHATTINGS_IN_CHANNEL';
+import { useUpdateUserChannelJoin } from './UPDATE_USER_CAHNNEL_JOIN';
 
 export const SEND_TEXT_CHAT = gql`
   ${ChatFullFragment}
@@ -23,8 +24,9 @@ export function useSendTextChat() {
 }
 
 export function useSendTextChatOptimistic(userChannelJoin: UserChannelJoinFull) {
-  const { channelId, user, userId } = userChannelJoin;
+  const { channelId, user, userId, _id } = userChannelJoin;
   const sendTextChat = useSendTextChat();
+  const { updateUserChannelJoin } = useUpdateUserChannelJoin();
 
   const sendTextChatOptimistic = useCallback(
     (text: string) => {
@@ -43,6 +45,7 @@ export function useSendTextChatOptimistic(userChannelJoin: UserChannelJoinFull) 
           sendTextChat: {
             _id: newChatId,
             text,
+            type: 'TEXT',
             __typename: 'Chat',
             channelId,
             userId,
@@ -61,6 +64,7 @@ export function useSendTextChatOptimistic(userChannelJoin: UserChannelJoinFull) 
           });
           if (prevListData && mutationData) {
             const { sendTextChat: newChat } = mutationData;
+
             const { chattingsInChannel } = prevListData;
             const prevSameMessageIndex = chattingsInChannel.findIndex(prevMessage => prevMessage._id === newChat._id);
             if (prevSameMessageIndex < 0) {
@@ -75,11 +79,17 @@ export function useSendTextChatOptimistic(userChannelJoin: UserChannelJoinFull) 
               },
               data: { chattingsInChannel },
             });
+            updateUserChannelJoin({
+              userChannelJoinId: _id,
+              userChannelJoinUpdatePayload: {
+                lastChatReadAt: mutationData.sendTextChat.createdAt,
+              },
+            });
           }
         },
       });
     },
-    [channelId, sendTextChat, user, userId],
+    [_id, channelId, sendTextChat, updateUserChannelJoin, user, userId],
   );
 
   return sendTextChatOptimistic;
