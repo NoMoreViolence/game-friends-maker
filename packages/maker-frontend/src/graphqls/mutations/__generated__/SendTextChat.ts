@@ -22,6 +22,7 @@ export interface SendTextChat_sendTextChat {
   __typename: "Chat";
   _id: string;
   text: string;
+  type: string;
   userId: string;
   user: SendTextChat_sendTextChat_user;
   channelId: string;

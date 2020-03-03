@@ -6,6 +6,7 @@ export const ChatFullFragment = gql`
   fragment ChatFull on Chat {
     _id
     text
+    type
     userId
     user {
       ...UserFull

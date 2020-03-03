@@ -8,6 +8,7 @@ import {
   TeamUserJoinService,
   ChannelService,
   UserChannelJoinService,
+  ChatService,
 } from '@gql/services';
 import { UpdateTeamPayload, CreateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload, Sort } from '@gql/payloads';
 
@@ -19,6 +20,7 @@ export class TeamController {
     private gameService: GameService,
     private channelService: ChannelService,
     private userChannelJoinService: UserChannelJoinService,
+    private chatService: ChatService,
     private commonService: CommonService,
   ) {}
 
@@ -51,10 +53,21 @@ export class TeamController {
       userState: ITeamUserJoinStateEnum.OWNER,
     });
     const channel = await this.channelService.createChannel({ teamId: team._id, name: 'communication' });
-    await this.userChannelJoinService.createUserChannelJoin({
+    const fisrtChannelMessage = await this.chatService.sendChat(
+      channel._id,
+      user._id,
+      new ObjectId(),
+      `Channel Created by ${user.name}`,
+      'SYSTEM',
+    );
+    const userChannelJoin = await this.userChannelJoinService.createUserChannelJoin({
       teamId: team._id,
       userId: user._id,
       channelId: channel._id,
+    });
+    await this.userChannelJoinService.updateUserChannelJoin(userChannelJoin, {
+      firstChatReadAt: fisrtChannelMessage.createdAt,
+      lastChatReadAt: fisrtChannelMessage.createdAt,
     });
     return teamUserJoin;
   }

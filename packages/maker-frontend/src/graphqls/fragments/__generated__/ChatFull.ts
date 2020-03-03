@@ -20,6 +20,7 @@ export interface ChatFull {
   __typename: "Chat";
   _id: string;
   text: string;
+  type: string;
   userId: string;
   user: ChatFull_user;
   channelId: string;

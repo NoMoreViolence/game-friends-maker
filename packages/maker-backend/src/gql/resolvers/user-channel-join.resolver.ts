@@ -1,14 +1,17 @@
-import { Authorized, Resolver, FieldResolver, Root, Query, Ctx, Arg } from 'type-graphql';
-import { Service } from 'typedi';
-import { UserChannelJoin, Team, User, Channel } from '@gql/models';
-import { TeamService, CommonService, UserService, ChannelService, UserChannelJoinService } from '@gql/services';
 import { Context } from '@gql/bootstrap/session';
+import { UserChannelJoinController } from '@gql/controllers';
+import { Channel, Team, User, UserChannelJoin } from '@gql/models';
+import { UserChannelJoinUpdatePayload } from '@gql/payloads';
+import { ChannelService, CommonService, TeamService, UserChannelJoinService, UserService } from '@gql/services';
 import { ObjectId } from 'mongodb';
+import { Arg, Authorized, Ctx, FieldResolver, Query, Resolver, Root, Mutation } from 'type-graphql';
+import { Service } from 'typedi';
 
 @Service()
 @Resolver(of => UserChannelJoin)
 export class UserChannelJoinResolver {
   constructor(
+    private userChannelJoinController: UserChannelJoinController,
     private teamService: TeamService,
     private userService: UserService,
     private channelService: ChannelService,
@@ -25,6 +28,22 @@ export class UserChannelJoinResolver {
       teamId: new ObjectId(teamId),
     });
     return userChannelJoins.map(userChannelJoin => userChannelJoin.toObject());
+  }
+
+  @Authorized()
+  @Mutation(returns => UserChannelJoin)
+  public async updateUserChannelJoin(
+    @Ctx() context: Context,
+    @Arg('userChannelJoinId') userChannelJoinId: string,
+    @Arg('userChannelJoinUpdatePayload') userChannelJoinUpdatePayload: UserChannelJoinUpdatePayload,
+  ) {
+    const user = await this.userService.getUserByContext(context);
+    const userChannelJoin = await this.userChannelJoinController.updateUserChannelJoin(
+      user,
+      new ObjectId(userChannelJoinId),
+      userChannelJoinUpdatePayload,
+    );
+    return userChannelJoin.toObject();
   }
 
   @Authorized()

@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
-import { useCurrentTeamUserJoinId } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
-import { useCurrentTeamUserJoin } from 'graphqls/queries/MY_TEAM_USER_JOINS';
-import { TeamUserJoinFull } from 'graphqls/fragments/__generated__/TeamUserJoinFull';
-import { useCurrentUserChannelJoinId } from 'graphqls/queries/CURRENT_USER_CHANNEL_JOIN_ID';
-import { useCurrentUserChannelJoin } from 'graphqls/queries/MY_USER_CHANNEL_JOINS';
 import { Loading } from 'components/loading';
-import { Messages } from './messages';
+import { TeamUserJoinFull } from 'graphqls/fragments/__generated__/TeamUserJoinFull';
+import { useCurrentTeamUserJoinId } from 'graphqls/queries/CURRENT_TEAM_USER_JOIN_ID';
+import { useCurrentUserChannelJoinId } from 'graphqls/queries/CURRENT_USER_CHANNEL_JOIN_ID';
+import { useCurrentTeamUserJoin } from 'graphqls/queries/MY_TEAM_USER_JOINS';
+import { useCurrentUserChannelJoin } from 'graphqls/queries/MY_USER_CHANNEL_JOINS';
+import React, { FC } from 'react';
 import { MessageInput } from './message-input';
+import { Messages } from './messages';
 
 export const TeamContainer: FC = () => {
   const currentTeamUserJoinId = useCurrentTeamUserJoinId();
@@ -26,8 +26,6 @@ export const Team: FC<Props> = ({ currentTeamUserJoin }) => {
   if (!currentUserChannelJoin) {
     return <Loading isLoading />;
   }
-
-  console.log(currentUserChannelJoin);
 
   return (
     <>

@@ -8,6 +8,9 @@ export class Chat implements IChat {
   _id: ObjectId;
 
   @Field(type => String)
+  type: IChat['type'];
+
+  @Field(type => String)
   text: string;
 
   @Field(type => String)

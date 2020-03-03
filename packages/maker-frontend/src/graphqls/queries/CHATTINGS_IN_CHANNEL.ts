@@ -62,6 +62,7 @@ export function useFetchMoreChattingsInChannel(userChannelJoin: UserChannelJoinF
 export interface PrettierChat extends ChatFull {
   isUserDifferentWithPrevious: boolean;
   isDateDifferentWithPrevious: boolean;
+  isTimeDifferentWithPrevious: boolean;
   isMyChat: boolean;
 }
 export function useChattingsPrettier(userChannelJoin: UserChannelJoinFull) {
@@ -80,8 +81,10 @@ export function useChattingsPrettier(userChannelJoin: UserChannelJoinFull) {
       const currentChat = chattingsInChannel[i];
       let isUserDifferentWithPrevious = false;
       let isDateDifferentWithPrevious = false;
+      let isTimeDifferentWithPrevious = false;
       if (!prevChat) {
         prevChat = chattingsInChannel[i];
+        isTimeDifferentWithPrevious = true;
         isUserDifferentWithPrevious = true;
         isDateDifferentWithPrevious = true;
       } else {
@@ -93,6 +96,9 @@ export function useChattingsPrettier(userChannelJoin: UserChannelJoinFull) {
         const lastDate = dayjs(new Date(prevChat.createdAt));
         if (!nowDate.isSame(lastDate, 'minute')) {
           isUserDifferentWithPrevious = true;
+          isTimeDifferentWithPrevious = true;
+        }
+        if (!lastDate.isSame(nowDate, 'date')) {
           isDateDifferentWithPrevious = true;
         }
         prevChat = currentChat;
@@ -102,6 +108,7 @@ export function useChattingsPrettier(userChannelJoin: UserChannelJoinFull) {
         ...currentChat,
         isUserDifferentWithPrevious,
         isDateDifferentWithPrevious,
+        isTimeDifferentWithPrevious,
         isMyChat: currentChat.userId === userChannelJoin.userId,
       });
     }

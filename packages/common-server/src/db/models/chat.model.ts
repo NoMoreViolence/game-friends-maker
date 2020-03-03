@@ -8,6 +8,7 @@ import { IUser } from './user.model';
 export interface IChat {
   _id: ObjectId;
 
+  type: 'SYSTEM' | 'TEXT';
   text: string;
   userId: IUser['_id'];
   channelId: IChannel['_id'];
@@ -19,6 +20,7 @@ export interface IChat {
 
 const chatSchema: Schema<IChat> = new Schema(
   {
+    type: { type: String, required: true, default: 'TEXT' },
     text: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
     channelId: { type: Schema.Types.ObjectId, required: true, ref: 'Channel' },
