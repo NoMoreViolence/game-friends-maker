@@ -5,8 +5,8 @@ import { useCurrentUserChannelJoinId } from 'graphqls/queries/CURRENT_USER_CHANN
 import { useCurrentTeamUserJoin } from 'graphqls/queries/MY_TEAM_USER_JOINS';
 import { useCurrentUserChannelJoin } from 'graphqls/queries/MY_USER_CHANNEL_JOINS';
 import React, { FC } from 'react';
-import { MessageInput } from './message-input';
-import { Messages } from './messages';
+import { ChatInput } from './chat-input';
+import { Chattings } from './chattings';
 
 export const TeamContainer: FC = () => {
   const currentTeamUserJoinId = useCurrentTeamUserJoinId();
@@ -29,8 +29,8 @@ export const Team: FC<Props> = ({ currentTeamUserJoin }) => {
 
   return (
     <>
-      <Messages userChannelJoin={currentUserChannelJoin} />
-      <MessageInput userChannelJoin={currentUserChannelJoin} />
+      <Chattings userChannelJoin={currentUserChannelJoin} />
+      <ChatInput userChannelJoin={currentUserChannelJoin} />
     </>
   );
 };

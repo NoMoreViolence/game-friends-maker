@@ -1,4 +1,4 @@
-import { IChat } from '@common-server';
+import { IChat, ChatType } from '@common-server';
 import { ObjectId } from 'bson';
 import { Field, ObjectType } from 'type-graphql';
 
@@ -8,7 +8,7 @@ export class Chat implements IChat {
   _id: ObjectId;
 
   @Field(type => String)
-  type: IChat['type'];
+  type: ChatType;
 
   @Field(type => String)
   text: string;

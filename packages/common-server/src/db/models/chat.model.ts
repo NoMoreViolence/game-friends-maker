@@ -5,10 +5,11 @@ import softDelete from 'mongoosejs-soft-delete';
 import { IChannel } from './channel.model';
 import { IUser } from './user.model';
 
+export type ChatType = 'SYSTEM' | 'TEXT';
 export interface IChat {
   _id: ObjectId;
 
-  type: 'SYSTEM' | 'TEXT';
+  type: ChatType;
   text: string;
   userId: IUser['_id'];
   channelId: IChannel['_id'];

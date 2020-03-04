@@ -6,7 +6,7 @@ import { TextInput } from 'ui';
 interface Props {
   userChannelJoin: UserChannelJoinFull;
 }
-export const MessageInput: FC<Props> = ({ userChannelJoin }) => {
+export const ChatInput: FC<Props> = ({ userChannelJoin }) => {
   const [text, setText] = useState('');
   const sendTextChat = useSendTextChatOptimistic(userChannelJoin);
   const onSubmit = useCallback(() => sendTextChat(text), [sendTextChat, text]);

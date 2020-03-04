@@ -3,12 +3,12 @@ import { useChattingsPrettier, useFetchMoreChattingsInChannel } from 'graphqls/q
 import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Container, ScrollContainer, Row } from 'ui';
-import { MessageItem } from './message-item';
+import { ChatItem } from './chat-item';
 
 interface Props {
   userChannelJoin: UserChannelJoinFull;
 }
-export const Messages: FC<Props> = ({ userChannelJoin }) => {
+export const Chattings: FC<Props> = ({ userChannelJoin }) => {
   const { fetchMoreChattings } = useFetchMoreChattingsInChannel(userChannelJoin);
   const { chattings } = useChattingsPrettier(userChannelJoin);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ export const Messages: FC<Props> = ({ userChannelJoin }) => {
       <StyledScrollContainer ref={scrollContainerRef}>
         <Row padding={4} />
         {chattings.map(s => (
-          <MessageItem chat={s} key={s._id} />
+          <ChatItem chat={s} key={s._id} />
         ))}
       </StyledScrollContainer>
     </StyledContainer>
