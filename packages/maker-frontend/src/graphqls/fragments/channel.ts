@@ -10,6 +10,8 @@ export const ChannelFullFragment = gql`
     team {
       ...TeamFull
     }
+    firstChatCreatedAt
+    lastChatCreatedAt
     createdAt
     updatedAt
   }

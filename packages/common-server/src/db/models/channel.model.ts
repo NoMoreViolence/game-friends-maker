@@ -8,6 +8,8 @@ export interface IChannel {
   _id: ObjectId;
   name: string;
   teamId: ITeam['_id'];
+  firstChatCreatedAt: Date;
+  lastChatCreatedAt: Date;
 
   createdAt: Date;
   updatedAt: Date;
@@ -18,6 +20,8 @@ const channelSchema: Schema<IChannel> = new Schema(
   {
     name: { type: String, required: true },
     teamId: { type: Schema.Types.ObjectId, required: true, ref: 'Team' },
+    firstChatCreatedAt: { type: Schema.Types.Date, required: false, default: new Date() },
+    lastChatCreatedAt: { type: Schema.Types.Date, required: false, default: new Date() },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
 );

@@ -14,6 +14,12 @@ export class Channel implements IChannel {
   name: string;
 
   @Field(type => Date)
+  firstChatCreatedAt: Date;
+
+  @Field(type => Date)
+  lastChatCreatedAt: Date;
+
+  @Field(type => Date)
   createdAt: Date;
 
   @Field(type => Date)

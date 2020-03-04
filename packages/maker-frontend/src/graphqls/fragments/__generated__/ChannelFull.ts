@@ -42,6 +42,8 @@ export interface ChannelFull {
   name: string;
   teamId: string;
   team: ChannelFull_team;
+  firstChatCreatedAt: any;
+  lastChatCreatedAt: any;
   createdAt: any;
   updatedAt: any;
 }

@@ -84,6 +84,8 @@ export interface UpdateUserChannelJoin_updateUserChannelJoin_channel {
   name: string;
   teamId: string;
   team: UpdateUserChannelJoin_updateUserChannelJoin_channel_team;
+  firstChatCreatedAt: any;
+  lastChatCreatedAt: any;
   createdAt: any;
   updatedAt: any;
 }
