@@ -1,24 +1,13 @@
 import { ChatDocument } from '@common-server';
 import { GetChattingsPayload } from '@gql/payloads';
-import {
-  ChannelService,
-  CommonService,
-  GameService,
-  TeamService,
-  TeamUserJoinService,
-  UserChannelJoinService,
-  ChatService,
-} from '@gql/services';
+import { ChannelService, ChatService, CommonService, UserChannelJoinService } from '@gql/services';
+import { ApolloError } from 'apollo-server';
 import { ObjectId } from 'bson';
 import { Service } from 'typedi';
-import { ApolloError } from 'apollo-server';
 
 @Service()
 export class ChatController {
   constructor(
-    private teamService: TeamService,
-    private teamUserJoinService: TeamUserJoinService,
-    private gameService: GameService,
     private channelService: ChannelService,
     private userChannelJoinService: UserChannelJoinService,
     private chatService: ChatService,
@@ -39,9 +28,14 @@ export class ChatController {
 
   public async sendTextChat(channelId: ObjectId, userId: ObjectId, chatId: ObjectId, text: string) {
     const userChannelJoin = await this.userChannelJoinService.getUserChannelJoin({ channelId, userId });
+    const nullableChannel = await this.channelService.getChannelById(channelId);
+    const channel = this.commonService.nullable(nullableChannel);
+
     if (!userChannelJoin) {
       throw new ApolloError('You are not in this channel');
     }
-    return this.chatService.sendChat(channelId, userId, chatId, text);
+    const chat = await this.chatService.sendChat(channelId, userId, chatId, text);
+    await this.channelService.updateChannel(channel, { lastChatCreatedAt: chat.createdAt });
+    return chat;
   }
 }

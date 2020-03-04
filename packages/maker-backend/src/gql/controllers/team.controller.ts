@@ -65,6 +65,10 @@ export class TeamController {
       userId: user._id,
       channelId: channel._id,
     });
+    await this.channelService.updateChannel(channel, {
+      firstChatCreatedAt: fisrtChannelMessage.createdAt,
+      lastChatCreatedAt: fisrtChannelMessage.createdAt,
+    });
     await this.userChannelJoinService.updateUserChannelJoin(userChannelJoin, {
       firstChatReadAt: fisrtChannelMessage.createdAt,
       lastChatReadAt: fisrtChannelMessage.createdAt,
