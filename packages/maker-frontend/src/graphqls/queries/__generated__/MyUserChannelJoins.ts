@@ -82,6 +82,8 @@ export interface MyUserChannelJoins_myUserChannelJoins_channel {
   name: string;
   teamId: string;
   team: MyUserChannelJoins_myUserChannelJoins_channel_team;
+  firstChatCreatedAt: any;
+  lastChatCreatedAt: any;
   createdAt: any;
   updatedAt: any;
 }
