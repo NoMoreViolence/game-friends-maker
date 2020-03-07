@@ -6,3 +6,4 @@ export * from './create-user-channel-join.payload';
 export * from './get-chattings.payload';
 export * from './send-text-chat.payload';
 export * from './update-user-channel-join.payload';
+export * from './get-team-user-join.payload';

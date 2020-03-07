@@ -1,10 +1,10 @@
-import { Authorized, Resolver, FieldResolver, Root, Query, Ctx, Mutation, Arg } from 'type-graphql';
-import { Service } from 'typedi';
-import { TeamUserJoin, User, Team } from '@gql/models';
-import { UserService, TeamService, CommonService } from '@gql/services';
 import { Context } from '@gql/bootstrap/session';
-import { TeamController } from '@gql/controllers';
-import { CreateTeamPayload } from '@gql/payloads';
+import { TeamController, TeamUserJoinController } from '@gql/controllers';
+import { Team, TeamUserJoin, User } from '@gql/models';
+import { CreateTeamPayload, GetTeamUserJoinPayload } from '@gql/payloads';
+import { CommonService, TeamService, UserService } from '@gql/services';
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
+import { Service } from 'typedi';
 
 @Service()
 @Resolver(of => TeamUserJoin)
@@ -14,13 +14,25 @@ export class TeamUserJoinResolver {
     private userService: UserService,
     private teamService: TeamService,
     private commonService: CommonService,
+    private teamUserJoinController: TeamUserJoinController,
   ) {}
 
   @Authorized()
   @Query(returns => [TeamUserJoin])
   public async myTeamUserJoins(@Ctx() context: Context) {
     const user = await this.userService.getUserByContext(context);
-    const teamUserJoins = await this.teamController.getMyTeamUserJoins(user._id);
+    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user, { userId: user._id });
+    return teamUserJoins.map(teamUserJoin => teamUserJoin.toObject());
+  }
+
+  @Authorized()
+  @Query(returns => [TeamUserJoin])
+  public async teamUserJoins(
+    @Ctx() context: Context,
+    @Arg('getTeamUserJoinPayload') getTeamUserJoinPayload: GetTeamUserJoinPayload,
+  ) {
+    const user = await this.userService.getUserByContext(context);
+    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user, getTeamUserJoinPayload);
     return teamUserJoins.map(teamUserJoin => teamUserJoin.toObject());
   }
 
@@ -32,6 +44,8 @@ export class TeamUserJoinResolver {
     return teamUserJoin.toObject();
   }
 
+  @Authorized()
+  @Mutation(returns => [TeamUserJoin])
   @Authorized()
   @FieldResolver(type => User)
   async user(@Root() teamUserJoin: TeamUserJoin) {
