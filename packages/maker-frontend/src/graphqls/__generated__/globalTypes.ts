@@ -18,6 +18,11 @@ export interface GetChattingsPayload {
   date: any;
 }
 
+export interface GetTeamUserJoinPayload {
+  userId?: string | null;
+  teamId?: string | null;
+}
+
 export interface NextCurrentTeamUserJoinId {
   currentTeamUserJoinId?: string | null;
 }
