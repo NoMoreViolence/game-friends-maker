@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 320,
       border: 'none',
     },
-  }),
+  })
 );
 
 export const Screen: FC = () => {

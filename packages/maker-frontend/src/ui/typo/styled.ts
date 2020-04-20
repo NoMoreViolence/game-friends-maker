@@ -1,27 +1,26 @@
-import { LabelHTMLAttributes } from 'react';
 import { css, CSSProperties } from 'styled-components';
 import {
-  BorderCss,
   BackgroundCss,
-  BoxShadowCss,
-  ZIndexCss,
-  MarginCss,
-  PaddingCss,
-  marginCss,
-  paddingCss,
   backgroundCss,
+  BorderCss,
+  BoxShadowCss,
   boxShadowCss,
-  zIndexCss,
-  PositionCss,
-  positionCss,
   colorCss,
   ColorCss,
-  TransitionCss,
-  transitionCss,
   HoverStyleCss,
   hoverStyleCss,
+  MarginCss,
+  marginCss,
+  PaddingCss,
+  paddingCss,
   PointerCss,
   pointerCss,
+  PositionCss,
+  positionCss,
+  TransitionCss,
+  transitionCss,
+  ZIndexCss,
+  zIndexCss,
 } from '../common';
 
 export interface TypoCss
@@ -35,8 +34,7 @@ export interface TypoCss
     ColorCss,
     PointerCss,
     TransitionCss,
-    HoverStyleCss,
-    LabelHTMLAttributes<HTMLLabelElement> {
+    HoverStyleCss {
   flex?: number;
   display?: 'block' | 'flex' | 'none';
   fontWeight?: number;

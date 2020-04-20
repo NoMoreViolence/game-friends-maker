@@ -12,3 +12,4 @@ export * from './scroll-container';
 export * from './global';
 export * from './color';
 export * from './circle';
+export * from './button';

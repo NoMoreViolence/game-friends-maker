@@ -1,7 +1,9 @@
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+
 const primaryScale = {
-  light: '#C3FdFF',
-  default: '#90CAF9',
-  dark: '#5D99C6',
+  light: '#81d4fa',
+  default: '#03a9f4',
+  dark: '#0277bd',
 };
 
 const secondaryScale = {
@@ -26,3 +28,18 @@ export const Colors = {
   white: '#FFFFFF',
   black: '#000000',
 };
+
+export const ColorsTheme = createMuiTheme({
+  palette: {
+    primary: {
+      light: Colors.primaryScale.light,
+      main: Colors.primary,
+      dark: Colors.primaryScale.dark,
+    },
+    secondary: {
+      light: Colors.secondaryScale.light,
+      main: Colors.secondary,
+      dark: Colors.secondaryScale.dark,
+    },
+  },
+});

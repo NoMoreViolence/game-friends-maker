@@ -18,7 +18,7 @@ export const ChatItem: FC<Props> = ({ chat, chat: { type, isDateDifferentWithPre
           borderBottomWidth={1}
           borderWidth={0}
           borderStyle="solid"
-          borderColor={Colors.black}
+          borderColor={Colors.gray}
           justifyContent="center"
         >
           <Span12>{dayjs(createdAt).format('YYYY / MM / DD')}</Span12>

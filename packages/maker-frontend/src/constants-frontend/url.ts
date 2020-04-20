@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-export const localServerUrl = 'http://localhost:7000';
+export const localServerUrl = 'http://localhost:7000/local';
 export const devServerUrl = 'https://dev-server.coopnow.net/dev';
 export const prodServerUrl = 'https://prod-server.coopnow.net/prod';
 

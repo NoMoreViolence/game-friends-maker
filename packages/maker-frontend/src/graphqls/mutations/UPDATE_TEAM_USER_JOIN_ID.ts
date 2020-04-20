@@ -18,7 +18,7 @@ export const UPDATE_TEAM_USER_JOIN_ID = gql`
 
 export function useUpdateTeamUserJoinId() {
   const [updateCurrentTeamUserJoinId] = useMutation<UpdateCurrentTeamUserJoinId, UpdateCurrentTeamUserJoinIdVariables>(
-    UPDATE_TEAM_USER_JOIN_ID,
+    UPDATE_TEAM_USER_JOIN_ID
   );
 
   const update = useCallback(
@@ -32,7 +32,7 @@ export function useUpdateTeamUserJoinId() {
         },
       });
     },
-    [updateCurrentTeamUserJoinId],
+    [updateCurrentTeamUserJoinId]
   );
 
   return update;

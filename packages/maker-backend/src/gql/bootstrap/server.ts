@@ -40,11 +40,7 @@ const apolloServerHandler = apolloServer.createHandler({
   },
 });
 
-export const bootstrap = async (
-  event: APIGatewayProxyEvent,
-  context: Context,
-  callback: Callback<APIGatewayProxyResult>,
-) => {
+export const bootstrap = async (event: APIGatewayProxyEvent, context, callback: Callback<APIGatewayProxyResult>) => {
   await dbConnect();
   return apolloServerHandler(event, context, callback);
 };

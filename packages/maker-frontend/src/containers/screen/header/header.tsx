@@ -1,4 +1,4 @@
-import { Icon, iconMap } from 'helpers';
+import MenuOutlined from '@material-ui/icons/MenuOutlined';
 import React, { FC } from 'react';
 import { Colors, Img, Row } from 'ui';
 
@@ -19,7 +19,7 @@ export const Header: FC<Props> = ({ openLeftSidebar, openRightSidebar }) => (
     borderStyle="solid"
   >
     <Row width={64} height={64} justifyContent="center" alignItems="center">
-      {openLeftSidebar && <Icon pointer onClick={openLeftSidebar} iconClass={iconMap.moreVert} iconSize={24} />}
+      {openLeftSidebar && <MenuOutlined cursor="pointer" onClick={openLeftSidebar} />}
     </Row>
     <Row width={64} height={64} justifyContent="center" alignItems="center">
       <Img onClick={openRightSidebar} ml={8} src="/images/icons/lee-1.svg" pointer width="30" height="30" alt="User" />

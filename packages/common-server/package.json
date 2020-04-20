@@ -1,6 +1,6 @@
 {
   "name": "@cohope/common-server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Now I’m the model of a modern major general / The venerated Virginian veteran whose men are all / Lining up, to put me up on a pedestal / Writin’ letters to relatives / Embellishin’ my elegance and eloquence / But the elephant is in the room / The truth is in ya face when ya hear the British cannons go / BOOM",
   "keywords": [],
   "author": "NoMoreViolence <ljh86029926@gmail.com>",
@@ -22,19 +22,18 @@
     "url": "https://github.com/NoMoreViolence/game-friends-maker/issues"
   },
   "devDependencies": {
-    "@types/bson": "^4.0.0",
+    "@types/bson": "^4.0.2",
     "@types/gulp": "^4.0.6",
-    "@types/mongoose": "^5.5.22",
+    "@types/mongoose": "^5.7.12",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
-    "prettier": "^1.18.2",
-    "typescript": "^3.7.2",
-    "webpack": "^4.41.2"
+    "prettier": "^2.0.4",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1"
   },
   "dependencies": {
-    "bson": "^4.0.2",
-    "mongoose": "^5.7.6",
-    "mongoose-autopopulate": "^0.9.1",
+    "bson": "^4.0.4",
+    "mongoose": "^5.9.9",
     "mongoosejs-soft-delete": "^1.0.2"
   }
 }
