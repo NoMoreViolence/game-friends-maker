@@ -13,20 +13,14 @@ export const ChatInput: FC<Props> = ({ userChannelJoin }) => {
 
   return (
     <TextInput
+      mt="12px"
+      mb="12px"
+      mr="12px"
+      ml="12px"
       text={text}
       onChangeText={setText}
       onEnterSubmit={onSubmit}
-      transition={0.25}
-      pt={8}
-      pb={8}
-      pr={8}
-      pl={8}
-      borderRadius={4}
-      mt={8}
-      mb={8}
-      mr={8}
-      ml={8}
-      placeholder="DJ, spin that shit !"
+      placeholder="Talk"
     />
   );
 };

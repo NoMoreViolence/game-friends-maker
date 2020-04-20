@@ -7,6 +7,7 @@ import { Colors, ScrollContainer } from 'ui';
 import { ChannelSelect } from './channel-select';
 import { TeamSelect } from './team-select';
 
+
 interface Props {
   closeDrawer(): void;
 }
@@ -19,7 +20,14 @@ export const LeftDrawer: FC<Props> = ({ closeDrawer }) => {
   return (
     <>
       <Loading isLoading={loading} />
-      <ScrollContainer width={100} height="100%" backgroundColor={Colors.primaryScale.dark}>
+      <ScrollContainer
+        width={100}
+        height="100%"
+        borderRightWidth={1}
+        borderColor={Colors.gray}
+        borderStyle="solid"
+        backgroundColor={Colors.white}
+      >
         {data && (
           <TeamSelect
             currentTeamUserJoinId={currentTeamUserJoinId}
@@ -29,7 +37,14 @@ export const LeftDrawer: FC<Props> = ({ closeDrawer }) => {
           />
         )}
       </ScrollContainer>
-      <ScrollContainer width={250} height="100%" backgroundColor={Colors.primary}>
+      <ScrollContainer
+        width={250}
+        height="100%"
+        borderRightWidth={1}
+        borderColor={Colors.gray}
+        borderStyle="solid"
+        backgroundColor={Colors.white}
+      >
         {currentTeamUserJoin && <ChannelSelect currentTeamUserJoin={currentTeamUserJoin} closeDrawer={closeDrawer} />}
       </ScrollContainer>
     </>

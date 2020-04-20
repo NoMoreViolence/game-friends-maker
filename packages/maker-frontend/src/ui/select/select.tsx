@@ -1,68 +1,45 @@
-import React, { FC } from 'react';
-import Spinner from '@atlaskit/spinner';
-import Tooltip from '@atlaskit/tooltip';
-import AsyncSelect from 'react-select/async';
-import { Props as AsyncSelectProps } from 'react-select/src/Select';
-
-export type ActionTypes =
-  | 'select-option'
-  | 'deselect-option'
-  | 'remove-value'
-  | 'pop-value'
-  | 'set-value'
-  | 'clear'
-  | 'create-option';
-export interface ActionMeta {
-  action: ActionTypes;
-}
-export type OptionsType<OptionTypeBase> = ReadonlyArray<OptionTypeBase>;
-export interface OptionTypeBase {
-  value: string;
-  label: string;
-}
-type LoadOptions = (
-  inputValue: string,
-  callback: (options: OptionsType<OptionTypeBase>) => void,
-) => void | Promise<any>;
-
-const LoadingIndicator: FC = () => (
-  <Tooltip content={'Custom Loader'}>
-    <Spinner delay={0} />
-  </Tooltip>
-);
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import MSelect from '@material-ui/core/Select';
+import React, { ChangeEvent, FC, useCallback } from 'react';
+import { Span12 } from 'ui/typo';
+import { SelectOption } from 'constants-frontend';
 
 interface Props {
-  onChange?: AsyncSelectProps['onChange'];
-  placeholder?: string;
-  onFocus?(): void;
-  onBlur?(): void;
-  isSearchable?: boolean;
-  loadOptions: LoadOptions;
-  styles?: AsyncSelectProps['style'];
-  theme?: AsyncSelectProps['theme'];
+  labelId: string;
+  label?: string;
+  value?: string | number;
+  select(value: string | number): void;
+  list: SelectOption[];
+  fullWidth?: boolean;
 }
-export const Select: FC<Props> = ({
-  placeholder = 'Type something...',
-  onChange,
-  onFocus,
-  onBlur,
-  isSearchable = true,
-  loadOptions,
-  styles,
-  theme,
-}) => (
-  <AsyncSelect
-    placeholder={placeholder}
-    onChange={onChange}
-    onFocus={onFocus}
-    onBlur={onBlur}
-    isSearchable={isSearchable}
-    loadOptions={loadOptions}
-    styles={styles}
-    theme={theme}
-    isClearable
-    cacheOptions
-    defaultOptions
-    components={{ LoadingIndicator }}
-  />
-);
+export const Select: FC<Props> = ({ fullWidth = false, list, labelId, label, value, select }) => {
+  const submit = useCallback(
+    (e: ChangeEvent<{ name?: string | undefined; value: unknown }>) => select(e.target.value as unknown as string),
+    [select]
+  );
+
+  return (
+    <FormControl margin="dense" fullWidth={fullWidth} variant="outlined">
+      <InputLabel color="secondary" id={labelId}>
+        {label}
+      </InputLabel>
+      <MSelect
+        color="secondary"
+        required
+        labelId={labelId}
+        id={labelId}
+        value={value ?? ''}
+        onChange={submit}
+        label={label}
+      >
+        {list.map(item => (
+          <MenuItem key={item.text} value={item.value}>
+            <Span12>{item.text}</Span12>
+          </MenuItem>
+        ))}
+      </MSelect>
+    </FormControl>
+  );
+};

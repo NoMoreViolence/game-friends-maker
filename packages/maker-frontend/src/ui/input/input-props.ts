@@ -1,33 +1,17 @@
 import { InputHTMLAttributes } from 'react';
-import {
-  PaddingCss,
-  MarginCss,
-  WidthHeightCss,
-  BackgroundCss,
-  BorderCss,
-  FlexboxCss,
-  TransitionCss,
-  FocusStyleCss,
-} from 'ui/common';
+import { MarginProps } from 'styled-system';
 
-interface InputTheme {
-  backgroundTheme?: 'light' | 'dark';
-}
-
-export interface Props extends InputValueProps, InputLayoutProps, InputHTMLAttributes<HTMLInputElement> {}
+export interface Props extends InputValueProps, InputHTMLAttributes<HTMLInputElement>, InputStyledProps {}
 export interface InputValueProps {
+  autoComplete?: string;
+  name?: string;
+  type?: string;
   text?: string;
   onChangeText?(text: string): void;
   // Enter submit
   onEnterSubmit?(text: string): void;
+  placeholder?: string;
+  errorMessage?: string;
 }
-export interface InputLayoutProps
-  extends PaddingCss,
-    MarginCss,
-    WidthHeightCss,
-    BackgroundCss,
-    BorderCss,
-    InputTheme,
-    FlexboxCss,
-    TransitionCss,
-    FocusStyleCss {}
+
+export interface InputStyledProps extends MarginProps {}

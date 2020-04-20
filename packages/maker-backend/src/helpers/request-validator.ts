@@ -3,7 +3,7 @@ import { HttpStatusCode } from '@constants';
 import { NewError } from '@helpers';
 
 export const requestValidator = <T>(schema: Joi.ObjectSchema, validateParams: T) => {
-  const { error, value } = schema.validate<T>(validateParams);
+  const { error, value } = schema.validate(validateParams);
 
   if (error) {
     throw new NewError(HttpStatusCode.BAD_REQUEST);

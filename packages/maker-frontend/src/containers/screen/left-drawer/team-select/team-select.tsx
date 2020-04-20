@@ -15,19 +15,15 @@ export const TeamSelect: FC<Props> = ({ currentTeamUserJoinId, teamUserJoins, up
       updateTeamUserJoinId(teamUserJoinId);
       closeDrawer();
     },
-    [closeDrawer, updateTeamUserJoinId],
+    [closeDrawer, updateTeamUserJoinId]
   );
 
   const [visibleCreateModal, setVisibleCreateModal] = useState(false);
-  const toggleVisibleCreateModal = useCallback(
-    (created?: boolean | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      setVisibleCreateModal(old => !old);
-      if (typeof created === 'boolean' && created) {
-        closeDrawer();
-      }
-    },
-    [closeDrawer],
-  );
+  const openCreateModal = useCallback(() => setVisibleCreateModal(true), []);
+  const closeCreateModal = useCallback(() => {
+    setVisibleCreateModal(false);
+    closeDrawer();
+  }, [closeDrawer]);
 
   return (
     <>
@@ -43,8 +39,8 @@ export const TeamSelect: FC<Props> = ({ currentTeamUserJoinId, teamUserJoins, up
           {teamUserJoin.team.name.substring(0, 1).toUpperCase()}
         </TeamBox>
       ))}
-      <TeamBox onClick={toggleVisibleCreateModal}>+</TeamBox>
-      <CreateTeamModal isOpen={visibleCreateModal} close={toggleVisibleCreateModal} />
+      <TeamBox onClick={openCreateModal}>+</TeamBox>
+      <CreateTeamModal display={visibleCreateModal} exit={closeCreateModal} />
     </>
   );
 };
