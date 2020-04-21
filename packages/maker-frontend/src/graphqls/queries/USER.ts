@@ -1,9 +1,8 @@
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { UserFullFragment } from '../fragments/user';
-import { useQuery, QueryHookOptions } from '@apollo/react-hooks';
-import { User } from './__generated__/User';
 import { useRouter } from 'helpers';
-import { useUserStateDispatch } from 'context';
+import { UserFullFragment } from '../fragments/user';
+import { User } from './__generated__/User';
 
 export const USER = gql`
   ${UserFullFragment}
@@ -14,20 +13,13 @@ export const USER = gql`
   }
 `;
 
-export function useUser(option?: QueryHookOptions<User>) {
+export function useUser() {
   const { push } = useRouter();
-  const dispatch = useUserStateDispatch();
   return useQuery<User>(USER, {
     fetchPolicy: 'cache-first',
     onError: () => {
       localStorage.removeItem('token');
       push('/');
     },
-    onCompleted: userState =>
-      dispatch({
-        type: 'SAVE',
-        userState: userState.user,
-      }),
-    ...option,
   });
 }
