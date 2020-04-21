@@ -3,12 +3,12 @@ import { ObjectId } from 'mongodb';
 
 @InputType()
 export class CreateUserChannelJoinPayload {
-  @Field(type => String)
+  @Field((type) => String)
   teamId: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   userId: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   channelId: ObjectId;
 }

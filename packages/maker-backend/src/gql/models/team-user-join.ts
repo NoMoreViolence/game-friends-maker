@@ -4,27 +4,27 @@ import { ITeamUserJoin, TeamUserJoinState } from '@common-server';
 
 @ObjectType()
 export class TeamUserJoin implements ITeamUserJoin {
-  @Field(type => String)
+  @Field((type) => String)
   _id: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   teamId: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   userId: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   userState: TeamUserJoinState;
 
-  @Field(type => Boolean)
+  @Field((type) => Boolean)
   muted: boolean;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   createdAt: Date;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   updatedAt: Date;
 
-  @Field(type => Boolean)
+  @Field((type) => Boolean)
   deleted: boolean;
 }

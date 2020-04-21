@@ -23,7 +23,7 @@ export const UPDATE_USER_CHANNEL_JOIN = gql`
 
 export function useUpdateUserChannelJoin() {
   const [updateUserChannelJoinMutation] = useMutation<UpdateUserChannelJoin, UpdateUserChannelJoinVariables>(
-    UPDATE_USER_CHANNEL_JOIN,
+    UPDATE_USER_CHANNEL_JOIN
   );
   const updateUserChannelJoin = useCallback(
     (variables: UpdateUserChannelJoinVariables) => {
@@ -37,7 +37,7 @@ export function useUpdateUserChannelJoin() {
             });
 
             if (prevUserChannelJoinList) {
-              const myUserChannelJoins = prevUserChannelJoinList.myUserChannelJoins.map(userChannelJoin => {
+              const myUserChannelJoins = prevUserChannelJoinList.myUserChannelJoins.map((userChannelJoin) => {
                 if (userChannelJoin._id === mutationData.updateUserChannelJoin._id) {
                   return mutationData.updateUserChannelJoin;
                 }
@@ -54,7 +54,7 @@ export function useUpdateUserChannelJoin() {
         },
       });
     },
-    [updateUserChannelJoinMutation],
+    [updateUserChannelJoinMutation]
   );
 
   return { updateUserChannelJoin };

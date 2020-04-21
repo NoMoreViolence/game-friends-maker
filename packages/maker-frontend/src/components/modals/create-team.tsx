@@ -99,7 +99,7 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
             value={gameName}
             label="Select your game team"
             labelId="filter-team"
-            select={value => (typeof value === 'string' ? setGameName(value) : {})}
+            select={(value) => (typeof value === 'string' ? setGameName(value) : {})}
             list={gameList}
           />
         </Col>

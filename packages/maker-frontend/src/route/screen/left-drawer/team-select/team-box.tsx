@@ -28,7 +28,7 @@ import {
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   selected?: boolean;
 }
-export const TeamBox: FC<Props> = props => (
+export const TeamBox: FC<Props> = (props) => (
   <TeamBoxDiv
     pointer
     width={50}

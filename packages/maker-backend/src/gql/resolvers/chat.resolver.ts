@@ -9,7 +9,7 @@ import { Service } from 'typedi';
 import { SendTextChatPayload } from '@gql/payloads/send-text-chat.payload';
 
 @Service()
-@Resolver(of => Chat)
+@Resolver((of) => Chat)
 export class ChatResolver {
   constructor(
     private chatController: ChatController,
@@ -18,7 +18,7 @@ export class ChatResolver {
   ) {}
 
   @Authorized()
-  @Query(returns => [Chat])
+  @Query((returns) => [Chat])
   public async chattingsInChannel(
     @Ctx() context: Context,
     @Arg('channelId') channelId: string,
@@ -34,7 +34,7 @@ export class ChatResolver {
   }
 
   @Authorized()
-  @Mutation(returns => Chat)
+  @Mutation((returns) => Chat)
   public async sendTextChat(
     @Ctx() context: Context,
     @Arg('sendTextChatPayload') sendTextChatPayload: SendTextChatPayload,
@@ -50,7 +50,7 @@ export class ChatResolver {
   }
 
   @Authorized()
-  @FieldResolver(type => User)
+  @FieldResolver((type) => User)
   async user(@Root() chat: Chat) {
     const nullableUser = await this.userService.getUserById(chat.userId);
     const user = this.commonService.nullable(nullableUser);

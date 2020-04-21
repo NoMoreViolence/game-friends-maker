@@ -35,7 +35,7 @@ export function useUpdateUserChannelJoinId() {
         },
       });
     },
-    [currentTeamUserJoinId, updateCurrentUserChannelJoinId],
+    [currentTeamUserJoinId, updateCurrentUserChannelJoinId]
   );
 
   return update;

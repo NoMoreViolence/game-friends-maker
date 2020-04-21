@@ -8,7 +8,7 @@ import { Arg, Authorized, Ctx, FieldResolver, Query, Resolver, Root, Mutation } 
 import { Service } from 'typedi';
 
 @Service()
-@Resolver(of => UserChannelJoin)
+@Resolver((of) => UserChannelJoin)
 export class UserChannelJoinResolver {
   constructor(
     private userChannelJoinController: UserChannelJoinController,
@@ -20,18 +20,18 @@ export class UserChannelJoinResolver {
   ) {}
 
   @Authorized()
-  @Query(returns => [UserChannelJoin])
+  @Query((returns) => [UserChannelJoin])
   public async myUserChannelJoins(@Ctx() context: Context, @Arg('teamId') teamId: string) {
     const user = await this.userService.getUserByContext(context);
     const userChannelJoins = await this.userChannelJoinService.getUserChannelJoins({
       userId: user._id,
       teamId: new ObjectId(teamId),
     });
-    return userChannelJoins.map(userChannelJoin => userChannelJoin.toObject());
+    return userChannelJoins.map((userChannelJoin) => userChannelJoin.toObject());
   }
 
   @Authorized()
-  @Mutation(returns => UserChannelJoin)
+  @Mutation((returns) => UserChannelJoin)
   public async updateUserChannelJoin(
     @Ctx() context: Context,
     @Arg('userChannelJoinId') userChannelJoinId: string,
@@ -47,7 +47,7 @@ export class UserChannelJoinResolver {
   }
 
   @Authorized()
-  @FieldResolver(type => Team)
+  @FieldResolver((type) => Team)
   async team(@Root() userChannelJoin: UserChannelJoin) {
     const nullableTeam = await this.teamService.getTeamById(userChannelJoin.teamId);
     const team = this.commonService.nullable(nullableTeam);
@@ -55,7 +55,7 @@ export class UserChannelJoinResolver {
   }
 
   @Authorized()
-  @FieldResolver(type => Channel)
+  @FieldResolver((type) => Channel)
   async channel(@Root() userChannelJoin: UserChannelJoin) {
     const nullableChannel = await this.channelService.getChannelById(userChannelJoin.channelId);
     const channel = this.commonService.nullable(nullableChannel);
@@ -63,7 +63,7 @@ export class UserChannelJoinResolver {
   }
 
   @Authorized()
-  @FieldResolver(type => User)
+  @FieldResolver((type) => User)
   async user(@Root() userChannelJoin: UserChannelJoin) {
     const nullableUser = await this.userService.getUserById(userChannelJoin.userId);
     const user = this.commonService.nullable(nullableUser);

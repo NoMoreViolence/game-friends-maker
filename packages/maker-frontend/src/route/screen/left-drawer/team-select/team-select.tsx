@@ -30,7 +30,7 @@ export const TeamSelect: FC<Props> = ({ currentTeamUserJoinId, teamUserJoins, up
       <TeamBox selected={currentTeamUserJoinId === null} onClick={() => selectTeam(null)}>
         H
       </TeamBox>
-      {teamUserJoins.map(teamUserJoin => (
+      {teamUserJoins.map((teamUserJoin) => (
         <TeamBox
           key={teamUserJoin._id}
           selected={currentTeamUserJoinId === teamUserJoin._id}

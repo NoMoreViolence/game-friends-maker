@@ -3,9 +3,9 @@ import { ObjectId } from 'mongodb';
 
 @InputType()
 export class CreateChannelPayload {
-  @Field(type => String)
+  @Field((type) => String)
   name: string;
 
-  @Field(type => String)
+  @Field((type) => String)
   teamId: ObjectId;
 }

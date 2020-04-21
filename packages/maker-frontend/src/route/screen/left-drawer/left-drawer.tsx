@@ -7,7 +7,6 @@ import { Colors, ScrollContainer } from 'ui';
 import { ChannelSelect } from './channel-select';
 import { TeamSelect } from './team-select';
 
-
 interface Props {
   closeDrawer(): void;
 }

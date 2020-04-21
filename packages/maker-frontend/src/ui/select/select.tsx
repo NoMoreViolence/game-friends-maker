@@ -16,7 +16,7 @@ interface Props {
 }
 export const Select: FC<Props> = ({ fullWidth = false, list, labelId, label, value, select }) => {
   const submit = useCallback(
-    (e: ChangeEvent<{ name?: string | undefined; value: unknown }>) => select(e.target.value as unknown as string),
+    (e: ChangeEvent<{ name?: string | undefined; value: unknown }>) => select((e.target.value as unknown) as string),
     [select]
   );
 
@@ -34,7 +34,7 @@ export const Select: FC<Props> = ({ fullWidth = false, list, labelId, label, val
         onChange={submit}
         label={label}
       >
-        {list.map(item => (
+        {list.map((item) => (
           <MenuItem key={item.text} value={item.value}>
             <Span12>{item.text}</Span12>
           </MenuItem>

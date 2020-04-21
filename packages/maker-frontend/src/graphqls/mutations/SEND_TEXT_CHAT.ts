@@ -66,7 +66,7 @@ export function useSendTextChatOptimistic(userChannelJoin: UserChannelJoinFull) 
             const { sendTextChat: newChat } = mutationData;
 
             const { chattingsInChannel } = prevListData;
-            const prevSameMessageIndex = chattingsInChannel.findIndex(prevMessage => prevMessage._id === newChat._id);
+            const prevSameMessageIndex = chattingsInChannel.findIndex((prevMessage) => prevMessage._id === newChat._id);
             if (prevSameMessageIndex < 0) {
               chattingsInChannel.push(newChat);
             } else {
@@ -89,7 +89,7 @@ export function useSendTextChatOptimistic(userChannelJoin: UserChannelJoinFull) 
         },
       });
     },
-    [_id, channelId, sendTextChat, updateUserChannelJoin, user, userId],
+    [_id, channelId, sendTextChat, updateUserChannelJoin, user, userId]
   );
 
   return sendTextChatOptimistic;

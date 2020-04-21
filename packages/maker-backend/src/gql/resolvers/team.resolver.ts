@@ -8,7 +8,7 @@ import { UpdateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload } from '@gql/
 import { TeamController } from '@gql/controllers';
 
 @Service()
-@Resolver(type => Team)
+@Resolver((type) => Team)
 export class TeamResolver {
   constructor(
     private teamController: TeamController,
@@ -19,29 +19,29 @@ export class TeamResolver {
 
   // TODO:
   @Authorized()
-  @Query(returns => [Team])
+  @Query((returns) => [Team])
   public async team(
     @Ctx() context: Context,
     @Arg('getTeamsPayload') getTeamsPayload: GetTeamsPayload,
     @Arg('option', { nullable: true }) option?: GetTeamsOptionPayload,
   ) {
     const teams = await this.teamController.getTeams(getTeamsPayload, option);
-    return teams.map(team => team.toObject());
+    return teams.map((team) => team.toObject());
   }
 
   @Authorized()
-  @Query(returns => [Team])
+  @Query((returns) => [Team])
   public async teams(
     @Ctx() context: Context,
     @Arg('getTeamsPayload') getTeamsPayload: GetTeamsPayload,
     @Arg('option', { nullable: true }) option?: GetTeamsOptionPayload,
   ) {
     const teams = await this.teamController.getTeams(getTeamsPayload, option);
-    return teams.map(team => team.toObject());
+    return teams.map((team) => team.toObject());
   }
 
   @Authorized()
-  @Mutation(returns => Team)
+  @Mutation((returns) => Team)
   public async updateTeam(
     @Ctx() context: Context,
     @Arg('teamId') teamId: string,
@@ -53,7 +53,7 @@ export class TeamResolver {
   }
 
   @Authorized()
-  @FieldResolver(type => Game)
+  @FieldResolver((type) => Game)
   async game(@Root() team: Team) {
     const nullableGame = await this.gameService.getGameById(team.gameId);
     const game = this.commonService.nullable(nullableGame);

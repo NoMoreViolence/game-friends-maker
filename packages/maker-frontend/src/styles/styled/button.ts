@@ -77,7 +77,7 @@ export const ButtonD4rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;
 
 // 8px
@@ -89,7 +89,7 @@ export const ButtonD5rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;
 
 // 12px
@@ -101,7 +101,7 @@ export const ButtonD75rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;
 
 // 16px
@@ -113,7 +113,7 @@ export const Button1rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;
 
 // 20px
@@ -125,7 +125,7 @@ export const Button1D25rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;
 
 // 24px
@@ -137,7 +137,7 @@ export const Button1D5rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;
 
 // 28px
@@ -149,7 +149,7 @@ export const Button1D75rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;
 
 // 32px
@@ -161,5 +161,5 @@ export const Button2rem = styled('button')<ButtonProps>`
   }
 
   ${CommonButtonStyle};
-  ${p => returnStyle(p)};
+  ${(p) => returnStyle(p)};
 `;

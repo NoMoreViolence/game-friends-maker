@@ -20,7 +20,7 @@ export function useDetectUserChannelJoinId(teamUserJoin: TeamUserJoinFull) {
   // 채널 목록을 불러온 후 마지막으로 접속한 채널로 리다이렉트 한다. 없으면 받은 데이터의 첫번째 채널로
   useEffect(() => {
     if (!loading) {
-      const lastChannel = myUserChannelJoins?.find(userChannelJoin => {
+      const lastChannel = myUserChannelJoins?.find((userChannelJoin) => {
         const lastUserChannelJoinId = localStorage.getItem(`lastUserChannelJoinId:${userChannelJoin._id}`);
         if (lastUserChannelJoinId && userChannelJoin._id === lastUserChannelJoinId) {
           return true;

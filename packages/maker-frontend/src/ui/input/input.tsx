@@ -26,7 +26,7 @@ export const TextInput: FC<Props> = ({
         onEnterSubmit(text);
       }
     },
-    [onChangeText, onEnterSubmit, text],
+    [onChangeText, onEnterSubmit, text]
   );
 
   return (
