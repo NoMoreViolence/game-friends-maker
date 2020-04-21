@@ -9,7 +9,6 @@
 
 export interface CreateTeamPayload {
   name: string;
-  gameName: string;
   introduction?: string | null;
 }
 
@@ -17,11 +16,6 @@ export interface GetChattingsPayload {
   limit: number;
   direction: number;
   date: any;
-}
-
-export interface GetTeamUserJoinPayload {
-  userId?: string | null;
-  teamId?: string | null;
 }
 
 export interface NextCurrentTeamUserJoinId {

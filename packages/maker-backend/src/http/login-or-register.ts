@@ -35,7 +35,11 @@ const body = object({
 export async function loginOrRegister(event: APIGatewayProxyEvent, context: Context) {
   try {
     context.callbackWaitsForEmptyEventLoop = false;
-    await dbConnect();
+    const { success, alreadyHasConnection } = await dbConnect();
+    if (!success && !alreadyHasConnection) {
+      throw new NewError(HttpStatusCode.INTERNAL_SERVER_ERROR);
+    }
+
     const requestBody: Body = JSON.parse(event.body || '');
     const { value, error } = body.validate(requestBody);
 
