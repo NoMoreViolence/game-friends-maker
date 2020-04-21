@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import './common-server';
 
 export const dbConnect = (): Promise<{ success: boolean }> =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     if (mongoose.connection.readyState === 1) {
       return resolve({ success: true });
     }
@@ -20,5 +20,5 @@ export const dbConnect = (): Promise<{ success: boolean }> =>
         },
       )
       .then(() => resolve({ success: true }))
-      .catch(err => resolve({ success: false }));
+      .catch((err) => resolve({ success: false }));
   });

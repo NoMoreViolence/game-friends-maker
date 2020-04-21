@@ -34,20 +34,20 @@ const Landing01Component = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-          },
+          }
         )
-        .then(res => {
+        .then((res) => {
           setIsLoading(false);
           toast('success', 'Sign succeed', '');
           localStorage.setItem('token', res.data.data.token);
           push('/app');
         })
-        .catch(err => {
+        .catch((err) => {
           setIsLoading(false);
           toast('error', 'Sign failed !', 'Check your internet, plz');
         });
     },
-    [push],
+    [push]
   );
   const errorToGoogle = useCallback((response: { error: () => void }) => {
     toast('error', 'Sign failed !', 'Check your internet, plz');

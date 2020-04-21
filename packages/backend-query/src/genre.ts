@@ -4,7 +4,7 @@ import { GenreModel } from './common-server';
 export class Genre {
   public async create() {
     try {
-      genreConstants.create.genre.map(async genre => {
+      genreConstants.create.genre.map(async (genre) => {
         const isDuplicate = await GenreModel.find({ name: genre }).exec();
         if (isDuplicate.length !== 0) {
           throw new Error('Genre !');

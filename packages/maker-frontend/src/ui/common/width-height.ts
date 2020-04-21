@@ -9,29 +9,29 @@ export interface WidthHeightCss {
   minHeight?: number | string;
 }
 export const widthHeightCss = css<WidthHeightCss>`
-  ${props =>
+  ${(props) =>
     props.width ? (typeof props.width === 'number' ? `width: ${props.width}px;` : `width: ${props.width};`) : ''}
-  ${props =>
+  ${(props) =>
     props.height ? (typeof props.height === 'number' ? `height: ${props.height}px;` : `height: ${props.height};`) : ''}
-  ${props =>
+  ${(props) =>
     props.maxWidth
       ? typeof props.maxWidth === 'number'
         ? `max-width: ${props.maxWidth}px;`
         : `max-width: ${props.maxWidth};`
       : ''}
-  ${props =>
+  ${(props) =>
     props.maxHeight
       ? typeof props.maxHeight === 'number'
         ? `max-height: ${props.maxHeight}px;`
         : `max-height: ${props.maxHeight};`
       : ''}
-  ${props =>
+  ${(props) =>
     props.minWidth
       ? typeof props.minWidth === 'number'
         ? `min-width: ${props.minWidth}px;`
         : `min-width: ${props.minWidth};`
       : ''}
-  ${props =>
+  ${(props) =>
     props.minHeight
       ? typeof props.minHeight === 'number'
         ? `min-height: ${props.minHeight}px;`

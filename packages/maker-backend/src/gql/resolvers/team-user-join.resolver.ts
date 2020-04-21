@@ -7,7 +7,7 @@ import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } 
 import { Service } from 'typedi';
 
 @Service()
-@Resolver(of => TeamUserJoin)
+@Resolver(() => TeamUserJoin)
 export class TeamUserJoinResolver {
   constructor(
     private teamController: TeamController,
@@ -18,26 +18,26 @@ export class TeamUserJoinResolver {
   ) {}
 
   @Authorized()
-  @Query(returns => [TeamUserJoin])
+  @Query(() => [TeamUserJoin])
   public async myTeamUserJoins(@Ctx() context: Context) {
     const user = await this.userService.getUserByContext(context);
     const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user, { userId: user._id });
-    return teamUserJoins.map(teamUserJoin => teamUserJoin.toObject());
+    return teamUserJoins.map((teamUserJoin) => teamUserJoin.toObject());
   }
 
   @Authorized()
-  @Query(returns => [TeamUserJoin])
+  @Query(() => [TeamUserJoin])
   public async teamUserJoins(
     @Ctx() context: Context,
     @Arg('getTeamUserJoinPayload') getTeamUserJoinPayload: GetTeamUserJoinPayload,
   ) {
     const user = await this.userService.getUserByContext(context);
     const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user, getTeamUserJoinPayload);
-    return teamUserJoins.map(teamUserJoin => teamUserJoin.toObject());
+    return teamUserJoins.map((teamUserJoin) => teamUserJoin.toObject());
   }
 
   @Authorized()
-  @Mutation(returns => TeamUserJoin)
+  @Mutation(() => TeamUserJoin)
   public async createTeam(@Ctx() context: Context, @Arg('createTeamPayload') createTeamPayload: CreateTeamPayload) {
     const user = await this.userService.getUserByContext(context);
     const teamUserJoin = await this.teamController.createTeam(user, createTeamPayload);
@@ -45,9 +45,9 @@ export class TeamUserJoinResolver {
   }
 
   @Authorized()
-  @Mutation(returns => [TeamUserJoin])
+  @Mutation(() => [TeamUserJoin])
   @Authorized()
-  @FieldResolver(type => User)
+  @FieldResolver(() => User)
   async user(@Root() teamUserJoin: TeamUserJoin) {
     const nullableUser = await this.userService.getUserById(teamUserJoin.userId);
     const user = this.commonService.nullable(nullableUser);
@@ -55,7 +55,7 @@ export class TeamUserJoinResolver {
   }
 
   @Authorized()
-  @FieldResolver(type => Team)
+  @FieldResolver(() => Team)
   async team(@Root() teamUserJoin: TeamUserJoin) {
     const nullableTeam = await this.teamService.getTeamById(teamUserJoin.teamId);
     const team = this.commonService.nullable(nullableTeam);

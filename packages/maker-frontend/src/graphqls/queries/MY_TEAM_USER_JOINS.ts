@@ -19,9 +19,9 @@ export function useMyTeamUserJoins(option?: QueryHookOptions<MyTeamUserJoins, Re
   const updateTeamUserJoinId = useUpdateTeamUserJoinId();
   return useQuery<MyTeamUserJoins>(MY_TEAM_USER_JOINS, {
     fetchPolicy: 'cache-first',
-    onCompleted: data => {
+    onCompleted: (data) => {
       const lastTeamUserJoinId = localStorage.getItem('lastTeamUserJoinId');
-      const selectedTeamUserJoin = data?.myTeamUserJoins.find(s => s._id === lastTeamUserJoinId);
+      const selectedTeamUserJoin = data?.myTeamUserJoins.find((s) => s._id === lastTeamUserJoinId);
       if (selectedTeamUserJoin !== undefined && currentTeamUserJoinId !== selectedTeamUserJoin._id) {
         updateTeamUserJoinId(selectedTeamUserJoin._id);
       }
@@ -32,6 +32,6 @@ export function useMyTeamUserJoins(option?: QueryHookOptions<MyTeamUserJoins, Re
 
 export function useCurrentTeamUserJoin(currentTeamUserJoinId: string | null) {
   const { data } = useMyTeamUserJoins({});
-  const currentTeamUserJoin = data?.myTeamUserJoins.find(teamUserJoin => teamUserJoin._id === currentTeamUserJoinId);
+  const currentTeamUserJoin = data?.myTeamUserJoins.find((teamUserJoin) => teamUserJoin._id === currentTeamUserJoinId);
   return currentTeamUserJoin;
 }

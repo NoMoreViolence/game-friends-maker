@@ -4,24 +4,24 @@ import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
 export class Team implements ITeam {
-  @Field(type => String)
+  @Field((type) => String)
   _id: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   name: string;
 
-  @Field(type => String)
+  @Field((type) => String)
   gameId: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   introduction: string;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   createdAt: Date;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   updatedAt: Date;
 
-  @Field(type => Boolean)
+  @Field((type) => Boolean)
   deleted: boolean;
 }

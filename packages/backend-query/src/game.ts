@@ -4,7 +4,7 @@ import { GameModel } from './common-server';
 export class Game {
   public async create() {
     try {
-      gameConstants.create.gameName.map(async name => {
+      gameConstants.create.gameName.map(async (name) => {
         const isDuplicate = await GameModel.find({ name }).exec();
         if (isDuplicate.length !== 0) {
           throw new Error('Game !');

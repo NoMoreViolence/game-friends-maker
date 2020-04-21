@@ -3,12 +3,12 @@ import { ObjectId } from 'mongodb';
 
 @InputType()
 export class SendTextChatPayload {
-  @Field(type => String)
+  @Field((type) => String)
   _id: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   channelId: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   text: string;
 }

@@ -15,7 +15,7 @@ export const MY_USER_CHANNEL_JOINS = gql`
 
 export function useMyUserChannelJoins(
   teamUserJoin: TeamUserJoinFull,
-  option?: QueryHookOptions<MyUserChannelJoins, MyUserChannelJoinsVariables>,
+  option?: QueryHookOptions<MyUserChannelJoins, MyUserChannelJoinsVariables>
 ) {
   return useQuery<MyUserChannelJoins, MyUserChannelJoinsVariables>(MY_USER_CHANNEL_JOINS, {
     variables: { teamId: teamUserJoin.teamId },
@@ -27,7 +27,7 @@ export function useMyUserChannelJoins(
 export function useCurrentUserChannelJoin(teamUserJoin: TeamUserJoinFull, currentUserChannelJoinId: string | null) {
   const { data } = useMyUserChannelJoins(teamUserJoin);
   const currentUserChannelJoin = data?.myUserChannelJoins.find(
-    userChannelJoin => userChannelJoin._id === currentUserChannelJoinId,
+    (userChannelJoin) => userChannelJoin._id === currentUserChannelJoinId
   );
   return currentUserChannelJoin;
 }

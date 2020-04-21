@@ -34,7 +34,7 @@ export const Chattings: FC<Props> = ({ userChannelJoin }) => {
     <StyledContainer contentStartLocation="bottom">
       <StyledScrollContainer ref={scrollContainerRef}>
         <Row padding={4} />
-        {chattings.map(s => (
+        {chattings.map((s) => (
           <ChatItem chat={s} key={s._id} />
         ))}
       </StyledScrollContainer>

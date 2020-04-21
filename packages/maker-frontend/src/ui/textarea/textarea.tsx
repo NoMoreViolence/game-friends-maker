@@ -25,7 +25,7 @@ export const Textarea: FC<Props> = ({ isFlex = true, backgroundTheme = 'light', 
     if (textarea.current && props.responsiveHeight) {
       const event = fromEvent<ChangeEvent<HTMLTextAreaElement>>(textarea.current, 'input')
         .pipe(
-          tap(event => {
+          tap((event) => {
             const outerHeight = !event.target.style.height
               ? typeof props.height === 'number'
                 ? props.height
@@ -34,7 +34,7 @@ export const Textarea: FC<Props> = ({ isFlex = true, backgroundTheme = 'light', 
             const diff = outerHeight - event.target.clientHeight;
             event.target.style.height =
               Math.max(typeof props.height === 'number' ? props.height : 30, event.target.scrollHeight + diff) + 'px';
-          }),
+          })
         )
         .subscribe(() => {});
 
@@ -65,7 +65,7 @@ const StyledTextarea = styled.textarea<TextareaLayoutProps>`
   ${flexboxCss}
   ${transitionCss}
   ${focusStyleCss}
-  ${props => {
+  ${(props) => {
     if (props.backgroundTheme === 'light') {
       return `
         background-color: ${color.white};
@@ -83,5 +83,5 @@ const StyledTextarea = styled.textarea<TextareaLayoutProps>`
       border-radius: 2px;
     `;
   }}
-  ${props => (props.resize ? '' : 'resize: none;')}
+  ${(props) => (props.resize ? '' : 'resize: none;')}
 `;

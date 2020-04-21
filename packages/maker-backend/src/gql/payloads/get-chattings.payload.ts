@@ -3,10 +3,10 @@ import { ObjectId } from 'mongodb';
 
 @InputType()
 export class GetChattingsPayload {
-  @Field(type => Number)
+  @Field((type) => Number)
   limit: ObjectId; // 20
 
-  @Field(type => Number)
+  @Field((type) => Number)
   direction: 1 | -1; // 1: 미래, -1: 과거
 
   @Field()

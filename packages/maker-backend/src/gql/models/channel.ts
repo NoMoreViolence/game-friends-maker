@@ -4,27 +4,27 @@ import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
 export class Channel implements IChannel {
-  @Field(type => String)
+  @Field((type) => String)
   _id: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   teamId: ObjectId;
 
-  @Field(type => String)
+  @Field((type) => String)
   name: string;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   firstChatCreatedAt: Date;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   lastChatCreatedAt: Date;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   createdAt: Date;
 
-  @Field(type => Date)
+  @Field((type) => Date)
   updatedAt: Date;
 
-  @Field(type => Boolean)
+  @Field((type) => Boolean)
   deleted: boolean;
 }

@@ -75,7 +75,7 @@ export const SpanD625rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 0.625rem;
   @media screen and ${device.mobileToTablet} {
@@ -88,7 +88,7 @@ export const SpanD75rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 0.75rem;
 
@@ -102,7 +102,7 @@ export const SpanD875rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 0.875rem;
 
@@ -116,7 +116,7 @@ export const Span1rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 1rem;
 
@@ -129,7 +129,7 @@ export const Span1D25rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 1.25rem;
 
@@ -143,7 +143,7 @@ export const Span1D5rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 1.5rem;
 
@@ -157,7 +157,7 @@ export const Span1D75rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 1.75rem;
 
@@ -171,7 +171,7 @@ export const Span2rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 2rem;
 
@@ -185,7 +185,7 @@ export const Span3rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 3rem;
 
@@ -199,7 +199,7 @@ export const Span4rem = styled('span')<SpanProps>`
   ${commonSpanStyle}
   ${marginCss}
   ${paddingCss}
-  ${p => returnStyle(p)}
+  ${(p) => returnStyle(p)}
 
   font-size: 4rem;
 
