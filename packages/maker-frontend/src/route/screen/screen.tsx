@@ -3,7 +3,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Loading } from 'components/loading';
 import { useUser } from 'graphqls/queries/USER';
-import { LocalStateAutoUpdate } from 'local-state-auto-update';
+import { DetectTeamUserJoin } from 'detect-team-channel';
 import React, { FC, useCallback, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Col, GlobalStyle, Row } from 'ui';
@@ -58,8 +58,8 @@ export const Screen: FC = () => {
   return (
     <Row height="100%" flex={1} justifyContent="unset" alignItems="unset">
       <Loading isLoading={loading} />
+      <DetectTeamUserJoin />
       <GlobalStyle />
-      <LocalStateAutoUpdate />
       <nav className={drawerStyle.leftDrawerContainer}>
         <Hidden mdUp implementation="js">
           <Drawer
