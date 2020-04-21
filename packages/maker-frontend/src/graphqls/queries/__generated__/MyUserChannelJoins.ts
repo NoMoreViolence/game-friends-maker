@@ -7,30 +7,10 @@
 // GraphQL query operation: MyUserChannelJoins
 // ====================================================
 
-export interface MyUserChannelJoins_myUserChannelJoins_team_game_genres {
-  __typename: "Genre";
-  _id: string;
-  name: string;
-  createdAt: any;
-  updatedAt: any;
-}
-
-export interface MyUserChannelJoins_myUserChannelJoins_team_game {
-  __typename: "Game";
-  _id: string;
-  name: string;
-  genreIds: string[];
-  genres: MyUserChannelJoins_myUserChannelJoins_team_game_genres[];
-  createdAt: any;
-  updatedAt: any;
-}
-
 export interface MyUserChannelJoins_myUserChannelJoins_team {
   __typename: "Team";
   _id: string;
   name: string;
-  gameId: string;
-  game: MyUserChannelJoins_myUserChannelJoins_team_game;
   introduction: string;
   createdAt: any;
   updatedAt: any;
@@ -47,30 +27,10 @@ export interface MyUserChannelJoins_myUserChannelJoins_user {
   deleted: boolean;
 }
 
-export interface MyUserChannelJoins_myUserChannelJoins_channel_team_game_genres {
-  __typename: "Genre";
-  _id: string;
-  name: string;
-  createdAt: any;
-  updatedAt: any;
-}
-
-export interface MyUserChannelJoins_myUserChannelJoins_channel_team_game {
-  __typename: "Game";
-  _id: string;
-  name: string;
-  genreIds: string[];
-  genres: MyUserChannelJoins_myUserChannelJoins_channel_team_game_genres[];
-  createdAt: any;
-  updatedAt: any;
-}
-
 export interface MyUserChannelJoins_myUserChannelJoins_channel_team {
   __typename: "Team";
   _id: string;
   name: string;
-  gameId: string;
-  game: MyUserChannelJoins_myUserChannelJoins_channel_team_game;
   introduction: string;
   createdAt: any;
   updatedAt: any;

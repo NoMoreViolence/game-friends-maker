@@ -4,7 +4,6 @@ import { UserDocument, ITeamUserJoinStateEnum, TeamUserJoinDocument, TeamDocumen
 import {
   TeamService,
   CommonService,
-  GameService,
   TeamUserJoinService,
   ChannelService,
   UserChannelJoinService,
@@ -17,7 +16,6 @@ export class TeamController {
   constructor(
     private teamService: TeamService,
     private teamUserJoinService: TeamUserJoinService,
-    private gameService: GameService,
     private channelService: ChannelService,
     private userChannelJoinService: UserChannelJoinService,
     private chatService: ChatService,
@@ -40,12 +38,9 @@ export class TeamController {
   }
 
   public async createTeam(user: UserDocument, payload: CreateTeamPayload): Promise<TeamUserJoinDocument> {
-    const nullableGame = await this.gameService.getGame({ name: payload.gameName });
-    const game = this.commonService.nullable(nullableGame);
     const team = await this.teamService.createTeam({
       name: payload.name,
       introduction: payload.introduction,
-      gameId: game._id,
     });
     const teamUserJoin = await this.teamUserJoinService.createTeamUserJoin({
       userId: user._id,

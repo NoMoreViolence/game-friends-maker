@@ -21,18 +21,7 @@ export class TeamUserJoinResolver {
   @Query(() => [TeamUserJoin])
   public async myTeamUserJoins(@Ctx() context: Context) {
     const user = await this.userService.getUserByContext(context);
-    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user, { userId: user._id });
-    return teamUserJoins.map((teamUserJoin) => teamUserJoin.toObject());
-  }
-
-  @Authorized()
-  @Query(() => [TeamUserJoin])
-  public async teamUserJoins(
-    @Ctx() context: Context,
-    @Arg('getTeamUserJoinPayload') getTeamUserJoinPayload: GetTeamUserJoinPayload,
-  ) {
-    const user = await this.userService.getUserByContext(context);
-    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user, getTeamUserJoinPayload);
+    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user);
     return teamUserJoins.map((teamUserJoin) => teamUserJoin.toObject());
   }
 

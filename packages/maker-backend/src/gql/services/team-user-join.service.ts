@@ -1,7 +1,7 @@
+import { setter, TeamUserJoinDocument, TeamUserJoinModel } from '@common-server';
+import { TeamUserJoin } from '@gql/models';
 import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
-import { TeamUserJoinModel, setter, TeamUserJoinDocument } from '@common-server';
-import { TeamUserJoin } from '@gql/models';
 
 @Service()
 export class TeamUserJoinService {

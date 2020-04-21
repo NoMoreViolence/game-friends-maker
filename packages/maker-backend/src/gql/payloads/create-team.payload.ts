@@ -5,9 +5,6 @@ export class CreateTeamPayload {
   @Field((type) => String)
   name: string;
 
-  @Field((type) => String)
-  gameName: string;
-
   @Field((type) => String, { defaultValue: '', nullable: true })
   introduction?: string;
 }

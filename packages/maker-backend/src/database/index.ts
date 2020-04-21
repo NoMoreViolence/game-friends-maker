@@ -13,6 +13,6 @@ export const dbConnect = async (): Promise<{ success: boolean; alreadyHasConnect
       useNewUrlParser: true,
     })
     .then(() => ({ success: true, alreadyHasConnection: false }))
-    .catch(() => ({ success: true, alreadyHasConnection: false }));
+    .catch(() => ({ success: false, alreadyHasConnection: false }));
   return result;
 };

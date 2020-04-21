@@ -1,16 +1,15 @@
 import { useMutation } from '@apollo/react-hooks';
+import CloseIcon from '@material-ui/icons/CloseOutlined';
 import { Loading } from 'components/loading';
 import { Modal } from 'components/modal';
-import { gameList } from 'constants-frontend';
 import { CREATE_TEAM } from 'graphqls/mutations/CREATE_TEAM';
 import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOIN_ID';
 import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
 import { MY_TEAM_USER_JOINS } from 'graphqls/queries/MY_TEAM_USER_JOINS';
 import { MyTeamUserJoins } from 'graphqls/queries/__generated__/MyTeamUserJoins';
 import { Icon, iconMap } from 'helpers';
-import CloseIcon from '@material-ui/icons/CloseOutlined';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Col, fontWeights, Row, Select, Span24, TextInput, YScroll } from 'ui';
+import { Button, Col, fontWeights, Row, Span24, TextInput, YScroll } from 'ui';
 
 interface Props {
   display: boolean;
@@ -21,15 +20,14 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
 
   const [teamName, setTeamName] = useState('');
   const [teamDescription, setTeamDescription] = useState('');
-  const [gameName, setGameName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const isDisabled = useMemo(() => {
-    if (!gameName || !teamDescription || !teamName || isLoading) {
+    if (!teamDescription || !teamName || isLoading) {
       return true;
     }
     return false;
-  }, [gameName, isLoading, teamDescription, teamName]);
+  }, [isLoading, teamDescription, teamName]);
 
   const [createTeam] = useMutation<CreateTeam, CreateTeamVariables>(CREATE_TEAM);
   const onSubmit = useCallback(async () => {
@@ -37,7 +35,6 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
     await createTeam({
       variables: {
         createTeamPayload: {
-          gameName,
           name: teamName,
           introduction: teamDescription,
         },
@@ -61,12 +58,11 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
     });
     setIsLoading(false);
     exit();
-  }, [createTeam, gameName, teamName, teamDescription, exit, updateTeamUserJoinId]);
+  }, [createTeam, teamName, teamDescription, exit, updateTeamUserJoinId]);
 
   useEffect(() => {
     setTeamName('');
     setTeamDescription('');
-    setGameName('');
   }, [display]);
 
   return (
@@ -93,15 +89,6 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
       <YScroll>
         <Col pr={16} pl={16} pt={32} alignItems="stretch" isReversed>
           <TextInput text={teamName} onChangeText={setTeamName} placeholder="Set your team name" />
-        </Col>
-        <Col pr={16} pl={16} pt={16} alignItems="stretch" isReversed>
-          <Select
-            value={gameName}
-            label="Select your game team"
-            labelId="filter-team"
-            select={(value) => (typeof value === 'string' ? setGameName(value) : {})}
-            list={gameList}
-          />
         </Col>
         <Col pr={16} pl={16} pt={32} alignItems="stretch" isReversed>
           <TextInput text={teamDescription} onChangeText={setTeamDescription} placeholder="What for ?" />

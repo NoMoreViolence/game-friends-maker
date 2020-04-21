@@ -6,6 +6,7 @@ import { dbConnect } from '@database';
 import * as Resolvers from '@gql/resolvers';
 import { authChecker } from '@gql/bootstrap/auth';
 import { injectId } from '@gql/bootstrap/session';
+import { HttpStatusCode } from '@constants';
 
 if (global.schema) {
   console.log('global.schema already exists!');
@@ -41,6 +42,12 @@ const apolloServerHandler = apolloServer.createHandler({
 });
 
 export const bootstrap = async (event: APIGatewayProxyEvent, context, callback: Callback<APIGatewayProxyResult>) => {
-  await dbConnect();
+  const { success, alreadyHasConnection } = await dbConnect();
+  if (!success && !alreadyHasConnection) {
+    return {
+      statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+      message: 'Database connect failure',
+    };
+  }
   return apolloServerHandler(event, context, callback);
 };

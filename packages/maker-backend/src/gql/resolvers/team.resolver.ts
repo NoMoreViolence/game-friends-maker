@@ -1,9 +1,9 @@
 import { Authorized, Ctx, Resolver, Mutation, Arg, Query, FieldResolver, Root } from 'type-graphql';
 import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
-import { UserService, GameService, CommonService } from '@gql/services';
+import { UserService, CommonService } from '@gql/services';
 import { Context } from '@gql/bootstrap/session';
-import { Team, Game } from '@gql/models';
+import { Team } from '@gql/models';
 import { UpdateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload } from '@gql/payloads';
 import { TeamController } from '@gql/controllers';
 
@@ -13,7 +13,6 @@ export class TeamResolver {
   constructor(
     private teamController: TeamController,
     private userService: UserService,
-    private gameService: GameService,
     private commonService: CommonService,
   ) {}
 
@@ -50,13 +49,5 @@ export class TeamResolver {
     const user = await this.userService.getUserByContext(context);
     const team = await this.teamController.updateTeam(user, new ObjectId(teamId), nextTeam);
     return team.toObject();
-  }
-
-  @Authorized()
-  @FieldResolver((type) => Game)
-  async game(@Root() team: Team) {
-    const nullableGame = await this.gameService.getGameById(team.gameId);
-    const game = this.commonService.nullable(nullableGame);
-    return game.toObject();
   }
 }

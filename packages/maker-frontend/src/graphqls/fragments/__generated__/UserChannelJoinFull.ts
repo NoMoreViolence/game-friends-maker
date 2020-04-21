@@ -7,30 +7,10 @@
 // GraphQL fragment: UserChannelJoinFull
 // ====================================================
 
-export interface UserChannelJoinFull_team_game_genres {
-  __typename: "Genre";
-  _id: string;
-  name: string;
-  createdAt: any;
-  updatedAt: any;
-}
-
-export interface UserChannelJoinFull_team_game {
-  __typename: "Game";
-  _id: string;
-  name: string;
-  genreIds: string[];
-  genres: UserChannelJoinFull_team_game_genres[];
-  createdAt: any;
-  updatedAt: any;
-}
-
 export interface UserChannelJoinFull_team {
   __typename: "Team";
   _id: string;
   name: string;
-  gameId: string;
-  game: UserChannelJoinFull_team_game;
   introduction: string;
   createdAt: any;
   updatedAt: any;
@@ -47,30 +27,10 @@ export interface UserChannelJoinFull_user {
   deleted: boolean;
 }
 
-export interface UserChannelJoinFull_channel_team_game_genres {
-  __typename: "Genre";
-  _id: string;
-  name: string;
-  createdAt: any;
-  updatedAt: any;
-}
-
-export interface UserChannelJoinFull_channel_team_game {
-  __typename: "Game";
-  _id: string;
-  name: string;
-  genreIds: string[];
-  genres: UserChannelJoinFull_channel_team_game_genres[];
-  createdAt: any;
-  updatedAt: any;
-}
-
 export interface UserChannelJoinFull_channel_team {
   __typename: "Team";
   _id: string;
   name: string;
-  gameId: string;
-  game: UserChannelJoinFull_channel_team_game;
   introduction: string;
   createdAt: any;
   updatedAt: any;
