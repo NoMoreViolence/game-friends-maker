@@ -1,65 +1,72 @@
 import { css, CSSProperties } from 'styled-components';
 import {
-  BackgroundCss,
-  backgroundCss,
-  BorderCss,
-  BoxShadowCss,
-  boxShadowCss,
-  colorCss,
-  ColorCss,
-  HoverStyleCss,
-  hoverStyleCss,
-  MarginCss,
-  marginCss,
-  PaddingCss,
-  paddingCss,
-  PointerCss,
-  pointerCss,
-  PositionCss,
-  positionCss,
-  TransitionCss,
-  transitionCss,
-  ZIndexCss,
-  zIndexCss,
-} from '../common';
+  background,
+  BackgroundProps,
+  BorderProps,
+  boxShadow,
+  BoxShadowProps,
+  color,
+  ColorProps,
+  fontFamily,
+  FontFamilyProps,
+  fontSize,
+  FontSizeProps,
+  fontStyle,
+  FontStyleProps,
+  fontWeight,
+  FontWeightProps,
+  letterSpacing,
+  LetterSpacingProps,
+  lineHeight,
+  LineHeightProps,
+  margin,
+  MarginProps,
+  padding,
+  PaddingProps,
+  position,
+  PositionProps,
+  textAlign,
+  TextAlignProps,
+  zIndex,
+  ZIndexProps,
+} from 'styled-system';
 
-export interface TypoCss
-  extends MarginCss,
-    PaddingCss,
-    BorderCss,
-    BackgroundCss,
-    BoxShadowCss,
-    ZIndexCss,
-    PositionCss,
-    ColorCss,
-    PointerCss,
-    TransitionCss,
-    HoverStyleCss {
+export interface TypoProps
+  extends MarginProps,
+    PaddingProps,
+    BorderProps,
+    BackgroundProps,
+    BoxShadowProps,
+    ZIndexProps,
+    PositionProps,
+    ColorProps,
+    FontStyleProps,
+    FontWeightProps,
+    LineHeightProps,
+    LetterSpacingProps,
+    TextAlignProps {
   flex?: number;
   display?: 'block' | 'flex' | 'none';
-  fontWeight?: number;
   textAlign?: 'left' | 'right' | 'center';
   letterSpacing?: number;
   fontStyle?: 'normal' | 'italic';
   isEllipsisEnabled?: boolean; // true
   style?: CSSProperties;
 }
-const typoCss = css<TypoCss>`
-  ${marginCss}
-  ${paddingCss}
-  ${backgroundCss}
-  ${boxShadowCss}
-  ${zIndexCss}
-  ${positionCss}
-  ${colorCss}
-  ${pointerCss}
-  ${transitionCss}
-  ${hoverStyleCss}
+const typoProps = css<TypoProps>`
+  ${margin}
+  ${padding}
+  ${background}
+  ${boxShadow}
+  ${zIndex}
+  ${position}
+  ${color}
+  ${fontStyle}
+  ${fontWeight}
+  ${lineHeight}
+  ${letterSpacing}
+  ${textAlign}
   ${({ flex }) => (flex ? `flex: ${flex};` : '')}
-  ${({ textAlign }) => (textAlign ? `text-align: ${textAlign};` : '')}
-  ${({ fontWeight }) => (fontWeight ? `font-weight: ${fontWeight};` : '')}
-  ${({ letterSpacing }) => (letterSpacing ? `letter-spacing: ${letterSpacing}` : '')}
-  ${({ fontStyle }) => (fontStyle ? `font-style: ${fontStyle};` : 'font-style: normal;')}
   ${({ isEllipsisEnabled = true }) =>
     isEllipsisEnabled
       ? `
@@ -70,36 +77,42 @@ const typoCss = css<TypoCss>`
       : ''}
 `;
 
-const px36 = css<TypoCss>`
+const pxCustom = css<TypoProps & FontFamilyProps & FontSizeProps>`
+  ${typoProps}
+  ${fontFamily}
+  ${fontSize}
+`;
+const px36 = css<TypoProps>`
   font-size: 36px;
-  ${typoCss}
+  ${typoProps}
 `;
-const px24 = css<TypoCss>`
+const px24 = css<TypoProps>`
   font-size: 24px;
-  ${typoCss}
+  ${typoProps}
 `;
-const px18 = css<TypoCss>`
+const px18 = css<TypoProps>`
   font-size: 18px;
-  ${typoCss}
+  ${typoProps}
 `;
-const px16 = css<TypoCss>`
+const px16 = css<TypoProps>`
   font-size: 16px;
-  ${typoCss}
+  ${typoProps}
 `;
-const px14 = css<TypoCss>`
+const px14 = css<TypoProps>`
   font-size: 14px;
-  ${typoCss}
+  ${typoProps}
 `;
-const px12 = css<TypoCss>`
+const px12 = css<TypoProps>`
   font-size: 12px;
-  ${typoCss}
+  ${typoProps}
 `;
-const px10 = css<TypoCss>`
+const px10 = css<TypoProps>`
   font-size: 10px;
-  ${typoCss}
+  ${typoProps}
 `;
 
 export const textStyles = {
+  pxCustom,
   px36,
   px24,
   px18,

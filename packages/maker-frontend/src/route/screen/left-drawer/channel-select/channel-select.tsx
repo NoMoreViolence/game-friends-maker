@@ -81,13 +81,12 @@ const ChannelBox: FC<ChannelBoxProps> = ({
     <Row
       onClick={onChannelClick}
       justifyContent="flex-start"
-      pointer
+      cursor="pointer"
       pt={12}
       pb={12}
       pr={16}
       pl={16}
-      backgroundColor={currentUserChannelJoinId === userChannelJoin._id ? Colors.secondary : Colors.white}
-      transition={0.25}
+      background={currentUserChannelJoinId === userChannelJoin._id ? Colors.secondary : Colors.white}
     >
       <Span14 color={currentUserChannelJoinId === userChannelJoin._id ? Colors.white : Colors.black}>
         {userChannelJoin.channel.name}

@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { zIndex } from 'styles';
+import { zIndex } from 'ui/styles';
 
 export const ModalOnStyle = createGlobalStyle`
   #modal {

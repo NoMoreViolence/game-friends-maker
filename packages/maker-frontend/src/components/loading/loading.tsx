@@ -1,8 +1,8 @@
+import { LoadingPortal } from 'portals';
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { LoadingPortal } from 'portals';
-import { color, zIndex } from 'styles';
 import LoadingLogoSvg from 'svgs/loading-logo';
+import { Colors, zIndex } from 'ui/styles';
 
 interface Props {
   /**
@@ -22,7 +22,7 @@ export const Loading: FC<Props> = ({ isLoading = true }) =>
 
 export const GlobalLoadingRootDiv = styled('div')`
   z-index: ${zIndex.loading};
-  background-color: ${color['modal-dim']};
+  background-color: ${Colors['modal-dim']};
 
   position: fixed;
   width: 100vw;
@@ -58,14 +58,14 @@ export const GlobalLoadingRootDiv = styled('div')`
   }
 
   .cls-1 {
-    fill: ${color.loadingBackground};
+    fill: ${Colors.gray};
   }
   .cls-2 {
     mask: url(#mask);
   }
   .cls-3 {
     fill: none;
-    stroke: ${color.black};
+    stroke: ${Colors.black};
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 10.25px;

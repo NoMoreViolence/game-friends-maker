@@ -1,5 +1,3 @@
-export * from './icon';
-export * from './icon-enum';
 export * from './use-cdm';
 export * from './use-debounce';
 export * from './use-detect-team-user-join-id';

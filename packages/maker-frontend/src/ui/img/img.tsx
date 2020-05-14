@@ -1,18 +1,22 @@
 import React, { FC } from 'react';
-
 import styled from 'styled-components';
-import { MarginCss, PaddingCss, marginCss, paddingCss, ZIndexCss, zIndexCss, FlexboxCss, flexboxCss } from 'ui/common';
+import { flexbox, FlexboxProps, margin, MarginProps, padding, PaddingProps, zIndex, ZIndexProps } from 'styled-system';
 
-interface Props extends MarginCss, PaddingCss, ZIndexCss, FlexboxCss, React.ImgHTMLAttributes<HTMLImageElement> {
+interface Props
+  extends MarginProps,
+    PaddingProps,
+    ZIndexProps,
+    FlexboxProps,
+    React.ImgHTMLAttributes<HTMLImageElement> {
   pointer?: boolean; // false
 }
 
-export const Img: FC<Props> = ({ isFlex = true, ...props }) => <StyledImg isFlex={isFlex} {...props} />;
+export const Img: FC<Props> = (props) => <StyledImg {...props} />;
 
 const StyledImg = styled.img<Props>`
-  ${marginCss}
-  ${paddingCss}
-  ${zIndexCss}
-  ${flexboxCss}
+  ${margin}
+  ${padding}
+  ${zIndex}
+  ${flexbox}
   ${({ pointer }) => (pointer ? 'cursor: pointer;' : '')}
 `;

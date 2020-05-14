@@ -28,14 +28,14 @@ export const TextChat: FC<Props> = ({
       {!isMyChat && (
         <Row width={36} ml={isMyChat ? 8 : 0} mr={!isMyChat ? 8 : 0} alignItems="flex-start">
           {shouldShowProfileCircle && (
-            <Circle size={36} backgroundColor={Colors.primaryScale['light']}>
+            <Circle size={36} background={Colors.primaryScale['light']}>
               <Span16>{user.name.charAt(0)}</Span16>
             </Circle>
           )}
         </Row>
       )}
       <Col alignItems="flex-start" pr={4} pl={4} pt={4}>
-        <Row borderRadius={12} pt={10} pb={10} pr={16} pl={16} backgroundColor={Colors.secondary}>
+        <Row borderRadius={12} pt={10} pb={10} pr={16} pl={16} background={Colors.secondary}>
           <Span14 color={Colors.white}>{text}</Span14>
         </Row>
       </Col>
