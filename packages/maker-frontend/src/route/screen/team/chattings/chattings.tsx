@@ -31,7 +31,7 @@ export const Chattings: FC<Props> = ({ userChannelJoin }) => {
   }, [fetchMoreChattings]);
 
   return (
-    <StyledContainer contentStartLocation="bottom">
+    <StyledContainer>
       <StyledScrollContainer ref={scrollContainerRef}>
         <Row padding={4} />
         {chattings.map((s) => (
@@ -43,6 +43,7 @@ export const Chattings: FC<Props> = ({ userChannelJoin }) => {
 };
 
 const StyledContainer = styled(Container)`
+  justify-content: flex-end;
   overflow: hidden;
 `;
 const StyledScrollContainer = styled(ScrollContainer)`

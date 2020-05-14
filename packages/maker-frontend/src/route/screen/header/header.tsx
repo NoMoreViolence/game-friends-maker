@@ -9,7 +9,7 @@ interface Props {
 export const Header: FC<Props> = ({ openLeftSidebar, openRightSidebar }) => (
   <Row
     height={64}
-    backgroundColor={Colors.white}
+    background={Colors.white}
     justifyContent="space-between"
     borderColor={Colors.gray}
     borderWidth={1}

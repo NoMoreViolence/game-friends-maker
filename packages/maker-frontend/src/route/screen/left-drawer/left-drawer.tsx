@@ -25,7 +25,7 @@ export const LeftDrawer: FC<Props> = ({ closeDrawer }) => {
         borderRightWidth={1}
         borderColor={Colors.gray}
         borderStyle="solid"
-        backgroundColor={Colors.white}
+        background={Colors.white}
       >
         {data && (
           <TeamSelect
@@ -42,7 +42,7 @@ export const LeftDrawer: FC<Props> = ({ closeDrawer }) => {
         borderRightWidth={1}
         borderColor={Colors.gray}
         borderStyle="solid"
-        backgroundColor={Colors.white}
+        background={Colors.white}
       >
         {currentTeamUserJoin && <ChannelSelect currentTeamUserJoin={currentTeamUserJoin} closeDrawer={closeDrawer} />}
       </ScrollContainer>

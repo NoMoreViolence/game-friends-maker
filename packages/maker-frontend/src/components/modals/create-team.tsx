@@ -7,7 +7,6 @@ import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOI
 import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
 import { MY_TEAM_USER_JOINS } from 'graphqls/queries/MY_TEAM_USER_JOINS';
 import { MyTeamUserJoins } from 'graphqls/queries/__generated__/MyTeamUserJoins';
-import { Icon, iconMap } from 'helpers';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Col, fontWeights, Row, Span24, TextInput, YScroll } from 'ui';
 
@@ -68,17 +67,8 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
   return (
     <Modal display={display} exit={exit}>
       <Loading isLoading={isLoading} />
-      <Row
-        boxShadow="rgba(41, 41, 41, 0.05) 0px 4px 7px;"
-        pr={16}
-        pl={16}
-        pt={16}
-        pb={16}
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <Row pr={16} pl={16} pt={16} pb={16} justifyContent="space-between" alignItems="center">
         <CloseIcon cursor="pointer" onClick={exit} />
-        <Icon onClick={exit} pointer={true} mr={16} iconClass={iconMap.close} iconSize={24} />
         <Span24 fontWeight={fontWeights.bold} flex={1}>
           Create team
         </Span24>
@@ -96,7 +86,7 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
       </YScroll>
 
       <Row justifyContent="flex-end" pt={16} pb={16} pr={16} pl={16}>
-        <Button size="large" text="Start" onClick={onSubmit} isDisabled={isDisabled} type="primary" />
+        <Button size="large" text="Start" onClick={onSubmit} isDisabled={isDisabled} type="black" />
       </Row>
     </Modal>
   );
