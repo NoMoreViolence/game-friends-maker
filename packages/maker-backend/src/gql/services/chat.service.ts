@@ -13,7 +13,7 @@ export class ChatService {
         {
           $match: {
             channelId,
-            createdAt: option.direction > 0 ? { $gt: option.date } : { $lt: option.date },
+            createdAt: option.direction > 0 ? { $gt: new Date(option.date) } : { $lt: new Date(option.date) },
           },
         },
         {
@@ -97,7 +97,7 @@ export class ChatService {
   ) {
     const chatModel = new ChatModel();
     setter(chatModel, { _id: chatId, channelId, userId, text, type });
-    return await chatModel.save();
+    return chatModel.save();
   }
   public async updateChat(chatDocument: ChatDocument, text: string) {
     const chat = await chatDocument.update({ text }, { new: true }).exec();
