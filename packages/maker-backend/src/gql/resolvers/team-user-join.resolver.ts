@@ -1,7 +1,7 @@
 import { Context } from '@gql/bootstrap/session';
 import { TeamController, TeamUserJoinController } from '@gql/controllers';
 import { Team, TeamUserJoin, User } from '@gql/models';
-import { CreateTeamPayload, GetTeamUserJoinPayload } from '@gql/payloads';
+import { CreateTeamPayload } from '@gql/payloads';
 import { CommonService, TeamService, UserService } from '@gql/services';
 import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 import { Service } from 'typedi';

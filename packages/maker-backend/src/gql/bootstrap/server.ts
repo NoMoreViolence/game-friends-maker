@@ -1,12 +1,12 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, Callback } from 'aws-lambda';
-import { ApolloServer } from 'apollo-server-lambda';
-import * as TypeGraphQL from 'type-graphql';
-import { Container } from 'typedi';
+import { HttpStatusCode } from '@constants';
 import { dbConnect } from '@database';
-import * as Resolvers from '@gql/resolvers';
 import { authChecker } from '@gql/bootstrap/auth';
 import { injectId } from '@gql/bootstrap/session';
-import { HttpStatusCode } from '@constants';
+import * as Resolvers from '@gql/resolvers';
+import { ApolloServer } from 'apollo-server-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Callback } from 'aws-lambda';
+import * as TypeGraphQL from 'type-graphql';
+import { Container } from 'typedi';
 
 if (global.schema) {
   console.log('global.schema already exists!');

@@ -1,8 +1,5 @@
 import { UserDocument } from '@common-server';
-import { GetTeamUserJoinPayload } from '@gql/payloads';
 import { CommonService, TeamUserJoinService, UserChannelJoinService } from '@gql/services';
-import { ApolloError } from 'apollo-server';
-import { ObjectId } from 'bson';
 import { Service } from 'typedi';
 
 @Service()

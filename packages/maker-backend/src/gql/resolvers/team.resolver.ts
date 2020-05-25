@@ -1,11 +1,11 @@
-import { Authorized, Ctx, Resolver, Mutation, Arg, Query, FieldResolver, Root } from 'type-graphql';
-import { ObjectId } from 'mongodb';
-import { Service } from 'typedi';
-import { UserService, CommonService } from '@gql/services';
 import { Context } from '@gql/bootstrap/session';
-import { Team } from '@gql/models';
-import { UpdateTeamPayload, GetTeamsPayload, GetTeamsOptionPayload } from '@gql/payloads';
 import { TeamController } from '@gql/controllers';
+import { Team } from '@gql/models';
+import { GetTeamsOptionPayload, GetTeamsPayload, UpdateTeamPayload } from '@gql/payloads';
+import { CommonService, UserService } from '@gql/services';
+import { ObjectId } from 'mongodb';
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import { Service } from 'typedi';
 
 @Service()
 @Resolver((type) => Team)
