@@ -1,63 +1,37 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import {
-  background,
-  BackgroundProps,
-  border,
-  BorderProps,
-  boxShadow,
-  flexbox,
-  FlexboxProps,
-  layout,
-  LayoutProps,
-  margin,
-  MarginProps,
-  padding,
-  PaddingProps,
-  ShadowProps,
-} from 'styled-system';
-import { Colors } from 'ui';
+import { boxShadow, BoxShadowProps } from 'styled-system';
+import { Colors, textStyles } from 'ui';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   selected?: boolean;
 }
 export const TeamBox: FC<Props> = (props) => (
-  <TeamBoxDiv
-    width={50}
-    height={50}
-    mr="auto"
-    ml="auto"
-    mt={16}
-    mb={16}
-    justifyContent="center"
-    alignItems="center"
-    borderColor={Colors.black}
-    borderRadius={4}
-    borderWidth={1}
-    borderStyle="solid"
-    background={props.selected ? Colors.secondary : Colors.white}
-    {...props}
-  />
+  <Box boxShadow={props.selected ? '0 0 0 0.2rem rgba(0, 0, 0, 0.5)' : undefined} {...props} />
 );
 
-interface TeamBoxProps
-  extends FlexboxProps,
-    LayoutProps,
-    BorderProps,
-    MarginProps,
-    PaddingProps,
-    ShadowProps,
-    BackgroundProps {}
-const TeamBoxDiv = styled.div<TeamBoxProps>`
-  ${flexbox}
-  ${layout}
-  ${border}
-  ${margin}
-  ${padding}
-  ${boxShadow}
-  ${background}
-  transition: .25s;
+interface TeamBoxProps extends BoxShadowProps {}
+const Box = styled.div<TeamBoxProps>`
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 16px auto;
+  border: 1px solid ${Colors.likeBlack};
+  border-radius: 2px;
+
+  color: ${Colors.likeBlack};
+  background-color: ${Colors.likeWhite};
+
+  transition: 0.25s;
+  cursor: pointer;
   &:hover {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.16);
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.5);
   }
+
+  ${boxShadow}
+  ${textStyles.px24}
 `;

@@ -13,9 +13,9 @@ export const ChatItem: FC<Props> = ({ chat, chat: { type, isDateDifferentWithPre
     <Col alignItems="stretch">
       {isDateDifferentWithPrevious && (
         <Row
-          pt={4}
-          pb={4}
-          borderBottomWidth={1}
+          pt="4px"
+          pb="4px"
+          borderBottomWidth="1px"
           borderWidth={0}
           borderStyle="solid"
           borderColor={Colors.gray}

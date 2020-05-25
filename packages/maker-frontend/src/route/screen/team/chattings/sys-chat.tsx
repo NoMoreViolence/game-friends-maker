@@ -7,7 +7,7 @@ interface Props {
 }
 export const SystemChat: FC<Props> = ({ chat: { text } }) => {
   return (
-    <Row pt={4} pb={4} pl={4} pr={4} justifyContent="center" alignItems="center">
+    <Row padding="4px" justifyContent="center" alignItems="center">
       <Span10 color={Colors.black}>{text}</Span10>
     </Row>
   );

@@ -13,11 +13,13 @@ export const ChatInput: FC<Props> = ({ userChannelJoin }) => {
 
   return (
     <TextInput
-      mt="12px"
-      mb="12px"
-      mr="12px"
-      ml="12px"
+      mt="12px !important"
+      mb="12px !important"
+      mr="12px !important"
+      ml="12px !important"
       text={text}
+      name="chat"
+      type="text"
       onChangeText={setText}
       onEnterSubmit={onSubmit}
       placeholder="Talk"

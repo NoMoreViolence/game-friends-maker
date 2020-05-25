@@ -68,19 +68,15 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
     <Modal display={display} exit={exit}>
       <Loading isLoading={isLoading} />
       <Row pr={16} pl={16} pt={16} pb={16} justifyContent="space-between" alignItems="center">
-        <CloseIcon cursor="pointer" onClick={exit} />
-        <Span24 fontWeight={fontWeights.bold} flex={1}>
-          Create team
-        </Span24>
-
-        <Row alignItems="center"></Row>
+        <Span24 fontWeight={fontWeights.bold}>Create team</Span24>
+        <CloseIcon fontSize="large" cursor="pointer" onClick={exit} />
       </Row>
 
       <YScroll>
-        <Col pr={16} pl={16} pt={32} alignItems="stretch" isReversed>
+        <Col pr={16} pl={16} pt={32} alignItems="stretch">
           <TextInput text={teamName} onChangeText={setTeamName} placeholder="Set your team name" />
         </Col>
-        <Col pr={16} pl={16} pt={32} alignItems="stretch" isReversed>
+        <Col pr={16} pl={16} pt={32} alignItems="stretch">
           <TextInput text={teamDescription} onChangeText={setTeamDescription} placeholder="What for ?" />
         </Col>
       </YScroll>

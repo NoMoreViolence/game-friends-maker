@@ -8,30 +8,30 @@ function getButtonSize(size?: 'small' | 'medium' | 'large' | 'wide') {
   switch (size) {
     case 'small':
       return `
-        height: 40px;
-        font-size: 16px;
+        padding: 12px;
+        font-size: 12px;
       `;
     case 'medium':
       return `
-        height: 50px;
-        font-size: 20px;
+        padding: 12px;
+        font-size: 16px;
       `;
     case 'large':
       return `
-        height: 60px;
-        font-size: 24px;
+        padding: 12px;
+        font-size: 20px;
       `;
     case 'wide':
       return `
         flex: 1;
         width: 100%;
-        height: 60px;
-        font-size: 28px;
+        padding: 12px;
+        font-size: 24px;
       `;
     default:
       return `
-        height: 60px;
-        font-size: 20px;
+        padding: 12px;
+        font-size: 16px;
       `;
   }
 }
@@ -41,7 +41,7 @@ function getButtonType(type: ButtonType) {
     case 'black':
       return `
         background-color: ${Colors.likeBlack};
-        border-radius: 2px;
+        border-radius: 4px;
         border-width: 1px;
         border-style: solid;
         border-color: ${Colors.likeBlack};
@@ -53,7 +53,7 @@ function getButtonType(type: ButtonType) {
     case 'white':
       return `
         background-color: ${Colors.likeWhite};
-        border-radius: 2px;
+        border-radius: 4px;
         border-width: 1px;
         border-style: solid;
         border-color: ${Colors.likeBlack};
@@ -65,7 +65,7 @@ function getButtonType(type: ButtonType) {
     case 'yellow':
       return `
         background-color: ${Colors.yellow};
-        border-radius: 2px;
+        border-radius: 4px;
         border-width: 1px;
         border-style: solid;
         border-color: ${Colors.yellow};
@@ -80,7 +80,7 @@ function getButtonType(type: ButtonType) {
     case 'red':
       return `
           background-color: ${Colors.error};
-          border-radius: 2px;
+          border-radius: 4px;
           border-width: 1px;
           border-style: solid;
           border-color: ${Colors.likeWhite};
@@ -159,15 +159,17 @@ const StyledButton = styled.button<StyledProps>`
   ${margin}
   ${padding}
 
-  &:not(:disabled) {
-    transition: 0.5s;
-  }
   &:disabled {
+    border-color: ${Colors.gray};
+    background-color: ${Colors.gray};
+    color: ${Colors.likeBlack};
     box-shadow: none;
+    cursor: not-allowed;
   }
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   cursor: pointer;
+  transition: 0.5s;
 `;

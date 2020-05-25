@@ -30,11 +30,11 @@ export const ChannelSelect: FC<Props> = ({ currentTeamUserJoin, closeDrawer }) =
   return (
     <>
       <Row height={64} pl={16} pr={16} justifyContent="space-between" alignItems="center">
-        <Row flex={1} pr={12} pl={12} pt={12} pb={12}>
+        <Row justifyContent="flex-start" flex={1} pr={12} pl={12} pt={12} pb={12}>
           <Span18>{currentTeamUserJoin.team.name}</Span18>
         </Row>
       </Row>
-      <Row pt={20} pb={8} pl={16} pr={16}>
+      <Row justifyContent="flex-start" pt={20} pb="8px" pl={16} pr={16}>
         <Span14 color={Colors.grayScale.dark}>Channels</Span14>
       </Row>
       <Col alignItems="stretch">
@@ -48,7 +48,7 @@ export const ChannelSelect: FC<Props> = ({ currentTeamUserJoin, closeDrawer }) =
           />
         ))}
       </Col>
-      <Row pt={20} pb={8} pl={16} pr={16}>
+      <Row justifyContent="flex-start" pt={20} pb={8} pl={16} pr={16}>
         <Span14 color={Colors.grayScale.dark}>Members</Span14>
       </Row>
       <Col alignItems="stretch">
@@ -86,11 +86,9 @@ const ChannelBox: FC<ChannelBoxProps> = ({
       pb={12}
       pr={16}
       pl={16}
-      background={currentUserChannelJoinId === userChannelJoin._id ? Colors.secondary : Colors.white}
+      background={currentUserChannelJoinId === userChannelJoin._id ? Colors.gray : Colors.white}
     >
-      <Span14 color={currentUserChannelJoinId === userChannelJoin._id ? Colors.white : Colors.black}>
-        {userChannelJoin.channel.name}
-      </Span14>
+      <Span14 color={Colors.black}>{userChannelJoin.channel.name}</Span14>
     </Row>
   );
 };

@@ -17,30 +17,30 @@ export const TextChat: FC<Props> = ({
 
   return (
     <Row
-      pt={isTimeDifferentWithPrevious ? 4 : 0}
-      pb={4}
-      pl={4}
-      pr={4}
+      pt={isTimeDifferentWithPrevious ? '4px' : '0'}
+      pb="4px"
+      pl="4px"
+      pr="4px"
       isReversed={isMyChat}
       justifyContent={isMyChat ? 'flex-start' : 'flex-end'}
       alignItems="flex-start"
     >
       {!isMyChat && (
-        <Row width={36} ml={isMyChat ? 8 : 0} mr={!isMyChat ? 8 : 0} alignItems="flex-start">
+        <Row width={36} ml={isMyChat ? '8px' : 0} mr={!isMyChat ? '8px' : 0} alignItems="flex-start">
           {shouldShowProfileCircle && (
-            <Circle size={36} background={Colors.primaryScale['light']}>
+            <Circle size={36} background={Colors.gray}>
               <Span16>{user.name.charAt(0)}</Span16>
             </Circle>
           )}
         </Row>
       )}
-      <Col alignItems="flex-start" pr={4} pl={4} pt={4}>
-        <Row borderRadius={12} pt={10} pb={10} pr={16} pl={16} background={Colors.secondary}>
-          <Span14 color={Colors.white}>{text}</Span14>
+      <Col alignItems="flex-start" pr="4px" pl="4px" pt="4px">
+        <Row borderRadius={12} pt={10} pb={10} pr={16} pl={16} background={Colors.gray}>
+          <Span14 color={Colors.likeBlack}>{text}</Span14>
         </Row>
       </Col>
       {isTimeDifferentWithPrevious && (
-        <Col alignItems="flex-start" pt={4}>
+        <Col alignItems="flex-start" pt="4px">
           <Span10 color={Colors.black}>{messageTime}</Span10>
         </Col>
       )}

@@ -15,7 +15,7 @@ export interface CreateTeamPayload {
 export interface GetChattingsPayload {
   limit: number;
   direction: number;
-  date: any;
+  date: string;
 }
 
 export interface NextCurrentTeamUserJoinId {

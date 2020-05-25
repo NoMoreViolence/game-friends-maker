@@ -52,7 +52,7 @@
     "react-tiny-fab": "^3.4.0",
     "react-toastify": "^5.5.0",
     "react-transition-group": "^4.3.0",
-    "react-use": "^14.2.0",
+    "react-use": "^15.1.0",
     "rxjs": "^6.5.5",
     "styled-components": "^5.1.0",
     "styled-system": "^5.1.5",
