@@ -26,7 +26,7 @@ export const TextChat: FC<Props> = ({
       alignItems="flex-start"
     >
       {!isMyChat && (
-        <Row width={36} ml={isMyChat ? '8px' : 0} mr={!isMyChat ? '8px' : 0} alignItems="flex-start">
+        <Row width={36} ml="8px" mr="8px" alignItems="flex-start">
           {shouldShowProfileCircle && (
             <Circle size={36} background={Colors.gray}>
               <Span16>{user.name.charAt(0)}</Span16>
