@@ -12,7 +12,7 @@ export const Header: FC<Props> = ({ openLeftSidebar, openRightSidebar }) => (
     background={Colors.white}
     justifyContent="space-between"
     borderColor={Colors.gray}
-    borderWidth={1}
+    borderWidth="1px"
     borderRightWidth={0}
     borderLeftWidth={0}
     borderTopWidth={0}
@@ -22,7 +22,15 @@ export const Header: FC<Props> = ({ openLeftSidebar, openRightSidebar }) => (
       {openLeftSidebar && <MenuOutlined cursor="pointer" onClick={openLeftSidebar} />}
     </Row>
     <Row width={64} height={64} justifyContent="center" alignItems="center">
-      <Img onClick={openRightSidebar} ml={8} src="/images/icons/lee-1.svg" pointer width="30" height="30" alt="User" />
+      <Img
+        onClick={openRightSidebar}
+        ml="8px"
+        src="/images/icons/lee-1.svg"
+        pointer
+        width="30px"
+        height="30px"
+        alt="User"
+      />
     </Row>
   </Row>
 );

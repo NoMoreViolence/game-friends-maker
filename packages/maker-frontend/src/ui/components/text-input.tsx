@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import React, { ChangeEvent, FC, InputHTMLAttributes, KeyboardEvent, useCallback } from 'react';
-import styled from 'styled-components';
-import { margin, MarginProps } from 'styled-system';
+import { MarginProps } from 'styled-system';
+import { Col } from 'ui/layout';
 
 export interface InputValueProps {
   autoComplete?: string;
@@ -14,10 +14,10 @@ export interface InputValueProps {
   placeholder?: string;
   errorMessage?: string;
 }
-export interface InputStyledProps extends MarginProps {}
-export interface Props extends InputValueProps, InputHTMLAttributes<HTMLInputElement>, InputStyledProps {}
+export interface Props extends InputValueProps, InputHTMLAttributes<HTMLInputElement>, MarginProps {}
 
 export const TextInput: FC<Props> = ({
+  id,
   text = '',
   onChangeText = () => {},
   onEnterSubmit,
@@ -44,27 +44,21 @@ export const TextInput: FC<Props> = ({
   );
 
   return (
-    <StyledInput
-      name={name}
-      type={type}
-      autoComplete={autoComplete}
-      id="outlined-basic"
-      label={placeholder}
-      variant="outlined"
-      color="secondary"
-      value={text}
-      onChange={handleChange}
-      onKeyPress={handleSubmit}
-      error={!!errorMessage}
-      helperText={errorMessage}
-      mt={mt}
-      mb={mb}
-      mr={mr}
-      ml={ml}
-    />
+    <Col alignItems="stretch" mt={mt} mb={mb} mr={mr} ml={ml}>
+      <TextField
+        name={name}
+        type={type}
+        autoComplete={autoComplete}
+        id={id}
+        label={placeholder}
+        variant="outlined"
+        color="primary"
+        value={text}
+        onChange={handleChange}
+        onKeyPress={handleSubmit}
+        error={!!errorMessage}
+        helperText={errorMessage}
+      />
+    </Col>
   );
 };
-
-const StyledInput = styled(TextField)<InputStyledProps>`
-  ${margin}
-`;

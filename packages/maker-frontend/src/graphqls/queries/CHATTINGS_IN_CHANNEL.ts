@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/react-hooks';
+import dayjs from 'dayjs';
 import gql from 'graphql-tag';
 import { ChatFullFragment } from 'graphqls/fragments';
-import { ChattingsInChannel, ChattingsInChannelVariables } from './__generated__/ChattingsInChannel';
 import { ChatFull } from 'graphqls/fragments/__generated__/ChatFull';
 import { UserChannelJoinFull } from 'graphqls/fragments/__generated__/UserChannelJoinFull';
-import { useMemo, useCallback, useState } from 'react';
-import dayjs from 'dayjs';
+import { useCallback, useMemo, useState } from 'react';
+import { ChattingsInChannel, ChattingsInChannelVariables } from './__generated__/ChattingsInChannel';
 
 export const CHATTINGS_IN_CHANNEL = gql`
   ${ChatFullFragment}
@@ -40,7 +40,7 @@ export function useFetchMoreChattingsInChannel(userChannelJoin: UserChannelJoinF
         channelId: userChannelJoin.channelId,
         getChattingsPayload: {
           direction: -1,
-          date: new Date(firstChat.createdAt),
+          date: new Date(firstChat.createdAt).toISOString(),
           limit: 100,
         },
       },

@@ -1,8 +1,8 @@
 import { UserChannelJoinFull } from 'graphqls/fragments/__generated__/UserChannelJoinFull';
 import { useChattingsPrettier, useFetchMoreChattingsInChannel } from 'graphqls/queries/CHATTINGS_IN_CHANNEL';
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Container, ScrollContainer, Row } from 'ui';
+import { Container, Row, ScrollContainer } from 'ui';
 import { ChatItem } from './chat-item';
 
 interface Props {
@@ -13,27 +13,34 @@ export const Chattings: FC<Props> = ({ userChannelJoin }) => {
   const { chattings } = useChattingsPrettier(userChannelJoin);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  const scrollHandler = useCallback(() => {
+    const containerElement = scrollContainerRef.current;
+    if (containerElement) {
+      const { clientHeight, scrollHeight, scrollTop } = containerElement;
+      const normalizedScrollHeight = scrollTop >= 0 ? scrollTop : scrollTop + scrollHeight - clientHeight;
+      if (
+        normalizedScrollHeight < 700 &&
+        userChannelJoin.channel.firstChatCreatedAt !== chattings[chattings.length - 1]?.createdAt
+      ) {
+        fetchMoreChattings();
+      }
+    }
+  }, [chattings, fetchMoreChattings, userChannelJoin.channel.firstChatCreatedAt]);
+
   useEffect(() => {
     const containerElement = scrollContainerRef.current;
     if (containerElement) {
-      const handler = () => {
-        const { clientHeight, scrollHeight, scrollTop } = containerElement;
-        const normalizedScrollHeight = scrollTop >= 0 ? scrollTop : scrollTop + scrollHeight - clientHeight;
-        if (normalizedScrollHeight < 700) {
-          fetchMoreChattings();
-        }
-      };
-      containerElement.addEventListener('scroll', handler);
+      containerElement.addEventListener('scroll', scrollHandler);
       return () => {
-        containerElement.removeEventListener('scroll', handler);
+        containerElement.removeEventListener('scroll', scrollHandler);
       };
     }
-  }, [fetchMoreChattings]);
+  }, [scrollHandler]);
 
   return (
     <StyledContainer>
       <StyledScrollContainer ref={scrollContainerRef}>
-        <Row padding={4} />
+        <Row padding="4px" />
         {chattings.map((s) => (
           <ChatItem chat={s} key={s._id} />
         ))}

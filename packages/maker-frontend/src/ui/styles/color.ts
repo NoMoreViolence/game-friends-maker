@@ -47,9 +47,9 @@ export const Colors = {
 export const ColorsTheme = createMuiTheme({
   palette: {
     primary: {
-      light: Colors.primaryScale.light,
-      main: Colors.primary,
-      dark: Colors.primaryScale.dark,
+      light: Colors.grayScale.light,
+      main: Colors.gray,
+      dark: Colors.grayScale.dark,
     },
     secondary: {
       light: Colors.secondaryScale.light,
