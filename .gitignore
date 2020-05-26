@@ -1,17 +1,14 @@
 # node_modules
 /packages/maker-backend/node_modules
 /packages/maker-frontend/node_modules
+/packages/backend-query/node_modules
+/packages/common-server/node_modules
 /node_modules
-# package-lock
-/packages/maker-backend/package-lock.json
-/packages/maker-backend/yarn.lock
-/packages/maker-frontend/package-lock.json
-/packages/maker-frontend/yarn.lock
-/package-lock.json
-/yarn.lock
+
 # System Files
 .DS_Store
 Thumbs.db
+
 # IDEs and editors
 /.idea
 .project
@@ -20,6 +17,7 @@ Thumbs.db
 *.launch
 .settings/
 *.sublime-workspace
+
 # IDE - VSCode
 .vscode/*
 /packages/maker-frontend/.vscode/settings.json
@@ -30,8 +28,8 @@ Thumbs.db
 /packages/maker-backend/.vscode/tasks.json
 /packages/maker-backend/.vscode/launch.json
 /packages/maker-backend/.vscode/extensions.json
+
 # prettierrc
-.prettierrc
 /packages/maker-backend/prettierrc
 /packages/maker-frontend/prettierrc
 /packages/maker-frontend-2/prettierrc
@@ -43,7 +41,6 @@ Thumbs.db
 /packages/maker-frontend/coverage
 /packages/maker-frontend/libpeerconnection.log
 /packages/maker-frontend/typings
-/packages/maker-frontend/yarn.lock
 # frontend-output
 /packages/maker-frontend/dist
 /packages/maker-frontend/tmp
@@ -53,7 +50,6 @@ Thumbs.db
 # backend database
 /packages/maker-backend/.env
 /packages/maker-backend/config
-/packages/maker-backend/yarn.lock
 /packages/maker-backend/dist
 /packages/maker-backend/.serverless
 /packages/maker-backend/env.yml
@@ -64,7 +60,6 @@ Thumbs.db
 
 # backend-query
 /packages/backend-query/node_modules
-/packages/backend-query/yarn.lock
 /packages/backend-query/.env
 /packages/backend-query/dist
 /packages/backend-query/dist/*
@@ -75,14 +70,8 @@ Thumbs.db
 
 # common-server
 /packages/common-server/node_modules
-/packages/common-server/yarn.lock
 /packages/common-server/.env
 /packages/common-server/dist
 /packages/common-server/dist/*
 /packages/common-server/.vscode
 /packages/common-server/yarn-error.log
-
-
-.prettierignore
-node_modules
-.vscode
