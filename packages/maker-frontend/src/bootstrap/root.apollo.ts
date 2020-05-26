@@ -9,11 +9,11 @@ function getApolloClientUri(): string {
     case 'dev':
       return 'http://localhost:7000/local/graphql';
     case 'test':
-      return 'https://dev-server.coopnow.net/dev/graphql';
+      return 'https://staging-backend.cohope.io/graphql';
     case 'prod':
-      return 'https://prod-server.coopnow.net/prod/graphql';
+      return 'https://backend.cohope.io/graphql';
     default:
-      return 'https://prod-server.coopnow.net/prod/graphql';
+      return 'https://backend.cohope.io/graphql';
   }
 }
 
