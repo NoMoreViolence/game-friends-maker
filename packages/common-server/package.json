@@ -24,16 +24,16 @@
   "devDependencies": {
     "@types/bson": "^4.0.2",
     "@types/gulp": "^4.0.6",
-    "@types/mongoose": "^5.7.12",
+    "@types/mongoose": "^5.7.21",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
-    "prettier": "^2.0.4",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1"
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0"
   },
   "dependencies": {
     "bson": "^4.0.4",
-    "mongoose": "^5.9.9",
+    "mongoose": "^5.9.16",
     "mongoosejs-soft-delete": "^1.0.2"
   }
 }
