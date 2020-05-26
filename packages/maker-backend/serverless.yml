@@ -1,5 +1,5 @@
 service:
-  name: CoHope-app-server
+  name: cohope-backend
 
 plugins:
   - serverless-webpack
@@ -23,9 +23,11 @@ custom:
 
 provider:
   name: aws
-  stage: dev # default is dev
-  region: ap-northeast-2
   runtime: nodejs12.x
+  region: ap-northeast-2
+  stage: dev # default is dev :: package.json's command will overwrite this stage
+  versionFunctions: true
+  profile: ${opt:profile, 'cohope'}
   environment:
     APOLLO_KEY: ${self:custom.env.APOLLO_KEY}
     ENV: ${self:custom.env.NODE_ENV}
@@ -37,6 +39,8 @@ provider:
     DATABASE_URL: ${self:custom.env.DATABASE_URL}
     GOOGLE_SECRET: ${self:custom.env.GOOGLE_SECRET}
     GOOGLE_CLIENT: ${self:custom.env.GOOGLE_CLIENT}
+  deploymentBucket:
+    blockPublicAccess: true # Prevents public access via ACLs or bucket policies. Default is false
   timeout: 30
 
 functions:
@@ -53,6 +57,7 @@ functions:
           cors: true
           path: graphql
           integration: lambda-proxy
+
   loginOrRegister:
     handler: src/http/index.loginOrRegister
     events:
