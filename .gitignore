@@ -4,6 +4,7 @@
 /packages/backend-query/node_modules
 /packages/common-server/node_modules
 /node_modules
+yarn-error.log
 
 # System Files
 .DS_Store

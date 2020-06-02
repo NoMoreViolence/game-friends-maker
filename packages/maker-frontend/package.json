@@ -6,15 +6,15 @@
     "@apollo/react-components": "^3.1.5",
     "@apollo/react-hoc": "^3.1.5",
     "@apollo/react-hooks": "^3.1.5",
-    "@atlaskit/spinner": "^12.1.7",
+    "@atlaskit/spinner": "^13.0.0",
     "@atlaskit/tooltip": "^15.2.7",
-    "@material-ui/core": "^4.10.0",
+    "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.49",
     "@types/jest": "^25.2.3",
-    "@types/node": "^14.0.5",
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
+    "@types/node": "^14.0.9",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
     "animate.css": "^4.1.0",
     "apollo": "^2.28.0",
     "apollo-boost": "^0.4.9",
@@ -27,7 +27,7 @@
     "axios": "^0.19.2",
     "bson": "^4.0.4",
     "css-in-js-media": "^1.0.14",
-    "dayjs": "^1.8.27",
+    "dayjs": "^1.8.28",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
@@ -40,55 +40,28 @@
     "react-epic-spinners": "^0.4.1",
     "react-google-login": "^5.1.20",
     "react-helmet": "^6.0.0",
-    "react-intl": "^4.5.12",
+    "react-intl": "^4.6.3",
     "react-loader-spinner": "^3.1.14",
     "react-localization": "^1.0.15",
     "react-mailchimp-subscribe": "^2.1.0",
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^4.0.8",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
     "react-sidebar": "^3.0.2",
     "react-tiny-fab": "^3.5.0",
     "react-toastify": "^6.0.5",
     "react-transition-group": "4.4.1",
-    "react-use": "^15.1.0",
+    "react-use": "^15.1.1",
     "rxjs": "^6.5.5",
     "styled-components": "^5.1.1",
     "styled-system": "^5.1.5",
-    "sweetalert2": "^9.13.1",
+    "sweetalert2": "^9.14.0",
     "sweetalert2-react-content": "^3.0.1",
-    "typescript": "^3.9.3",
+    "typescript": "~3.7.2",
     "use-force-update": "^1.0.7",
     "use-react-router": "^1.0.7",
     "utility-types": "^3.10.0"
-  },
-  "scripts": {
-    "dev": "cross-env REACT_APP_STAGE=dev REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
-    "start:test": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
-    "build:test": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web react-scripts build",
-    "build:prod": "cross-env REACT_APP_STAGE=prod REACT_APP_RUNNING_ENV=web react-scripts build",
-    "deploy:prod": "aws s3 sync ./build s3://cohope.io --profile=cohope",
-    "clear:prod": "aws cloudfront create-invalidation --profile=cohope --distribution-id E273TT4DOWJUI4 --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
-    "deploy:test": "aws s3 sync ./build s3://staging.cohope.io --profile=cohope",
-    "clear:test": "aws cloudfront create-invalidation --profile=cohope --distribution-id E2VOHNAS0N98KS --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
-    "codegen:schema": "rimraf 'src/schema.json' && apollo client:download-schema --endpoint=http://localhost:7000/local/graphql src/schema.json",
-    "codegen:types": "rimraf './src/**/__generated__' && apollo client:codegen --addTypename --includes=src/graphqls/**/*.ts --globalTypesFile=src/graphqls/__generated__/globalTypes.ts --endpoint=http://localhost:7000/local/graphql --target=typescript"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.15.0",
@@ -101,7 +74,7 @@
     "@graphql-codegen/typescript-react-apollo": "^1.15.0",
     "@types/axios": "^0.14.0",
     "@types/bson": "^4.0.2",
-    "@types/lodash": "^4.14.152",
+    "@types/lodash": "^4.14.154",
     "@types/randomstring": "^1.1.6",
     "@types/react-animate-on-scroll": "^2.1.2",
     "@types/react-helmet": "^6.0.0",
@@ -115,5 +88,29 @@
     "@types/styled-components": "^5.1.0",
     "@types/styled-system": "^5.1.9",
     "cross-env": "^7.0.2"
+  },
+  "scripts": {
+    "dev": "cross-env REACT_APP_STAGE=dev REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
+    "start:test": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web PORT=3000 react-scripts start",
+    "build:test": "cross-env REACT_APP_STAGE=test REACT_APP_RUNNING_ENV=web react-scripts build",
+    "build:prod": "cross-env REACT_APP_STAGE=prod REACT_APP_RUNNING_ENV=web react-scripts build",
+    "deploy:prod": "aws s3 sync ./build s3://cohope.io --profile=cohope",
+    "clear:prod": "aws cloudfront create-invalidation --profile=cohope --distribution-id E273TT4DOWJUI4 --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
+    "deploy:test": "aws s3 sync ./build s3://staging.cohope.io --profile=cohope",
+    "clear:test": "aws cloudfront create-invalidation --profile=cohope --distribution-id E2VOHNAS0N98KS --paths / /index.html /service-worker.js /manifest.json /favicon.svg /favicon.png",
+    "codegen:schema": "rimraf 'src/schema.json' && apollo client:download-schema --endpoint=http://localhost:7000/local/graphql src/schema.json",
+    "codegen:types": "rimraf './src/**/__generated__' && apollo client:codegen --addTypename --includes=src/graphqls/**/*.ts --globalTypesFile=src/graphqls/__generated__/globalTypes.ts --endpoint=http://localhost:7000/local/graphql --target=typescript"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

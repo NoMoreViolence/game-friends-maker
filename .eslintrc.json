@@ -6,8 +6,10 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "extends": [
-    "plugin:@typescript-eslint/recommended",
+    "react-app",
+    "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier",
     "prettier/@typescript-eslint"
   ],
@@ -19,6 +21,11 @@
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
   },
   "rules": {
     "@typescript-eslint/interface-name-prefix": 0,
@@ -34,14 +41,10 @@
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "react-hooks/exhaustive-deps": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": ["warn"],
+    // "react-hooks/exhaustive-deps": "off",
     "react/prop-types": "off"
-  },
-  "overrides": [{
-    "files": ["*.js", "*.jsx"],
-    "rules": {
-      "@typescript-eslint/no-var-requires": "off"
-    }
-  }]
+  }
 }
