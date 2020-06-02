@@ -1,14 +1,13 @@
 import { useMutation } from '@apollo/react-hooks';
 import CloseIcon from '@material-ui/icons/CloseOutlined';
 import { Loading } from 'components/loading';
-import { Modal } from 'components/modal';
 import { CREATE_TEAM } from 'graphqls/mutations/CREATE_TEAM';
 import { useUpdateTeamUserJoinId } from 'graphqls/mutations/UPDATE_TEAM_USER_JOIN_ID';
 import { CreateTeam, CreateTeamVariables } from 'graphqls/mutations/__generated__/CreateTeam';
 import { MY_TEAM_USER_JOINS } from 'graphqls/queries/MY_TEAM_USER_JOINS';
 import { MyTeamUserJoins } from 'graphqls/queries/__generated__/MyTeamUserJoins';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Col, fontWeights, Row, Span24, TextInput, YScroll } from 'ui';
+import { Button, Col, fontWeights, Modal, Row, Span24, TextInput, YScroll } from 'ui';
 
 interface Props {
   display: boolean;
@@ -65,7 +64,7 @@ export const CreateTeamModal: FC<Props> = ({ display, exit }) => {
   }, [display]);
 
   return (
-    <Modal display={display} exit={exit}>
+    <Modal display={display} exit={exit} width={['100%', '100%', '350px']} height={['100%', '100%', '400px']}>
       <Loading isLoading={isLoading} />
       <Row pr={16} pl={16} pt={16} pb={16} justifyContent="space-between" alignItems="center">
         <Span24 fontWeight={fontWeights.bold}>Create team</Span24>

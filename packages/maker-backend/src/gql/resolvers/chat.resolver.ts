@@ -14,7 +14,7 @@ export class ChatResolver {
   constructor(
     private chatController: ChatController,
     private userService: UserService,
-    private commonService: CommonService,
+    private commonService: CommonService
   ) {}
 
   @Authorized()
@@ -22,13 +22,13 @@ export class ChatResolver {
   public async chattingsInChannel(
     @Ctx() context: Context,
     @Arg('channelId') channelId: string,
-    @Arg('getChattingsPayload', { nullable: true }) getChattingsPayload?: GetChattingsPayload,
+    @Arg('getChattingsPayload', { nullable: true }) getChattingsPayload?: GetChattingsPayload
   ) {
     const user = await this.userService.getUserByContext(context);
     const chattings = await this.chatController.chattingsInChannel(
       new ObjectId(channelId),
       user._id,
-      getChattingsPayload,
+      getChattingsPayload
     );
     return chattings;
   }
@@ -37,14 +37,14 @@ export class ChatResolver {
   @Mutation((returns) => Chat)
   public async sendTextChat(
     @Ctx() context: Context,
-    @Arg('sendTextChatPayload') sendTextChatPayload: SendTextChatPayload,
+    @Arg('sendTextChatPayload') sendTextChatPayload: SendTextChatPayload
   ) {
     const user = await this.userService.getUserByContext(context);
     const chat = await this.chatController.sendTextChat(
       new ObjectId(sendTextChatPayload.channelId),
       user._id,
       new ObjectId(sendTextChatPayload._id),
-      sendTextChatPayload.text,
+      sendTextChatPayload.text
     );
     return chat.toObject();
   }
