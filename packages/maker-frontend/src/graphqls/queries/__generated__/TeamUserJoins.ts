@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: MyTeamUserJoins
+// GraphQL query operation: TeamUserJoins
 // ====================================================
 
-export interface MyTeamUserJoins_myTeamUserJoins_user {
+export interface TeamUserJoins_teamUserJoins_user {
   __typename: "User";
   _id: string;
   name: string;
@@ -17,24 +17,13 @@ export interface MyTeamUserJoins_myTeamUserJoins_user {
   deleted: boolean;
 }
 
-export interface MyTeamUserJoins_myTeamUserJoins_team {
-  __typename: "Team";
-  _id: string;
-  name: string;
-  introduction: string;
-  createdAt: any;
-  updatedAt: any;
-  deleted: boolean;
-}
-
-export interface MyTeamUserJoins_myTeamUserJoins {
+export interface TeamUserJoins_teamUserJoins {
   __typename: "TeamUserJoin";
   _id: string;
   displayName: string;
   userId: string;
-  user: MyTeamUserJoins_myTeamUserJoins_user;
+  user: TeamUserJoins_teamUserJoins_user;
   teamId: string;
-  team: MyTeamUserJoins_myTeamUserJoins_team;
   muted: boolean;
   userState: string;
   createdAt: any;
@@ -42,6 +31,10 @@ export interface MyTeamUserJoins_myTeamUserJoins {
   deleted: boolean;
 }
 
-export interface MyTeamUserJoins {
-  myTeamUserJoins: MyTeamUserJoins_myTeamUserJoins[];
+export interface TeamUserJoins {
+  teamUserJoins: TeamUserJoins_teamUserJoins[];
+}
+
+export interface TeamUserJoinsVariables {
+  teamId: string;
 }

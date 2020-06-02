@@ -32,6 +32,7 @@ export interface CreateTeam_createTeam_team {
 export interface CreateTeam_createTeam {
   __typename: "TeamUserJoin";
   _id: string;
+  displayName: string;
   userId: string;
   user: CreateTeam_createTeam_user;
   teamId: string;

@@ -7,6 +7,7 @@ export const TeamUserJoinFullFragment = gql`
   ${TeamFullFragment}
   fragment TeamUserJoinFull on TeamUserJoin {
     _id
+    displayName
     userId
     user {
       ...UserFull
@@ -23,9 +24,31 @@ export const TeamUserJoinFullFragment = gql`
   }
 `;
 
+export const TeamUserJoinWithUserFragment = gql`
+  ${UserFullFragment}
+  fragment TeamUserJoinWithUser on TeamUserJoin {
+    _id
+    displayName
+    userId
+    user {
+      ...UserFull
+    }
+    teamId
+    muted
+    userState
+    createdAt
+    updatedAt
+    deleted
+  }
+`;
+
 export const TeamUserJoinSubFragment = gql`
   fragment TeamUserJoinSub on TeamUserJoin {
     _id
+    displayName
+    userId
+    teamId
+    muted
     userState
     createdAt
     updatedAt

@@ -5,6 +5,7 @@ import { CreateTeamPayload } from '@gql/payloads';
 import { CommonService, TeamService, UserService } from '@gql/services';
 import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 import { Service } from 'typedi';
+import { ObjectId } from 'mongodb';
 
 @Service()
 @Resolver(() => TeamUserJoin)
@@ -14,27 +15,25 @@ export class TeamUserJoinResolver {
     private userService: UserService,
     private teamService: TeamService,
     private commonService: CommonService,
-    private teamUserJoinController: TeamUserJoinController,
+    private teamUserJoinController: TeamUserJoinController
   ) {}
 
   @Authorized()
   @Query(() => [TeamUserJoin])
   public async myTeamUserJoins(@Ctx() context: Context) {
     const user = await this.userService.getUserByContext(context);
-    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoins(user);
+    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoinsByUser(user);
     return teamUserJoins.map((teamUserJoin) => teamUserJoin.toObject());
   }
 
   @Authorized()
-  @Mutation(() => TeamUserJoin)
-  public async createTeam(@Ctx() context: Context, @Arg('createTeamPayload') createTeamPayload: CreateTeamPayload) {
+  @Query(() => [TeamUserJoin])
+  public async teamUserJoins(@Ctx() context: Context, @Arg('teamId') teamId: string) {
     const user = await this.userService.getUserByContext(context);
-    const teamUserJoin = await this.teamController.createTeam(user, createTeamPayload);
-    return teamUserJoin.toObject();
+    const teamUserJoins = await this.teamUserJoinController.getTeamUserJoinsByTeamId(new ObjectId(teamId), user);
+    return teamUserJoins.map((teamUserJoin) => teamUserJoin.toObject());
   }
 
-  @Authorized()
-  @Mutation(() => [TeamUserJoin])
   @Authorized()
   @FieldResolver(() => User)
   async user(@Root() teamUserJoin: TeamUserJoin) {

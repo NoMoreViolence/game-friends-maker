@@ -31,7 +31,7 @@ export function useMyTeamUserJoins(option?: QueryHookOptions<MyTeamUserJoins, Re
 }
 
 export function useCurrentTeamUserJoin(currentTeamUserJoinId: string | null) {
-  const { data } = useMyTeamUserJoins({});
+  const { data } = useMyTeamUserJoins();
   const currentTeamUserJoin = data?.myTeamUserJoins.find((teamUserJoin) => teamUserJoin._id === currentTeamUserJoinId);
   return currentTeamUserJoin;
 }

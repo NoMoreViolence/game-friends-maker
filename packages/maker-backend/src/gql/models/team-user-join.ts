@@ -8,6 +8,9 @@ export class TeamUserJoin implements ITeamUserJoin {
   _id: ObjectId;
 
   @Field((type) => String)
+  displayName: string;
+
+  @Field((type) => String)
   teamId: ObjectId;
 
   @Field((type) => String)

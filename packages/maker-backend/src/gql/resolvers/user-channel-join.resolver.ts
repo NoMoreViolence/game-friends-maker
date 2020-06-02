@@ -4,7 +4,7 @@ import { Channel, Team, User, UserChannelJoin } from '@gql/models';
 import { UserChannelJoinUpdatePayload } from '@gql/payloads';
 import { ChannelService, CommonService, TeamService, UserChannelJoinService, UserService } from '@gql/services';
 import { ObjectId } from 'mongodb';
-import { Arg, Authorized, Ctx, FieldResolver, Query, Resolver, Root, Mutation } from 'type-graphql';
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 import { Service } from 'typedi';
 
 @Service()
@@ -16,7 +16,7 @@ export class UserChannelJoinResolver {
     private userService: UserService,
     private channelService: ChannelService,
     private userChannelJoinService: UserChannelJoinService,
-    private commonService: CommonService,
+    private commonService: CommonService
   ) {}
 
   @Authorized()
@@ -35,13 +35,13 @@ export class UserChannelJoinResolver {
   public async updateUserChannelJoin(
     @Ctx() context: Context,
     @Arg('userChannelJoinId') userChannelJoinId: string,
-    @Arg('userChannelJoinUpdatePayload') userChannelJoinUpdatePayload: UserChannelJoinUpdatePayload,
+    @Arg('userChannelJoinUpdatePayload') userChannelJoinUpdatePayload: UserChannelJoinUpdatePayload
   ) {
     const user = await this.userService.getUserByContext(context);
     const userChannelJoin = await this.userChannelJoinController.updateUserChannelJoin(
       user,
       new ObjectId(userChannelJoinId),
-      userChannelJoinUpdatePayload,
+      userChannelJoinUpdatePayload
     );
     return userChannelJoin.toObject();
   }

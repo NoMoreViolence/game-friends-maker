@@ -19,7 +19,7 @@ export class TeamController {
     private channelService: ChannelService,
     private userChannelJoinService: UserChannelJoinService,
     private chatService: ChatService,
-    private commonService: CommonService,
+    private commonService: CommonService
   ) {}
 
   public async getTeams(payload: GetTeamsPayload, option?: GetTeamsOptionPayload) {
@@ -43,6 +43,7 @@ export class TeamController {
       introduction: payload.introduction,
     });
     const teamUserJoin = await this.teamUserJoinService.createTeamUserJoin({
+      displayName: user.name,
       userId: user._id,
       teamId: team._id,
       userState: ITeamUserJoinStateEnum.OWNER,
@@ -53,7 +54,7 @@ export class TeamController {
       user._id,
       new ObjectId(),
       `Channel Created by ${user.name}`,
-      'SYSTEM',
+      'SYSTEM'
     );
     const userChannelJoin = await this.userChannelJoinService.createUserChannelJoin({
       teamId: team._id,

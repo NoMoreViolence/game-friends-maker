@@ -1,4 +1,4 @@
-import { Authorized, Resolver, FieldResolver, Root } from 'type-graphql';
+import { Authorized, Resolver, FieldResolver, Root, Query, Ctx, Arg } from 'type-graphql';
 import { Service } from 'typedi';
 import { Channel, Team } from '@gql/models';
 import { TeamService, CommonService } from '@gql/services';

@@ -30,6 +30,7 @@ export interface TeamUserJoinFull_team {
 export interface TeamUserJoinFull {
   __typename: "TeamUserJoin";
   _id: string;
+  displayName: string;
   userId: string;
   user: TeamUserJoinFull_user;
   teamId: string;
