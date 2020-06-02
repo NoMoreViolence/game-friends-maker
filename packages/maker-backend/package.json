@@ -52,7 +52,7 @@
     "@types/mongoose": "^5.7.21",
     "@types/node": "^14.0.5",
     "@types/randomstring": "^1.1.6",
-    "typescript": "^3.9.3"
+    "typescript": "~3.7.2"
   },
   "license": "MIT"
 }
