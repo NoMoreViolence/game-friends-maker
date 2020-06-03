@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
+import { ChannelFullFragment } from './channel';
 import { TeamFullFragment } from './team';
 import { UserFullFragment } from './user';
-import { ChannelFullFragment, ChannelSubFragment } from './channel';
 
 export const UserChannelJoinFullFragment = gql`
   ${TeamFullFragment}
@@ -29,23 +29,15 @@ export const UserChannelJoinFullFragment = gql`
 `;
 
 export const UserChannelJoinSubFragment = gql`
-  ${TeamFullFragment}
   ${UserFullFragment}
-  ${ChannelSubFragment}
   fragment UserChannelJoinSub on UserChannelJoin {
     _id
     teamId
-    team {
-      ...TeamFull
-    }
     userId
     user {
       ...UserFull
     }
     channelId
-    channel {
-      ...ChannelSub
-    }
     firstChatReadAt
     lastChatReadAt
     createdAt

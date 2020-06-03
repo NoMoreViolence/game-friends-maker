@@ -1,13 +1,16 @@
+import AddIcon from '@material-ui/icons/AddOutlined';
+import { MemberInfoModal } from 'components/modals';
 import { TeamUserJoinFull } from 'graphqls/fragments/__generated__/TeamUserJoinFull';
 import { UserChannelJoinFull } from 'graphqls/fragments/__generated__/UserChannelJoinFull';
 import { useUpdateUserChannelJoinId } from 'graphqls/mutations/UPDATE_USER_CHANNEL_JOIN_ID';
 import { useCurrentUserChannelJoinId } from 'graphqls/queries/CURRENT_USER_CHANNEL_JOIN_ID';
-import { useMyUserChannelJoins } from 'graphqls/queries/MY_USER_CHANNEL_JOINS';
-import React, { FC, useCallback, useState } from 'react';
-import { Col, Colors, Row, Span14, Span18 } from 'ui';
+import { useCurrentUserChannelJoin, useMyUserChannelJoins } from 'graphqls/queries/MY_USER_CHANNEL_JOINS';
 import { useTeamMembers } from 'graphqls/queries/TEAM_USER_JOINS';
 import { TeamUserJoins_teamUserJoins } from 'graphqls/queries/__generated__/TeamUserJoins';
-import { MemberInfoModal } from 'components/modals';
+import React, { FC, useCallback, useState } from 'react';
+import styled from 'styled-components';
+import { InviteModal } from './invite-modal';
+import { Col, Colors, Row, Span14, Span18 } from 'ui';
 
 interface Props {
   currentTeamUserJoin: TeamUserJoinFull;
@@ -15,11 +18,16 @@ interface Props {
 }
 export const ChannelSelect: FC<Props> = ({ currentTeamUserJoin, closeDrawer }) => {
   const currentUserChannelJoinId = useCurrentUserChannelJoinId();
+  const currentUserChannelJoin = useCurrentUserChannelJoin(currentTeamUserJoin, currentUserChannelJoinId);
   const updateUserChannelJoinId = useUpdateUserChannelJoinId();
 
   const { data: myUserChannelJoinsData } = useMyUserChannelJoins(currentTeamUserJoin);
   const userChannelJoins = myUserChannelJoinsData?.myUserChannelJoins;
   const teamMembers = useTeamMembers(currentTeamUserJoin);
+
+  const [displayInviteModal, setDisplayInviteModal] = useState(false);
+  const openInviteModal = useCallback(() => setDisplayInviteModal(true), []);
+  const closeInviteModal = useCallback(() => setDisplayInviteModal(false), []);
 
   const [displayMemberInfoModal, setDisplayMemberInfoModal] = useState<TeamUserJoins_teamUserJoins | null>(null);
   const openMemberInfoModal = useCallback((info: TeamUserJoins_teamUserJoins) => setDisplayMemberInfoModal(info), []);
@@ -47,8 +55,9 @@ export const ChannelSelect: FC<Props> = ({ currentTeamUserJoin, closeDrawer }) =
         ))}
       </Col>
 
-      <Row justifyContent="flex-start" pt={20} pb="8px" pl={16} pr={16}>
-        <Span14 color={Colors.grayScale.dark}>Members</Span14>
+      <Row justifyContent="space-between" pt={20} pb="8px" pl={16} pr={16}>
+        <Span14 color={Colors.grayScale.dark}>Channel Members</Span14>
+        <AddIcon fontSize="small" cursor="pointer" onClick={openInviteModal} />
       </Row>
       <Col alignItems="stretch">
         {teamMembers?.map((teamUserJoin) => (
@@ -57,6 +66,9 @@ export const ChannelSelect: FC<Props> = ({ currentTeamUserJoin, closeDrawer }) =
       </Col>
 
       <MemberInfoModal display={displayMemberInfoModal} exit={closeMemberInfoModal} />
+      {currentUserChannelJoin && (
+        <InviteModal display={displayInviteModal} exit={closeInviteModal} userChannelJoin={currentUserChannelJoin} />
+      )}
     </>
   );
 };
@@ -104,8 +116,15 @@ const MemberBox: FC<MemberBoxProps> = ({ teamUserJoin, showMemberInfo }) => {
   }, [showMemberInfo, teamUserJoin]);
 
   return (
-    <Row onClick={onClick} justifyContent="flex-start" cursor="pointer" pt={12} pb={12} pr={16} pl={16}>
+    <StyledRow onClick={onClick} justifyContent="flex-start" cursor="pointer" pt={12} pb={12} pr={16} pl={16}>
       {teamUserJoin.user.name}
-    </Row>
+    </StyledRow>
   );
 };
+
+const StyledRow = styled(Row)`
+  &:hover {
+    background-color: ${Colors.gray};
+  }
+  transition: 0.25s;
+`;
