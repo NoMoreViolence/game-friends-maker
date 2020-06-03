@@ -31,6 +31,14 @@ export class UserChannelJoinResolver {
   }
 
   @Authorized()
+  @Query(() => [UserChannelJoin])
+  public async userChannelJoins(@Ctx() context: Context, @Arg('channelId') channelId: string) {
+    const user = await this.userService.getUserByContext(context);
+    const userChannelJoins = await this.userChannelJoinController.getAllByChannelId(new ObjectId(channelId), user);
+    return userChannelJoins.map((userChannelJoin) => userChannelJoin.toObject());
+  }
+
+  @Authorized()
   @Mutation((returns) => UserChannelJoin)
   public async updateUserChannelJoin(
     @Ctx() context: Context,

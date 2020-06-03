@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: UserChannelJoinSub
+// GraphQL query operation: UserChannelJoins
 // ====================================================
 
-export interface UserChannelJoinSub_user {
+export interface UserChannelJoins_userChannelJoins_user {
   __typename: "User";
   _id: string;
   name: string;
@@ -17,15 +17,23 @@ export interface UserChannelJoinSub_user {
   deleted: boolean;
 }
 
-export interface UserChannelJoinSub {
+export interface UserChannelJoins_userChannelJoins {
   __typename: "UserChannelJoin";
   _id: string;
   teamId: string;
   userId: string;
-  user: UserChannelJoinSub_user;
+  user: UserChannelJoins_userChannelJoins_user;
   channelId: string;
   firstChatReadAt: any;
   lastChatReadAt: any;
   createdAt: any;
   updatedAt: any;
+}
+
+export interface UserChannelJoins {
+  userChannelJoins: UserChannelJoins_userChannelJoins[];
+}
+
+export interface UserChannelJoinsVariables {
+  channelId: string;
 }
