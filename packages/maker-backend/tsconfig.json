@@ -28,9 +28,9 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "pretty": true,
-    "target": "ESNext",
+    "target": "ES2017",
     "module": "CommonJS",
-    "lib": ["esnext", "ES2017", "ES2018", "ES2019", "ES2016", "ES2015"],
+    "lib": ["ES2017"],
     "strictNullChecks": true,
     "allowJs": true,
     "esModuleInterop": true,
@@ -38,5 +38,6 @@
     "isolatedModules": false,
     "typeRoots": ["node_modules/@types", "src/@types"]
   },
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

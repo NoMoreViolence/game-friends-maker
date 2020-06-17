@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
-import { UserModel } from '@common-server';
+import { UserModel } from '@common-server/db/models';
 import { checkGoogleIdToken, encodeToken, NewError, getErrorResponse } from '@helpers';
 import { string, object } from '@hapi/joi';
 import { HttpStatusCode } from '@constants';
