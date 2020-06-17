@@ -1,7 +1,7 @@
-import { Authorized, Resolver, FieldResolver, Root, Query, Ctx, Arg } from 'type-graphql';
-import { Service } from 'typedi';
 import { Channel, Team } from '@gql/models';
-import { TeamService, CommonService } from '@gql/services';
+import { CommonService, TeamService } from '@gql/services';
+import { Authorized, FieldResolver, Resolver, Root } from 'type-graphql';
+import { Service } from 'typedi';
 
 @Service()
 @Resolver((of) => Channel)
