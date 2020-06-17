@@ -1,6 +1,6 @@
 import Hidden from '@material-ui/core/Hidden';
 import { Loading } from 'components/loading';
-import { getRestAxios, googleClientKey } from 'constants-frontend';
+import { httpClient, googleClientKey } from 'constants-frontend';
 import { toast } from 'lib';
 import React, { FC, useCallback, useState } from 'react';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
@@ -115,7 +115,7 @@ const GoogleLoginButton: FC = () => {
       const basicProfile = googleResponse.getBasicProfile();
 
       setIsLoading(true);
-      getRestAxios()
+      httpClient
         .post(
           '/login-or-register',
           {
