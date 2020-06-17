@@ -1,28 +1,22 @@
 {
   "compilerOptions": {
-    "rootDir": "./",
-    "baseUrl": "./src",
-    "outDir": "lib",
+    "baseUrl": ".",
+    "outDir": "dist",
     "preserveConstEnums": true,
     "paths": {
-      "@common-server/*": ["common-server/*"],
-      "@common-server": ["common-server"],
-      "@lib/*": ["lib/*"],
-      "@lib": ["lib"],
-      "@helpers": ["helpers"],
-      "store/models": ["database/models"],
-      "store/models/*": ["database/models/*"],
-      "@database/*": ["database/*"],
-      "@database": ["database"],
-      "utils/*": ["utils/*"],
-      "utils": ["utils"],
-      "@gql/*": ["gql/*"],
-      "@gql": ["gql"],
-      "@constants": ["constants"]
+      "@common-server/*": ["src/common-server/*"],
+      "@common-server": ["src/common-server"],
+      "@lib/*": ["src/lib/*"],
+      "@lib": ["src/lib"],
+      "@helpers": ["src/helpers"],
+      "@database/*": ["src/database/*"],
+      "@database": ["src/database"],
+      "@gql/*": ["src/gql/*"],
+      "@gql": ["src/gql"],
+      "@constants": ["src/constants"]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
     "noImplicitAny": false,
@@ -34,7 +28,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "pretty": true,
-    "target": "es2017",
+    "target": "ESNext",
+    "module": "CommonJS",
     "lib": ["esnext", "ES2017", "ES2018", "ES2019", "ES2016", "ES2015"],
     "strictNullChecks": true,
     "allowJs": true,
@@ -43,5 +38,5 @@
     "isolatedModules": false,
     "typeRoots": ["node_modules/@types", "src/@types"]
   },
-  "exclude": ["node_modules", "dist", "lib"]
+  "exclude": ["node_modules"]
 }
