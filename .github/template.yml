@@ -30,6 +30,7 @@ categories:
   - title: 👻 Maintenance
     labels:
       - 'chore'
+      - 'dependencies'
   - title: 🚦 Tests
     labels:
       - test
