@@ -5,11 +5,10 @@
   "description": "Cohope Backend",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf lib && tsc",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts -w ./src -x yarn start:devStart",
     "start:devStart": "serverless offline -s local --httpPort 7000 --websocketPort 7001 --skipCacheInvalidation",
-    "deploy:test": "yarn build && SLS_DEBUG=* serverless deploy -s dev",
-    "deploy:prod": "yarn build && serverless deploy -s prod"
+    "deploy:test": "SLS_DEBUG=* serverless deploy -s dev",
+    "deploy:prod": "serverless deploy -s prod"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",

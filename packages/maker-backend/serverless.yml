@@ -6,19 +6,14 @@ plugins:
   - serverless-offline
   - serverless-websockets-plugin
 
-package:
-  include:
-    - lib
-    - node_modules
-
 custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true # Node modules configuration for packaging
   env: ${file(./env.yml):${opt:stage, self:provider.stage}}
   serverless-offline:
     port: 7000
     websocketPort: 7001
-  webpack:
-    webpackConfig: webpack.config.js
-    includeModules: true # Node modules configuration for packaging
   websocketApiRouteSelectionExpression: $request.body.action
 
 provider:
@@ -40,31 +35,28 @@ provider:
     GOOGLE_SECRET: ${self:custom.env.GOOGLE_SECRET}
     GOOGLE_CLIENT: ${self:custom.env.GOOGLE_CLIENT}
   deploymentBucket:
-    blockPublicAccess: true # Prevents public access via ACLs or bucket policies. Default is false
+    blockPublicAccess: false # Prevents public access via ACLs or bucket policies. Default is false
   timeout: 30
 
 functions:
   gql:
-    handler: src/index.handler
+    handler: src/gql/index.handler
     events:
       - http:
+          path: graphql
           method: post
           cors: true
-          path: graphql
-          integration: lambda-proxy
       - http:
+          path: graphql
           method: get
           cors: true
-          path: graphql
-          integration: lambda-proxy
-
   loginOrRegister:
     handler: src/http/index.loginOrRegister
     events:
       - http:
+          path: login-or-register
           method: post
           cors: true
-          path: login-or-register
   # websocketHandler:
   #   handler: dist/src/socket/index.connect
   #   events:
@@ -72,3 +64,15 @@ functions:
   #         routeKey: $connect
   #     - websocket:
   #         routeKey: $disconnect
+
+resources:
+  Resources:
+    GatewayResponseTimeout:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        ResponseType: INTEGRATION_TIMEOUT
+        StatusCode: '504'
+        RestApiId:
+          Ref: ApiGatewayRestApi

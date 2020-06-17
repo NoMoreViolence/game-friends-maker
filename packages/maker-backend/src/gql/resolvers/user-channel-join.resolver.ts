@@ -20,7 +20,7 @@ export class UserChannelJoinResolver {
   ) {}
 
   @Authorized()
-  @Query((returns) => [UserChannelJoin])
+  @Query(() => [UserChannelJoin])
   public async myUserChannelJoins(@Ctx() context: Context, @Arg('teamId') teamId: string) {
     const user = await this.userService.getUserByContext(context);
     const userChannelJoins = await this.userChannelJoinService.getUserChannelJoins({
@@ -39,7 +39,7 @@ export class UserChannelJoinResolver {
   }
 
   @Authorized()
-  @Mutation((returns) => UserChannelJoin)
+  @Mutation(() => UserChannelJoin)
   public async updateUserChannelJoin(
     @Ctx() context: Context,
     @Arg('userChannelJoinId') userChannelJoinId: string,

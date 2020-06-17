@@ -2,7 +2,7 @@ import { Context } from '@gql/bootstrap/session';
 import { TeamController } from '@gql/controllers';
 import { Team, TeamUserJoin } from '@gql/models';
 import { CreateTeamPayload, UpdateTeamPayload } from '@gql/payloads';
-import { CommonService, UserService } from '@gql/services';
+import { UserService } from '@gql/services';
 import { ObjectId } from 'mongodb';
 import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
@@ -10,11 +10,7 @@ import { Service } from 'typedi';
 @Service()
 @Resolver((type) => Team)
 export class TeamResolver {
-  constructor(
-    private teamController: TeamController,
-    private userService: UserService,
-    private commonService: CommonService
-  ) {}
+  constructor(private teamController: TeamController, private userService: UserService) {}
 
   @Authorized()
   @Mutation(() => TeamUserJoin)
