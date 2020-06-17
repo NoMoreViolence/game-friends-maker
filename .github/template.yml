@@ -1,0 +1,50 @@
+name-template: 'v$NEXT_MINOR_VERSION'
+tag-template: 'v$NEXT_MINOR_VERSION'
+
+categories:
+  - title: ':boom: Breaking changes'
+    labels:
+      - 'breaking'
+      - 'BREAKING'
+  - title: 🚨 Removed
+    labels:
+      - 'removed'
+  - title: ⚠️ Deprecated
+    labels:
+      - 'deprecated'
+  - title: 🚀 New features and improvements
+    labels:
+      - 'enhancement'
+      - 'feature'
+      - 'feat'
+  - title: 🐛 Bug Fixes
+    labels:
+      - 'bug'
+      - 'fix'
+      - 'bugfix'
+      - 'regression'
+  - title: 📝 Documentation updates
+    labels:
+      - 'documentation'
+      - 'docs'
+  - title: 👻 Maintenance
+    labels:
+      - 'chore'
+  - title: 🚦 Tests
+    labels:
+      - test
+      - tests
+exclude-labels:
+  - reverted
+  - no-changelog
+  - skip-changelog
+  - invalid
+change-template: '- $TITLE - $AUTHOR (#$NUMBER)'
+template: |
+  <!-- 
+     - [ ] I have confirmed the head of master has a green check status
+     - [ ] I have confirmed the following list of changes includes the latest merges (make require waiting a minute after a recent merge)
+     - [ ] I have added any additional required notes to make these release notes complete
+  -->
+  <!-- Optional: add a release summary here -->
+  $CHANGES
