@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { useRouter } from 'helpers';
+import useRouter from 'use-react-router';
 import { UserFullFragment } from '../fragments/user';
 import { User } from './__generated__/User';
 
@@ -14,7 +14,9 @@ export const USER = gql`
 `;
 
 export function useUser() {
-  const { push } = useRouter();
+  const {
+    history: { push },
+  } = useRouter();
   return useQuery<User>(USER, {
     fetchPolicy: 'cache-first',
     onError: () => {
