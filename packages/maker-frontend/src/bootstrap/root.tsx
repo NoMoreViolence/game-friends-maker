@@ -1,17 +1,9 @@
 import { ApolloProvider } from '@apollo/react-hooks';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import { ApolloMainClient } from 'bootstrap';
-import React from 'react';
-import { App } from 'route/App';
-import { GlobalStyle, ResetCss } from 'ui';
-import { ColorsTheme } from 'ui/styles';
+import React, { FC } from 'react';
+import { ApolloMainClient } from './apollo';
 
-export const Root = () => (
+export const Root: FC = () => (
   <ApolloProvider client={ApolloMainClient}>
-    <MuiThemeProvider theme={ColorsTheme}>
-      <GlobalStyle />
-      <ResetCss />
-      <App />
-    </MuiThemeProvider>
+    <div>Reset</div>
   </ApolloProvider>
 );
