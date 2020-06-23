@@ -1,2 +1,1 @@
-export * from './root.apollo';
-export * from './root';
+export { Root } from './root';
