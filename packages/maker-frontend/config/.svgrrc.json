@@ -1,0 +1,14 @@
+{
+  "expandProps": false,
+  "dimensions": true,
+  "svgProps": {
+    "width": "{props.size}",
+    "height": "{props.size}",
+    "viewBox": "0 0 24 24",
+    "fillOpacity": "{(typeof props.opacity === 'number') ? props.opacity : 1}"
+  },
+  "replaceAttrValues": {
+    "#FFFFFF": "{props.fillColor}",
+    "#000000": "{props.fillColor}"
+  }
+}
