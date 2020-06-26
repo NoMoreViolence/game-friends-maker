@@ -12,43 +12,41 @@ const grayScale = {
 };
 
 const primaryScale = {
-  50: '#C7C6FF',
-  100: '#B3B1FF',
-  200: '#9C9AFC',
-  300: '#8381FC',
-  400: '#6E6CF4',
-  500: '#6361E3',
-  600: '#5A57DD',
-  700: '#4542C8',
-  800: '#3936A9',
-  900: '#2D2A8E',
+  100: '#E2E5FE',
+  200: '#C3CBFC',
+  300: '#A2B3FA',
+  400: '#7D9BF7',
+  500: '#4D84F4',
+  600: '#4168BE',
+  700: '#354E8B',
+  800: '#28355B',
+  900: '#191D2F',
 };
 
 const secondaryScale = {
-  50: '#C3FCF9',
-  100: '#A5F5F2',
-  200: '#8FF6F2',
-  300: '#70ECE7',
-  400: '#30D4D2',
-  500: '#1CC9C2',
-  600: '#0EB4AD',
-  700: '#149892',
-  800: '#15706C',
-  900: '#114D4A',
+  100: '#FFDCD9',
+  200: '#FFB9B5',
+  300: '#FF9691',
+  400: '#FE6F6F',
+  500: '#F5414F',
+  600: '#C03740',
+  700: '#8D2D31',
+  800: '#5D2222',
+  900: '#311615',
 };
 
 const white = '#FFFFFF';
 const black = '#000000';
 
-const primaryLight = primaryScale['50'];
-const primary = primaryScale['500'];
-const primaryDark = primaryScale['900'];
+const primaryLight = primaryScale[100];
+const primary = primaryScale[500];
+const primaryDark = primaryScale[900];
 
-const secondaryLight = secondaryScale['50'];
-const secondary = secondaryScale['500'];
-const secondaryDark = secondaryScale['900'];
+const secondaryLight = secondaryScale[100];
+const secondary = secondaryScale[500];
+const secondaryDark = secondaryScale[900];
 
-const gray = grayScale['500'];
+const gray = grayScale[500];
 
 const statusColors = {
   infoLight: '#D4D3FC',
