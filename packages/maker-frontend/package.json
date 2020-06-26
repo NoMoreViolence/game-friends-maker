@@ -33,7 +33,7 @@
     "react-intl": "^4.6.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-use": "^15.1.1",
+    "react-use": "^15.3.0",
     "rxjs": "^6.5.5",
     "styled-components": "^5.1.1",
     "styled-system": "^5.1.5",
