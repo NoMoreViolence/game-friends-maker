@@ -18,8 +18,9 @@ import {
   shadow,
   ShadowProps,
 } from 'styled-system';
+import { CursorProps, TransformProps } from 'ui/System';
 
-export interface RowColProps
+export interface RowColBaseProps
   extends MarginProps,
     BorderProps,
     PaddingProps,
@@ -33,7 +34,7 @@ export interface RowColProps
   style?: CSSProperties;
 }
 
-export const rowColBaseStyle = css<RowColProps>`
+export const rowColBaseStyle = css<RowColBaseProps>`
   ${margin}
   ${border}
   ${padding}
@@ -44,3 +45,5 @@ export const rowColBaseStyle = css<RowColProps>`
   ${position}
   display: flex;
 `;
+
+export interface RowColProps extends RowColBaseProps, CursorProps, TransformProps {}
