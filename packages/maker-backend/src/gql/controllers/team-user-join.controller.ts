@@ -1,17 +1,12 @@
 import { UserDocument } from '@common-server';
-import { CommonService, TeamUserJoinService, UserChannelJoinService, TeamService } from '@gql/services';
-import { Service } from 'typedi';
-import { ObjectId } from 'mongodb';
+import { TeamUserJoinService } from '@gql/services';
 import { ApolloError } from 'apollo-server';
+import { ObjectId } from 'mongodb';
+import { Service } from 'typedi';
 
 @Service()
 export class TeamUserJoinController {
-  constructor(
-    private userChannelJoinService: UserChannelJoinService,
-    private teamService: TeamService,
-    private teamUserJoinService: TeamUserJoinService,
-    private commonService: CommonService
-  ) {}
+  constructor(private teamUserJoinService: TeamUserJoinService) {}
 
   public async getTeamUserJoinsByUser(user: UserDocument) {
     return this.teamUserJoinService.getTeamUserJoins({ userId: user._id });

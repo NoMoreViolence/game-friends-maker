@@ -2,9 +2,9 @@ import { Field, InputType } from 'type-graphql';
 
 @InputType()
 export class UpdateTeamPayload {
-  @Field((type) => String, { nullable: true })
+  @Field(() => String, { nullable: true })
   name?: string;
 
-  @Field((type) => String, { nullable: true })
+  @Field(() => String, { nullable: true })
   introduction?: string;
 }

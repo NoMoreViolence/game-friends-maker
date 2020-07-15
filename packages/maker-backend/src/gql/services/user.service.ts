@@ -1,9 +1,9 @@
-import { ObjectId } from 'mongodb';
-import { AuthenticationError } from 'apollo-server-lambda';
-import { Service } from 'typedi';
 import { UserModel } from '@common-server';
 import { Context } from '@gql/bootstrap/session';
 import { User } from '@gql/models';
+import { AuthenticationError } from 'apollo-server-lambda';
+import { ObjectId } from 'mongodb';
+import { Service } from 'typedi';
 
 @Service()
 export class UserService {

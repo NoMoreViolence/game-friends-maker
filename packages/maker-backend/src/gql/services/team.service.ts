@@ -1,8 +1,8 @@
+import { setter, TeamDocument, TeamModel } from '@common-server';
+import { Team } from '@gql/models';
+import { Sort, UpdateTeamPayload } from '@gql/payloads';
 import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
-import { TeamModel, TeamDocument, setter } from '@common-server';
-import { UpdateTeamPayload, Sort } from '@gql/payloads';
-import { Team } from '@gql/models';
 
 interface GetOption {
   offsetId?: ObjectId;

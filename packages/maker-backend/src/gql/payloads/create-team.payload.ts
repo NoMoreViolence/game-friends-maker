@@ -2,9 +2,9 @@ import { Field, InputType } from 'type-graphql';
 
 @InputType()
 export class CreateTeamPayload {
-  @Field((type) => String)
+  @Field(() => String)
   name: string;
 
-  @Field((type) => String, { defaultValue: '', nullable: true })
+  @Field(() => String, { defaultValue: '', nullable: true })
   introduction?: string;
 }

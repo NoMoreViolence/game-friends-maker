@@ -1,20 +1,26 @@
-import { IUser } from '@common-server';
+import { IUserTeamJoin, UserTeamJoinState } from '@common-server';
 import { ObjectId } from 'bson';
 import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
-export class User implements IUser {
+export class UserTeamJoin implements IUserTeamJoin {
   @Field(() => String)
   _id: ObjectId;
 
   @Field(() => String)
-  name: string;
+  displayName: string;
 
   @Field(() => String)
-  email: string;
+  teamId: ObjectId;
 
   @Field(() => String)
-  description: string;
+  userId: ObjectId;
+
+  @Field(() => String)
+  userState: UserTeamJoinState;
+
+  @Field(() => Boolean)
+  muted: boolean;
 
   @Field(() => Date)
   createdAt: Date;
