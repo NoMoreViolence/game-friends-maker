@@ -20,7 +20,7 @@ function cleanSourcesAt(sourcePath) {
     return src(sourcePath, { read: false, allowEmpty: true }).pipe(clean({ force: true }));
   };
 }
-const cleanSources = parallel(...EXTERNAL_SOURCES_LIST.map(sourcesPath => cleanSourcesAt(sourcesPath)));
+const cleanSources = parallel(...EXTERNAL_SOURCES_LIST.map((sourcesPath) => cleanSourcesAt(sourcesPath)));
 
 /**
  * job: copySrc

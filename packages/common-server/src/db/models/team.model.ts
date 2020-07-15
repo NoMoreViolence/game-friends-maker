@@ -1,5 +1,5 @@
-import { Document, Schema, model } from 'mongoose';
-import { ObjectId } from 'bson';
+import { ObjectId } from 'mongodb';
+import { Document, model, Schema } from 'mongoose';
 import softDelete from 'mongoosejs-soft-delete';
 
 export interface ITeam {
@@ -15,10 +15,15 @@ export interface ITeam {
 
 const teamSchema: Schema<ITeam> = new Schema(
   {
-    name: { type: String, required: true, default: "Jihoon's Game number one" },
+    name: { type: String, required: true, default: '' },
     introduction: { type: String, required: false, default: '' },
   },
-  { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } },
+  {
+    timestamps: {
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt',
+    },
+  }
 );
 const softDeleteSchema: Schema<ITeam> = teamSchema.plugin(softDelete);
 
