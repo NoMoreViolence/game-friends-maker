@@ -1,5 +1,5 @@
-import { ObjectId } from 'bson';
 import { ITeam } from '@common-server';
+import { ObjectId } from 'bson';
 import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()

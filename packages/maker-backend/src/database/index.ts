@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import mongoose from 'mongoose';
 
 export const dbConnect = async (): Promise<{ success: boolean; alreadyHasConnection: boolean }> => {
