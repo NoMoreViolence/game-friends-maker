@@ -76,7 +76,7 @@ export function useChattingsPrettier(userChannelJoin: UserChannelJoinFull) {
 
     const { chattingsInChannel } = data;
     let prevChat: ChatFull | null = null;
-    let prettierChattings: PrettierChat[] = [];
+    const prettierChattings: PrettierChat[] = [];
     for (let i = 0; i < chattingsInChannel.length; i++) {
       const currentChat = chattingsInChannel[i];
       let isUserDifferentWithPrevious = false;
