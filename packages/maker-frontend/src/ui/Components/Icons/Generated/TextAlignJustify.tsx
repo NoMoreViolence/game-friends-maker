@@ -12,7 +12,7 @@ export const SvgTextAlignJustify = (props: SvgIconProps) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M22 7V5H2v2h20zm0 2v2H2V9h20zm0 6v-2H2v2h20zm0 4v-2H2v2h20z"
-      fill="#000"
+      fill={props.fillColor}
     />
   </svg>
 );

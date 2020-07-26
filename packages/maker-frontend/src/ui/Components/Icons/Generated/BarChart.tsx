@@ -12,7 +12,7 @@ export const SvgBarChart = (props: SvgIconProps) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M3 3h18a2 2 0 012 2v14a2 2 0 01-2 2H3a2 2 0 01-2-2V5a2 2 0 012-2zm0 2v14h18V5H3zm4 12h2v-6H7v6zm6 0h-2V7h2v10zm2 0h2v-7h-2v7z"
-      fill="#000"
+      fill={props.fillColor}
     />
   </svg>
 );
