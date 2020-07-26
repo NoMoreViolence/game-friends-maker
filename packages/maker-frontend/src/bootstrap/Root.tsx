@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { ResetCss, theme } from 'ui/System';
-import { apolloClient } from './apollo';
+import { apolloClient } from './Apollo';
 
 export const Root: FC = () => (
   <ApolloProvider client={apolloClient}>
