@@ -40,11 +40,11 @@ const black = '#000000';
 
 const primaryLight = primaryScale[100];
 const primary = primaryScale[500];
-const primaryDark = primaryScale[900];
+const primaryDark = primaryScale[700];
 
 const secondaryLight = secondaryScale[100];
 const secondary = secondaryScale[500];
-const secondaryDark = secondaryScale[900];
+const secondaryDark = secondaryScale[700];
 
 const gray = grayScale[500];
 

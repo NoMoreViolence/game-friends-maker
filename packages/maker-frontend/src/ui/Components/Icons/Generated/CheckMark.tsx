@@ -12,7 +12,7 @@ export const SvgCheckMark = (props: SvgIconProps) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M9.707 14.293L19 5l1.414 1.414L9.707 17.121 4 11.414 5.414 10l4.293 4.293z"
-      fill="#000"
+      fill={props.fillColor}
     />
   </svg>
 );

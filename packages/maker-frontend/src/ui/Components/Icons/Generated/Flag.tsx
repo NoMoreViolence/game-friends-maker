@@ -12,7 +12,7 @@ export const SvgFlag = (props: SvgIconProps) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M7 23H4v-2h1V1h2v1h14.125l-2.999 6 3 6H7v7h1v2H7zm0-11V4h10.89l-2 4 2 4H7z"
-      fill="#000"
+      fill={props.fillColor}
     />
   </svg>
 );

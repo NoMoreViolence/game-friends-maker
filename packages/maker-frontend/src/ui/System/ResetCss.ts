@@ -113,6 +113,12 @@ export const ResetCss = createGlobalStyle`
     box-sizing: inherit;
   }
 
+    /* make sure to set some focus styles for accessibility */
+  :focus {
+    outline: none;
+    outline-width: 0px;
+  }
+
   /* consider resetting the default cursor: https://gist.github.com/murtaugh/5247154 */
 
   /* Responsive images and other embedded objects */

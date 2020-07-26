@@ -54,6 +54,7 @@ export * from './Flame';
 export * from './Glasses';
 export * from './GlobeNo';
 export * from './Globe';
+export * from './Googlelogo';
 export * from './HeartNo';
 export * from './Heart';
 export * from './Home';

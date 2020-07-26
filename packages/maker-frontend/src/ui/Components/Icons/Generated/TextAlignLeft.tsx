@@ -12,7 +12,7 @@ export const SvgTextAlignLeft = (props: SvgIconProps) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M22 7V5H2v2h20zm-6 2v2H2V9h14zm6 6v-2H2v2h20zm-6 4v-2H2v2h14z"
-      fill="#000"
+      fill={props.fillColor}
     />
   </svg>
 );
