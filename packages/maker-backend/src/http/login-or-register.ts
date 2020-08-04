@@ -1,37 +1,42 @@
-import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import { UserModel } from '@common-server/db/models';
-import { checkGoogleIdToken, encodeToken, NewError, getErrorResponse } from '@helpers';
-import { string, object } from '@hapi/joi';
 import { HttpStatusCode } from '@constants';
 import { dbConnect } from '@database';
+import { checkGoogleIdToken, encodeToken, getErrorResponse, NewError } from '@helpers';
+import { APIGatewayProxyEvent, Context } from 'aws-lambda';
+import * as jf from 'joiful';
 
-const createUser = async (name: string, email: string, googleId: string, googleIdToken: string) => {
-  const user = await UserModel.findOne({ googleId });
+const createUser = async (body: Body) => {
+  const user = await UserModel.findOne({ googleId: body.googleId });
   if (user) {
     return user;
   }
 
-  const googleData = await checkGoogleIdToken({ googleIdToken });
-  if (email !== googleData.email || name !== googleData.name || googleId !== googleData.sub) {
+  const googleData = await checkGoogleIdToken({ tokenId: body.tokenId });
+  if (body.email !== googleData.email || body.googleId !== googleData.sub) {
     throw new NewError(HttpStatusCode.BAD_REQUEST);
   }
 
-  const newUserModel = new UserModel({ name, email, googleId });
+  const newUserModel = new UserModel(body);
   return newUserModel.save();
 };
 
-interface Body {
-  name: string;
+class Body {
+  @(jf.string().required())
   email: string;
+
+  @(jf.string().required())
+  givenName: string;
+
+  @(jf.string().required())
+  familyName: string;
+
+  @(jf.string().required())
   googleId: string;
-  googleIdToken: string;
+
+  @(jf.string().required())
+  tokenId: string;
 }
-const body = object({
-  name: string().required(),
-  email: string().required(),
-  googleId: string().required(),
-  googleIdToken: string().required(),
-});
+
 export async function loginOrRegister(event: APIGatewayProxyEvent, context: Context) {
   try {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -41,13 +46,13 @@ export async function loginOrRegister(event: APIGatewayProxyEvent, context: Cont
     }
 
     const requestBody: Body = JSON.parse(event.body || '');
-    const { value, error } = body.validate(requestBody);
+    const { value, error } = jf.validateAsClass(requestBody, Body);
 
     if (error) {
       throw new NewError(HttpStatusCode.BAD_REQUEST);
     }
 
-    const user = await createUser(value.name, value.email, value.googleId, value.googleIdToken);
+    const user = await createUser(value);
     const token = encodeToken(user._id);
 
     return {

@@ -1,19 +1,17 @@
-import axios from 'axios';
 import { HttpStatusCode } from '@constants';
 import { NewError } from '@helpers';
+import axios from 'axios';
 
 interface GoogleTokenResponse {
-  name: string;
   email: string;
   sub?: string;
 }
 
-export const checkGoogleIdToken = async ({ googleIdToken }: { googleIdToken: string }) => {
+export const checkGoogleIdToken = async ({ tokenId }: { tokenId: string }) => {
   try {
     const response = await axios.get('https://oauth2.googleapis.com/tokeninfo', {
       params: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        id_token: googleIdToken,
+        id_token: tokenId,
       },
       headers: {},
     });
