@@ -8,7 +8,7 @@ import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 @Service()
-@Resolver(() => Team)
+@Resolver(Team)
 export class TeamResolver {
   constructor(private teamController: TeamController, private userService: UserService) {}
 

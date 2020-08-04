@@ -10,7 +10,7 @@ export interface Session {
 
 const getToken = (header: string) => header.split('Bearer ')[1];
 
-export const injectId: ContextFunction<unknown, Context> = async ({ event }): Promise<Context> => {
+export const injectId: ContextFunction<any, Context> = async ({ event }): Promise<Context> => {
   const session: Session = {};
   const authorization = event.headers.Authorization || event.headers.authorization || '';
 

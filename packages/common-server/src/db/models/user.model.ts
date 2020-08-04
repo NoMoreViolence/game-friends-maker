@@ -5,11 +5,14 @@ import softDelete from 'mongoosejs-soft-delete';
 export interface IUser {
   _id: ObjectId;
 
-  name: string;
+  givenName: string;
+  familyName: string;
+  nickName?: string;
   email: string;
   googleId?: string;
 
-  description: string;
+  profileImageUrl?: string;
+  description?: string;
 
   createdAt: Date;
   updatedAt: Date;
@@ -18,8 +21,11 @@ export interface IUser {
 
 const userSchema: Schema<IUser> = new Schema(
   {
-    name: { type: String, required: true, default: '' },
-    description: { type: String, required: false, default: '' },
+    givenName: { type: String, required: true },
+    familyName: { type: String, required: true },
+    nickName: { type: String, required: false },
+    description: { type: String, required: false },
+    profileImageUrl: { type: String, required: false },
     email: { type: String, required: true },
     googleId: { type: String, required: false },
   },

@@ -8,13 +8,22 @@ export class User implements IUser {
   _id: ObjectId;
 
   @Field(() => String)
-  name: string;
+  givenName: string;
+
+  @Field(() => String)
+  familyName: string;
+
+  @Field(() => String)
+  nickName: string;
+
+  @Field(() => String)
+  description: string;
 
   @Field(() => String)
   email: string;
 
-  @Field(() => String)
-  description: string;
+  @Field(() => String, { nullable: true })
+  googleId?: string;
 
   @Field(() => Date)
   createdAt: Date;

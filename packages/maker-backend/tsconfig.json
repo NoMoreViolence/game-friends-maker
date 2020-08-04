@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
-    "preserveConstEnums": true,
     "paths": {
       "@common-server/*": ["src/common-server/*"],
       "@common-server": ["src/common-server"],
@@ -15,6 +13,8 @@
       "@gql": ["src/gql"],
       "@constants": ["src/constants"]
     },
+    "removeComments": true,
+    "preserveConstEnums": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -29,15 +29,15 @@
     "noUnusedParameters": false,
     "pretty": true,
     "target": "ES2017",
-    "module": "CommonJS",
-    "lib": ["ES2017"],
+    "module": "ESNext",
+    "lib": ["ES2017", "ESNext"],
+    "strictFunctionTypes": true,
     "strictNullChecks": true,
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": false,
     "typeRoots": ["node_modules/@types", "src/@types"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules/**/*", ".serverless/**/*", ".webpack/**/*", "_warmup/**/*", ".vscode/**/*"]
 }
