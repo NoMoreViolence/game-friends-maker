@@ -5,7 +5,7 @@ import { Authorized, Ctx, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 @Service()
-@Resolver(() => User)
+@Resolver(User)
 export class UserResolver {
   constructor(private userService: UserService) {}
 

@@ -33,7 +33,7 @@ export class TeamController {
       introduction: payload.introduction,
     });
     await this.userTeamJoinService.createTeamUserJoin({
-      displayName: user.name,
+      displayName: `${user.givenName} ${user.familyName}`,
       userId: user._id,
       teamId: team._id,
       userState: IUserTeamJoinStateEnum.ADMIN,

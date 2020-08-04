@@ -1,21 +1,24 @@
 service:
   name: cohope-backend
 
+package:
+  individually: true
+
 plugins:
+  - serverless-webpack
   - serverless-offline
-  - serverless-websockets-plugin
+  - serverless-prune-plugin
 
 custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    keepOutputDirectory: true
+    includeModules: true
   env: ${file(./env.yml):${opt:stage, self:provider.stage}}
   serverless-offline:
-    port: 7000
+    httpPort: 7000
     websocketPort: 7001
   websocketApiRouteSelectionExpression: $request.body.action
-
-package:
-  include:
-    - dist
-    - node_modules
 
 provider:
   name: aws
@@ -41,7 +44,7 @@ provider:
 
 functions:
   gql:
-    handler: dist/gql/index.handler
+    handler: src/gql/index.handler
     events:
       - http:
           path: graphql
@@ -52,7 +55,7 @@ functions:
           method: get
           cors: true
   loginOrRegister:
-    handler: dist/http/index.loginOrRegister
+    handler: src/http/index.loginOrRegister
     events:
       - http:
           path: login-or-register

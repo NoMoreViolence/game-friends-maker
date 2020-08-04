@@ -7,7 +7,7 @@ import { Arg, Authorized, Ctx, FieldResolver, Query, Resolver, Root } from 'type
 import { Service } from 'typedi';
 
 @Service()
-@Resolver(() => UserTeamJoin)
+@Resolver(UserTeamJoin)
 export class TeamUserJoinResolver {
   constructor(
     private teamController: TeamController,
