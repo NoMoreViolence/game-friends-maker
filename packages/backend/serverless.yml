@@ -1,0 +1,70 @@
+service: cohope-api-server
+
+frameworkVersion: '>=2.0.0'
+
+package:
+  individually: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-prune-plugin
+  - serverless-domain-manager
+
+custom:
+  env: ${file(./env.yml):${opt:stage, self:provider.stage}}
+  webpack:
+    webpackConfig: ./webpack.config.js
+    keepOutputDirectory: true
+    includeModules: true
+    packager: yarn
+  customDomain:
+    domainName: api.cohope.io
+    stage: ${opt:stage, 'dev'}
+    basePath: ${opt:stage, 'dev'}
+    createRoute53Record: true
+    certificateName: '*.cohope.io'
+    endpointType: regional
+    securityPolicy: tls_1_2
+    versionFunctions: true
+  serverless-offline:
+    httpPort: 9200
+    useChildProcesses: true
+
+provider:
+  profile: cohope
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'} # default is dev :: package.json's command will overwrite this stage
+  region: ap-northeast-2
+  vpc:
+    securityGroupIds:
+      - ${self:custom.env.SG_ID, 'securityGroupId haha'}
+    subnetIds:
+      - ${self:custom.env.SUBNET_A_PUBLIC, 'subnet a'}
+      - ${self:custom.env.SUBNET_A_PRIVATE, 'subnet a'}
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+    shouldStartNameWithService: true
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    ENV: ${self:custom.env.NODE_ENV}
+    DATABASE_URL: ${self:custom.env.DATABASE_URL}
+    GOOGLE_SECRET: ${self:custom.env.GOOGLE_SECRET}
+    GOOGLE_CLIENT: ${self:custom.env.GOOGLE_CLIENT}
+    APOLLO_KEY: ${self:custom.env.APOLLO_KEY}
+    KEY_OF_FUCKING_SECRET: ${self:custom.env.KEY_OF_FUCKING_SECRET}
+  deploymentBucket:
+    blockPublicAccess: false # Prevents public access via ACLs or bucket policies. Default is false
+  timeout: 10 # default is 6
+
+functions:
+  sign:
+    handler: src/http/sign.handler
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true
+    memorySize: 256
+    reservedConcurrency: 42

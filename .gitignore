@@ -1,9 +1,5 @@
 # node_modules
-/packages/maker-backend/node_modules
-/packages/maker-frontend/node_modules
-/packages/backend-query/node_modules
-/packages/common-server/node_modules
-/node_modules
+node_modules
 yarn-error.log
 
 # System Files
@@ -21,58 +17,3 @@ Thumbs.db
 
 # IDE - VSCode
 .vscode/*
-/packages/maker-frontend/.vscode/settings.json
-/packages/maker-frontend/.vscode/tasks.json
-/packages/maker-frontend/.vscode/launch.json
-/packages/maker-frontend/.vscode/extensions.json
-/packages/maker-backend/.vscode/settings.json
-/packages/maker-backend/.vscode/tasks.json
-/packages/maker-backend/.vscode/launch.json
-/packages/maker-backend/.vscode/extensions.json
-
-# prettierrc
-/packages/maker-backend/prettierrc
-/packages/maker-frontend/prettierrc
-/packages/maker-frontend-2/prettierrc
-
-# frontend
-# frontend-misc
-/packages/maker-frontend/.sass-cache
-/packages/maker-frontend/connect.lock
-/packages/maker-frontend/coverage
-/packages/maker-frontend/libpeerconnection.log
-/packages/maker-frontend/typings
-# frontend-output
-/packages/maker-frontend/dist
-/packages/maker-frontend/tmp
-/packages/maker-frontend/out-tsc
-
-# backend
-# backend database
-/packages/maker-backend/.env
-/packages/maker-backend/config
-/packages/maker-backend/dist
-/packages/maker-backend/.serverless
-/packages/maker-backend/env.yml
-/packages/maker-backend/yarn-error.log
-/packages/maker-backend/.build
-/packages/maker-backend/.webpack
-/packages/maker-backend/src/common-server
-
-# backend-query
-/packages/backend-query/node_modules
-/packages/backend-query/.env
-/packages/backend-query/dist
-/packages/backend-query/dist/*
-/packages/backend-query/.vscode
-/packages/backend-query/src/common-server
-/packages/backend-query/yarn-error.log
-/packages/backend-query/src/constants/*
-
-# common-server
-/packages/common-server/node_modules
-/packages/common-server/.env
-/packages/common-server/dist
-/packages/common-server/dist/*
-/packages/common-server/.vscode
-/packages/common-server/yarn-error.log
