@@ -11,7 +11,10 @@
   "license": "ISC",
   "homepage": "https://github.com/NoMoreViolence/game-friends-maker#readme",
   "scripts": {
-    "bootstrap": "lerna bootstrap"
+    "bootstrap": "lerna bootstrap",
+    "lerna:create": "lerna create",
+    "lerna:help": "lerna help",
+    "lerna:list": "lerna list"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.6.1",
@@ -39,12 +42,6 @@
     "pretty-quick": "^3.1.0",
     "typescript": "^4.0.3"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": []
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -55,5 +52,11 @@
       "pretty-quick --staged",
       "eslint --fix --max-warnings 0"
     ]
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": []
   }
 }
