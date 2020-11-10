@@ -7,7 +7,7 @@ export interface UserInDB {
   email: string;
   googleId: string;
 
-  deleted_at?: Date;
+  isDeleted: boolean;
   // auto generated
   _id: ObjectId;
   created_at: Date;

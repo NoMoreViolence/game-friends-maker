@@ -3,11 +3,11 @@ import { ObjectId } from 'mongodb';
 import { Document, model, Schema } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
-export type UserArgs = Pick<UserInDB, 'email' | 'googleId' | 'name'>;
+export type UserArgs = Pick<UserInDB, 'userId' | 'email' | 'googleId' | 'name'>;
 
 const userSchema: Schema = new Schema(
   {
-    userId: { type: ObjectId, required: true },
+    userId: { type: ObjectId, required: true, unique: true },
     name: { type: String, required: true, unique: false },
     email: {
       type: String,
@@ -18,7 +18,12 @@ const userSchema: Schema = new Schema(
     },
     googleId: { type: String, required: false, unique: true },
     // assigned by server
-    deleted_at: { type: Date, required: false, unique: false },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+      required: false,
+      unique: false,
+    },
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
 );
