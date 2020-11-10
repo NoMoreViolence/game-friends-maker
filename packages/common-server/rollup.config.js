@@ -2,7 +2,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import packageJson from './package.json';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -11,7 +10,6 @@ export default {
   output: [
     {
       dir: 'build/',
-      // file: packageJson.main,
       format: 'cjs',
       sourcemap: true,
     },

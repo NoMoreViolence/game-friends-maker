@@ -1,22 +1,13 @@
+import { UserInDB } from 'co-hope-common';
 import { ObjectId } from 'mongodb';
 import { Document, model, Schema } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
-export interface UserInDB {
-  name: string;
-  email: string;
-  googleId: string;
-
-  deleted_at?: Date;
-  // auto generated
-  _id: ObjectId;
-  created_at: Date;
-  updated_at: Date;
-}
 export type UserArgs = Pick<UserInDB, 'email' | 'googleId' | 'name'>;
 
 const userSchema: Schema = new Schema(
   {
+    userId: { type: ObjectId, required: true },
     name: { type: String, required: true, unique: false },
     email: {
       type: String,
@@ -33,8 +24,8 @@ const userSchema: Schema = new Schema(
 );
 
 export type UserDocument = Document & UserInDB;
-userSchema.index({ _id: 1 }, { unique: true });
 userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ userId: 1 }, { unique: true });
 
 userSchema.plugin(uniqueValidator);
 userSchema.set('toObject', { getters: true, virtuals: true });
