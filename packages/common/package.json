@@ -7,7 +7,7 @@
   "main": "./build/index.js",
   "types": "./build/src/index.d.ts",
   "scripts": {
-    "dev": "rollup -c -w",
+    "dev": "rm -rf ./build rollup -c -w",
     "build": "rm -rf ./build && rollup -c"
   },
   "dependencies": {
