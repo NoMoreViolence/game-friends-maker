@@ -63,7 +63,7 @@ functions:
     handler: src/http/sign.handler
     events:
       - http:
-          path: /
+          path: /sign
           method: post
           cors: true
     memorySize: 256

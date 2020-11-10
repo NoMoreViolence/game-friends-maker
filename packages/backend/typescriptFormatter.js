@@ -5,8 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const os = require('os');
 const codeFrame = require('@babel/code-frame').codeFrameColumns;
 const chalk = require('chalk');
@@ -26,9 +24,9 @@ function formatter(issue) {
 
   const source = file && fs.existsSync(file) && fs.readFileSync(file, 'utf-8');
   const frame = source
-    ? codeFrame(source, { start: { line: line, column: character } })
+    ? codeFrame(source, { start: { line, column: character } })
         .split('\n')
-        .map((str) => '  ' + str)
+        .map((str) => `  ${str}`)
         .join(os.EOL)
     : '';
 
@@ -36,7 +34,7 @@ function formatter(issue) {
     messageColor.bold(`${issueOrigins[origin]} ${severity.toLowerCase()} in `) +
       fileAndNumberColor(`${file}(${line},${character})`) +
       messageColor(':'),
-    message + '  ' + messageColor.underline(`TS${code}`),
+    `${message}  ${messageColor.underline(`TS${code}`)}`,
     '',
     frame,
   ].join(os.EOL);
