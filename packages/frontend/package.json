@@ -2,7 +2,7 @@
   "name": "co-hope-frontend",
   "description": "cohope-api-server",
   "author": "NoMoreViolence <ljh86029926@gmail.com>",
-  "version": "0.5.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
