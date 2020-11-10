@@ -1,6 +1,5 @@
 // eslint-disable-
 const path = require('path');
-const fs = require('fs');
 
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const slsw = require('serverless-webpack');
