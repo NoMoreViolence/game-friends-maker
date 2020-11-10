@@ -1,0 +1,35 @@
+{
+  "name": "co-hope-common-server",
+  "version": "0.1.0",
+  "description": "Common modules for backend",
+  "author": "NoMoreViolence <ljh86029926@gmail.com>",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "types": "./build/src/index.d.ts",
+  "scripts": {
+    "dev": "rm -rf ./build && rollup -c -w",
+    "build": "rm -rf ./build && rollup -c"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.20",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.13",
+    "source-map-support": "^0.5.19",
+    "mongoose-unique-validator": "^2.0.3",
+    "rxjs": "^6.6.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^6.1.0",
+    "@types/lodash": "4.14.157",
+    "@types/mongodb": "^3.5.33",
+    "@types/mongoose": "^5.7.37",
+    "@types/mongoose-unique-validator": "^1.0.4",
+    "@types/node": "^14.10.3",
+    "rollup": "^2.27.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tslib": "^2.0.3",
+    "typescript": "^4.0.3"
+  }
+}
